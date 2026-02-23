@@ -31,7 +31,22 @@ import {
     Terminal,
     Hexagon,
     Boxes,
-    Cloud
+    Cloud,
+    Plus,
+    Minus,
+    ArrowUpRight,
+    Target,
+    ZapOff,
+    Monitor,
+    Smartphone,
+    Share2,
+    HardDrive,
+    Infinity,
+    Key,
+    UserCheck,
+    Briefcase,
+    Store,
+    Rocket
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -48,10 +63,34 @@ enum Theme {
     LIGHT = 'light',
 }
 
-const SoftwareDevelopment = () => {
-    const [theme, setTheme] = useState<Theme>(Theme.LIGHT);
+// Reusable Components
+const SectionHeader = ({ badge, title, subtitle, centered = true }: { badge: string; title: string; subtitle?: string; centered?: boolean }) => (
+    <div className={`mb-16 ${centered ? 'text-center' : ''}`}>
+        <motion.span
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            className={`text-brand-cyan text-[10px] font-black uppercase tracking-[0.4em] mb-4 block`}
+        >
+            {badge}
+        </motion.span>
+        <h2 className={`text-4xl md:text-5xl lg:text-6xl font-outfit font-black tracking-tight uppercase text-slate-900 dark:text-white leading-tight ${centered ? 'mx-auto max-w-4xl' : ''}`}>
+            {title}
+        </h2>
+        {subtitle && <p className={`mt-6 text-slate-500 dark:text-slate-400 text-lg max-w-3xl ${centered ? 'mx-auto' : ''}`}>{subtitle}</p>}
+        {centered && <div className="h-1.5 w-24 bg-brand-cyan mx-auto rounded-full mt-8" />}
+    </div>
+);
+
+const SoftwareDevelopmentPage = () => {
+    const [theme, setTheme] = useState<Theme>(Theme.DARK);
+    const [expandedSolution, setExpandedSolution] = useState<number | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
-    const heroVisualRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        // Set dark theme by default as requested "modern dark theme"
+        document.documentElement.classList.add('dark');
+        setTheme(Theme.DARK);
+    }, []);
 
     const toggleTheme = () => {
         const newTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
@@ -63,359 +102,326 @@ const SoftwareDevelopment = () => {
         }
     };
 
-
     useGSAP(() => {
-        // Hero entrance
+        // Entrance animations
         const tl = gsap.timeline();
-        tl.from(".hero-content > *", {
-            x: -100,
+        tl.from(".hero-text-content > *", {
+            y: 30,
             opacity: 0,
-            duration: 1.2,
-            stagger: 0.2,
-            ease: "expo.out"
+            duration: 0.8,
+            stagger: 0.1,
+            ease: "power3.out"
         })
-            .from(".hero-form-container", {
-                y: 50,
+            .from(".hero-form-box", {
+                x: 50,
                 opacity: 0,
                 duration: 1,
                 ease: "power3.out"
-            }, "-=0.5")
-            .from(".floating-ui-element", {
-                scale: 0,
-                opacity: 0,
-                duration: 1,
-                stagger: 0.1,
-                ease: "back.out(1.7)"
-            }, "-=0.8");
+            }, "-=0.5");
 
-        // Code line animation
-        gsap.to(".code-line", {
-            width: "100%",
-            duration: 2,
-            stagger: 0.1,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
-
-        // Floating loop for UI elements
-        gsap.to(".floating-ui-element", {
-            y: "random(-20, 20)",
-            x: "random(-10, 10)",
-            duration: "random(3, 5)",
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
-
-        // Grid background pulse
-        gsap.to(".grid-bg-overlay", {
-            opacity: 0.4,
-            duration: 4,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut"
-        });
-
-        // Service cards parallax
-        gsap.utils.toArray<HTMLElement>(".service-card").forEach((card) => {
-            gsap.from(card, {
+        // Section reveals
+        gsap.utils.toArray<HTMLElement>(".reveal-section").forEach((section) => {
+            gsap.from(section, {
                 scrollTrigger: {
-                    trigger: card,
+                    trigger: section,
                     start: "top bottom-=100",
                     toggleActions: "play none none none"
                 },
-                y: 60,
+                y: 50,
                 opacity: 0,
                 duration: 1,
                 ease: "power3.out"
             });
         });
-
     }, { scope: containerRef });
 
-    const services = [
+    const whyNeedCustomSoftware = [
+        { title: "Increased efficiency", detail: "Custom workflows eliminate bottlenecks and streamline core business operations.", icon: Zap },
+        { title: "Task Automation", detail: "Automate repetitive data entry and administrative tasks to focus on strategy.", icon: Workflow },
+        { title: "Better Data Control", detail: "Centralized, secure databases provide real-time insights and complete ownership.", icon: Database },
+        { title: "Scalable Systems", detail: "Software that grows with your business without hitting performance ceilings.", icon: Layers },
+        { title: "Competitive Edge", detail: "Unique technological capabilities that your competitors cannot simply buy off-the-shelf.", icon: Target },
+    ];
+
+    const whyPreetTech = [
+        { title: "Business-First Strategy", desc: "We align software architecture with your revenue goals and operational KPIs.", icon: Briefcase },
+        { title: "Scalable Architecture", desc: "Building modular systems that handle millions of requests with zero downtime.", icon: Boxes },
+        { title: "Transparent Process", desc: "Complete visibility into the codebase and sprint progress through our client portal.", icon: Search },
+        { title: "Agile Methodology", desc: "Rapid 2-week sprint cycles ensuring fast time-to-market and iterative growth.", icon: RefreshCw },
+        { title: "Post-Launch Support", desc: "24/7 technical monitoring and proactive performance optimization beyond launch.", icon: Headphones },
+    ];
+
+    const targetAudience = [
+        { type: "Growing Startups", benefit: "Fast prototypes and scalable MVP builds to secure funding and market traction.", icon: Rocket },
+        { type: "SMEs", benefit: "Modernizing legacy systems and digitizing operations for increased profitability.", icon: Building2 },
+        { type: "Enterprises", benefit: "Complex multi-system integrations and high-security internal platforms.", icon: Shield },
+        { type: "SaaS Founders", benefit: "End-to-end multi-tenant product engineering for global software businesses.", icon: Cloud },
+        { type: "E-Commerce", benefit: "Custom multi-vendor marketplaces and high-converting checkout ecosystems.", icon: Store },
+        { type: "Service-Based", benefit: "Booking engines, client portals, and automated service delivery pipelines.", icon: UserCheck },
+    ];
+
+    const solutions = [
+        { title: "Custom Business Software", desc: "Tailored internal tools designed to manage your unique business logic and complex operational workflows.", outcome: "100% Alignment with Business Ops" },
+        { title: "CRM / ERP Systems", desc: "Centralized management platforms for customer relationships, inventory, finance, and human resources.", outcome: "Unified Data Intelligence" },
+        { title: "SaaS Application Development", desc: "Building scalable, multi-tenant software products ready for worldwide commercial distribution.", outcome: "Recurring Revenue Infrastructure" },
+        { title: "Web-Based Software", desc: "High-performance web applications accessible from any device, built with modern reactive frameworks.", outcome: "Universal Accessibility" },
+        { title: "Automation Systems", desc: "Intelligent background processes and workflow triggers that eliminate manual intervention.", outcome: "Zero Manual Errors" },
+        { title: "Cloud-Based Software", desc: "Leveraging AWS, Azure, and Google Cloud for serverless, global, and highly available software.", outcome: "99.9% Platform Uptime" },
+        { title: "API & System Integration", desc: "Connecting disparate software tools to ensure data flows seamlessly across your entire tech stack.", outcome: "Seamless Ecosystem Growth" },
+        { title: "UI/UX for Platforms", desc: "Strategic interface design focused on user productivity, reducing training time and increasing adoption.", outcome: "High User Satisfaction" },
+        { title: "Database & Security", desc: "Advanced data structuring and military-grade encryption to protect your most valuable business assets.", outcome: "Bank-Level Data Safety" },
+        { title: "Performance Optimization", desc: "Deep technical audits and refactoring to ensure your software responds in sub-100ms speeds.", outcome: "Maximum System Efficiency" },
+        { title: "Modernization & Upgrades", desc: "Migrating legacy systems to modern tech stacks without losing historical data or business continuity.", outcome: "Future-Proofed Tech" },
+        { title: "Maintenance & Support", desc: "Fixed-cost support retainers for continuous security patches, updates, and feature enhancements.", outcome: "Zero Maintenance Stress" },
+    ];
+
+    const steps = [
+        { name: "Discovery", desc: "Deep immersion into your business logic, goals, and technical requirements.", deliverables: "Project Roadmap & Tech Specs" },
+        { name: "Planning", desc: "Wireframing, UI/UX architecture, and database structuring for maximum scale.", deliverables: "Design System & Prototypes" },
+        { name: "Development", desc: "Agile coding phase with continuous integration and real-time progress tracking.", deliverables: "Clean, Scalable Codebase" },
+        { name: "Testing", desc: "Rigorous QA testing including unit, integration, and security penetration tests.", deliverables: "Bug-Free Performance" },
+        { name: "Deployment", desc: "Seamless launch to cloud infrastructure with automated CI/CD pipelines.", deliverables: "Live Enterprise Platform" },
+        { name: "Optimization", desc: "Monitoring performance and gathering user feedback for continuous improvement.", deliverables: "Measurable Growth ROI" },
+    ];
+
+    const techStack = {
+        frontend: ["React", "Next.js", "Angular"],
+        backend: ["Node.js", "Express", "Django"],
+        database: ["MongoDB", "PostgreSQL", "MySQL"],
+        devops: ["AWS", "Azure", "Docker", "CI/CD"],
+        security: ["JWT Authentication", "RBAC", "Data Encryption"]
+    };
+
+    const caseStudies = [
         {
-            title: "SaaS Development",
-            desc: "Scalable multi-tenant architectures built with modern cloud frameworks to power your software product.",
-            icon: Cloud,
-            color: "brand-cyan"
+            company: "LogicFlow Systems",
+            industry: "Logistics",
+            challenge: "Manual tracking of 500+ daily shipments causing 15% error rate.",
+            solution: "Custom AI-driven automated tracking and driver management app.",
+            result: "Error rate reduced to <0.5% and 40% faster delivery times.",
+            image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800"
         },
         {
-            title: "Custom Web Applications",
-            desc: "Complex dashboard systems and business tools engineered for high-load performance and security.",
-            icon: Code2,
-            color: "brand-medium"
-        },
-        {
-            title: "CRM / ERP Systems",
-            desc: "Tailored resource management portals that streamline operations and centralize your business data.",
-            icon: Database,
-            color: "brand-sky"
-        },
-        {
-            title: "API Integrations",
-            desc: "Seamless connectivity between your software and third-party services like Stripe, Salesforce, or AWS.",
-            icon: RefreshCw,
-            color: "brand-deep"
-        },
-        {
-            title: "Automation Systems",
-            desc: "Intelligent workflow automation that eliminates repetitive tasks and optimizes business efficiency.",
-            icon: Workflow,
-            color: "brand-cyan"
-        },
-        {
-            title: "Maintenance & Support",
-            desc: "Proactive performance monitoring, security patches, and structural updates for your mission-critical software.",
-            icon: Headphones,
-            color: "brand-medium"
+            company: "Medivault",
+            industry: "Healthcare",
+            challenge: "Fragmented patient data across 10+ clinics with security risks.",
+            solution: "Centralized HIPAA-compliant ERP with end-to-end encryption.",
+            result: "Integrated patient care and zero security breaches over 2 years.",
+            image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800"
         }
     ];
 
-    const whyChooseUs = [
-        {
-            title: "Scalable Architecture",
-            desc: "We design systems that grow with your business, using microservices and serverless infrastructure.",
-            icon: Layers
-        },
-        {
-            title: "Clean Code Standards",
-            desc: "Strict TypeScript enforcement and modular design patterns ensure your codebase is maintainable and robust.",
-            icon: Terminal
-        },
-        {
-            title: "Agile Methodology",
-            desc: "Iterative development cycles with continuous delivery, keeping you involved at every stage of the build.",
-            icon: RefreshCw
-        },
-        {
-            title: "Performance Optimization",
-            desc: "Deep focus on low-latency data fetching and high-efficiency rendering for real-time applications.",
-            icon: Activity
-        },
-        {
-            title: "Security-First Approach",
-            desc: "Bank-level encryption, multi-layered authentication, and rigorous penetration testing for data safety.",
-            icon: Shield
-        }
+    const faqs = [
+        { q: "How long does custom software development take?", a: "Typically, a minimum viable product (MVP) takes 8–12 weeks, while more complex enterprise systems can take 6–12 months depending on the scope and integrations." },
+        { q: "What is the typical investment required?", a: "Projects start from $15,000 for specific tools/MVPs. Full-scale enterprise solutions are quoted based on the complexity, features, and technical architecture required." },
+        { q: "Do you offer long-term maintenance?", a: "Yes, we provide post-launch maintenance packages that include security updates, performance monitoring, and continuous feature enhancements." },
+        { q: "Can you upgrade legacy systems?", a: "Absolutely. We specialize in legacy modernization—migrating old databases and codebases to modern, scalable technologies like Next.js and Node.js without data loss." },
+        { q: "How do you ensure data security?", a: "We implement military-grade encryption (AES-256), multi-factor authentication, Role-Based Access Control (RBAC), and regular security audits to ensure your data stays protected." }
     ];
 
     return (
-        <main ref={containerRef} className="relative z-10 selection:bg-brand-medium/30 overflow-x-hidden bg-background text-foreground transition-colors duration-300 font-sans">
+        <main ref={containerRef} className="bg-white dark:bg-[#020617] text-slate-900 dark:text-white selection:bg-brand-medium/30 transition-colors duration-300 font-jakarta overflow-x-hidden">
             <Navbar isDark={theme === Theme.DARK} toggleTheme={toggleTheme} />
 
-            {/* Hero Section */}
-            <section className="relative min-h-screen pt-32 pb-20 px-6 flex items-center overflow-hidden">
-                {/* Tech Grid Background */}
-                <div className="absolute inset-0 z-0 bg-white dark:bg-[#020617] transition-colors duration-500">
-                    <div className="grid-bg-overlay absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:3.5rem_3.5rem] opacity-[0.4] dark:opacity-[0.15] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_70%,transparent_100%)]" />
-
-                    {/* Glowing Orbs */}
-                    <div className="absolute top-1/4 right-0 w-[800px] h-[800px] bg-brand-medium/5 dark:bg-brand-medium/10 blur-[180px] rounded-full animate-pulse" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand-cyan/5 blur-[150px] rounded-full animate-pulse delay-700" />
+            {/* 1️⃣ Hero Section */}
+            <section className="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden">
+                {/* Background Decor */}
+                <div className="absolute inset-0 z-0 pointer-events-none">
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-medium/5 dark:bg-brand-medium/10 blur-[150px] rounded-full animate-pulse" />
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand-cyan/5 dark:bg-brand-cyan/10 blur-[130px] rounded-full animate-pulse delay-700" />
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.2] dark:opacity-[0.1] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_70%,transparent_100%)]" />
                 </div>
 
                 <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-16 items-center relative z-10">
-
-                    {/* Left Side: Professional Content (7 Cols) */}
-                    <div className="lg:col-span-7 hero-content">
+                    {/* Hero Left */}
+                    <div className="lg:col-span-7 hero-text-content">
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-medium/10 border border-brand-medium/20 text-brand-cyan text-[10px] font-black uppercase tracking-[0.2em] mb-8"
+                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-medium/10 border border-brand-medium/20 text-brand-cyan text-[10px] font-black uppercase tracking-[0.3em] mb-8"
                         >
                             <span className="w-2 h-2 rounded-full bg-brand-cyan animate-ping" />
-                            Engineering Innovation
+                            Enterprise Engineering
                         </motion.div>
 
-                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter uppercase leading-[0.85] mb-8 text-slate-900 dark:text-white">
+                        <h1 className="text-5xl md:text-7xl lg:text-8xl font-outfit font-black tracking-tighter uppercase leading-[0.9] mb-8 text-slate-900 dark:text-white">
                             Custom Software <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-brand-medium to-brand-deep italic">Built to Scale.</span>
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-brand-medium to-brand-deep italic">Built for Growth.</span>
                         </h1>
 
-                        <p className="text-lg md:text-xl text-slate-400 max-w-2xl leading-relaxed mb-10 font-medium">
-                            We design and develop scalable, secure, and performance-driven software tailored to your complex business needs. High-architecture engineering for the digital-first era.
+                        <p className="text-xl md:text-2xl text-slate-900 dark:text-white font-bold mb-4">
+                            “Custom Software Built for Growth & Efficiency”
                         </p>
 
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
-                            {[
-                                { icon: Layers, label: "Scalable Architecture", detail: "Microservices Ready" },
-                                { icon: Shield, label: "Enterprise Security", detail: "Protocol 7 Encrypted" },
-                                { icon: Code2, label: "Clean Code", detail: "Strict TS Standards" },
-                                { icon: Activity, label: "High Performance", detail: "Sub-100ms Response" }
-                            ].map((item, i) => (
-                                <div key={i} className="flex gap-4 items-start group">
-                                    <div className="w-10 h-10 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center shrink-0 group-hover:border-brand-cyan/50 transition-colors">
-                                        <item.icon className="w-5 h-5 text-brand-cyan" />
-                                    </div>
-                                    <div>
-                                        <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-0.5">{item.label}</p>
-                                        <p className="text-sm font-bold text-slate-900 dark:text-white">{item.detail}</p>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
+                        <p className="text-lg text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed mb-6 font-medium">
+                            We design and develop scalable, secure, and performance-driven software solutions tailored to your business operations.
+                        </p>
+
+                        <p className="text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed mb-10">
+                            At Preet Tech, we don't just build code; we architect solutions. We position ourselves as your long-term technology partner, ensuring your systems are ready for future market shifts and internal scaling.
+                        </p>
 
                         <div className="flex flex-wrap items-center gap-8 pt-8 border-t border-slate-200 dark:border-white/5">
                             <div className="flex -space-x-3">
                                 {[1, 2, 3, 4].map(i => (
-                                    <div key={i} className="w-10 h-10 rounded-full border-2 border-white dark:border-[#020617] bg-slate-100 dark:bg-white/10 overflow-hidden">
-                                        <img src={`https://i.pravatar.cc/150?u=sw${i}`} alt="user" className="w-full h-full object-cover" />
+                                    <div key={i} className="w-12 h-12 rounded-full border-4 border-white dark:border-[#020617] bg-slate-100 dark:bg-white/10 overflow-hidden">
+                                        <img src={`https://i.pravatar.cc/150?u=tech${i}`} alt="user" className="w-full h-full object-cover" />
                                     </div>
                                 ))}
                             </div>
-                            <p className="text-[10px] font-black uppercase tracking-widest text-slate-500">
-                                Trusted by <span className="text-slate-900 dark:text-white">100+ Engineering Teams</span>
-                            </p>
+                            <div>
+                                <p className="text-[10px] font-black uppercase tracking-widest text-slate-400 mb-1">Trusted By Global Leaders</p>
+                                <p className="text-sm font-bold text-slate-900 dark:text-white">50+ Enterprise Deployments</p>
+                            </div>
                         </div>
                     </div>
 
-                    {/* Right Side: Professional Form (5 Cols) + Visuals */}
-                    <div className="lg:col-span-5 hero-form-container relative">
-                        {/* Integrated Visuals Behind/Around Form */}
-                        <div className="absolute inset-0 z-20 pointer-events-none overflow-visible">
-                            <motion.div
-                                animate={{
-                                    rotate: 360,
-                                    scale: [1, 1.05, 1]
-                                }}
-                                transition={{
-                                    rotate: { duration: 40, repeat: Infinity, ease: "linear" },
-                                    scale: { duration: 5, repeat: Infinity, ease: "easeInOut" }
-                                }}
-                                className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] opacity-20"
-                            >
-                                <div className="absolute inset-0 rounded-full border-2 border-brand-cyan/20 border-dashed animate-spin-slow" />
-                                <div className="absolute inset-10 rounded-full border border-brand-medium/10 animate-spin-reverse-slow" />
-                            </motion.div>
-
-                            {/* Floating UI Elements from previous design */}
-                            <motion.div className="floating-ui-element absolute -top-8 -right-8 glass-morphism p-3 rounded-xl border border-slate-200 dark:border-white/10 w-40 shadow-2xl bg-white/60 dark:bg-slate-900/60 z-20">
-                                <Activity className="w-3 h-3 text-brand-cyan mb-2" />
-                                <div className="h-1 w-full bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
-                                    <div className="h-full w-[75%] bg-brand-cyan" />
-                                </div>
-                            </motion.div>
-
-                            <motion.div className="floating-ui-element absolute -bottom-10 -left-10 glass-morphism p-4 rounded-xl border border-slate-200 dark:border-white/10 w-48 shadow-2xl bg-white/60 dark:bg-slate-900/60 z-20">
-                                <div className="flex items-center gap-2 mb-2">
-                                    <Database className="w-4 h-4 text-brand-medium" />
-                                    <span className="text-[8px] font-black text-slate-900 dark:text-white uppercase tracking-widest">Active Nodes</span>
-                                </div>
-                                <div className="flex gap-1 justify-between">
-                                    {[1, 2, 3, 4, 5, 6].map(i => <div key={i} className="h-4 w-1.5 bg-brand-medium/30 rounded-sm" />)}
-                                </div>
-                            </motion.div>
-                        </div>
-
-                        <div className="glass-morphism rounded-[3rem] p-8 md:p-10 border border-slate-200 dark:border-white/10 shadow-[0_50px_100px_rgba(0,0,0,0.1)] dark:shadow-[0_50px_100px_rgba(0,0,0,0.5)] relative z-10 bg-white/40 dark:bg-slate-900/40 backdrop-blur-xl">
+                    {/* Hero Right: Strategy Form */}
+                    <div className="lg:col-span-5 hero-form-box">
+                        <div className="glass-morphism rounded-[3rem] p-8 md:p-10 border border-slate-200 dark:border-white/10 shadow-2xl relative z-10 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl">
                             <div className="mb-8">
-                                <h3 className="text-2xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-2">Start Discovery</h3>
-                                <p className="text-xs font-bold text-slate-500 uppercase tracking-widest">Architect your custom solution</p>
+                                <h3 className="text-2xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-2">Request Strategy Call</h3>
+                                <p className="text-[10px] font-black text-brand-cyan uppercase tracking-widest">Free Consultation • Zero Obligation</p>
                             </div>
 
                             <form className="space-y-4">
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Full Name</label>
-                                        <div className="relative group">
-                                            <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-brand-cyan transition-colors" />
-                                            <input type="text" placeholder="Engineering Lead" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/30 transition-all font-medium placeholder:text-slate-400 dark:placeholder:text-slate-600" />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Company</label>
-                                        <div className="relative group">
-                                            <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-brand-cyan transition-colors" />
-                                            <input type="text" placeholder="TechFlow Inc." className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/30 transition-all font-medium placeholder:text-slate-400 dark:placeholder:text-slate-600" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Work Email</label>
-                                        <div className="relative group">
-                                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-brand-cyan transition-colors" />
-                                            <input type="email" placeholder="name@company.com" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/30 transition-all font-medium placeholder:text-slate-400 dark:placeholder:text-slate-600" />
-                                        </div>
-                                    </div>
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Phone</label>
-                                        <div className="relative group">
-                                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 group-focus-within:text-brand-cyan transition-colors" />
-                                            <input type="tel" placeholder="+1 (555) 000-000" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 pl-12 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/30 transition-all font-medium placeholder:text-slate-400 dark:placeholder:text-slate-600" />
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Project Type</label>
-                                    <div className="relative">
-                                        <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-4 text-sm text-slate-900 dark:text-white appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/30 transition-all font-medium cursor-pointer">
-                                            <option className="bg-white dark:bg-slate-900">Web App / SaaS</option>
-                                            <option className="bg-white dark:bg-slate-900">CRM / ERP System</option>
-                                            <option className="bg-white dark:bg-slate-900">Custom Software</option>
-                                            <option className="bg-white dark:bg-slate-900">API/Integration</option>
-                                        </select>
-                                        <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none rotate-90" />
-                                    </div>
+                                    <input type="text" placeholder="Full Name" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
                                 </div>
-
                                 <div className="space-y-2">
-                                    <label className="text-[10px] font-black uppercase tracking-widest text-slate-500 ml-1">Technical Requirements</label>
-                                    <textarea placeholder="Tell us about your business logic..." rows={2} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/30 transition-all font-medium resize-none placeholder:text-slate-400 dark:placeholder:text-slate-600"></textarea>
+                                    <input type="text" placeholder="Company Name" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
                                 </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <input type="email" placeholder="Work Email" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
+                                    <input type="tel" placeholder="Phone Number" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
+                                </div>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
+                                        <option value="">Company Size</option>
+                                        <option value="1-10">1-10 Employees</option>
+                                        <option value="11-50">11-50 Employees</option>
+                                        <option value="51-200">51-200 Employees</option>
+                                        <option value="201+">201+ Employees</option>
+                                    </select>
+                                    <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
+                                        <option value="">Project Type</option>
+                                        <option value="custom">Custom Software</option>
+                                        <option value="crm">CRM / ERP</option>
+                                        <option value="saas">SaaS</option>
+                                        <option value="automation">Automation</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                                <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
+                                    <option value="">Estimated Budget</option>
+                                    <option value="15-25k">$15,000 - $25,000</option>
+                                    <option value="25-50k">$25,000 - $50,000</option>
+                                    <option value="50-100k">$50,000 - $100,000</option>
+                                    <option value="100k+">$100,000+</option>
+                                </select>
+                                <textarea placeholder="Project Description" rows={3} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium resize-none"></textarea>
 
-                                <button className="w-full group mt-4 relative bg-brand-cyan hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-brand-deep text-brand-deep rounded-2xl py-5 font-black text-xs uppercase tracking-[0.2em] transition-all overflow-hidden shadow-xl shadow-brand-cyan/20">
-                                    <span className="relative z-10 flex items-center justify-center gap-2">
-                                        Discuss Your Project <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                    </span>
+                                <button type="submit" className="w-full group bg-brand-cyan hover:bg-slate-900 dark:hover:bg-white text-brand-deep dark:hover:text-brand-deep rounded-2xl py-5 font-black text-xs uppercase tracking-[0.2em] transition-all shadow-xl shadow-brand-cyan/20 flex items-center justify-center gap-2">
+                                    Request Free Software Strategy Call <ArrowRight className="w-4 h-4" />
                                 </button>
-
-                                <p className="text-center text-[9px] font-black text-slate-500 uppercase tracking-widest leading-relaxed mt-6">
-                                    Secure • Scalable • Future-Ready Solutions
-                                </p>
                             </form>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Services Section */}
-            <section className="py-32 px-6 relative bg-slate-50/50 dark:bg-slate-950/50">
+            {/* 2️⃣ Why Businesses Need Custom Software */}
+            <section className="py-32 px-6 reveal-section">
                 <div className="max-w-7xl mx-auto">
-                    <div className="text-center mb-24">
-                        <motion.span
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            className="text-brand-cyan text-[10px] font-black uppercase tracking-[0.4em] mb-4 block"
-                        >
-                            Solutions Architecture
-                        </motion.span>
-                        <h2 className="text-4xl md:text-6xl font-display font-black tracking-tight uppercase text-slate-900 dark:text-white mb-6">
-                            End-to-End <span className="text-brand-medium italic">Software</span> Development
-                        </h2>
-                        <div className="h-1 w-20 bg-brand-cyan mx-auto rounded-full" />
-                    </div>
+                    <SectionHeader
+                        badge="Operational Excellence"
+                        title="Why Businesses Need Custom Software"
+                        subtitle="Off-the-shelf tools often force your business to adapt to their limitations. Custom software adapts to you."
+                    />
 
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                        {services.map((service, i) => (
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                        {whyNeedCustomSoftware.map((item, i) => (
                             <motion.div
                                 key={i}
                                 whileHover={{ y: -10 }}
-                                className="service-card group glass-morphism p-10 rounded-[2.5rem] border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 transition-all bg-white/40 dark:bg-slate-900/40"
+                                className="group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-white/5 hover:border-brand-cyan/30 transition-all"
                             >
-                                <div className={`w-16 h-16 rounded-2xl bg-${service.color}/10 flex items-center justify-center border border-${service.color}/20 group-hover:scale-110 transition-transform mb-8`}>
-                                    <service.icon className={`w-8 h-8 text-brand-cyan`} />
+                                <div className="w-14 h-14 rounded-2xl bg-brand-cyan/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <item.icon className="w-7 h-7 text-brand-cyan" />
                                 </div>
-                                <h3 className="text-2xl font-black uppercase tracking-tight text-slate-900 dark:text-white mb-4 group-hover:text-brand-cyan transition-colors">{service.title}</h3>
-                                <p className="text-slate-400 text-sm leading-relaxed font-medium">
-                                    {service.desc}
-                                </p>
-                                <div className="mt-8 pt-6 border-t border-slate-200 dark:border-white/5 flex items-center text-[10px] font-black uppercase tracking-widest text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">
-                                    Advanced Capability <ArrowRight className="w-3 h-3 ml-2 group-hover:translate-x-1 transition-transform" />
+                                <h4 className="text-xl font-black uppercase tracking-tight text-slate-900 dark:text-white mb-4 leading-tight">{item.title}</h4>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{item.detail}</p>
+                            </motion.div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* 3️⃣ Why Choose Preet Tech */}
+            <section className="py-32 px-6 bg-slate-50/50 dark:bg-slate-950/50 reveal-section">
+                <div className="max-w-7xl mx-auto">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+                        <div>
+                            <SectionHeader
+                                badge="The Preet Edge"
+                                title="Building Trust Through Authority"
+                                centered={false}
+                            />
+                            <div className="space-y-6">
+                                {whyPreetTech.map((item, i) => (
+                                    <div key={i} className="flex gap-6 group">
+                                        <div className="shrink-0 w-12 h-12 rounded-xl bg-brand-medium/10 flex items-center justify-center border border-brand-medium/20 text-brand-medium group-hover:bg-brand-medium group-hover:text-white transition-all">
+                                            <item.icon className="w-6 h-6" />
+                                        </div>
+                                        <div>
+                                            <h4 className="text-lg font-black uppercase tracking-tight text-slate-900 dark:text-white mb-1">{item.title}</h4>
+                                            <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">{item.desc}</p>
+                                        </div>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+                        <div className="relative">
+                            <div className="aspect-square glass-morphism rounded-[3rem] border border-slate-200 dark:border-white/10 p-4 relative overflow-hidden bg-slate-200/20 dark:bg-white/5">
+                                <img
+                                    src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=1200"
+                                    alt="Software Development Team"
+                                    className="w-full h-full object-cover rounded-[2.5rem] opacity-80 dark:opacity-60"
+                                />
+                                <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/80 via-transparent to-transparent" />
+                                <div className="absolute bottom-10 left-10 p-8 glass-morphism rounded-3xl border border-white/20 w-[80%]">
+                                    <p className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">"Strategy-First Engineering"</p>
+                                    <p className="text-white/70 text-sm font-medium">We deliver software that drives measurable business ROI.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 4️⃣ Who This Service Is For */}
+            <section className="py-32 px-6 reveal-section">
+                <div className="max-w-7xl mx-auto">
+                    <SectionHeader
+                        badge="Strategic Fit"
+                        title="Tailored for Your Growth Stage"
+                        subtitle="From agile startups to global enterprises, we provide the technical architecture you need to win."
+                    />
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {targetAudience.map((item, i) => (
+                            <motion.div
+                                key={i}
+                                whileHover={{ scale: 1.02 }}
+                                className="p-10 rounded-[2.5rem] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/30 flex flex-col items-start shadow-sm"
+                            >
+                                <div className="w-12 h-12 rounded-xl bg-brand-cyan/10 flex items-center justify-center mb-8 text-brand-cyan">
+                                    <item.icon className="w-6 h-6" />
+                                </div>
+                                <h4 className="text-2xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-4">{item.type}</h4>
+                                <p className="text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{item.benefit}</p>
+                                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-white/5 w-full flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-brand-cyan">
+                                    Strategic Growth Solution <ArrowRight className="w-3 h-3 ml-2" />
                                 </div>
                             </motion.div>
                         ))}
@@ -423,102 +429,259 @@ const SoftwareDevelopment = () => {
                 </div>
             </section>
 
-            {/* Why Choose Us Section */}
-            <section className="py-32 px-6 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-full">
-                    <div className="absolute top-1/2 left-0 w-[500px] h-[500px] bg-brand-deep/10 blur-[150px] rounded-full" />
+            {/* 5️⃣ Our Software Development Solutions Overview */}
+            <section className="py-32 px-6 bg-slate-900 dark:bg-black text-white reveal-section">
+                <div className="max-w-7xl mx-auto">
+                    <SectionHeader
+                        badge="Direct Impact"
+                        title="Core Software Solutions Overview"
+                        centered={true}
+                    />
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                        {solutions.map((item, i) => (
+                            <div key={i} className="group relative">
+                                <button
+                                    onClick={() => setExpandedSolution(expandedSolution === i ? null : i)}
+                                    className={`w-full text-left p-8 rounded-3xl border transition-all flex items-start justify-between ${expandedSolution === i ? 'bg-brand-medium border-brand-medium' : 'bg-white/5 border-white/10 hover:border-brand-cyan/50'}`}
+                                >
+                                    <div>
+                                        <h4 className="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h4>
+                                        <div className="text-[10px] font-black uppercase tracking-widest text-brand-cyan mb-0">Business Outcome:</div>
+                                        <p className="text-sm font-bold opacity-80">{item.outcome}</p>
+                                    </div>
+                                    <div className={`mt-1 shrink-0 transition-transform ${expandedSolution === i ? 'rotate-180' : ''}`}>
+                                        <ChevronRight className="w-5 h-5" />
+                                    </div>
+                                </button>
+                                <AnimatePresence>
+                                    {expandedSolution === i && (
+                                        <motion.div
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            className="overflow-hidden"
+                                        >
+                                            <div className="p-8 pt-0 bg-white/5 rounded-b-3xl border-x border-b border-white/10 text-white/70 text-sm leading-relaxed font-medium">
+                                                {item.desc}
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* 6️⃣ Our Development Process */}
+            <section className="py-32 px-6 overflow-hidden reveal-section">
+                <div className="max-w-7xl mx-auto text-center mb-24">
+                    <SectionHeader
+                        badge="Roadmap to Success"
+                        title="Our Development Process"
+                    />
                 </div>
 
-                <div className="max-w-7xl mx-auto relative z-10">
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
-                        <div>
-                            <span className="text-brand-cyan text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">Engineered for Excellence</span>
-                            <h2 className="text-4xl md:text-6xl font-display font-black tracking-tight uppercase text-slate-900 dark:text-white mb-10">
-                                Why Choose Our <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-medium">Software Team</span>
-                            </h2>
+                <div className="max-w-7xl mx-auto relative px-10">
+                    {/* Progress Bar Line */}
+                    <div className="absolute top-1/2 left-0 w-full h-0.5 bg-slate-200 dark:bg-white/10 hidden lg:block -translate-y-1/2" />
 
-                            <div className="space-y-4">
-                                {whyChooseUs.map((item, i) => (
-                                    <motion.div
-                                        key={i}
-                                        initial={{ opacity: 0, x: -30 }}
-                                        whileInView={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.1 }}
-                                        className="flex gap-6 p-6 rounded-[2rem] hover:bg-white/5 border border-transparent hover:border-white/10 transition-all cursor-default group"
-                                    >
-                                        <div className="w-12 h-12 rounded-xl bg-brand-medium/10 flex items-center justify-center shrink-0 border border-brand-medium/20 text-brand-cyan group-hover:rotate-12 transition-transform">
-                                            <item.icon className="w-6 h-6" />
-                                        </div>
-                                        <div>
-                                            <h4 className="text-lg font-black uppercase tracking-tight text-slate-900 dark:text-white mb-1">{item.title}</h4>
-                                            <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed font-medium">{item.desc}</p>
-                                        </div>
-                                    </motion.div>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className="relative">
-                            <div className="aspect-square glass-morphism rounded-[3rem] border border-slate-200 dark:border-white/10 p-12 relative overflow-hidden flex items-center justify-center group bg-slate-50 dark:bg-slate-900/40">
-                                <div className="absolute inset-0 bg-gradient-to-br from-brand-cyan/10 via-transparent to-brand-medium/10" />
-
-                                {/* Visual Representation of Stack/Security */}
-                                <div className="grid grid-cols-2 gap-6 relative z-10 w-full">
-                                    <div className="space-y-6">
-                                        <div className="p-8 bg-white dark:bg-black/40 rounded-3xl border border-slate-200 dark:border-white/5 flex flex-col gap-4 group-hover:translate-y-[-5px] transition-transform">
-                                            <Lock className="w-10 h-10 text-brand-cyan" />
-                                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Protocol 7</p>
-                                            <p className="text-xl font-black text-slate-900 dark:text-white uppercase">Encrypted</p>
-                                        </div>
-                                        <div className="p-8 bg-brand-cyan rounded-3xl flex flex-col gap-4 group-hover:scale-105 transition-transform">
-                                            <Zap className="w-10 h-10 text-brand-deep" />
-                                            <p className="text-[10px] font-black text-brand-deep/60 uppercase tracking-widest">Engine Load</p>
-                                            <p className="text-xl font-black text-brand-deep uppercase">Instant</p>
-                                        </div>
-                                    </div>
-                                    <div className="space-y-6 pt-12">
-                                        <div className="p-8 bg-brand-medium rounded-3xl flex flex-col gap-4 group-hover:scale-105 transition-transform">
-                                            <RefreshCw className="w-10 h-10 text-white" />
-                                            <p className="text-[10px] font-black text-white/60 uppercase tracking-widest">CI/CD Flow</p>
-                                            <p className="text-xl font-black text-white uppercase">Active</p>
-                                        </div>
-                                        <div className="p-8 bg-white dark:bg-black/40 rounded-3xl border border-slate-200 dark:border-white/5 flex flex-col gap-4 group-hover:translate-y-[5px] transition-transform">
-                                            <Globe className="w-10 h-10 text-brand-sky" />
-                                            <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest">Edge Node</p>
-                                            <p className="text-xl font-black text-slate-900 dark:text-white uppercase">Global</p>
-                                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative z-10">
+                        {steps.map((step, i) => (
+                            <div key={i} className="flex flex-col items-center">
+                                <div className="w-16 h-16 rounded-full bg-white dark:bg-slate-900 border-4 border-brand-cyan flex items-center justify-center mb-8 relative">
+                                    <span className="text-xl font-black text-brand-cyan">{i + 1}</span>
+                                    {/* Animated pulse for current step (simulated) */}
+                                    {i === 0 && <span className="absolute inset-0 rounded-full bg-brand-cyan animate-ping opacity-20" />}
+                                </div>
+                                <div className="text-center">
+                                    <h4 className="text-xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-2">{step.name}</h4>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-4">{step.desc}</p>
+                                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 text-[9px] font-black uppercase tracking-widest text-brand-cyan">
+                                        Deliverable: {step.deliverables}
                                     </div>
                                 </div>
-
-                                {/* Floating Code Snippets */}
-                                <div className="absolute top-4 right-4 text-[8px] font-mono text-brand-cyan/30 select-none">
-                                    {"const deploy = () => { return secure(app); }"}
-                                </div>
-                                <div className="absolute bottom-4 left-4 text-[8px] font-mono text-brand-medium/30 select-none">
-                                    {"npm run build --platform=enterprise"}
-                                </div>
                             </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* 7️⃣ Technology Stack & Architecture */}
+            <section className="py-32 px-6 bg-[#020617] text-white reveal-section">
+                <div className="max-w-7xl mx-auto">
+                    <SectionHeader
+                        badge="The Engine Room"
+                        title="Architecture & Tech Stack"
+                        subtitle="We use industry-leading technologies to build resilient, ultra-fast platforms."
+                    />
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                        {Object.entries(techStack).map(([category, techs], i) => (
+                            <div key={i} className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
+                                <h4 className="text-sm font-black uppercase tracking-widest text-brand-cyan mb-8 pb-4 border-b border-white/10">{category}</h4>
+                                <ul className="space-y-4">
+                                    {techs.map((tech, j) => (
+                                        <li key={j} className="flex items-center gap-3 text-lg font-bold group">
+                                            <CheckCircle2 className="w-5 h-5 text-brand-cyan/50 group-hover:text-brand-cyan transition-colors" />
+                                            {tech}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="mt-20 p-12 rounded-[3rem] bg-brand-medium/10 border border-brand-medium/20 text-center">
+                        <div className="flex flex-wrap justify-center gap-12 text-center opacity-60">
+                            <span className="text-3xl font-black tracking-tighter uppercase grayscale hover:grayscale-0 transition-all cursor-default">Docker</span>
+                            <span className="text-3xl font-black tracking-tighter uppercase grayscale hover:grayscale-0 transition-all cursor-default">Kubernetes</span>
+                            <span className="text-3xl font-black tracking-tighter uppercase grayscale hover:grayscale-0 transition-all cursor-default">Redis</span>
+                            <span className="text-3xl font-black tracking-tighter uppercase grayscale hover:grayscale-0 transition-all cursor-default">AWS Lambda</span>
+                            <span className="text-3xl font-black tracking-tighter uppercase grayscale hover:grayscale-0 transition-all cursor-default">GraphQL</span>
                         </div>
                     </div>
                 </div>
             </section>
 
-            {/* Final CTA */}
-            <section className="py-20 px-6">
-                <div className="max-w-5xl mx-auto glass-morphism rounded-[3rem] p-12 md:p-20 text-center border border-slate-200 dark:border-white/10 relative overflow-hidden bg-gradient-to-br from-slate-50 via-brand-deep/5 to-slate-100 dark:from-slate-900 dark:via-brand-deep/5 dark:to-slate-900">
-                    <div className="absolute top-0 right-0 w-64 h-64 bg-brand-cyan/10 blur-[100px] -z-10" />
-                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-medium/10 blur-[100px] -z-10" />
+            {/* 8️⃣ Case Studies / Portfolio */}
+            <section className="py-32 px-6 reveal-section">
+                <div className="max-w-7xl mx-auto">
+                    <SectionHeader
+                        badge="Proven Performance"
+                        title="Success Architecture"
+                        subtitle="See how we've solved complex business challenges through strategic engineering."
+                    />
 
-                    <h2 className="text-4xl md:text-6xl font-display font-black tracking-tight uppercase text-slate-900 dark:text-white mb-8">
-                        Ready to Build the <br /> <span className="text-brand-cyan">Future?</span>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                        {caseStudies.map((caseStudy, i) => (
+                            <div key={i} className="group flex flex-col md:flex-row gap-8 p-10 rounded-[3rem] border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-slate-900/30 hover:border-brand-medium/50 transition-all">
+                                <div className="w-full md:w-1/2 aspect-[4/5] rounded-[2rem] overflow-hidden">
+                                    <img src={caseStudy.image} alt={caseStudy.company} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                                </div>
+                                <div className="w-full md:w-1/2 flex flex-col justify-between py-2">
+                                    <div>
+                                        <div className="text-[10px] font-black uppercase tracking-widest text-brand-medium mb-2">{caseStudy.industry} Excellence</div>
+                                        <h4 className="text-3xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-6">{caseStudy.company}</h4>
+
+                                        <div className="space-y-6">
+                                            <div>
+                                                <p className="text-[10px] font-black uppercase text-slate-400 mb-1">The Challenge</p>
+                                                <p className="text-sm font-medium text-slate-900 dark:text-white leading-relaxed">{caseStudy.challenge}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[10px] font-black uppercase text-slate-400 mb-1">Our Solution</p>
+                                                <p className="text-sm font-medium text-slate-900 dark:text-white leading-relaxed">{caseStudy.solution}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="mt-8 p-5 rounded-2xl bg-brand-cyan/10 border border-brand-cyan/20">
+                                        <p className="text-[10px] font-black uppercase text-brand-cyan mb-1">Measurable Result</p>
+                                        <p className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight">{caseStudy.result}</p>
+                                    </div>
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* 9️⃣ FAQs Section */}
+            <section className="py-32 px-6 bg-slate-50/50 dark:bg-slate-950/50 reveal-section">
+                <div className="max-w-4xl mx-auto">
+                    <SectionHeader
+                        badge="Clarity & Protocol"
+                        title="Frequently Asked Questions"
+                    />
+
+                    <div className="space-y-4">
+                        {faqs.map((faq, i) => (
+                            <div key={i} className="glass-morphism rounded-3xl border border-slate-200 dark:border-white/10 overflow-hidden bg-white dark:bg-slate-900/50">
+                                <details className="group">
+                                    <summary className="flex items-center justify-between p-8 cursor-pointer list-none">
+                                        <h4 className="text-lg font-black uppercase tracking-tight text-slate-900 dark:text-white">{faq.q}</h4>
+                                        <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center shrink-0 group-open:rotate-180 transition-transform">
+                                            <Plus className="w-5 h-5 group-open:hidden" />
+                                            <Minus className="w-5 h-5 hidden group-open:block" />
+                                        </div>
+                                    </summary>
+                                    <div className="px-8 pb-8 text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+                                        {faq.a}
+                                    </div>
+                                </details>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* 🔟 Free Software Strategy Consultation Section */}
+            <section className="py-32 px-6 reveal-section">
+                <div className="max-w-6xl mx-auto glass-morphism rounded-[4rem] p-12 md:p-20 text-center border border-slate-200 dark:border-white/10 relative overflow-hidden bg-white dark:bg-slate-900/40">
+                    <div className="absolute top-0 right-0 w-64 h-64 bg-brand-cyan/20 blur-[100px] -z-10" />
+                    <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-medium/20 blur-[100px] -z-10" />
+
+                    <SectionHeader
+                        badge="Immediate Step"
+                        title="Let's Build Software That Powers Your Business"
+                        subtitle="Scale your operations, automate your workflow, and future-proof your growth with enterprise-grade engineering."
+                    />
+
+                    <div className="flex flex-wrap justify-center gap-6 mt-12">
+                        <button className="group relative bg-brand-deep dark:bg-white text-white dark:text-brand-deep rounded-2xl px-12 py-5 font-black text-xs uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-2xl">
+                            Book Free Strategy Call
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            {/* Final Enterprise-Level CTA Section */}
+            <section className="py-32 px-6 bg-[#020617] text-white overflow-hidden relative">
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[150%] h-[150%] bg-[radial-gradient(circle_at_center,rgba(95,211,230,0.05)_0%,transparent_70%)] pointer-events-none" />
+
+                <div className="max-w-5xl mx-auto relative z-10 text-center">
+                    <motion.div
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        whileInView={{ opacity: 1, scale: 1 }}
+                        className="inline-block px-6 py-2 rounded-full border border-brand-cyan text-brand-cyan text-[10px] font-black uppercase tracking-[0.5em] mb-12"
+                    >
+                        Future Infrastructure
+                    </motion.div>
+
+                    <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] mb-12">
+                        Future-Proof Your Business with <br />
+                        <span className="text-brand-cyan italic">Scalable Software</span>
                     </h2>
-                    <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto mb-12 font-medium">
-                        Partner with our engineering team to create high-performance software that dominates your industry.
+
+                    <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-16 leading-relaxed">
+                        Ensure reliability, peak performance, and strategic growth for your organization with a partner who understands the high-stakes of enterprise engineering.
                     </p>
-                    <button className="inline-flex items-center gap-3 px-10 py-5 bg-slate-900 dark:bg-white text-white dark:text-brand-deep rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-brand-cyan hover:text-brand-deep transition-all shadow-xl shadow-white/5">
-                        Start Your Discovery <ArrowRight className="w-4 h-4" />
-                    </button>
+
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
+                        <button className="w-full sm:w-auto px-12 py-6 bg-brand-cyan text-brand-deep rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-white transition-all shadow-xl shadow-brand-cyan/20">
+                            Start Your Software Project
+                        </button>
+                        <button className="w-full sm:w-auto px-12 py-6 bg-white/5 border border-white/20 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-white/10 transition-all">
+                            Talk to Our Experts
+                        </button>
+                    </div>
+                </div>
+
+                {/* Sticky CTA Button (Visible on scroll) */}
+                <div className="fixed bottom-10 right-10 z-[100] hidden md:block">
+                    <motion.button
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        whileHover={{ scale: 1.1 }}
+                        className="bg-brand-cyan text-brand-deep w-16 h-16 rounded-full flex items-center justify-center shadow-2xl shadow-brand-cyan/50 group"
+                    >
+                        <MessageSquare className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                        <span className="absolute right-full mr-4 bg-slate-900 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap border border-white/10">
+                            Project Discovery
+                        </span>
+                    </motion.button>
                 </div>
             </section>
 
@@ -527,4 +690,4 @@ const SoftwareDevelopment = () => {
     );
 };
 
-export default SoftwareDevelopment;
+export default SoftwareDevelopmentPage;
