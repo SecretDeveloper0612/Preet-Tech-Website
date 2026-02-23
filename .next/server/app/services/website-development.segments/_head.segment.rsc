@@ -1,0 +1,5 @@
+1:"$Sreact.fragment"
+2:I[97080,["/_next/static/chunks/0371abc5414ecf2b.js","/_next/static/chunks/6f47daa5d6e0001e.js"],"ViewportBoundary"]
+3:I[97080,["/_next/static/chunks/0371abc5414ecf2b.js","/_next/static/chunks/6f47daa5d6e0001e.js"],"MetadataBoundary"]
+4:"$Sreact.suspense"
+0:{"buildId":"NVWstNfbEF3VVZ9EGXv8t","rsc":["$","$1","h",{"children":[null,["$","$L2",null,{"children":[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]}],["$","div",null,{"hidden":true,"children":["$","$L3",null,{"children":["$","$4",null,{"name":"Next.Metadata","children":[["$","title","0",{"children":"Preet Tech | Next Gen Digital Agency"}],["$","meta","1",{"name":"description","content":"Architecting digital universes where precision meets imagination. We deploy hyper-scale solutions for the brands of tomorrow."}]]}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"loading":null,"isPartial":false}

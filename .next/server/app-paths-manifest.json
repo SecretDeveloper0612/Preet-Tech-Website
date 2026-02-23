@@ -1,0 +1,18 @@
+{
+  "/_global-error/page": "app/_global-error/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/about/page": "app/about/page.js",
+  "/api/chat/route": "app/api/chat/route.js",
+  "/contact/page": "app/contact/page.js",
+  "/page": "app/page.js",
+  "/services/app-development/page": "app/services/app-development/page.js",
+  "/services/page": "app/services/page.js",
+  "/services/partnership-marketing/page": "app/services/partnership-marketing/page.js",
+  "/services/performance-marketing/page": "app/services/performance-marketing/page.js",
+  "/services/social-media-handling/page": "app/services/social-media-handling/page.js",
+  "/services/software-development/page": "app/services/software-development/page.js",
+  "/services/start-your-business/page": "app/services/start-your-business/page.js",
+  "/services/website-development/advanced/page": "app/services/website-development/advanced/page.js",
+  "/services/website-development/eco/page": "app/services/website-development/eco/page.js",
+  "/services/website-development/page": "app/services/website-development/page.js"
+}

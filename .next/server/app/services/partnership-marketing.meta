@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/services/layout,_N_T_/services/partnership-marketing/layout,_N_T_/services/partnership-marketing/page,_N_T_/services/partnership-marketing"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/services/partnership-marketing/__PAGE__",
+    "/services/partnership-marketing",
+    "/services",
+    "/_index",
+    "/_head"
+  ]
+}

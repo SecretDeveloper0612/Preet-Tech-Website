@@ -1,0 +1,26 @@
+globalThis.__BUILD_MANIFEST = {
+  "pages": {
+    "/_app": []
+  },
+  "devFiles": [],
+  "polyfillFiles": [
+    "static/chunks/e0675_next_dist_build_polyfills_polyfill-nomodule.js"
+  ],
+  "lowPriorityFiles": [],
+  "rootMainFiles": [
+    "static/chunks/[turbopack]_browser_dev_hmr-client_hmr-client_ts_373ec772._.js",
+    "static/chunks/e0675_next_dist_compiled_react-dom_15d98188._.js",
+    "static/chunks/e0675_next_dist_compiled_react-server-dom-turbopack_d4e5da4d._.js",
+    "static/chunks/e0675_next_dist_compiled_next-devtools_index_92f0ee2f.js",
+    "static/chunks/e0675_next_dist_compiled_f62ad07f._.js",
+    "static/chunks/e0675_next_dist_client_05b45c64._.js",
+    "static/chunks/e0675_next_dist_f38a26d6._.js",
+    "static/chunks/e0675_@swc_helpers_cjs_e1aedc6d._.js",
+    "static/chunks/preet-tech-next-gen-digital-agency 2_a0ff3932._.js",
+    "static/chunks/turbopack-preet-tech-next-gen-digital-agency 2_bfffe5d9._.js"
+  ]
+};
+globalThis.__BUILD_MANIFEST.lowPriorityFiles = [
+"/static/" + process.env.__NEXT_BUILD_ID + "/_buildManifest.js",
+"/static/" + process.env.__NEXT_BUILD_ID + "/_ssgManifest.js"
+];

@@ -1,0 +1,18 @@
+{
+  "/_global-error/page": "/_global-error",
+  "/_not-found/page": "/_not-found",
+  "/about/page": "/about",
+  "/api/chat/route": "/api/chat",
+  "/contact/page": "/contact",
+  "/page": "/",
+  "/services/app-development/page": "/services/app-development",
+  "/services/page": "/services",
+  "/services/partnership-marketing/page": "/services/partnership-marketing",
+  "/services/performance-marketing/page": "/services/performance-marketing",
+  "/services/social-media-handling/page": "/services/social-media-handling",
+  "/services/software-development/page": "/services/software-development",
+  "/services/start-your-business/page": "/services/start-your-business",
+  "/services/website-development/advanced/page": "/services/website-development/advanced",
+  "/services/website-development/eco/page": "/services/website-development/eco",
+  "/services/website-development/page": "/services/website-development"
+}

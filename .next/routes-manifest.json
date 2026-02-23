@@ -1,0 +1,140 @@
+{
+  "version": 3,
+  "pages404": true,
+  "appType": "app",
+  "caseSensitive": false,
+  "basePath": "",
+  "redirects": [
+    {
+      "source": "/:path+/",
+      "destination": "/:path+",
+      "internal": true,
+      "priority": true,
+      "statusCode": 308,
+      "regex": "^(?:/((?:[^/]+?)(?:/(?:[^/]+?))*))/$"
+    }
+  ],
+  "headers": [],
+  "rewrites": {
+    "beforeFiles": [],
+    "afterFiles": [],
+    "fallback": []
+  },
+  "dynamicRoutes": [],
+  "staticRoutes": [
+    {
+      "page": "/",
+      "regex": "^/(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/(?:/)?$"
+    },
+    {
+      "page": "/_global-error",
+      "regex": "^/_global\\-error(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_global\\-error(?:/)?$"
+    },
+    {
+      "page": "/_not-found",
+      "regex": "^/_not\\-found(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/_not\\-found(?:/)?$"
+    },
+    {
+      "page": "/about",
+      "regex": "^/about(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/about(?:/)?$"
+    },
+    {
+      "page": "/api/chat",
+      "regex": "^/api/chat(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/chat(?:/)?$"
+    },
+    {
+      "page": "/contact",
+      "regex": "^/contact(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/contact(?:/)?$"
+    },
+    {
+      "page": "/services",
+      "regex": "^/services(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services(?:/)?$"
+    },
+    {
+      "page": "/services/app-development",
+      "regex": "^/services/app\\-development(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/app\\-development(?:/)?$"
+    },
+    {
+      "page": "/services/partnership-marketing",
+      "regex": "^/services/partnership\\-marketing(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/partnership\\-marketing(?:/)?$"
+    },
+    {
+      "page": "/services/performance-marketing",
+      "regex": "^/services/performance\\-marketing(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/performance\\-marketing(?:/)?$"
+    },
+    {
+      "page": "/services/social-media-handling",
+      "regex": "^/services/social\\-media\\-handling(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/social\\-media\\-handling(?:/)?$"
+    },
+    {
+      "page": "/services/software-development",
+      "regex": "^/services/software\\-development(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/software\\-development(?:/)?$"
+    },
+    {
+      "page": "/services/start-your-business",
+      "regex": "^/services/start\\-your\\-business(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/start\\-your\\-business(?:/)?$"
+    },
+    {
+      "page": "/services/website-development",
+      "regex": "^/services/website\\-development(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/website\\-development(?:/)?$"
+    },
+    {
+      "page": "/services/website-development/advanced",
+      "regex": "^/services/website\\-development/advanced(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/website\\-development/advanced(?:/)?$"
+    },
+    {
+      "page": "/services/website-development/eco",
+      "regex": "^/services/website\\-development/eco(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/website\\-development/eco(?:/)?$"
+    }
+  ],
+  "dataRoutes": [],
+  "rsc": {
+    "header": "rsc",
+    "varyHeader": "rsc, next-router-state-tree, next-router-prefetch, next-router-segment-prefetch",
+    "prefetchHeader": "next-router-prefetch",
+    "didPostponeHeader": "x-nextjs-postponed",
+    "contentTypeHeader": "text/x-component",
+    "suffix": ".rsc",
+    "prefetchSegmentHeader": "next-router-segment-prefetch",
+    "prefetchSegmentSuffix": ".segment.rsc",
+    "prefetchSegmentDirSuffix": ".segments",
+    "clientParamParsing": false,
+    "dynamicRSCPrerender": false
+  },
+  "rewriteHeaders": {
+    "pathHeader": "x-nextjs-rewritten-path",
+    "queryHeader": "x-nextjs-rewritten-query"
+  }
+}
