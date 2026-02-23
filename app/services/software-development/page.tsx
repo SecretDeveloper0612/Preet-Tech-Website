@@ -1,7 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
+import { motion, AnimatePresence, useMotionValue, animate } from 'framer-motion';
 import {
     Cpu,
     Database,
@@ -21,6 +21,7 @@ import {
     Phone,
     Building2,
     MessageSquare,
+    ChevronLeft,
     ChevronRight,
     Search,
     Lock,
@@ -69,7 +70,7 @@ const SectionHeader = ({ badge, title, subtitle, centered = true }: { badge: str
         <motion.span
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
-            className={`text-emerald-500 font-black uppercase tracking-[0.4em] mb-4 block`}
+            className={`text-brand-cyan text-[10px] font-black uppercase tracking-[0.4em] mb-4 block`}
         >
             {badge}
         </motion.span>
@@ -77,20 +78,153 @@ const SectionHeader = ({ badge, title, subtitle, centered = true }: { badge: str
             {title}
         </h2>
         {subtitle && <p className={`mt-6 text-slate-500 dark:text-slate-400 text-lg max-w-3xl ${centered ? 'mx-auto' : ''}`}>{subtitle}</p>}
-        {centered && <div className="h-1.5 w-24 bg-emerald-500 mx-auto rounded-full mt-8" />}
+        {centered && <div className="h-1.5 w-24 bg-brand-cyan mx-auto rounded-full mt-8" />}
     </div>
 );
+
+const whyNeedCustomSoftware = [
+    { title: "Increased efficiency", detail: "Custom workflows eliminate bottlenecks and streamline core business operations.", icon: Zap },
+    { title: "Task Automation", detail: "Automate repetitive data entry and administrative tasks to focus on strategy.", icon: Workflow },
+    { title: "Better Data Control", detail: "Centralized, secure databases provide real-time insights and complete ownership.", icon: Database },
+    { title: "Scalable Systems", detail: "Software that grows with your business without hitting performance ceilings.", icon: Layers },
+    { title: "Competitive Edge", detail: "Unique technological capabilities that your competitors cannot simply buy off-the-shelf.", icon: Target },
+];
+
+const whyPreetTech = [
+    { title: "Business-First Strategy", desc: "We align software architecture with your revenue goals and operational KPIs.", icon: Briefcase },
+    { title: "Scalable Architecture", desc: "Building modular systems that handle millions of requests with zero downtime.", icon: Boxes },
+    { title: "Transparent Process", desc: "Complete visibility into the codebase and sprint progress through our client portal.", icon: Search },
+    { title: "Agile Methodology", desc: "Rapid 2-week sprint cycles ensuring fast time-to-market and iterative growth.", icon: RefreshCw },
+    { title: "Post-Launch Support", desc: "24/7 technical monitoring and proactive performance optimization beyond launch.", icon: Headphones },
+];
+
+const targetAudience = [
+    { type: "Growing Startups", benefit: "Fast prototypes and scalable MVP builds to secure funding and market traction.", icon: Rocket },
+    { type: "SMEs", benefit: "Modernizing legacy systems and digitizing operations for increased profitability.", icon: Building2 },
+    { type: "Enterprises", benefit: "Complex multi-system integrations and high-security internal platforms.", icon: Shield },
+    { type: "SaaS Founders", benefit: "End-to-end multi-tenant product engineering for global software businesses.", icon: Cloud },
+    { type: "E-Commerce", benefit: "Custom multi-vendor marketplaces and high-converting checkout ecosystems.", icon: Store },
+    { type: "Service-Based", benefit: "Booking engines, client portals, and automated service delivery pipelines.", icon: UserCheck },
+];
+
+const solutions = [
+    { title: "Custom Business Software", desc: "Tailored internal tools designed to manage your unique business logic and complex operational workflows.", outcome: "100% Alignment with Business Ops" },
+    { title: "CRM / ERP Systems", desc: "Centralized management platforms for customer relationships, inventory, finance, and human resources.", outcome: "Unified Data Intelligence" },
+    { title: "SaaS Application Development", desc: "Building scalable, multi-tenant software products ready for worldwide commercial distribution.", outcome: "Recurring Revenue Infrastructure" },
+    { title: "Web-Based Software", desc: "High-performance web applications accessible from any device, built with modern reactive frameworks.", outcome: "Universal Accessibility" },
+    { title: "Automation Systems", desc: "Intelligent background processes and workflow triggers that eliminate manual intervention.", outcome: "Zero Manual Errors" },
+    { title: "Cloud-Based Software", desc: "Leveraging AWS, Azure, and Google Cloud for serverless, global, and highly available software.", outcome: "99.9% Platform Uptime" },
+    { title: "API & System Integration", desc: "Connecting disparate software tools to ensure data flows seamlessly across your entire tech stack.", outcome: "Seamless Ecosystem Growth" },
+    { title: "UI/UX for Platforms", desc: "Strategic interface design focused on user productivity, reducing training time and increasing adoption.", outcome: "High User Satisfaction" },
+    { title: "Database & Security", desc: "Advanced data structuring and military-grade encryption to protect your most valuable business assets.", outcome: "Bank-Level Data Safety" },
+    { title: "Performance Optimization", desc: "Deep technical audits and refactoring to ensure your software responds in sub-100ms speeds.", outcome: "Maximum System Efficiency" },
+    { title: "Modernization & Upgrades", desc: "Migrating legacy systems to modern tech stacks without losing historical data or business continuity.", outcome: "Future-Proofed Tech" },
+    { title: "Maintenance & Support", desc: "Fixed-cost support retainers for continuous security patches, updates, and feature enhancements.", outcome: "Zero Maintenance Stress" },
+];
+
+const steps = [
+    { name: "Discovery", desc: "Deep immersion into your business logic, goals, and technical requirements.", deliverables: "Project Roadmap & Tech Specs" },
+    { name: "Planning", desc: "Wireframing, UI/UX architecture, and database structuring for maximum scale.", deliverables: "Design System & Prototypes" },
+    { name: "Development", desc: "Agile coding phase with continuous integration and real-time progress tracking.", deliverables: "Clean, Scalable Codebase" },
+    { name: "Testing", desc: "Rigorous QA testing including unit, integration, and security penetration tests.", deliverables: "Bug-Free Performance" },
+    { name: "Deployment", desc: "Seamless launch to cloud infrastructure with automated CI/CD pipelines.", deliverables: "Live Enterprise Platform" },
+    { name: "Optimization", desc: "Monitoring performance and gathering user feedback for continuous improvement.", deliverables: "Measurable Growth ROI" },
+];
+
+const techStack = {
+    frontend: ["React", "Next.js", "Angular"],
+    backend: ["Node.js", "Express", "Django"],
+    database: ["MongoDB", "PostgreSQL", "MySQL"],
+    devops: ["AWS", "Azure", "Docker", "CI/CD"],
+    security: ["JWT Authentication", "RBAC", "Data Encryption"]
+};
+
+const caseStudies = [
+    {
+        company: "LogicFlow Systems",
+        industry: "Logistics",
+        challenge: "Manual tracking of 500+ daily shipments causing 15% error rate.",
+        solution: "Custom AI-driven automated tracking and driver management app.",
+        result: "Error rate reduced to <0.5% and 40% faster delivery times.",
+        image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800"
+    },
+    {
+        company: "Medivault",
+        industry: "Healthcare",
+        challenge: "Fragmented patient data across 10+ clinics with security risks.",
+        solution: "Centralized HIPAA-compliant ERP with end-to-end encryption.",
+        result: "Integrated patient care and zero security breaches over 2 years.",
+        image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800"
+    }
+];
+
+const faqs = [
+    { q: "How long does custom software development take?", a: "Typically, a minimum viable product (MVP) takes 8–12 weeks, while more complex enterprise systems can take 6–12 months depending on the scope and integrations." },
+    { q: "What is the typical investment required?", a: "Projects start from $15,000 for specific tools/MVPs. Full-scale enterprise solutions are quoted based on the complexity, features, and technical architecture required." },
+    { q: "Do you offer long-term maintenance?", a: "Yes, we provide post-launch maintenance packages that include security updates, performance monitoring, and continuous feature enhancements." },
+    { q: "Can you upgrade legacy systems?", a: "Absolutely. We specialize in legacy modernization—migrating old databases and codebases to modern, scalable technologies like Next.js and Node.js without data loss." },
+    { q: "How do you ensure data security?", a: "We implement military-grade encryption (AES-256), multi-factor authentication, Role-Based Access Control (RBAC), and regular security audits to ensure your data stays protected." }
+];
+
+const marqueeTechs = ["Docker", "Kubernetes", "Redis", "AWS Lambda", "GraphQL", "Python", "TypeScript", "Go", "Rust", "Terraform", "Jenkins", "Vercel"];
 
 const SoftwareDevelopmentPage = () => {
     const [theme, setTheme] = useState<Theme>(Theme.LIGHT);
     const [expandedSolution, setExpandedSolution] = useState<number | null>(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+    const [isDragging, setIsDragging] = useState(false);
+    const x = useMotionValue(0);
     const containerRef = useRef<HTMLDivElement>(null);
+    const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+    const CARD_WIDTH = 400;
+    const CARD_GAP = 24;
+    const CARD_STEP = CARD_WIDTH + CARD_GAP;
 
     useEffect(() => {
         // Default to Light theme as requested
         document.documentElement.classList.remove('dark');
         setTheme(Theme.LIGHT);
     }, []);
+
+    const startTimer = useCallback(() => {
+        if (timerRef.current) clearInterval(timerRef.current);
+        timerRef.current = setInterval(() => {
+            setActiveIndex((prev) => (prev + 1) % solutions.length);
+        }, 5000);
+    }, [solutions.length]);
+
+    const stopTimer = useCallback(() => {
+        if (timerRef.current) clearInterval(timerRef.current);
+    }, []);
+
+    const snapTo = useCallback((index: number) => {
+        const clamped = (index + solutions.length) % solutions.length;
+        setActiveIndex(clamped);
+        animate(x, -clamped * CARD_STEP, { type: 'spring', stiffness: 300, damping: 35 });
+    }, [solutions.length, CARD_STEP, x]);
+
+    useEffect(() => {
+        animate(x, -activeIndex * CARD_STEP, { type: 'spring', stiffness: 300, damping: 35 });
+    }, [activeIndex, CARD_STEP, x]);
+
+    useEffect(() => {
+        startTimer();
+        return () => stopTimer();
+    }, [startTimer, stopTimer]);
+
+    const handleDragEnd = (_: any, info: any) => {
+        setIsDragging(false);
+        const threshold = CARD_STEP / 4;
+        if (info.offset.x < -threshold) {
+            snapTo(activeIndex + 1);
+        } else if (info.offset.x > threshold) {
+            snapTo(activeIndex - 1);
+        } else {
+            snapTo(activeIndex);
+        }
+        startTimer();
+    };
 
     const toggleTheme = () => {
         const newTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
@@ -135,90 +269,6 @@ const SoftwareDevelopmentPage = () => {
         });
     }, { scope: containerRef });
 
-    const whyNeedCustomSoftware = [
-        { title: "Increased efficiency", detail: "Custom workflows eliminate bottlenecks and streamline core business operations.", icon: Zap },
-        { title: "Task Automation", detail: "Automate repetitive data entry and administrative tasks to focus on strategy.", icon: Workflow },
-        { title: "Better Data Control", detail: "Centralized, secure databases provide real-time insights and complete ownership.", icon: Database },
-        { title: "Scalable Systems", detail: "Software that grows with your business without hitting performance ceilings.", icon: Layers },
-        { title: "Competitive Edge", detail: "Unique technological capabilities that your competitors cannot simply buy off-the-shelf.", icon: Target },
-    ];
-
-    const whyPreetTech = [
-        { title: "Business-First Strategy", desc: "We align software architecture with your revenue goals and operational KPIs.", icon: Briefcase },
-        { title: "Scalable Architecture", desc: "Building modular systems that handle millions of requests with zero downtime.", icon: Boxes },
-        { title: "Transparent Process", desc: "Complete visibility into the codebase and sprint progress through our client portal.", icon: Search },
-        { title: "Agile Methodology", desc: "Rapid 2-week sprint cycles ensuring fast time-to-market and iterative growth.", icon: RefreshCw },
-        { title: "Post-Launch Support", desc: "24/7 technical monitoring and proactive performance optimization beyond launch.", icon: Headphones },
-    ];
-
-    const targetAudience = [
-        { type: "Growing Startups", benefit: "Fast prototypes and scalable MVP builds to secure funding and market traction.", icon: Rocket },
-        { type: "SMEs", benefit: "Modernizing legacy systems and digitizing operations for increased profitability.", icon: Building2 },
-        { type: "Enterprises", benefit: "Complex multi-system integrations and high-security internal platforms.", icon: Shield },
-        { type: "SaaS Founders", benefit: "End-to-end multi-tenant product engineering for global software businesses.", icon: Cloud },
-        { type: "E-Commerce", benefit: "Custom multi-vendor marketplaces and high-converting checkout ecosystems.", icon: Store },
-        { type: "Service-Based", benefit: "Booking engines, client portals, and automated service delivery pipelines.", icon: UserCheck },
-    ];
-
-    const solutions = [
-        { title: "Custom Business Software", desc: "Tailored internal tools designed to manage your unique business logic and complex operational workflows.", outcome: "100% Alignment with Business Ops" },
-        { title: "CRM / ERP Systems", desc: "Centralized management platforms for customer relationships, inventory, finance, and human resources.", outcome: "Unified Data Intelligence" },
-        { title: "SaaS Application Development", desc: "Building scalable, multi-tenant software products ready for worldwide commercial distribution.", outcome: "Recurring Revenue Infrastructure" },
-        { title: "Web-Based Software", desc: "High-performance web applications accessible from any device, built with modern reactive frameworks.", outcome: "Universal Accessibility" },
-        { title: "Automation Systems", desc: "Intelligent background processes and workflow triggers that eliminate manual intervention.", outcome: "Zero Manual Errors" },
-        { title: "Cloud-Based Software", desc: "Leveraging AWS, Azure, and Google Cloud for serverless, global, and highly available software.", outcome: "99.9% Platform Uptime" },
-        { title: "API & System Integration", desc: "Connecting disparate software tools to ensure data flows seamlessly across your entire tech stack.", outcome: "Seamless Ecosystem Growth" },
-        { title: "UI/UX for Platforms", desc: "Strategic interface design focused on user productivity, reducing training time and increasing adoption.", outcome: "High User Satisfaction" },
-        { title: "Database & Security", desc: "Advanced data structuring and military-grade encryption to protect your most valuable business assets.", outcome: "Bank-Level Data Safety" },
-        { title: "Performance Optimization", desc: "Deep technical audits and refactoring to ensure your software responds in sub-100ms speeds.", outcome: "Maximum System Efficiency" },
-        { title: "Modernization & Upgrades", desc: "Migrating legacy systems to modern tech stacks without losing historical data or business continuity.", outcome: "Future-Proofed Tech" },
-        { title: "Maintenance & Support", desc: "Fixed-cost support retainers for continuous security patches, updates, and feature enhancements.", outcome: "Zero Maintenance Stress" },
-    ];
-
-    const steps = [
-        { name: "Discovery", desc: "Deep immersion into your business logic, goals, and technical requirements.", deliverables: "Project Roadmap & Tech Specs" },
-        { name: "Planning", desc: "Wireframing, UI/UX architecture, and database structuring for maximum scale.", deliverables: "Design System & Prototypes" },
-        { name: "Development", desc: "Agile coding phase with continuous integration and real-time progress tracking.", deliverables: "Clean, Scalable Codebase" },
-        { name: "Testing", desc: "Rigorous QA testing including unit, integration, and security penetration tests.", deliverables: "Bug-Free Performance" },
-        { name: "Deployment", desc: "Seamless launch to cloud infrastructure with automated CI/CD pipelines.", deliverables: "Live Enterprise Platform" },
-        { name: "Optimization", desc: "Monitoring performance and gathering user feedback for continuous improvement.", deliverables: "Measurable Growth ROI" },
-    ];
-
-    const techStack = {
-        frontend: ["React", "Next.js", "Angular"],
-        backend: ["Node.js", "Express", "Django"],
-        database: ["MongoDB", "PostgreSQL", "MySQL"],
-        devops: ["AWS", "Azure", "Docker", "CI/CD"],
-        security: ["JWT Authentication", "RBAC", "Data Encryption"]
-    };
-
-    const caseStudies = [
-        {
-            company: "LogicFlow Systems",
-            industry: "Logistics",
-            challenge: "Manual tracking of 500+ daily shipments causing 15% error rate.",
-            solution: "Custom AI-driven automated tracking and driver management app.",
-            result: "Error rate reduced to <0.5% and 40% faster delivery times.",
-            image: "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?auto=format&fit=crop&q=80&w=800"
-        },
-        {
-            company: "Medivault",
-            industry: "Healthcare",
-            challenge: "Fragmented patient data across 10+ clinics with security risks.",
-            solution: "Centralized HIPAA-compliant ERP with end-to-end encryption.",
-            result: "Integrated patient care and zero security breaches over 2 years.",
-            image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&q=80&w=800"
-        }
-    ];
-
-    const faqs = [
-        { q: "How long does custom software development take?", a: "Typically, a minimum viable product (MVP) takes 8–12 weeks, while more complex enterprise systems can take 6–12 months depending on the scope and integrations." },
-        { q: "What is the typical investment required?", a: "Projects start from $15,000 for specific tools/MVPs. Full-scale enterprise solutions are quoted based on the complexity, features, and technical architecture required." },
-        { q: "Do you offer long-term maintenance?", a: "Yes, we provide post-launch maintenance packages that include security updates, performance monitoring, and continuous feature enhancements." },
-        { q: "Can you upgrade legacy systems?", a: "Absolutely. We specialize in legacy modernization—migrating old databases and codebases to modern, scalable technologies like Next.js and Node.js without data loss." },
-        { q: "How do you ensure data security?", a: "We implement military-grade encryption (AES-256), multi-factor authentication, Role-Based Access Control (RBAC), and regular security audits to ensure your data stays protected." }
-    ];
-
     return (
         <main ref={containerRef} className="bg-white dark:bg-[#020617] text-slate-900 dark:text-white selection:bg-brand-medium/30 transition-colors duration-300 font-jakarta overflow-x-hidden">
             <Navbar isDark={theme === Theme.DARK} toggleTheme={toggleTheme} />
@@ -227,8 +277,8 @@ const SoftwareDevelopmentPage = () => {
             <section className="relative min-h-screen flex items-center pt-32 pb-20 px-6 overflow-hidden">
                 {/* Background Decor */}
                 <div className="absolute inset-0 z-0 pointer-events-none">
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-emerald-500/5 dark:bg-emerald-500/10 blur-[150px] rounded-full animate-pulse" />
-                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-emerald-400/5 dark:bg-emerald-400/10 blur-[130px] rounded-full animate-pulse delay-700" />
+                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-medium/5 dark:bg-brand-medium/10 blur-[150px] rounded-full animate-pulse" />
+                    <div className="absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand-cyan/5 dark:bg-brand-cyan/10 blur-[130px] rounded-full animate-pulse delay-700" />
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,#e2e8f0_1px,transparent_1px),linear-gradient(to_bottom,#e2e8f0_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] opacity-[0.2] dark:opacity-[0.1] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,#000_70%,transparent_100%)]" />
                 </div>
 
@@ -238,15 +288,15 @@ const SoftwareDevelopmentPage = () => {
                         <motion.div
                             initial={{ opacity: 0, scale: 0.9 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-600 dark:text-emerald-400 text-[10px] font-black uppercase tracking-[0.3em] mb-8"
+                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-medium/10 border border-brand-medium/20 text-brand-cyan text-[10px] font-black uppercase tracking-[0.3em] mb-8"
                         >
-                            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-ping" />
-                            Eco-Conscious Engineering
+                            <span className="w-2 h-2 rounded-full bg-brand-cyan animate-ping" />
+                            Enterprise Engineering
                         </motion.div>
 
                         <h1 className="text-5xl md:text-7xl lg:text-8xl font-outfit font-black tracking-tighter uppercase leading-[0.9] mb-8 text-slate-900 dark:text-white">
-                            Sustainable <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-emerald-600 to-emerald-800 italic">Growth Engine.</span>
+                            Custom Software <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-brand-medium to-brand-deep italic">Built for Growth.</span>
                         </h1>
 
                         <p className="text-xl md:text-2xl text-slate-900 dark:text-white font-bold mb-4">
@@ -281,29 +331,29 @@ const SoftwareDevelopmentPage = () => {
                         <div className="glass-morphism rounded-[3rem] p-8 md:p-10 border border-slate-200 dark:border-white/10 shadow-2xl relative z-10 bg-white/40 dark:bg-slate-900/40 backdrop-blur-2xl">
                             <div className="mb-8">
                                 <h3 className="text-2xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-2">Request Strategy Call</h3>
-                                <p className="text-[10px] font-black text-emerald-500 uppercase tracking-widest">Free Consultation • Zero Obligation</p>
+                                <p className="text-[10px] font-black text-brand-cyan uppercase tracking-widest">Free Consultation • Zero Obligation</p>
                             </div>
 
                             <form className="space-y-4">
                                 <div className="space-y-2">
-                                    <input type="text" placeholder="Full Name" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all font-medium" />
+                                    <input type="text" placeholder="Full Name" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
                                 </div>
                                 <div className="space-y-2">
-                                    <input type="text" placeholder="Company Name" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all font-medium" />
+                                    <input type="text" placeholder="Company Name" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="email" placeholder="Work Email" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all font-medium" />
-                                    <input type="tel" placeholder="Phone Number" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all font-medium" />
+                                    <input type="email" placeholder="Work Email" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
+                                    <input type="tel" placeholder="Phone Number" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer">
+                                    <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
                                         <option value="">Company Size</option>
                                         <option value="1-10">1-10 Employees</option>
                                         <option value="11-50">11-50 Employees</option>
                                         <option value="51-200">51-200 Employees</option>
                                         <option value="201+">201+ Employees</option>
                                     </select>
-                                    <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer">
+                                    <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
                                         <option value="">Project Type</option>
                                         <option value="custom">Custom Software</option>
                                         <option value="crm">CRM / ERP</option>
@@ -312,16 +362,16 @@ const SoftwareDevelopmentPage = () => {
                                         <option value="other">Other</option>
                                     </select>
                                 </div>
-                                <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-emerald-500/50 cursor-pointer">
+                                <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
                                     <option value="">Estimated Budget</option>
                                     <option value="15-25k">$15,000 - $25,000</option>
                                     <option value="25-50k">$25,000 - $50,000</option>
                                     <option value="50-100k">$50,000 - $100,000</option>
                                     <option value="100k+">$100,000+</option>
                                 </select>
-                                <textarea placeholder="Project Description" rows={3} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-emerald-500/50 transition-all font-medium resize-none"></textarea>
+                                <textarea placeholder="Project Description" rows={3} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium resize-none"></textarea>
 
-                                <button type="submit" className="w-full group bg-emerald-500 hover:bg-slate-900 dark:hover:bg-white text-white dark:hover:text-emerald-500 rounded-2xl py-5 font-black text-xs uppercase tracking-[0.2em] transition-all shadow-xl shadow-emerald-500/20 flex items-center justify-center gap-2">
+                                <button type="submit" className="w-full group bg-brand-cyan hover:bg-slate-900 dark:hover:bg-white text-brand-deep dark:hover:text-brand-deep rounded-2xl py-5 font-black text-xs uppercase tracking-[0.2em] transition-all shadow-xl shadow-brand-cyan/20 flex items-center justify-center gap-2">
                                     Request Free Software Strategy Call <ArrowRight className="w-4 h-4" />
                                 </button>
                             </form>
@@ -344,10 +394,10 @@ const SoftwareDevelopmentPage = () => {
                             <motion.div
                                 key={i}
                                 whileHover={{ y: -10 }}
-                                className="group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-white/5 hover:border-emerald-500/30 transition-all"
+                                className="group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-slate-900/50 border border-slate-100 dark:border-white/5 hover:border-brand-cyan/30 transition-all"
                             >
-                                <div className="w-14 h-14 rounded-2xl bg-emerald-500/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
-                                    <item.icon className="w-7 h-7 text-emerald-500" />
+                                <div className="w-14 h-14 rounded-2xl bg-brand-cyan/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                                    <item.icon className="w-7 h-7 text-brand-cyan" />
                                 </div>
                                 <h4 className="text-xl font-black uppercase tracking-tight text-slate-900 dark:text-white mb-4 leading-tight">{item.title}</h4>
                                 <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{item.detail}</p>
@@ -383,12 +433,17 @@ const SoftwareDevelopmentPage = () => {
                         </div>
                         <div className="relative">
                             <div className="aspect-square glass-morphism rounded-[3rem] border border-slate-200 dark:border-white/10 p-4 relative overflow-hidden bg-slate-200/20 dark:bg-white/5">
-                                <img
-                                    src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&q=80&w=1200"
-                                    alt="Software Development Team"
-                                    className="w-full h-full object-cover rounded-[2.5rem] opacity-80 dark:opacity-60"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/80 via-transparent to-transparent" />
+                                <div className="absolute inset-0 w-full h-full pointer-events-none">
+                                    <iframe
+                                        className="w-full h-full scale-[1.5] object-cover rounded-[2.5rem]"
+                                        src="https://www.youtube.com/embed/5iliern1SAs?autoplay=1&mute=1&loop=1&playlist=5iliern1SAs&controls=0&showinfo=0&rel=0&modestbranding=1"
+                                        title="Strategy First Engineering"
+                                        frameBorder="0"
+                                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowFullScreen
+                                    ></iframe>
+                                </div>
+                                <div className="absolute inset-0 bg-gradient-to-t from-brand-deep/80 via-transparent to-transparent pointer-events-none" />
                                 <div className="absolute bottom-10 left-10 p-8 glass-morphism rounded-3xl border border-white/20 w-[80%]">
                                     <p className="text-2xl font-black text-white uppercase italic tracking-tighter mb-2">"Strategy-First Engineering"</p>
                                     <p className="text-white/70 text-sm font-medium">We deliver software that drives measurable business ROI.</p>
@@ -415,12 +470,12 @@ const SoftwareDevelopmentPage = () => {
                                 whileHover={{ scale: 1.02 }}
                                 className="p-10 rounded-[2.5rem] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/30 flex flex-col items-start shadow-sm"
                             >
-                                <div className="w-12 h-12 rounded-xl bg-emerald-500/10 flex items-center justify-center mb-8 text-emerald-500">
+                                <div className="w-12 h-12 rounded-xl bg-brand-cyan/10 flex items-center justify-center mb-8 text-brand-cyan">
                                     <item.icon className="w-6 h-6" />
                                 </div>
                                 <h4 className="text-2xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-4">{item.type}</h4>
                                 <p className="text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{item.benefit}</p>
-                                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-white/5 w-full flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-emerald-500">
+                                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-white/5 w-full flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-brand-cyan">
                                     Strategic Growth Solution <ArrowRight className="w-3 h-3 ml-2" />
                                 </div>
                             </motion.div>
@@ -430,47 +485,108 @@ const SoftwareDevelopmentPage = () => {
             </section>
 
             {/* 5️⃣ Our Software Development Solutions Overview */}
-            <section className="py-32 px-6 bg-slate-900 dark:bg-black text-white reveal-section">
-                <div className="max-w-7xl mx-auto">
-                    <SectionHeader
-                        badge="Direct Impact"
-                        title="Core Software Solutions Overview"
-                        centered={true}
-                    />
-
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                        {solutions.map((item, i) => (
-                            <div key={i} className="group relative">
+            <section className="py-32 px-6 bg-slate-900 dark:bg-black text-white reveal-section overflow-hidden">
+                <div className="max-w-7xl mx-auto mb-16">
+                    <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+                        <div>
+                            <SectionHeader
+                                badge="Direct Impact"
+                                title="Core Software Solutions"
+                                centered={false}
+                            />
+                        </div>
+                        <div className="flex items-center gap-4 mb-16">
+                            <div className="flex items-center gap-4">
                                 <button
-                                    onClick={() => setExpandedSolution(expandedSolution === i ? null : i)}
-                                    className={`w-full text-left p-8 rounded-3xl border transition-all flex items-start justify-between ${expandedSolution === i ? 'bg-brand-medium border-brand-medium' : 'bg-white/5 border-white/10 hover:border-emerald-500/50'}`}
+                                    onClick={() => { stopTimer(); snapTo(activeIndex - 1); }}
+                                    className="w-14 h-14 rounded-full border border-white/10 bg-white/5 hover:bg-brand-cyan hover:text-brand-deep flex items-center justify-center transition-all group"
                                 >
-                                    <div>
-                                        <h4 className="text-lg font-black uppercase tracking-tight mb-2">{item.title}</h4>
-                                        <div className="text-[10px] font-black uppercase tracking-widest text-emerald-500 mb-0">Business Outcome:</div>
-                                        <p className="text-sm font-bold opacity-80">{item.outcome}</p>
-                                    </div>
-                                    <div className={`mt-1 shrink-0 transition-transform ${expandedSolution === i ? 'rotate-180' : ''}`}>
-                                        <ChevronRight className="w-5 h-5" />
-                                    </div>
+                                    <ChevronLeft className="w-6 h-6 group-hover:scale-110 transition-transform" />
                                 </button>
-                                <AnimatePresence>
-                                    {expandedSolution === i && (
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: 'auto', opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            className="overflow-hidden"
-                                        >
-                                            <div className="p-8 pt-0 bg-white/5 rounded-b-3xl border-x border-b border-white/10 text-white/70 text-sm leading-relaxed font-medium">
-                                                {item.desc}
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
+                                <div className="flex flex-col items-center">
+                                    <span className="text-2xl font-black text-brand-cyan tabular-nums leading-none">
+                                        {String(activeIndex + 1).padStart(2, '0')}
+                                    </span>
+                                    <span className="text-[10px] font-bold opacity-30 uppercase tracking-widest mt-1">
+                                        / {String(solutions.length).padStart(2, '0')}
+                                    </span>
+                                </div>
+                                <button
+                                    onClick={() => { stopTimer(); snapTo(activeIndex + 1); }}
+                                    className="w-14 h-14 rounded-full border border-white/10 bg-white/5 hover:bg-brand-cyan hover:text-brand-deep flex items-center justify-center transition-all group"
+                                >
+                                    <ChevronRight className="w-6 h-6 group-hover:scale-110 transition-transform" />
+                                </button>
                             </div>
-                        ))}
+                        </div>
                     </div>
+                </div>
+
+                <div className="relative cursor-grab active:cursor-grabbing">
+                    <motion.div
+                        drag="x"
+                        dragConstraints={{ left: -((solutions.length - 1) * CARD_STEP), right: 0 }}
+                        onDragStart={() => { setIsDragging(true); stopTimer(); }}
+                        onDragEnd={handleDragEnd}
+                        style={{ x }}
+                        className="flex gap-6 px-[max(1.5rem,calc((100vw-80rem)/2))]"
+                    >
+                        {solutions.map((item, i) => (
+                            <motion.div
+                                key={i}
+                                animate={{
+                                    opacity: Math.abs(i - activeIndex) > 2 ? 0.3 : 1,
+                                    scale: i === activeIndex ? 1 : 0.95
+                                }}
+                                className="shrink-0 group relative"
+                                style={{ width: `${CARD_WIDTH}px` }}
+                            >
+                                <div
+                                    className={`relative p-8 rounded-[2.5rem] border transition-all h-[400px] flex flex-col justify-between overflow-hidden ${activeIndex === i ? 'bg-brand-deep/20 border-brand-cyan/50 shadow-2xl shadow-brand-cyan/10' : 'bg-white/5 border-white/10'}`}
+                                >
+                                    {/* Abstract background element */}
+                                    <div className={`absolute top-0 right-0 w-32 h-32 bg-brand-cyan/10 blur-3xl rounded-full -mr-16 -mt-16 transition-transform duration-700 ${activeIndex === i ? 'scale-150' : 'scale-100'}`} />
+
+                                    <div>
+                                        <div className="flex items-center justify-between mb-8">
+                                            <div className="w-12 h-12 rounded-2xl bg-brand-cyan/10 flex items-center justify-center">
+                                                <div className="w-2 h-2 rounded-full bg-brand-cyan animate-pulse" />
+                                            </div>
+                                            <span className="text-[10px] font-black uppercase tracking-[0.3em] text-white/20">0{i + 1}</span>
+                                        </div>
+                                        <h4 className="text-2xl font-black uppercase tracking-tighter mb-4 leading-tight">{item.title}</h4>
+                                        <p className="text-sm text-white/60 leading-relaxed font-medium mb-6">
+                                            {item.desc}
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-auto">
+                                        <div className="pt-6 border-t border-white/10">
+                                            <div className="text-[10px] font-black uppercase tracking-widest text-brand-cyan mb-2">Primary Outcome</div>
+                                            <div className="flex items-center justify-between">
+                                                <p className="text-lg font-black uppercase tracking-tight">{item.outcome}</p>
+                                                <div className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center group-hover:bg-brand-cyan group-hover:text-brand-deep transition-all">
+                                                    <ArrowRight className="w-4 h-4" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        ))}
+                    </motion.div>
+                </div>
+
+                {/* Progress Indicators */}
+                <div className="flex justify-center gap-3 mt-16">
+                    {solutions.map((_, i) => (
+                        <button
+                            key={i}
+                            onClick={() => { stopTimer(); snapTo(i); }}
+                            className={`h-1.5 transition-all duration-500 rounded-full ${i === activeIndex ? 'w-12 bg-brand-cyan shadow-lg shadow-brand-cyan/20' : 'w-3 bg-white/10 hover:bg-white/30'}`}
+                            aria-label={`Go to slide ${i + 1}`}
+                        />
+                    ))}
                 </div>
             </section>
 
@@ -490,15 +606,15 @@ const SoftwareDevelopmentPage = () => {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-8 relative z-10">
                         {steps.map((step, i) => (
                             <div key={i} className="flex flex-col items-center">
-                                <div className="w-16 h-16 rounded-full bg-white dark:bg-slate-900 border-4 border-emerald-500 flex items-center justify-center mb-8 relative">
-                                    <span className="text-xl font-black text-emerald-500">{i + 1}</span>
+                                <div className="w-16 h-16 rounded-full bg-white dark:bg-slate-900 border-4 border-brand-cyan flex items-center justify-center mb-8 relative">
+                                    <span className="text-xl font-black text-brand-cyan">{i + 1}</span>
                                     {/* Animated pulse for current step (simulated) */}
-                                    {i === 0 && <span className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-20" />}
+                                    {i === 0 && <span className="absolute inset-0 rounded-full bg-brand-cyan animate-ping opacity-20" />}
                                 </div>
                                 <div className="text-center">
                                     <h4 className="text-xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-2">{step.name}</h4>
                                     <p className="text-xs text-slate-500 dark:text-slate-400 font-medium mb-4">{step.desc}</p>
-                                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 text-[9px] font-black uppercase tracking-widest text-emerald-500">
+                                    <div className="p-3 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 text-[9px] font-black uppercase tracking-widest text-brand-cyan">
                                         Deliverable: {step.deliverables}
                                     </div>
                                 </div>
@@ -509,37 +625,82 @@ const SoftwareDevelopmentPage = () => {
             </section>
 
             {/* 7️⃣ Technology Stack & Architecture */}
-            <section className="py-32 px-6 bg-[#020617] text-white reveal-section">
-                <div className="max-w-7xl mx-auto">
-                    <SectionHeader
-                        badge="The Engine Room"
-                        title="Architecture & Tech Stack"
-                        subtitle="We use industry-leading technologies to build resilient, ultra-fast platforms."
-                    />
+            <section className="py-40 px-6 bg-[#020617] text-white reveal-section relative overflow-hidden">
+                {/* Background Grid & Glows */}
+                <div className="absolute inset-0 z-0 pointer-events-none opacity-20">
+                    <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-brand-cyan/20 blur-[150px] rounded-full" />
+                    <div className="absolute bottom-0 right-1/4 w-[500px] h-[500px] bg-brand-medium/20 blur-[150px] rounded-full" />
+                    <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:40px_40px]" />
+                </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-8">
+                <div className="max-w-7xl mx-auto relative z-10">
+                    <div className="text-center mb-20">
+                        <motion.span
+                            initial={{ opacity: 0, y: 10 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            className="text-brand-cyan text-[10px] font-black uppercase tracking-[0.5em] mb-4 block"
+                        >
+                            The Engine Room
+                        </motion.span>
+                        <h2 className="text-6xl md:text-9xl font-black uppercase tracking-tighter leading-none mb-8 opacity-10 absolute left-1/2 -translate-x-1/2 top-20 w-full select-none">
+                            Architecture
+                        </h2>
+                        <h2 className="text-4xl md:text-7xl font-black uppercase tracking-tight text-white relative z-10">
+                            Powering <span className="text-brand-cyan">Performance.</span>
+                        </h2>
+                        <p className="mt-6 text-white/50 text-lg max-w-2xl mx-auto font-medium">
+                            We use industry-leading technologies to build resilient, ultra-fast platforms tailored for enterprise scale.
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4">
                         {Object.entries(techStack).map(([category, techs], i) => (
-                            <div key={i} className="p-8 rounded-[2.5rem] bg-white/5 border border-white/10">
-                                <h4 className="text-sm font-black uppercase tracking-widest text-emerald-500 mb-8 pb-4 border-b border-white/10">{category}</h4>
-                                <ul className="space-y-4">
+                            <motion.div
+                                key={i}
+                                initial={{ opacity: 0, y: 20 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                transition={{ delay: i * 0.1 }}
+                                whileHover={{ y: -5 }}
+                                className="p-8 rounded-[2rem] bg-white/[0.03] border border-white/10 hover:border-brand-cyan/30 transition-all group backdrop-blur-sm"
+                            >
+                                <div className="flex items-center justify-between mb-8 pb-4 border-b border-white/5">
+                                    <h4 className="text-[10px] font-black uppercase tracking-[0.3em] text-brand-cyan">{category}</h4>
+                                    <div className="w-1.5 h-1.5 rounded-full bg-brand-cyan/50" />
+                                </div>
+                                <ul className="space-y-5">
                                     {techs.map((tech, j) => (
-                                        <li key={j} className="flex items-center gap-3 text-lg font-bold group">
-                                            <CheckCircle2 className="w-5 h-5 text-emerald-500/50 group-hover:text-emerald-500 transition-colors" />
-                                            {tech}
+                                        <li key={j} className="flex items-center gap-3 text-base font-bold group/item">
+                                            <div className="w-5 h-5 rounded-full border border-brand-cyan/30 flex items-center justify-center group-hover/item:border-brand-cyan transition-colors">
+                                                <div className="w-1.5 h-1.5 rounded-full bg-brand-cyan opacity-40 group-hover/item:opacity-100" />
+                                            </div>
+                                            <span className="text-white/80 group-hover/item:text-white transition-colors">{tech}</span>
                                         </li>
                                     ))}
                                 </ul>
-                            </div>
+                            </motion.div>
                         ))}
                     </div>
 
-                    <div className="mt-20 p-12 rounded-[3rem] bg-brand-medium/10 border border-brand-medium/20 text-center">
-                        <div className="flex flex-wrap justify-center gap-12 text-center opacity-60">
-                            <span className="text-3xl font-black tracking-tighter uppercase grayscale hover:grayscale-0 transition-all cursor-default">Docker</span>
-                            <span className="text-3xl font-black tracking-tighter uppercase grayscale hover:grayscale-0 transition-all cursor-default">Kubernetes</span>
-                            <span className="text-3xl font-black tracking-tighter uppercase grayscale hover:grayscale-0 transition-all cursor-default">Redis</span>
-                            <span className="text-3xl font-black tracking-tighter uppercase grayscale hover:grayscale-0 transition-all cursor-default">AWS Lambda</span>
-                            <span className="text-3xl font-black tracking-tighter uppercase grayscale hover:grayscale-0 transition-all cursor-default">GraphQL</span>
+                    {/* Infinite Marquee */}
+                    <div className="mt-32 relative group">
+                        <div className="absolute inset-y-0 left-0 w-40 bg-gradient-to-r from-[#020617] to-transparent z-10" />
+                        <div className="absolute inset-y-0 right-0 w-40 bg-gradient-to-l from-[#020617] to-transparent z-10" />
+
+                        <div className="flex overflow-hidden py-10 rounded-full bg-white/[0.02] border border-white/5">
+                            <motion.div
+                                animate={{ x: [0, -1000] }}
+                                transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
+                                className="flex flex-nowrap gap-20 items-center justify-around min-w-full shrink-0"
+                            >
+                                {marqueeTechs.concat(marqueeTechs).map((tech, i) => (
+                                    <span
+                                        key={i}
+                                        className="text-2xl md:text-4xl font-black tracking-tighter uppercase text-white/20 hover:text-brand-cyan transition-colors cursor-default whitespace-nowrap"
+                                    >
+                                        {tech}
+                                    </span>
+                                ))}
+                            </motion.div>
                         </div>
                     </div>
                 </div>
@@ -577,8 +738,8 @@ const SoftwareDevelopmentPage = () => {
                                         </div>
                                     </div>
 
-                                    <div className="mt-8 p-5 rounded-2xl bg-emerald-500/10 border border-emerald-500/20">
-                                        <p className="text-[10px] font-black uppercase text-emerald-500 mb-1">Measurable Result</p>
+                                    <div className="mt-8 p-5 rounded-2xl bg-brand-cyan/10 border border-brand-cyan/20">
+                                        <p className="text-[10px] font-black uppercase text-brand-cyan mb-1">Measurable Result</p>
                                         <p className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-tight">{caseStudy.result}</p>
                                     </div>
                                 </div>
@@ -652,7 +813,7 @@ const SoftwareDevelopmentPage = () => {
 
                     <h2 className="text-5xl md:text-8xl font-black uppercase tracking-tighter leading-[0.85] mb-12">
                         Future-Proof Your Business with <br />
-                        <span className="text-emerald-500 italic">Sustainable Tech</span>
+                        <span className="text-brand-cyan italic">Scalable Software</span>
                     </h2>
 
                     <p className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-16 leading-relaxed">
@@ -660,10 +821,10 @@ const SoftwareDevelopmentPage = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                        <button className="w-full sm:w-auto px-12 py-6 bg-emerald-500 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-slate-900 transition-all shadow-xl shadow-emerald-500/20">
+                        <button className="w-full sm:w-auto px-12 py-6 bg-brand-cyan text-brand-deep rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-white transition-all shadow-xl shadow-brand-cyan/20">
                             Start Your Software Project
                         </button>
-                        <button className="w-full sm:w-auto px-12 py-6 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-emerald-500 transition-all">
+                        <button className="w-full sm:w-auto px-12 py-6 bg-white/5 border border-white/20 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-white/10 transition-all">
                             Talk to Our Experts
                         </button>
                     </div>
