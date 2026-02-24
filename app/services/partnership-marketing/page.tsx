@@ -43,7 +43,7 @@ export default function PartnershipMarketing() {
     // Initial theme setup and mount check
     useEffect(() => {
         setMounted(true);
-        const isDark = document.documentElement.classList.contains('dark');
+        const isDark = false;
         setIsDarkMode(isDark);
     }, []);
 
@@ -51,9 +51,9 @@ export default function PartnershipMarketing() {
         const newMode = !isDarkMode;
         setIsDarkMode(newMode);
         if (newMode) {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
         }
     };
 

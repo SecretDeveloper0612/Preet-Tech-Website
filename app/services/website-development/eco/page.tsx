@@ -161,16 +161,16 @@ export default function EcoWebsiteDevelopment() {
 
     // Initial theme setup
     useEffect(() => {
-        const isDark = document.documentElement.classList.contains('dark');
+        const isDark = false;
         setIsDarkMode(isDark);
     }, []);
 
     const toggleTheme = () => {
         setIsDarkMode(!isDarkMode);
         if (!isDarkMode) {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
         }
     };
 

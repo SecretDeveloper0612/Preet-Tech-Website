@@ -209,7 +209,7 @@ export default function ToolsMarketplace() {
     useEffect(() => {
         const storedTheme = localStorage.getItem('theme');
         if (storedTheme === 'dark') {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
             setIsDarkMode(true);
         }
     }, []);
@@ -218,10 +218,10 @@ export default function ToolsMarketplace() {
         const next = !isDarkMode;
         setIsDarkMode(next);
         if (next) {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
             localStorage.setItem('theme', 'dark');
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
             localStorage.setItem('theme', 'light');
         }
     };

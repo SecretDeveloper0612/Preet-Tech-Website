@@ -1,8 +1,9 @@
 
-import React, { useRef, useMemo, memo, Suspense } from 'react';
+import React, { useRef, useMemo, memo, Suspense, useState, useEffect } from 'react';
 import { Canvas, useFrame } from '@react-three/fiber';
 import { Float, Preload, Points, PointMaterial, MeshDistortMaterial } from '@react-three/drei';
 import * as THREE from 'three';
+import { useTheme } from 'next-themes';
 
 const NeuralCore = memo(() => {
   const coreRef = useRef<THREE.Mesh>(null!);
@@ -131,10 +132,20 @@ const NeuralParticles = memo(({ count = 1500, isDark }: { count?: number; isDark
 });
 
 interface ThreeSphereProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-const ThreeSphereScene: React.FC<ThreeSphereProps> = ({ isDark }) => {
+const ThreeSphereScene: React.FC<ThreeSphereProps> = ({ isDark: _ignoredIsDark }) => {
+  const { theme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const isDark = mounted ? currentTheme === 'dark' : false;
+
   return (
     <div className="absolute inset-0 z-0 pointer-events-none">
       <Canvas

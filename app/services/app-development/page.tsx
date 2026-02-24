@@ -137,14 +137,14 @@ export default function AppDevelopmentPage() {
     useEffect(() => {
         setMounted(true);
         const stored = localStorage.getItem('theme');
-        if (stored === 'dark') { document.documentElement.classList.add('dark'); setIsDarkMode(true); }
-        else { document.documentElement.classList.remove('dark'); setIsDarkMode(false); }
+        if (stored === 'dark') { /* handled by next-themes */ setIsDarkMode(true); }
+        else { /* handled by next-themes */ setIsDarkMode(false); }
     }, []);
 
     const toggleTheme = () => {
         const next = !isDarkMode; setIsDarkMode(next);
-        if (next) { document.documentElement.classList.add('dark'); localStorage.setItem('theme', 'dark'); }
-        else { document.documentElement.classList.remove('dark'); localStorage.setItem('theme', 'light'); }
+        if (next) { /* handled by next-themes */ localStorage.setItem('theme', 'dark'); }
+        else { /* handled by next-themes */ localStorage.setItem('theme', 'light'); }
     };
 
     useGSAP(() => {

@@ -35,19 +35,11 @@ const ReadyToPartner: React.FC = () => {
                     </p>
 
                     {/* CTA Buttons */}
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-4 md:gap-6 mb-12 md:mb-16">
+                    <div className="flex items-center justify-center mb-12 md:mb-16">
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 rounded-full bg-brand-medium text-white font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 shadow-xl hover:shadow-brand-medium/20 transition-all"
-                        >
-                            Apply Now <ArrowRight className="w-5 h-5" />
-                        </motion.button>
-
-                        <motion.button
-                            whileHover={{ scale: 1.05, backgroundColor: "rgba(var(--foreground), 0.05)" }}
-                            whileTap={{ scale: 0.95 }}
-                            className="w-full sm:w-auto px-8 md:px-10 py-4 md:py-5 rounded-full border-2 border-slate-200 dark:border-slate-700 text-foreground font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 transition-colors backdrop-blur-sm"
+                            className="w-full sm:w-auto px-8 md:px-12 py-4 md:py-5 rounded-full bg-brand-medium text-white font-black uppercase tracking-widest text-xs flex items-center justify-center gap-3 shadow-xl hover:shadow-brand-medium/20 transition-all"
                         >
                             <Calendar className="w-5 h-5" /> Book Strategy Call
                         </motion.button>

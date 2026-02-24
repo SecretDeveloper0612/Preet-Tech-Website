@@ -157,16 +157,16 @@ export default function ServicesPage() {
 
     useEffect(() => {
         // Ensure default light mode for this page
-        document.documentElement.classList.remove('dark');
+        /* handled by next-themes */
     }, []);
 
     const toggleTheme = () => {
         const newTheme = theme === 'dark' ? 'light' : 'dark';
         setTheme(newTheme);
         if (newTheme === 'dark') {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
         }
     };
 

@@ -57,9 +57,9 @@ export default function AboutPage() {
         const newTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
         setTheme(newTheme);
         if (newTheme === Theme.DARK) {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
         }
     };
 
@@ -463,26 +463,31 @@ export default function AboutPage() {
                                 Why Choose <br /> <span className="text-brand-medium">Preet Tech?</span>
                             </h2>
 
-                            <div className="space-y-6">
+                            <div className="space-y-4">
                                 {[
-                                    { title: "Future-ready technology", desc: "We utilize the latest tech stacks to ensure your products remain relevant for years." },
-                                    { title: "Scalable architecture", desc: "Systems designed to handle traffic spikes and grow as your business expands." },
-                                    { title: "Performance-focused solutions", desc: "Optimizing every line of code for sub-second load times and high efficiency." },
-                                    { title: "Client-centric approach", desc: "Your goals are our primary KPI. We work as an extension of your own team." },
-                                    { title: "Transparent communication", desc: "No jargon, no hidden fees—just honest architecture and clear progress updates." }
+                                    { title: "Future-ready technology", desc: "We utilize the latest tech stacks to ensure your products remain relevant for years.", icon: Rocket },
+                                    { title: "Scalable architecture", desc: "Systems designed to handle traffic spikes and grow as your business expands.", icon: Cloud },
+                                    { title: "Performance-focused solutions", desc: "Optimizing every line of code for sub-second load times and high efficiency.", icon: Zap },
+                                    { title: "Client-centric approach", desc: "Your goals are our primary KPI. We work as an extension of your own team.", icon: Users },
+                                    { title: "Transparent communication", desc: "No jargon, no hidden fees—just honest architecture and clear progress updates.", icon: MessageSquare }
                                 ].map((item, i) => (
                                     <motion.div
                                         key={i}
-                                        whileHover={{ x: 10 }}
-                                        className="flex gap-5 items-start group"
+                                        whileHover={{ x: 10, scale: 1.02 }}
+                                        className="relative p-5 rounded-2xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 transition-all duration-300 group overflow-hidden shadow-sm hover:shadow-lg"
                                     >
-                                        <div className="mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-brand-medium/10 border border-brand-medium/20 flex items-center justify-center group-hover:bg-brand-medium group-hover:text-black transition-all">
-                                            <CheckCircle2 className="w-3.5 h-3.5" />
+                                        <div className="absolute top-0 left-0 w-1.5 h-full bg-brand-medium scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom duration-300" />
+                                        <div className="flex gap-5 items-start relative z-10">
+                                            <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 flex items-center justify-center group-hover:bg-brand-medium group-hover:border-brand-medium transition-all duration-500 shadow-sm">
+                                                <item.icon className="w-6 h-6 text-brand-medium group-hover:text-black transition-colors" />
+                                            </div>
+                                            <div>
+                                                <h4 className="text-lg font-black uppercase tracking-tighter mb-1 text-foreground transition-colors group-hover:text-brand-medium">{item.title}</h4>
+                                                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{item.desc}</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <h4 className="text-lg font-black uppercase tracking-tighter mb-1 text-foreground">{item.title}</h4>
-                                            <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{item.desc}</p>
-                                        </div>
+                                        {/* Subtle background glow on hover */}
+                                        <div className="absolute right-0 top-1/2 -translate-y-1/2 w-32 h-32 bg-brand-medium/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
                                     </motion.div>
                                 ))}
                             </div>
@@ -493,23 +498,19 @@ export default function AboutPage() {
                                 initial={{ opacity: 0, scale: 0.8 }}
                                 whileInView={{ opacity: 1, scale: 1 }}
                                 viewport={{ once: true }}
-                                className="relative rounded-[3rem] border border-slate-200 dark:border-white/10 p-10 bg-white dark:bg-[#0b0f1a] overflow-hidden"
+                                className="relative rounded-[3rem] border border-slate-200 dark:border-white/10 p-2 sm:p-4 bg-white dark:bg-[#0b0f1a] overflow-hidden"
                             >
-                                <div className="absolute top-0 right-0 p-8">
-                                    <Sparkles className="w-10 h-10 text-brand-medium" />
-                                </div>
-                                <h3 className="text-3xl font-black uppercase tracking-tighter mb-6 leading-none">Built for <br /> <span className="text-brand-medium">Conversion.</span></h3>
-                                <p className="text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-8">
-                                    Our solutions are engineered to convert visitors into loyal customers by reducing friction and building trust through premium digital aesthetics.
-                                </p>
-                                <div className="grid grid-cols-2 gap-8 pt-8 border-t border-slate-200 dark:border-white/10">
-                                    <div>
-                                        <p className="text-3xl font-black text-foreground">2.4x</p>
-                                        <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500">Avg Performance Lift</p>
-                                    </div>
-                                    <div>
-                                        <p className="text-3xl font-black text-brand-medium">100%</p>
-                                        <p className="text-[9px] font-bold uppercase tracking-widest text-slate-500">Ownership of Code</p>
+                                <div className="relative z-10 h-full w-full">
+                                    {/* Embedded Autoplay Video Player */}
+                                    <div className="relative w-full aspect-square md:aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg group bg-slate-100 dark:bg-slate-900">
+                                        <div className="absolute inset-0 bg-brand-medium/5 pointer-events-none z-10 mix-blend-overlay" />
+                                        <iframe
+                                            className="w-full h-[150%] absolute top-1/2 left-0 -translate-y-1/2 scale-[1.05] pointer-events-none"
+                                            src="https://www.youtube.com/embed/2jmiNO3jwrA?autoplay=1&mute=1&loop=1&playlist=2jmiNO3jwrA&controls=0&modestbranding=1&rel=0&playsinline=1&showinfo=0"
+                                            title="Autoplay Video"
+                                            frameBorder="0"
+                                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        ></iframe>
                                     </div>
                                 </div>
                             </motion.div>

@@ -2,13 +2,24 @@ import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X, ArrowUpRight, Sun, Moon, Globe, Smartphone, Palette, Share2, TrendingUp, ChevronRight, ChevronLeft, Target, Rocket, Cpu, Zap, Shield } from 'lucide-react';
 import Link from 'next/link';
+import { useTheme } from 'next-themes';
 
 interface NavbarProps {
-  isDark: boolean;
-  toggleTheme: () => void;
+  isDark?: boolean;
+  toggleTheme?: () => void;
 }
 
-const Navbar: React.FC<NavbarProps> = ({ isDark, toggleTheme }) => {
+const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme }) => {
+  const { theme, setTheme, systemTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const currentTheme = theme === 'system' ? systemTheme : theme;
+  const isDark = mounted ? currentTheme === 'dark' : false;
+  const toggleTheme = () => setTheme(currentTheme === 'dark' ? 'light' : 'dark');
   const [isScrolled, setIsScrolled] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [showMegaMenu, setShowMegaMenu] = useState(false);

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Plus_Jakarta_Sans, Outfit, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "./client-layout"; // Separate client logic like Lenis
+import { ThemeProvider } from "../components/theme-provider";
 
 const jakarta = Plus_Jakarta_Sans({
     subsets: ["latin"],
@@ -32,11 +33,13 @@ export default function RootLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${jetbrains.variable}`}>
+        <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${jetbrains.variable}`} suppressHydrationWarning>
             <body className="antialiased font-sans bg-background text-foreground selection:bg-brand-medium/30 transition-colors duration-300" suppressHydrationWarning>
-                <ClientLayout>
-                    {children}
-                </ClientLayout>
+                <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+                    <ClientLayout>
+                        {children}
+                    </ClientLayout>
+                </ThemeProvider>
             </body>
         </html>
     );

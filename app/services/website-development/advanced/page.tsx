@@ -33,10 +33,10 @@ export default function AdvancedWebsiteDevelopment() {
         setMounted(true);
         const storedTheme = localStorage.getItem('theme');
         if (storedTheme === 'dark') {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
             setIsDarkMode(true);
         } else if (storedTheme === 'light') {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
             setIsDarkMode(false);
         }
     }, []);
@@ -45,10 +45,10 @@ export default function AdvancedWebsiteDevelopment() {
         const next = !isDarkMode;
         setIsDarkMode(next);
         if (next) {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
             localStorage.setItem('theme', 'dark');
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
             localStorage.setItem('theme', 'light');
         }
     };

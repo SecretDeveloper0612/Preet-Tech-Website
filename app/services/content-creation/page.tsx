@@ -33,10 +33,10 @@ export default function ContentCreation() {
         setMounted(true);
         const stored = localStorage.getItem('theme');
         if (stored === 'dark') {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
             setIsDarkMode(true);
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
             setIsDarkMode(false);
         }
     }, []);
@@ -45,10 +45,10 @@ export default function ContentCreation() {
         const next = !isDarkMode;
         setIsDarkMode(next);
         if (next) {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
             localStorage.setItem('theme', 'dark');
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
             localStorage.setItem('theme', 'light');
         }
     };

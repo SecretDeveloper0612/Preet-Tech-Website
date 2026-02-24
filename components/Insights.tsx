@@ -140,8 +140,8 @@ const Insights: React.FC = () => {
                             <span className="text-[10px] md:text-xs font-bold text-brand-medium uppercase tracking-[0.2em]">Knowledge Base</span>
                         </div>
                         <h2 className="text-2xl md:text-4xl lg:text-5xl font-black text-foreground mb-6 leading-[1.1] md:leading-tight uppercase tracking-tighter">
-                            Insights for the <br className="hidden sm:block" />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan">Digital Frontier.</span>
+                            <br className="hidden sm:block" />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan">Case Studies.</span>
                         </h2>
                     </div>
 
@@ -169,9 +169,7 @@ const Insights: React.FC = () => {
 
             {/* Infinite Slider Container */}
             <div className="relative w-full overflow-hidden pb-12">
-                {/* Side Fade Gradients */}
-                <div className="absolute left-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-r from-slate-50 dark:from-[#080c14] to-transparent z-20 pointer-events-none" />
-                <div className="absolute right-0 top-0 bottom-0 w-16 md:w-32 bg-gradient-to-l from-slate-50 dark:from-[#080c14] to-transparent z-20 pointer-events-none" />
+
 
                 <div
                     ref={scrollContainerRef}
@@ -232,7 +230,7 @@ const Insights: React.FC = () => {
                 </div>
             </div>
 
-            <div className="mt-8 text-center md:hidden">
+            <div className="mt-8 flex justify-center w-full">
                 <button className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-foreground text-background text-[10px] font-black uppercase tracking-[0.2em] hover:bg-brand-medium hover:text-white transition-all">
                     Enter Archives
                     <ArrowRight className="w-4 h-4" />

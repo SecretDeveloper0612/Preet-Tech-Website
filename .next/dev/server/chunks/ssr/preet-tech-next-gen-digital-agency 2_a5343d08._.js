@@ -28,12 +28,22 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/zap.js [app-ssr] (ecmascript) <export default as Zap>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$shield$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Shield$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/shield.js [app-ssr] (ecmascript) <export default as Shield>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/next-themes/dist/index.mjs [app-ssr] (ecmascript)");
 ;
 ;
 ;
 ;
 ;
-const Navbar = ({ isDark, toggleTheme })=>{
+;
+const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
+    const { theme, setTheme, systemTheme } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useTheme"])();
+    const [mounted, setMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        setMounted(true);
+    }, []);
+    const currentTheme = theme === 'system' ? systemTheme : theme;
+    const isDark = mounted ? currentTheme === 'dark' : false;
+    const toggleTheme = ()=>setTheme(currentTheme === 'dark' ? 'light' : 'dark');
     const [isScrolled, setIsScrolled] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [isOpen, setIsOpen] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
     const [showMegaMenu, setShowMegaMenu] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
@@ -195,12 +205,12 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                 className: `h-10 md:h-12 w-auto object-contain transition-all duration-500 group-hover:scale-105`
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                lineNumber: 91,
+                                lineNumber: 102,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                            lineNumber: 90,
+                            lineNumber: 101,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -215,7 +225,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                             children: link.name
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 106,
+                                            lineNumber: 117,
                                             columnNumber: 17
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         link.hasMegaMenu && showMegaMenu && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -223,18 +233,18 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                             className: "absolute bottom-0 left-0 w-full h-0.5 bg-brand-medium"
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 113,
+                                            lineNumber: 124,
                                             columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, link.name, true, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                    lineNumber: 101,
+                                    lineNumber: 112,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)))
                         }, void 0, false, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                            lineNumber: 99,
+                            lineNumber: 110,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -248,18 +258,18 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                         className: "w-4 h-4 md:w-5 md:h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                        lineNumber: 129,
+                                        lineNumber: 140,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$moon$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Moon$3e$__["Moon"], {
                                         className: "w-4 h-4 md:w-5 md:h-5"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                        lineNumber: 129,
+                                        lineNumber: 140,
                                         columnNumber: 69
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                    lineNumber: 121,
+                                    lineNumber: 132,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -271,13 +281,13 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                             className: "w-3 h-3"
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 133,
+                                            lineNumber: 144,
                                             columnNumber: 23
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                    lineNumber: 132,
+                                    lineNumber: 143,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -287,35 +297,35 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                         className: "w-6 h-6"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                        lineNumber: 143,
+                                        lineNumber: 154,
                                         columnNumber: 25
                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$menu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Menu$3e$__["Menu"], {
                                         className: "w-6 h-6"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                        lineNumber: 143,
+                                        lineNumber: 154,
                                         columnNumber: 53
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                    lineNumber: 136,
+                                    lineNumber: 147,
                                     columnNumber: 13
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                            lineNumber: 120,
+                            lineNumber: 131,
                             columnNumber: 11
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, void 0, true, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                    lineNumber: 83,
+                    lineNumber: 94,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                lineNumber: 82,
+                lineNumber: 93,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -354,7 +364,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                     children: "Capabilities"
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 165,
+                                                    lineNumber: 176,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 Object.keys(megaMenuContent).map((tab)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -369,26 +379,26 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                 children: tab
                                                             }, void 0, false, {
                                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                lineNumber: 175,
+                                                                lineNumber: 186,
                                                                 columnNumber: 25
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                                                 className: `w-4 h-4 transition-all ${activeTab === tab ? 'opacity-100' : 'opacity-0 -translate-x-2'}`
                                                             }, void 0, false, {
                                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                lineNumber: 176,
+                                                                lineNumber: 187,
                                                                 columnNumber: 25
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, tab, true, {
                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                        lineNumber: 167,
+                                                        lineNumber: 178,
                                                         columnNumber: 23
                                                     }, ("TURBOPACK compile-time value", void 0)))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 164,
+                                            lineNumber: 175,
                                             columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -399,7 +409,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                     children: "Next Step"
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 181,
+                                                    lineNumber: 192,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -407,7 +417,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                     children: "Ready for a Strategic Audit?"
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 182,
+                                                    lineNumber: 193,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -418,25 +428,25 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                             className: "w-3 h-3"
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 184,
+                                                            lineNumber: 195,
                                                             columnNumber: 32
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 183,
+                                                    lineNumber: 194,
                                                     columnNumber: 21
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 180,
+                                            lineNumber: 191,
                                             columnNumber: 19
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                    lineNumber: 163,
+                                    lineNumber: 174,
                                     columnNumber: 17
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -485,7 +495,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     children: hoveredItem.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 203,
+                                                                    lineNumber: 214,
                                                                     columnNumber: 31
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -493,13 +503,13 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     children: hoveredItem.longDesc
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 204,
+                                                                    lineNumber: 215,
                                                                     columnNumber: 31
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, hoveredItem.name, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 202,
+                                                            lineNumber: 213,
                                                             columnNumber: 29
                                                         }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
                                                             initial: {
@@ -520,7 +530,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     children: megaMenuContent[activeTab].title
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 208,
+                                                                    lineNumber: 219,
                                                                     columnNumber: 31
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -528,23 +538,23 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     children: megaMenuContent[activeTab].desc
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 209,
+                                                                    lineNumber: 220,
                                                                     columnNumber: 31
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, megaMenuContent[activeTab].title, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 207,
+                                                            lineNumber: 218,
                                                             columnNumber: 29
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     }, void 0, false, {
                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                        lineNumber: 200,
+                                                        lineNumber: 211,
                                                         columnNumber: 25
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 199,
+                                                    lineNumber: 210,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -561,12 +571,12 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                         className: `w-6 h-6 transition-transform ${hoveredItem?.name === item.name ? 'scale-110' : 'text-brand-medium'}`
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                        lineNumber: 224,
+                                                                        lineNumber: 235,
                                                                         columnNumber: 31
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 223,
+                                                                    lineNumber: 234,
                                                                     columnNumber: 29
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -576,7 +586,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                             children: item.name
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                            lineNumber: 227,
+                                                                            lineNumber: 238,
                                                                             columnNumber: 31
                                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -584,24 +594,24 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                             children: item.detail
                                                                         }, void 0, false, {
                                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                            lineNumber: 228,
+                                                                            lineNumber: 239,
                                                                             columnNumber: 31
                                                                         }, ("TURBOPACK compile-time value", void 0))
                                                                     ]
                                                                 }, void 0, true, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 226,
+                                                                    lineNumber: 237,
                                                                     columnNumber: 29
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, i, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 216,
+                                                            lineNumber: 227,
                                                             columnNumber: 27
                                                         }, ("TURBOPACK compile-time value", void 0)))
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 214,
+                                                    lineNumber: 225,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -614,14 +624,14 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     className: "w-3.5 h-3.5"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 234,
+                                                                    lineNumber: 245,
                                                                     columnNumber: 114
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 "Zero Upfront Friction"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 234,
+                                                            lineNumber: 245,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -631,14 +641,14 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     className: "w-3.5 h-3.5"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 235,
+                                                                    lineNumber: 246,
                                                                     columnNumber: 114
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 "Performance Optimized"
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 235,
+                                                            lineNumber: 246,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -649,56 +659,56 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     className: "w-3.5 h-3.5"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 237,
+                                                                    lineNumber: 248,
                                                                     columnNumber: 46
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 236,
+                                                            lineNumber: 247,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 233,
+                                                    lineNumber: 244,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, activeTab, true, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 191,
+                                            lineNumber: 202,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0))
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                        lineNumber: 190,
+                                        lineNumber: 201,
                                         columnNumber: 19
                                     }, ("TURBOPACK compile-time value", void 0))
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                    lineNumber: 189,
+                                    lineNumber: 200,
                                     columnNumber: 17
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                            lineNumber: 161,
+                            lineNumber: 172,
                             columnNumber: 15
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                        lineNumber: 160,
+                        lineNumber: 171,
                         columnNumber: 13
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                    lineNumber: 152,
+                    lineNumber: 163,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                lineNumber: 150,
+                lineNumber: 161,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$components$2f$AnimatePresence$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AnimatePresence"], {
@@ -724,20 +734,20 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                     className: "absolute top-0 right-[-10%] w-[600px] h-[600px] bg-brand-medium/30 rounded-full blur-[120px]"
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                    lineNumber: 260,
+                                    lineNumber: 271,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0)),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-brand-cyan/20 rounded-full blur-[100px]"
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                    lineNumber: 261,
+                                    lineNumber: 272,
                                     columnNumber: 15
                                 }, ("TURBOPACK compile-time value", void 0))
                             ]
                         }, void 0, true, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                            lineNumber: 259,
+                            lineNumber: 270,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0)),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -767,20 +777,20 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                     children: "Navigation"
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 275,
+                                                    lineNumber: 286,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                     className: "h-0.5 w-12 bg-brand-medium"
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 276,
+                                                    lineNumber: 287,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 274,
+                                            lineNumber: 285,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -809,20 +819,20 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                         children: link.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                        lineNumber: 290,
+                                                                        lineNumber: 301,
                                                                         columnNumber: 33
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                                                         className: "w-6 h-6 text-brand-medium"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                        lineNumber: 291,
+                                                                        lineNumber: 302,
                                                                         columnNumber: 33
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                lineNumber: 289,
+                                                                lineNumber: 300,
                                                                 columnNumber: 31
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -830,13 +840,13 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                 children: link.desc
                                                             }, void 0, false, {
                                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                lineNumber: 293,
+                                                                lineNumber: 304,
                                                                 columnNumber: 31
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                        lineNumber: 288,
+                                                        lineNumber: 299,
                                                         columnNumber: 29
                                                     }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                                         href: link.href,
@@ -851,20 +861,20 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                         children: link.name
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                        lineNumber: 298,
+                                                                        lineNumber: 309,
                                                                         columnNumber: 33
                                                                     }, ("TURBOPACK compile-time value", void 0)),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$up$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowUpRight$3e$__["ArrowUpRight"], {
                                                                         className: "w-6 h-6 text-slate-200 dark:text-white/10 group-hover:text-brand-medium transition-colors"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                        lineNumber: 299,
+                                                                        lineNumber: 310,
                                                                         columnNumber: 33
                                                                     }, ("TURBOPACK compile-time value", void 0))
                                                                 ]
                                                             }, void 0, true, {
                                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                lineNumber: 297,
+                                                                lineNumber: 308,
                                                                 columnNumber: 31
                                                             }, ("TURBOPACK compile-time value", void 0)),
                                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -872,23 +882,23 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                 children: link.desc
                                                             }, void 0, false, {
                                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                lineNumber: 301,
+                                                                lineNumber: 312,
                                                                 columnNumber: 31
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                        lineNumber: 296,
+                                                        lineNumber: 307,
                                                         columnNumber: 29
                                                     }, ("TURBOPACK compile-time value", void 0))
                                                 }, link.name, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 281,
+                                                    lineNumber: 292,
                                                     columnNumber: 25
                                                 }, ("TURBOPACK compile-time value", void 0)))
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 279,
+                                            lineNumber: 290,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -901,7 +911,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                             children: "Pulse"
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 310,
+                                                            lineNumber: 321,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -911,7 +921,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     className: "w-2 h-2 rounded-full bg-emerald-500 animate-pulse"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 312,
+                                                                    lineNumber: 323,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -919,19 +929,19 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     children: "Active"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 313,
+                                                                    lineNumber: 324,
                                                                     columnNumber: 27
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 311,
+                                                            lineNumber: 322,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 309,
+                                                    lineNumber: 320,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -942,7 +952,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                             children: "Connect"
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 317,
+                                                            lineNumber: 328,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -950,25 +960,25 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                             children: "Mail Us"
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 318,
+                                                            lineNumber: 329,
                                                             columnNumber: 25
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 316,
+                                                    lineNumber: 327,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0))
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 308,
+                                            lineNumber: 319,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, "mobile-main", true, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                    lineNumber: 267,
+                                    lineNumber: 278,
                                     columnNumber: 19
                                 }, ("TURBOPACK compile-time value", void 0)) : /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
                                     initial: {
@@ -993,14 +1003,14 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                     className: "w-4 h-4"
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 333,
+                                                    lineNumber: 344,
                                                     columnNumber: 23
                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                 " Go Back"
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 332,
+                                            lineNumber: 343,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
@@ -1008,7 +1018,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                             children: "Capabilities"
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 335,
+                                            lineNumber: 346,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0)),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1024,12 +1034,12 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                 className: "w-5 h-5 text-brand-medium"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                lineNumber: 340,
+                                                                lineNumber: 351,
                                                                 columnNumber: 29
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 339,
+                                                            lineNumber: 350,
                                                             columnNumber: 27
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1040,7 +1050,7 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     children: item.name
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 343,
+                                                                    lineNumber: 354,
                                                                     columnNumber: 29
                                                                 }, ("TURBOPACK compile-time value", void 0)),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -1048,13 +1058,13 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                     children: item.detail
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                    lineNumber: 344,
+                                                                    lineNumber: 355,
                                                                     columnNumber: 29
                                                                 }, ("TURBOPACK compile-time value", void 0))
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 342,
+                                                            lineNumber: 353,
                                                             columnNumber: 27
                                                         }, ("TURBOPACK compile-time value", void 0)),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -1063,56 +1073,56 @@ const Navbar = ({ isDark, toggleTheme })=>{
                                                                 className: "w-4 h-4"
                                                             }, void 0, false, {
                                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                                lineNumber: 347,
+                                                                lineNumber: 358,
                                                                 columnNumber: 29
                                                             }, ("TURBOPACK compile-time value", void 0))
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                            lineNumber: 346,
+                                                            lineNumber: 357,
                                                             columnNumber: 27
                                                         }, ("TURBOPACK compile-time value", void 0))
                                                     ]
                                                 }, i, true, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                                    lineNumber: 338,
+                                                    lineNumber: 349,
                                                     columnNumber: 25
                                                 }, ("TURBOPACK compile-time value", void 0)))
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                            lineNumber: 336,
+                                            lineNumber: 347,
                                             columnNumber: 21
                                         }, ("TURBOPACK compile-time value", void 0))
                                     ]
                                 }, "mobile-services", true, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                    lineNumber: 325,
+                                    lineNumber: 336,
                                     columnNumber: 19
                                 }, ("TURBOPACK compile-time value", void 0))
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                                lineNumber: 265,
+                                lineNumber: 276,
                                 columnNumber: 15
                             }, ("TURBOPACK compile-time value", void 0))
                         }, void 0, false, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                            lineNumber: 264,
+                            lineNumber: 275,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     ]
                 }, "mobile-menu-portal", true, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                    lineNumber: 252,
+                    lineNumber: 263,
                     columnNumber: 11
                 }, ("TURBOPACK compile-time value", void 0))
             }, void 0, false, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-                lineNumber: 250,
+                lineNumber: 261,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0))
         ]
     }, void 0, true, {
         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/Navbar.tsx",
-        lineNumber: 74,
+        lineNumber: 85,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -1600,6 +1610,8 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$PointMaterial$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/@react-three/drei/core/PointMaterial.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$MeshDistortMaterial$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/@react-three/drei/core/MeshDistortMaterial.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$three$2f$build$2f$three$2e$core$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/three/build/three.core.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/next-themes/dist/index.mjs [app-ssr] (ecmascript)");
+;
 ;
 ;
 ;
@@ -1637,7 +1649,7 @@ const NeuralCore = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$
                         ]
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                        lineNumber: 35,
+                        lineNumber: 36,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$MeshDistortMaterial$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["MeshDistortMaterial"], {
@@ -1651,13 +1663,13 @@ const NeuralCore = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$
                         roughness: 0.2
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                        lineNumber: 36,
+                        lineNumber: 37,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                lineNumber: 34,
+                lineNumber: 35,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
@@ -1670,7 +1682,7 @@ const NeuralCore = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$
                         ]
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                        lineNumber: 50,
+                        lineNumber: 51,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("meshStandardMaterial", {
@@ -1681,13 +1693,13 @@ const NeuralCore = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$
                         blending: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$three$2f$build$2f$three$2e$core$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AdditiveBlending"]
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                        lineNumber: 51,
+                        lineNumber: 52,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                lineNumber: 49,
+                lineNumber: 50,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("mesh", {
@@ -1701,7 +1713,7 @@ const NeuralCore = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$
                         ]
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                        lineNumber: 62,
+                        lineNumber: 63,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0)),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("meshPhongMaterial", {
@@ -1712,13 +1724,13 @@ const NeuralCore = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$
                         blending: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$three$2f$build$2f$three$2e$core$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["AdditiveBlending"]
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                        lineNumber: 63,
+                        lineNumber: 64,
                         columnNumber: 9
                     }, ("TURBOPACK compile-time value", void 0))
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                lineNumber: 61,
+                lineNumber: 62,
                 columnNumber: 7
             }, ("TURBOPACK compile-time value", void 0)),
             [
@@ -1740,7 +1752,7 @@ const NeuralCore = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$
                                 ]
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                                lineNumber: 76,
+                                lineNumber: 77,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0)),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("meshBasicMaterial", {
@@ -1749,24 +1761,24 @@ const NeuralCore = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$
                                 opacity: 0.2
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                                lineNumber: 77,
+                                lineNumber: 78,
                                 columnNumber: 13
                             }, ("TURBOPACK compile-time value", void 0))
                         ]
                     }, void 0, true, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                        lineNumber: 75,
+                        lineNumber: 76,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 }, i, false, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                    lineNumber: 74,
+                    lineNumber: 75,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)))
         ]
     }, void 0, true, {
         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-        lineNumber: 32,
+        lineNumber: 33,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 });
@@ -1817,16 +1829,23 @@ const NeuralParticles = /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$pro
             opacity: isDark ? 1 : 0.8
         }, void 0, false, {
             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-            lineNumber: 120,
+            lineNumber: 121,
             columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-        lineNumber: 119,
+        lineNumber: 120,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 });
-const ThreeSphereScene = ({ isDark })=>{
+const ThreeSphereScene = ({ isDark: _ignoredIsDark })=>{
+    const { theme, systemTheme } = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2d$themes$2f$dist$2f$index$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useTheme"])();
+    const [mounted, setMounted] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
+        setMounted(true);
+    }, []);
+    const currentTheme = theme === 'system' ? systemTheme : theme;
+    const isDark = mounted ? currentTheme === 'dark' : false;
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
         className: "absolute inset-0 z-0 pointer-events-none",
         children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f40$react$2d$three$2f$fiber$2f$dist$2f$react$2d$three$2d$fiber$2e$esm$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$locals$3e$__["Canvas"], {
@@ -1852,7 +1871,7 @@ const ThreeSphereScene = ({ isDark })=>{
                     intensity: 0.4
                 }, void 0, false, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                    lineNumber: 149,
+                    lineNumber: 160,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
@@ -1865,7 +1884,7 @@ const ThreeSphereScene = ({ isDark })=>{
                     color: "#6366f1"
                 }, void 0, false, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                    lineNumber: 150,
+                    lineNumber: 161,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("pointLight", {
@@ -1878,7 +1897,7 @@ const ThreeSphereScene = ({ isDark })=>{
                     color: "#0ea5e9"
                 }, void 0, false, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                    lineNumber: 151,
+                    lineNumber: 162,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("spotLight", {
@@ -1893,7 +1912,7 @@ const ThreeSphereScene = ({ isDark })=>{
                     color: "#ffffff"
                 }, void 0, false, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                    lineNumber: 152,
+                    lineNumber: 163,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Float$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Float"], {
@@ -1907,35 +1926,35 @@ const ThreeSphereScene = ({ isDark })=>{
                             isDark: isDark
                         }, void 0, false, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                            lineNumber: 156,
+                            lineNumber: 167,
                             columnNumber: 13
                         }, ("TURBOPACK compile-time value", void 0))
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                        lineNumber: 155,
+                        lineNumber: 166,
                         columnNumber: 11
                     }, ("TURBOPACK compile-time value", void 0))
                 }, void 0, false, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                    lineNumber: 154,
+                    lineNumber: 165,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0)),
                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f40$react$2d$three$2f$drei$2f$core$2f$Preload$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["Preload"], {
                     all: true
                 }, void 0, false, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-                    lineNumber: 160,
+                    lineNumber: 171,
                     columnNumber: 9
                 }, ("TURBOPACK compile-time value", void 0))
             ]
         }, void 0, true, {
             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-            lineNumber: 140,
+            lineNumber: 151,
             columnNumber: 7
         }, ("TURBOPACK compile-time value", void 0))
     }, void 0, false, {
         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/ThreeSphere.tsx",
-        lineNumber: 139,
+        lineNumber: 150,
         columnNumber: 5
     }, ("TURBOPACK compile-time value", void 0));
 };
@@ -1962,7 +1981,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$globe$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Globe$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/globe.js [app-ssr] (ecmascript) <export default as Globe>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$cpu$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Cpu$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/cpu.js [app-ssr] (ecmascript) <export default as Cpu>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$heart$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Heart$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/heart.js [app-ssr] (ecmascript) <export default as Heart>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle2$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/circle-check.js [app-ssr] (ecmascript) <export default as CheckCircle2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-ssr] (ecmascript) <export default as ArrowRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/sparkles.js [app-ssr] (ecmascript) <export default as Sparkles>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/search.js [app-ssr] (ecmascript) <export default as Search>");
@@ -2005,10 +2023,8 @@ function AboutPage() {
         const newTheme = theme === "dark" ? "light" : "dark";
         setTheme(newTheme);
         if (newTheme === "dark") {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
+        /* handled by next-themes */ } else {
+        /* handled by next-themes */ }
     };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
     // Default is light, no need to force dark
@@ -3386,62 +3402,84 @@ function AboutPage() {
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "space-y-6",
+                                        className: "space-y-4",
                                         children: [
                                             {
                                                 title: "Future-ready technology",
-                                                desc: "We utilize the latest tech stacks to ensure your products remain relevant for years."
+                                                desc: "We utilize the latest tech stacks to ensure your products remain relevant for years.",
+                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$rocket$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Rocket$3e$__["Rocket"]
                                             },
                                             {
                                                 title: "Scalable architecture",
-                                                desc: "Systems designed to handle traffic spikes and grow as your business expands."
+                                                desc: "Systems designed to handle traffic spikes and grow as your business expands.",
+                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$cloud$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Cloud$3e$__["Cloud"]
                                             },
                                             {
                                                 title: "Performance-focused solutions",
-                                                desc: "Optimizing every line of code for sub-second load times and high efficiency."
+                                                desc: "Optimizing every line of code for sub-second load times and high efficiency.",
+                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$zap$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Zap$3e$__["Zap"]
                                             },
                                             {
                                                 title: "Client-centric approach",
-                                                desc: "Your goals are our primary KPI. We work as an extension of your own team."
+                                                desc: "Your goals are our primary KPI. We work as an extension of your own team.",
+                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__["Users"]
                                             },
                                             {
                                                 title: "Transparent communication",
-                                                desc: "No jargon, no hidden fees—just honest architecture and clear progress updates."
+                                                desc: "No jargon, no hidden fees—just honest architecture and clear progress updates.",
+                                                icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$message$2d$square$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__MessageSquare$3e$__["MessageSquare"]
                                             }
                                         ].map((item, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
                                                 whileHover: {
-                                                    x: 10
+                                                    x: 10,
+                                                    scale: 1.02
                                                 },
-                                                className: "flex gap-5 items-start group",
+                                                className: "relative p-5 rounded-2xl bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 transition-all duration-300 group overflow-hidden shadow-sm hover:shadow-lg",
                                                 children: [
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        className: "mt-1 flex-shrink-0 w-5 h-5 rounded-full bg-brand-medium/10 border border-brand-medium/20 flex items-center justify-center group-hover:bg-brand-medium group-hover:text-black transition-all",
-                                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$circle$2d$check$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__CheckCircle2$3e$__["CheckCircle2"], {
-                                                            className: "w-3.5 h-3.5"
-                                                        }, void 0, false, {
-                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                            lineNumber: 480,
-                                                            columnNumber: 45
-                                                        }, this)
+                                                        className: "absolute top-0 left-0 w-1.5 h-full bg-brand-medium scale-y-0 group-hover:scale-y-100 transition-transform origin-bottom duration-300"
                                                     }, void 0, false, {
                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
                                                         lineNumber: 479,
                                                         columnNumber: 41
                                                     }, this),
                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "flex gap-5 items-start relative z-10",
                                                         children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                                className: "text-lg font-black uppercase tracking-tighter mb-1 text-foreground",
-                                                                children: item.title
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                className: "flex-shrink-0 w-12 h-12 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-100 dark:border-white/10 flex items-center justify-center group-hover:bg-brand-medium group-hover:border-brand-medium transition-all duration-500 shadow-sm",
+                                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(item.icon, {
+                                                                    className: "w-6 h-6 text-brand-medium group-hover:text-black transition-colors"
+                                                                }, void 0, false, {
+                                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
+                                                                    lineNumber: 482,
+                                                                    columnNumber: 49
+                                                                }, this)
                                                             }, void 0, false, {
                                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                                lineNumber: 483,
+                                                                lineNumber: 481,
                                                                 columnNumber: 45
                                                             }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed",
-                                                                children: item.desc
-                                                            }, void 0, false, {
+                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                                children: [
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
+                                                                        className: "text-lg font-black uppercase tracking-tighter mb-1 text-foreground transition-colors group-hover:text-brand-medium",
+                                                                        children: item.title
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
+                                                                        lineNumber: 485,
+                                                                        columnNumber: 49
+                                                                    }, this),
+                                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                                        className: "text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed",
+                                                                        children: item.desc
+                                                                    }, void 0, false, {
+                                                                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
+                                                                        lineNumber: 486,
+                                                                        columnNumber: 49
+                                                                    }, this)
+                                                                ]
+                                                            }, void 0, true, {
                                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
                                                                 lineNumber: 484,
                                                                 columnNumber: 45
@@ -3449,7 +3487,14 @@ function AboutPage() {
                                                         ]
                                                     }, void 0, true, {
                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                        lineNumber: 482,
+                                                        lineNumber: 480,
+                                                        columnNumber: 41
+                                                    }, this),
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "absolute right-0 top-1/2 -translate-y-1/2 w-32 h-32 bg-brand-medium/10 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
+                                                        lineNumber: 490,
                                                         columnNumber: 41
                                                     }, this)
                                                 ]
@@ -3484,128 +3529,57 @@ function AboutPage() {
                                         viewport: {
                                             once: true
                                         },
-                                        className: "relative rounded-[3rem] border border-slate-200 dark:border-white/10 p-10 bg-white dark:bg-[#0b0f1a] overflow-hidden",
-                                        children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "absolute top-0 right-0 p-8",
-                                                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$sparkles$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Sparkles$3e$__["Sparkles"], {
-                                                    className: "w-10 h-10 text-brand-medium"
-                                                }, void 0, false, {
-                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                    lineNumber: 499,
-                                                    columnNumber: 37
-                                                }, this)
-                                            }, void 0, false, {
-                                                fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                lineNumber: 498,
-                                                columnNumber: 33
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h3", {
-                                                className: "text-3xl font-black uppercase tracking-tighter mb-6 leading-none",
+                                        className: "relative rounded-[3rem] border border-slate-200 dark:border-white/10 p-2 sm:p-4 bg-white dark:bg-[#0b0f1a] overflow-hidden",
+                                        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                            className: "relative z-10 h-full w-full",
+                                            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "relative w-full aspect-square md:aspect-[4/3] rounded-[2.5rem] overflow-hidden shadow-lg group bg-slate-100 dark:bg-slate-900",
                                                 children: [
-                                                    "Built for ",
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
-                                                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                        lineNumber: 501,
-                                                        columnNumber: 124
-                                                    }, this),
-                                                    " ",
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                        className: "text-brand-medium",
-                                                        children: "Conversion."
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                        className: "absolute inset-0 bg-brand-medium/5 pointer-events-none z-10 mix-blend-overlay"
                                                     }, void 0, false, {
                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                        lineNumber: 501,
-                                                        columnNumber: 131
-                                                    }, this)
-                                                ]
-                                            }, void 0, true, {
-                                                fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                lineNumber: 501,
-                                                columnNumber: 33
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                className: "text-lg text-slate-500 dark:text-slate-400 leading-relaxed mb-8",
-                                                children: "Our solutions are engineered to convert visitors into loyal customers by reducing friction and building trust through premium digital aesthetics."
-                                            }, void 0, false, {
-                                                fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                lineNumber: 502,
-                                                columnNumber: 33
-                                            }, this),
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                className: "grid grid-cols-2 gap-8 pt-8 border-t border-slate-200 dark:border-white/10",
-                                                children: [
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-3xl font-black text-foreground",
-                                                                children: "2.4x"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                                lineNumber: 507,
-                                                                columnNumber: 41
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-[9px] font-bold uppercase tracking-widest text-slate-500",
-                                                                children: "Avg Performance Lift"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                                lineNumber: 508,
-                                                                columnNumber: 41
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
-                                                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
                                                         lineNumber: 506,
-                                                        columnNumber: 37
+                                                        columnNumber: 41
                                                     }, this),
-                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                        children: [
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-3xl font-black text-brand-medium",
-                                                                children: "100%"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                                lineNumber: 511,
-                                                                columnNumber: 41
-                                                            }, this),
-                                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                                className: "text-[9px] font-bold uppercase tracking-widest text-slate-500",
-                                                                children: "Ownership of Code"
-                                                            }, void 0, false, {
-                                                                fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                                lineNumber: 512,
-                                                                columnNumber: 41
-                                                            }, this)
-                                                        ]
-                                                    }, void 0, true, {
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("iframe", {
+                                                        className: "w-full h-[150%] absolute top-1/2 left-0 -translate-y-1/2 scale-[1.05] pointer-events-none",
+                                                        src: "https://www.youtube.com/embed/2jmiNO3jwrA?autoplay=1&mute=1&loop=1&playlist=2jmiNO3jwrA&controls=0&modestbranding=1&rel=0&playsinline=1&showinfo=0",
+                                                        title: "Autoplay Video",
+                                                        frameBorder: "0",
+                                                        allow: "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                    }, void 0, false, {
                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                        lineNumber: 510,
-                                                        columnNumber: 37
+                                                        lineNumber: 507,
+                                                        columnNumber: 41
                                                     }, this)
                                                 ]
                                             }, void 0, true, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
                                                 lineNumber: 505,
-                                                columnNumber: 33
+                                                columnNumber: 37
                                             }, this)
-                                        ]
-                                    }, void 0, true, {
+                                        }, void 0, false, {
+                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
+                                            lineNumber: 503,
+                                            columnNumber: 33
+                                        }, this)
+                                    }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                        lineNumber: 492,
+                                        lineNumber: 497,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                         className: "absolute -bottom-10 -right-10 w-48 h-48 bg-brand-medium rounded-full blur-[80px] opacity-20"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                        lineNumber: 518,
+                                        lineNumber: 519,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                lineNumber: 491,
+                                lineNumber: 496,
                                 columnNumber: 25
                             }, this)
                         ]
@@ -3631,14 +3605,14 @@ function AboutPage() {
                         className: "absolute top-0 right-0 w-[800px] h-[800px] bg-brand-medium/10 rounded-full blur-[150px] pointer-events-none"
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                        lineNumber: 526,
+                        lineNumber: 527,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute bottom-0 left-0 w-[600px] h-[600px] bg-brand-cyan/10 rounded-full blur-[120px] pointer-events-none"
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                        lineNumber: 527,
+                        lineNumber: 528,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3652,7 +3626,7 @@ function AboutPage() {
                                         children: "Innovation Engine"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                        lineNumber: 531,
+                                        lineNumber: 532,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3661,7 +3635,7 @@ function AboutPage() {
                                             "Staying Ahead of the ",
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("br", {}, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                lineNumber: 533,
+                                                lineNumber: 534,
                                                 columnNumber: 50
                                             }, this),
                                             " ",
@@ -3670,13 +3644,13 @@ function AboutPage() {
                                                 children: "Digital Curve."
                                             }, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                lineNumber: 533,
+                                                lineNumber: 534,
                                                 columnNumber: 57
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                        lineNumber: 532,
+                                        lineNumber: 533,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3684,13 +3658,13 @@ function AboutPage() {
                                         children: "We stay ahead of industry trends like AI, automation, and cloud technologies to deliver next-gen solutions that give our clients a competitive edge."
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                        lineNumber: 535,
+                                        lineNumber: 536,
                                         columnNumber: 25
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                lineNumber: 530,
+                                lineNumber: 531,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3732,7 +3706,7 @@ function AboutPage() {
                                                 className: "w-10 h-10 text-brand-medium mb-6 group-hover:scale-110 transition-transform"
                                             }, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                lineNumber: 554,
+                                                lineNumber: 555,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
@@ -3740,7 +3714,7 @@ function AboutPage() {
                                                 children: trend.title
                                             }, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                lineNumber: 555,
+                                                lineNumber: 556,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3748,30 +3722,30 @@ function AboutPage() {
                                                 children: trend.desc
                                             }, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                lineNumber: 556,
+                                                lineNumber: 557,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, i, true, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                        lineNumber: 546,
+                                        lineNumber: 547,
                                         columnNumber: 29
                                     }, this))
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                lineNumber: 540,
+                                lineNumber: 541,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                        lineNumber: 529,
+                        lineNumber: 530,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                lineNumber: 525,
+                lineNumber: 526,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -3798,12 +3772,12 @@ function AboutPage() {
                                     className: "w-6 h-6 md:w-8 md:h-8 fill-current"
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                    lineNumber: 573,
+                                    lineNumber: 574,
                                     columnNumber: 29
                                 }, this)
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                lineNumber: 572,
+                                lineNumber: 573,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -3815,13 +3789,13 @@ function AboutPage() {
                                         children: "Partnership."
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                        lineNumber: 576,
+                                        lineNumber: 577,
                                         columnNumber: 38
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                lineNumber: 575,
+                                lineNumber: 576,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3829,7 +3803,7 @@ function AboutPage() {
                                 children: '"At Preet Tech, we don’t just build projects. We build long-term partnerships. Your success is our reputation, and we take that personally."'
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                lineNumber: 578,
+                                lineNumber: 579,
                                 columnNumber: 25
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3839,43 +3813,43 @@ function AboutPage() {
                                         className: "w-8 h-8 md:w-10 md:h-10"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                        lineNumber: 583,
+                                        lineNumber: 584,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$users$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Users$3e$__["Users"], {
                                         className: "w-8 h-8 md:w-10 md:h-10"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                        lineNumber: 584,
+                                        lineNumber: 585,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$headphones$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Headphones$3e$__["Headphones"], {
                                         className: "w-8 h-8 md:w-10 md:h-10"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                        lineNumber: 585,
+                                        lineNumber: 586,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                lineNumber: 582,
+                                lineNumber: 583,
                                 columnNumber: 25
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                        lineNumber: 566,
+                        lineNumber: 567,
                         columnNumber: 21
                     }, this)
                 }, void 0, false, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                    lineNumber: 565,
+                    lineNumber: 566,
                     columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                lineNumber: 564,
+                lineNumber: 565,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -3885,7 +3859,7 @@ function AboutPage() {
                         className: "absolute inset-0 bg-brand-medium/5 animate-pulse"
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                        lineNumber: 593,
+                        lineNumber: 594,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3908,7 +3882,7 @@ function AboutPage() {
                                     className: "absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_center,rgba(63,143,204,0.1),transparent_70%)]"
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                    lineNumber: 602,
+                                    lineNumber: 603,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -3922,7 +3896,7 @@ function AboutPage() {
                                                     className: "hidden md:block"
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                    lineNumber: 606,
+                                                    lineNumber: 607,
                                                     columnNumber: 48
                                                 }, this),
                                                 " ",
@@ -3931,13 +3905,13 @@ function AboutPage() {
                                                     children: "Something Powerful?"
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                                    lineNumber: 606,
+                                                    lineNumber: 607,
                                                     columnNumber: 83
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                            lineNumber: 605,
+                                            lineNumber: 606,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -3945,7 +3919,7 @@ function AboutPage() {
                                             children: "Let’s Turn Your Vision Into Reality. Initialize your digital transformation with our core team."
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                            lineNumber: 608,
+                                            lineNumber: 609,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].button, {
@@ -3959,35 +3933,35 @@ function AboutPage() {
                                             children: "Contact Us Today"
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                            lineNumber: 611,
+                                            lineNumber: 612,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                                    lineNumber: 604,
+                                    lineNumber: 605,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                            lineNumber: 595,
+                            lineNumber: 596,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                        lineNumber: 594,
+                        lineNumber: 595,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                lineNumber: 592,
+                lineNumber: 593,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$components$2f$Footer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/about/page.tsx",
-                lineNumber: 623,
+                lineNumber: 624,
                 columnNumber: 13
             }, this)
         ]

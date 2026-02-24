@@ -34,7 +34,7 @@ const ContactPage = () => {
     const [submitted, setSubmitted] = useState(false);
 
     useEffect(() => {
-        const isDarkMode = document.documentElement.classList.contains('dark');
+        const isDarkMode = false;
         setTheme(isDarkMode ? Theme.DARK : Theme.LIGHT);
     }, []);
 
@@ -42,9 +42,9 @@ const ContactPage = () => {
         const newTheme = theme === Theme.DARK ? Theme.LIGHT : Theme.DARK;
         setTheme(newTheme);
         if (newTheme === Theme.DARK) {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
         }
     };
 

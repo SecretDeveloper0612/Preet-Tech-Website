@@ -27,9 +27,9 @@ export default function Home() {
 
         // Update document class for Tailwind dark mode
         if (newTheme === Theme.DARK) {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
         }
     };
 

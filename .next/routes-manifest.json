@@ -20,7 +20,16 @@
     "afterFiles": [],
     "fallback": []
   },
-  "dynamicRoutes": [],
+  "dynamicRoutes": [
+    {
+      "page": "/blog/[slug]",
+      "regex": "^/blog/([^/]+?)(?:/)?$",
+      "routeKeys": {
+        "nxtPslug": "nxtPslug"
+      },
+      "namedRegex": "^/blog/(?<nxtPslug>[^/]+?)(?:/)?$"
+    }
+  ],
   "staticRoutes": [
     {
       "page": "/",
@@ -53,6 +62,12 @@
       "namedRegex": "^/api/chat(?:/)?$"
     },
     {
+      "page": "/blog",
+      "regex": "^/blog(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/blog(?:/)?$"
+    },
+    {
       "page": "/contact",
       "regex": "^/contact(?:/)?$",
       "routeKeys": {},
@@ -69,6 +84,18 @@
       "regex": "^/services/app\\-development(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/services/app\\-development(?:/)?$"
+    },
+    {
+      "page": "/services/business-tools",
+      "regex": "^/services/business\\-tools(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/business\\-tools(?:/)?$"
+    },
+    {
+      "page": "/services/content-creation",
+      "regex": "^/services/content\\-creation(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/content\\-creation(?:/)?$"
     },
     {
       "page": "/services/partnership-marketing",

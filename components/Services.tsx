@@ -1,6 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Globe, Smartphone, Palette, Share2, TrendingUp, ArrowUpRight, ChevronLeft, ChevronRight, Binary, Rocket, MessageSquare, Code2, Wrench, Users, Target } from 'lucide-react';
+import Link from 'next/link';
 
 const SERVICES = [
   {
@@ -13,7 +14,7 @@ const SERVICES = [
     bg: 'from-blue-500/10 to-transparent'
   },
   {
-    id: 'start-business',
+    id: 'start-your-business',
     title: 'Start Your Business',
     tag: 'LAUNCH_02',
     description: 'Complete architectural foundation for new ventures. We handle the tech stack and scaling strategy while you build your vision.',
@@ -22,7 +23,7 @@ const SERVICES = [
     bg: 'from-sky-500/10 to-transparent'
   },
   {
-    id: 'social-media',
+    id: 'social-media-handling',
     title: 'Social Media Handling',
     tag: 'SYNC_03',
     description: 'Algorithmic-first social management designed to build high-authority communities and drive organic brand equity.',
@@ -40,7 +41,7 @@ const SERVICES = [
     bg: 'from-indigo-600/10 to-transparent'
   },
   {
-    id: 'app-dev',
+    id: 'app-development',
     title: 'App Development',
     tag: 'MOBILE_05',
     description: 'Native and cross-platform mobility solutions built for performance, retaining users through frictionless UX logic.',
@@ -49,7 +50,7 @@ const SERVICES = [
     bg: 'from-blue-600/10 to-transparent'
   },
   {
-    id: 'software-dev',
+    id: 'software-development',
     title: 'Software Development',
     tag: 'CODE_06',
     description: 'Bespoke enterprise software engineered with full-stack precision. We build scalable tools for complex business needs.',
@@ -76,7 +77,7 @@ const SERVICES = [
     bg: 'from-indigo-600/10 to-transparent'
   },
   {
-    id: 'web-dev',
+    id: 'website-development',
     title: 'Website Development',
     tag: 'WEB_09',
     description: 'Strategic digital headquarters architected for sub-100ms speeds. We build the foundation of your digital authority.',
@@ -199,15 +200,7 @@ const Services: React.FC = () => {
         {/* Responsive Header */}
         <div className="mb-8 md:mb-16 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-10">
           <div className="space-y-2 md:space-y-4">
-            <motion.div
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="flex items-center gap-3"
-            >
-              <div className="w-6 md:w-8 h-[2px] bg-brand-medium" />
-              <span className="text-brand-medium font-mono text-[9px] md:text-[10px] font-black uppercase tracking-[0.4em]">Expertise_Matrix</span>
-            </motion.div>
+
 
             <motion.h2
               initial={{ opacity: 0, y: 20 }}
@@ -290,9 +283,9 @@ const Services: React.FC = () => {
                     </div>
                   </div>
 
-                  <div className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-slate-100 dark:border-white/10 flex items-center justify-center group-hover:bg-brand-medium group-hover:text-white transition-all duration-500 group-hover:border-brand-medium">
+                  <Link href={`/services/${service.id}`} className="w-9 h-9 md:w-10 md:h-10 rounded-full border border-slate-100 dark:border-white/10 flex items-center justify-center group-hover:bg-brand-medium group-hover:text-white transition-all duration-500 group-hover:border-brand-medium">
                     <ArrowUpRight className="w-3.5 h-3.5 md:w-4 md:h-4 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
-                  </div>
+                  </Link>
                 </div>
 
                 {/* Corner Accent */}

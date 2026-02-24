@@ -20,7 +20,7 @@ const StartYourBusiness = () => {
     const [isDark, setIsDark] = useState(true);
 
     useEffect(() => {
-        const isDarkMode = document.documentElement.classList.contains('dark');
+        const isDarkMode = false;
         setIsDark(isDarkMode);
     }, []);
 
@@ -28,9 +28,9 @@ const StartYourBusiness = () => {
         const newTheme = !isDark;
         setIsDark(newTheme);
         if (newTheme) {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
         }
     };
 

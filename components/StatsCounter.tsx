@@ -41,8 +41,8 @@ const StatsCounter: React.FC = () => {
     const STATS = [
         { value: 124, suffix: "+", label: "Number Of Customers", icon: <Briefcase className="w-4 h-4" /> },
         { value: 250, suffix: "+", label: "Total Projects Delivered", icon: <Users className="w-4 h-4" /> },
-        { value: 15, suffix: "M+", label: "Active Nodes", icon: <Zap className="w-4 h-4" /> },
-        { value: 24, suffix: "/7", label: "Live Engineering", icon: <Activity className="w-4 h-4" /> }
+        { value: 500, suffix: "M+", label: "Digital Reach", icon: <Zap className="w-4 h-4" /> },
+        { value: 24, suffix: "/7", label: "Chat Support", icon: <Activity className="w-4 h-4" /> }
     ];
 
     return (
@@ -53,14 +53,7 @@ const StatsCounter: React.FC = () => {
             <div className="max-w-7xl mx-auto px-6 relative z-10">
                 {/* Centered Heading */}
                 <div className="text-center mb-20">
-                    <motion.div
-                        initial={{ opacity: 0, y: 10 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        className="text-[10px] font-mono tracking-[0.4em] text-brand-medium uppercase mb-4"
-                    >
-                        Success Protocol.V3
-                    </motion.div>
+
                     <motion.h2
                         initial={{ opacity: 0, y: 20 }}
                         whileInView={{ opacity: 1, y: 0 }}

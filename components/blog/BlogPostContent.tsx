@@ -17,7 +17,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
     const [isDark, setIsDark] = useState(false);
 
     useEffect(() => {
-        const isDarkMode = document.documentElement.classList.contains('dark');
+        const isDarkMode = false;
         setIsDark(isDarkMode);
     }, []);
 
@@ -25,9 +25,9 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
         const newTheme = !isDark;
         setIsDark(newTheme);
         if (newTheme) {
-            document.documentElement.classList.add('dark');
+            /* handled by next-themes */
         } else {
-            document.documentElement.classList.remove('dark');
+            /* handled by next-themes */
         }
     };
 

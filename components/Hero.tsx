@@ -1,14 +1,13 @@
-
 import React, { useState, memo } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowUpRight, Zap, Globe, Cpu, Hexagon, Terminal, Activity, ShieldCheck, Sparkles } from 'lucide-react';
 import ThreeSphereScene from './ThreeSphere';
 
 interface HeroProps {
-  isDark: boolean;
+  isDark?: boolean;
 }
 
-const Hero: React.FC<HeroProps> = ({ isDark }) => {
+const Hero: React.FC<HeroProps> = ({ isDark: _ignoredIsDark }) => {
   const [hovered, setHovered] = useState(false);
 
   return (
@@ -24,12 +23,7 @@ const Hero: React.FC<HeroProps> = ({ isDark }) => {
       </div>
 
       {/* 2. 3D CENTRAL ELEMENT (BACKGROUND) */}
-      <div className={`absolute inset-0 z-[1] flex items-center justify-center ${isDark ? 'opacity-60 lg:opacity-90' : 'opacity-100'}`}>
-        <div className="w-full h-full max-w-5xl">
-          <ThreeSphereScene isDark={isDark} />
-        </div>
-      </div>
-
+      <ThreeSphereScene />
 
       {/* 3. CENTERED CONTENT */}
       <div className="container mx-auto px-6 relative z-20 flex flex-col items-center text-center">
@@ -50,12 +44,12 @@ const Hero: React.FC<HeroProps> = ({ isDark }) => {
               transition={{ delay: 0.3, duration: 1.5, ease: "easeOut" }}
               className="text-[10px] sm:text-xs md:text-sm font-black uppercase text-slate-500 dark:text-white/70 mb-2"
             >
-              We Architect
+              Welcome to Preet Tech
             </motion.span>
-            <h1 className="text-[3.5rem] sm:text-7xl md:text-8xl lg:text-[11rem] font-black tracking-tighter leading-[0.9] md:leading-[0.8] flex flex-col items-center">
+            <h1 className="text-[3.5rem] sm:text-7xl md:text-8xl lg:text-[11rem] font-black tracking-tighter leading-[0.9] md:leading-[0.8] flex flex-col items-center text-center">
               <span className="block text-slate-900 dark:text-white">DIGITAL</span>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium via-brand-cyan to-brand-deep animate-gradient-x italic">
-                FUTURES.
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium via-brand-cyan to-brand-deep animate-gradient-x italic pb-4 md:pb-8 px-2 md:px-4">
+                SOLUTIONS.
               </span>
             </h1>
           </div>
@@ -64,9 +58,9 @@ const Hero: React.FC<HeroProps> = ({ isDark }) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4 }}
-            className="text-base sm:text-lg md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed mb-8 md:mb-10 font-medium px-4 md:px-0"
+            className="text-base sm:text-lg md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed mb-8 md:mb-10 font-medium px-4 md:px-0 text-center"
           >
-            Precision engineering meets cinematic imagination. We build the <span className="text-foreground dark:text-white font-bold">infrastructure</span> of tomorrow's multi-scale brands.
+            Your premier IT partner for cutting-edge <span className="text-foreground dark:text-white font-bold">Website & App Development</span>, Software Engineering, Digital Marketing, and high-impact Content Creation.
           </motion.p>
 
           {/* Action Buttons */}
@@ -107,14 +101,14 @@ const Hero: React.FC<HeroProps> = ({ isDark }) => {
           className="glass-morphism p-6 rounded-[2.5rem] border border-brand-medium/20 w-56 flex flex-col gap-4 shadow-2xl"
         >
           <div className="flex items-center justify-between">
-            <Terminal className="text-brand-medium w-6 h-6" />
+            <Globe className="text-brand-medium w-6 h-6" />
             <div className="flex gap-1">
               {[1, 2, 3].map(i => <div key={i} className="w-1.5 h-1.5 rounded-full bg-brand-medium/40 animate-pulse" />)}
             </div>
           </div>
           <div>
-            <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Latency Core</p>
-            <p className="text-2xl font-black text-foreground">1.04<span className="text-brand-medium ml-1">MS</span></p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-slate-500 mb-1">Web Development</p>
+            <p className="text-2xl font-black text-foreground">Next<span className="text-brand-medium ml-1">Gen</span></p>
           </div>
           <div className="h-1 w-full bg-slate-100 dark:bg-white/5 rounded-full overflow-hidden">
             <motion.div
@@ -135,7 +129,7 @@ const Hero: React.FC<HeroProps> = ({ isDark }) => {
             <div className="w-12 h-12 rounded-2xl bg-brand-cyan/20 flex items-center justify-center">
               <Activity className="w-6 h-6 text-brand-cyan" />
             </div>
-            <p className="text-xs font-black uppercase tracking-[0.2em]">Live Feed</p>
+            <p className="text-xs font-black uppercase tracking-[0.2em]">Digital Marketing</p>
           </div>
           <div className="flex items-end gap-2 h-16">
             {[40, 70, 50, 90, 60, 80, 100].map((h, i) => (
@@ -161,10 +155,10 @@ const Hero: React.FC<HeroProps> = ({ isDark }) => {
         >
           <div className="relative mb-6">
             <div className="absolute inset-0 bg-emerald-500/20 blur-2xl animate-pulse" />
-            <ShieldCheck className="w-16 h-16 text-emerald-500 relative z-10" />
+            <Cpu className="w-16 h-16 text-emerald-500 relative z-10" />
           </div>
-          <h4 className="font-black text-sm uppercase tracking-widest mb-1 text-foreground">Secure Core</h4>
-          <p className="text-[10px] font-bold text-emerald-500 uppercase">Verifying Integrity...</p>
+          <h4 className="font-black text-sm uppercase tracking-widest mb-1 text-foreground">App & Software</h4>
+          <p className="text-[10px] font-bold text-emerald-500 uppercase">Scalable Solutions...</p>
         </motion.div>
 
         {/* Prop 4: Sparkle Feature */}
@@ -176,48 +170,16 @@ const Hero: React.FC<HeroProps> = ({ isDark }) => {
           <div className="absolute -top-10 -right-10 w-32 h-32 bg-brand-medium/20 blur-3xl" />
           <div className="flex items-center gap-4 mb-4">
             <Sparkles className="w-6 h-6 text-brand-medium group-hover:animate-spin" />
-            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Gen AI Enabled</p>
+            <p className="text-[10px] font-black uppercase tracking-widest text-slate-400">Content Creation</p>
           </div>
           <p className="text-xl font-black text-foreground tracking-tighter leading-tight">
-            Hyper-Scale Deployment Ready
+            Engaging Brand Stories & Media
           </p>
         </motion.div>
       </div>
 
 
-      {/* Trusted Scrolling Footer (kept from previous design but refined) */}
-      <div className="absolute bottom-0 w-full border-t border-slate-200 dark:border-white/10 bg-black backdrop-blur-3xl z-20 overflow-hidden">
-        <div className="max-w-[2000px] mx-auto px-6 py-8 flex flex-col md:flex-row items-center gap-10">
-          <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.4em] whitespace-nowrap shrink-0 border-r border-slate-200 dark:border-white/10 pr-10">
-            Strategic Allies
-          </p>
 
-          <div className="flex-1 w-full overflow-hidden">
-            <div className="flex items-center gap-20 animate-marquee whitespace-nowrap w-max opacity-60 dark:opacity-40 grayscale hover:grayscale-0 hover:opacity-100 transition-all duration-700">
-              {[...Array(4)].map((_, i) => (
-                <React.Fragment key={i}>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-brand-cyan" />
-                    <span className="font-black text-lg tracking-tighter uppercase text-white">GlobalScale</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-yellow-500" />
-                    <span className="font-black text-lg tracking-tighter uppercase text-white">BoltShift</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-brand-medium" />
-                    <span className="font-black text-lg tracking-tighter uppercase text-white">CmdCorp</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-purple-500" />
-                    <span className="font-black text-lg tracking-tighter uppercase text-white">NeuralNet</span>
-                  </div>
-                </React.Fragment>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
     </section>
   );
 };
