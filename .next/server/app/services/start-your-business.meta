@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/services/layout,_N_T_/services/start-your-business/layout,_N_T_/services/start-your-business/page,_N_T_/services/start-your-business"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/services/start-your-business/__PAGE__",
+    "/services/start-your-business",
+    "/services",
+    "/_index",
+    "/_head"
+  ]
+}
