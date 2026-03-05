@@ -74,7 +74,7 @@ export default function PortfolioCarousel({ cards }: PortfolioCarouselProps) {
             {/* Background glows */}
             <div className="absolute inset-0 pointer-events-none">
                 <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-brand-deep/5 dark:bg-brand-deep/10 blur-[180px] rounded-full" />
-                <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#3f8fcc]/5 dark:bg-[#3f8fcc]/8 blur-[140px] rounded-full" />
+                <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#3994fa]/5 dark:bg-[#3994fa]/8 blur-[140px] rounded-full" />
             </div>
 
             <div className="max-w-7xl mx-auto px-4 md:px-6 relative z-10">
@@ -82,12 +82,12 @@ export default function PortfolioCarousel({ cards }: PortfolioCarouselProps) {
                 <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-6">
                     <div className="space-y-3">
                         <div className="flex items-center gap-3">
-                            <div className="h-px w-8 bg-[#3f8fcc]" />
-                            <span className="text-[#3f8fcc] font-bold uppercase tracking-[0.25em] text-xs">Our Work</span>
+                            <div className="h-px w-8 bg-[#3994fa]" />
+                            <span className="text-[#3994fa] font-bold uppercase tracking-[0.25em] text-xs">Our Work</span>
                         </div>
                         <h2 className="text-3xl md:text-5xl font-bold tracking-tight leading-tight">
                             Content That<br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-[#3f8fcc]">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-[#3994fa]">
                                 Stops the Scroll.
                             </span>
                         </h2>
@@ -101,7 +101,7 @@ export default function PortfolioCarousel({ cards }: PortfolioCarouselProps) {
                             <button
                                 id="portfolio-prev"
                                 onClick={() => snapTo(activeIndex - 1)}
-                                className="w-11 h-11 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center transition-all text-slate-500 dark:text-slate-400 hover:bg-[#3f8fcc] hover:text-white hover:border-[#3f8fcc]"
+                                className="w-11 h-11 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center transition-all text-slate-500 dark:text-slate-400 hover:bg-[#3994fa] hover:text-white hover:border-[#3994fa]"
                                 aria-label="Previous slide"
                             >
                                 <ArrowLeft className="w-5 h-5" />
@@ -112,7 +112,7 @@ export default function PortfolioCarousel({ cards }: PortfolioCarouselProps) {
                             <button
                                 id="portfolio-next"
                                 onClick={() => snapTo(activeIndex + 1)}
-                                className="w-11 h-11 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center transition-all text-slate-500 dark:text-slate-400 hover:bg-[#3f8fcc] hover:text-white hover:border-[#3f8fcc]"
+                                className="w-11 h-11 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center transition-all text-slate-500 dark:text-slate-400 hover:bg-[#3994fa] hover:text-white hover:border-[#3994fa]"
                                 aria-label="Next slide"
                             >
                                 <ArrowRight className="w-5 h-5" />
@@ -179,7 +179,7 @@ export default function PortfolioCarousel({ cards }: PortfolioCarouselProps) {
                                 {i === activeIndex && (
                                     <motion.div
                                         layoutId="activeBorder"
-                                        className="absolute inset-0 rounded-3xl border-2 border-[#3f8fcc]/60 pointer-events-none z-30"
+                                        className="absolute inset-0 rounded-3xl border-2 border-[#3994fa]/60 pointer-events-none z-30"
                                     />
                                 )}
                             </motion.div>
@@ -198,7 +198,7 @@ export default function PortfolioCarousel({ cards }: PortfolioCarouselProps) {
                         key={i}
                         onClick={() => snapTo(i)}
                         className={`transition-all duration-300 rounded-full ${i === activeIndex
-                            ? 'w-7 h-2 bg-[#3f8fcc]'
+                            ? 'w-7 h-2 bg-[#3994fa]'
                             : 'w-2 h-2 bg-slate-300 dark:bg-white/20 hover:bg-slate-400 dark:hover:bg-white/40'
                             }`}
                         aria-label={`Go to slide ${i + 1}`}
@@ -214,7 +214,7 @@ export default function PortfolioCarousel({ cards }: PortfolioCarouselProps) {
                 >
                     <div className="flex items-center gap-4">
                         <div className="flex -space-x-2">
-                            {['#3F8FCC', '#5FD3E6', '#2F6FB5'].map((c, i) => (
+                            {['#3994fa', '#3994fa', '#2F6FB5'].map((c, i) => (
                                 <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-[#060911]" style={{ background: c }} />
                             ))}
                         </div>
@@ -225,7 +225,7 @@ export default function PortfolioCarousel({ cards }: PortfolioCarouselProps) {
                     </div>
                     <a
                         href="#audit"
-                        className="shrink-0 px-6 py-3 bg-[#3f8fcc] rounded-xl font-bold text-white text-xs uppercase tracking-wider hover:shadow-lg hover:shadow-[#3f8fcc]/30 transition-all flex items-center gap-2"
+                        className="shrink-0 px-6 py-3 bg-[#3994fa] rounded-xl font-bold text-white text-xs uppercase tracking-wider hover:shadow-lg hover:shadow-[#3994fa]/30 transition-all flex items-center gap-2"
                     >
                         Get Our Portfolio <ArrowRight className="w-4 h-4" />
                     </a>

@@ -7,7 +7,7 @@ import {
     Phone,
     MapPin,
     Send,
-    Github,
+    Facebook,
     Twitter,
     Linkedin,
     Instagram,
@@ -63,7 +63,7 @@ const ContactPage = () => {
     };
 
     return (
-        <main className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-500 overflow-x-hidden">
+        <main className="min-h-screen bg-white dark:bg-slate-950 transition-colors duration-500 overflow-x-clip">
             <Navbar isDark={theme === Theme.DARK} toggleTheme={toggleTheme} />
 
             <div className="pt-32 pb-20 px-4 md:px-6">
@@ -88,9 +88,9 @@ const ContactPage = () => {
                         <div className="lg:col-span-2 space-y-8">
                             <div className="space-y-6">
                                 {[
-                                    { icon: Mail, label: "Email", value: "hello@preettech.com" },
-                                    { icon: Phone, label: "Phone", value: "+91 98765 43210" },
-                                    { icon: MapPin, label: "Studio", value: "Sector 62, Noida, UP" }
+                                    { icon: Mail, label: "Email", value: "info@preettech.com" },
+                                    { icon: Phone, label: "Phone", value: "+91 97566 67397" },
+                                    { icon: MapPin, label: "Studio", value: "Preet Tech, near Krishna Hospital, Subhash Nagar, Haldwani, Uttarakhand 263139" }
                                 ].map((item, i) => (
                                     <motion.div
                                         key={i}
@@ -104,7 +104,7 @@ const ContactPage = () => {
                                         </div>
                                         <div>
                                             <p className="text-[9px] font-black uppercase tracking-widest text-slate-400 mb-0.5">{item.label}</p>
-                                            <p className="text-sm font-bold text-slate-900 dark:text-white">{item.value}</p>
+                                            <p className="text-sm font-bold text-slate-900 dark:text-white leading-tight">{item.value}</p>
                                         </div>
                                     </motion.div>
                                 ))}
@@ -117,7 +117,7 @@ const ContactPage = () => {
                                 className="relative h-60 rounded-[2rem] overflow-hidden border border-slate-100 dark:border-white/10 shadow-sm group"
                             >
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14013.882142279294!2d77.3622435!3d28.6139353!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce5a43173357b%3A0x37ffce30c3f1c3e!2sSector%2062%2C%20Noida%2C%20Uttar%20Pradesh!5e0!3m2!1sen!2sin!4v1708064000000!5m2!1sen!2sin"
+                                    src="https://maps.google.com/maps?hl=en&amp;q=Preet%20Tech,%20near%20Krishna%20Hospital,%20Subhash%20Nagar,%20Haldwani,%20Uttarakhand%20263139&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed"
                                     width="100%"
                                     height="100%"
                                     style={{
@@ -136,8 +136,13 @@ const ContactPage = () => {
 
                             {/* Minimal Socials */}
                             <div className="flex gap-3">
-                                {[Linkedin, Twitter, Github, Instagram].map((Icon, i) => (
-                                    <a key={i} href="#" className="w-10 h-10 rounded-full border border-slate-100 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-cyan hover:border-brand-cyan transition-all bg-white dark:bg-white/5">
+                                {[
+                                    { Icon: Linkedin, href: "https://www.linkedin.com/company/preet-tech?originalSubdomain=in" },
+                                    { Icon: Twitter, href: "#" },
+                                    { Icon: Facebook, href: "https://www.facebook.com/Preetinfotech/" },
+                                    { Icon: Instagram, href: "https://www.instagram.com/preettech/" }
+                                ].map(({ Icon, href }, i) => (
+                                    <a key={i} href={href} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full border border-slate-100 dark:border-white/10 flex items-center justify-center text-slate-400 hover:text-brand-cyan hover:border-brand-cyan transition-all bg-white dark:bg-white/5">
                                         <Icon className="w-4 h-4" />
                                     </a>
                                 ))}

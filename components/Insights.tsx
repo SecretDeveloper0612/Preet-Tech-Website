@@ -149,14 +149,14 @@ const Insights: React.FC = () => {
                     <div className="hidden md:flex items-center gap-4 mt-2 md:mt-0">
                         <button
                             onClick={() => scroll('left')}
-                            className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-[#3f8fcc] dark:hover:bg-[#3f8fcc] hover:text-white dark:hover:text-white hover:border-[#3f8fcc] dark:hover:border-[#3f8fcc] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
+                            className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-[#3994fa] dark:hover:bg-[#3994fa] hover:text-white dark:hover:text-white hover:border-[#3994fa] dark:hover:border-[#3994fa] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
                             aria-label="Scroll left"
                         >
                             <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 stroke-[2px]" />
                         </button>
                         <button
                             onClick={() => scroll('right')}
-                            className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-[#3f8fcc] dark:hover:bg-[#3f8fcc] hover:text-white dark:hover:text-white hover:border-[#3f8fcc] dark:hover:border-[#3f8fcc] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
+                            className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-[#3994fa] dark:hover:bg-[#3994fa] hover:text-white dark:hover:text-white hover:border-[#3994fa] dark:hover:border-[#3994fa] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
                             aria-label="Scroll right"
                         >
                             <ArrowRight className="w-5 h-5 md:w-6 md:h-6 stroke-[2px]" />

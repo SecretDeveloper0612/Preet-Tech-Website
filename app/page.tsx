@@ -35,7 +35,7 @@ export default function Home() {
 
 
     return (
-        <main className="w-full max-w-full selection:bg-brand-medium/30 overflow-x-hidden bg-background text-foreground transition-colors duration-300">
+        <main className="w-full max-w-full selection:bg-brand-medium/30 overflow-x-clip bg-background text-foreground transition-colors duration-300">
             <Navbar isDark={theme === Theme.DARK} toggleTheme={toggleTheme} />
 
             <Hero isDark={theme === Theme.DARK} />

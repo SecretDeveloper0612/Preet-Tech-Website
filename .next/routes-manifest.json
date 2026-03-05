@@ -98,16 +98,22 @@
       "namedRegex": "^/contact(?:/)?$"
     },
     {
-      "page": "/icon.jpg",
-      "regex": "^/icon\\.jpg(?:/)?$",
+      "page": "/icon.png",
+      "regex": "^/icon\\.png(?:/)?$",
       "routeKeys": {},
-      "namedRegex": "^/icon\\.jpg(?:/)?$"
+      "namedRegex": "^/icon\\.png(?:/)?$"
     },
     {
       "page": "/services",
       "regex": "^/services(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/services(?:/)?$"
+    },
+    {
+      "page": "/services/advance-website",
+      "regex": "^/services/advance\\-website(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/advance\\-website(?:/)?$"
     },
     {
       "page": "/services/app-development",
@@ -126,6 +132,12 @@
       "regex": "^/services/content\\-creation(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/services/content\\-creation(?:/)?$"
+    },
+    {
+      "page": "/services/eco-website",
+      "regex": "^/services/eco\\-website(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/eco\\-website(?:/)?$"
     },
     {
       "page": "/services/partnership-marketing",
@@ -156,24 +168,6 @@
       "regex": "^/services/start\\-your\\-business(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/services/start\\-your\\-business(?:/)?$"
-    },
-    {
-      "page": "/services/website-development",
-      "regex": "^/services/website\\-development(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/services/website\\-development(?:/)?$"
-    },
-    {
-      "page": "/services/website-development/advanced",
-      "regex": "^/services/website\\-development/advanced(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/services/website\\-development/advanced(?:/)?$"
-    },
-    {
-      "page": "/services/website-development/eco",
-      "regex": "^/services/website\\-development/eco(?:/)?$",
-      "routeKeys": {},
-      "namedRegex": "^/services/website\\-development/eco(?:/)?$"
     }
   ],
   "dataRoutes": [],

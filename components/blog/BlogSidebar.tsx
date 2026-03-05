@@ -1,4 +1,5 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import Link from 'next/link';
 import { Search, Mail, ArrowRight, TrendingUp } from 'lucide-react';
 import { BLOG_POSTS, CATEGORIES } from '@/lib/blog-data';
@@ -7,6 +8,41 @@ export default function BlogSidebar() {
     const recentPosts = BLOG_POSTS.slice(0, 3);
     const popularPosts = BLOG_POSTS.slice(1, 4);
 
+    const [subscribeEmail, setSubscribeEmail] = useState('');
+    const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [subscribeMessage, setSubscribeMessage] = useState('');
+
+    const handleSubscribe = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubscribeStatus('loading');
+        setSubscribeMessage('');
+
+        try {
+            const response = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: subscribeEmail })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setSubscribeStatus('success');
+                setSubscribeEmail('');
+                setSubscribeMessage(data.message || 'Subscription successful!');
+                setTimeout(() => {
+                    setSubscribeStatus('idle');
+                    setSubscribeMessage('');
+                }, 5000);
+            } else {
+                setSubscribeStatus('error');
+                setSubscribeMessage(data.message || 'Something went wrong.');
+            }
+        } catch (err) {
+            setSubscribeStatus('error');
+            setSubscribeMessage('Network Error. Please try again.');
+        }
+    };
     return (
         <aside className="space-y-12 sticky top-32">
             {/* Search Bar */}
@@ -57,16 +93,29 @@ export default function BlogSidebar() {
                     <p className="text-slate-400 text-xs leading-relaxed mb-6">
                         Join 5,000+ founders and marketers getting our best growth strategies.
                     </p>
-                    <div className="space-y-3">
+                    <form onSubmit={handleSubscribe} className="space-y-3 relative">
                         <input
                             type="email"
                             placeholder="Email address"
-                            className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-sm"
+                            value={subscribeEmail}
+                            onChange={(e) => setSubscribeEmail(e.target.value)}
+                            required
+                            disabled={subscribeStatus === 'loading'}
+                            className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-sm disabled:opacity-50 text-slate-900 dark:text-white"
                         />
-                        <button className="w-full h-12 bg-brand-cyan text-[#020617] rounded-xl font-bold text-xs uppercase tracking-widest hover:shadow-lg hover:shadow-brand-cyan/25 transition-all">
-                            Subscribe Now
+                        <button
+                            type="submit"
+                            disabled={subscribeStatus === 'loading'}
+                            className="w-full h-12 bg-[#3994fa] text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:shadow-lg hover:shadow-[#3994fa]/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {subscribeStatus === 'loading' ? 'SUBSCRIBING...' : 'SUBSCRIBE NOW'}
                         </button>
-                    </div>
+                        {subscribeMessage && (
+                            <p className={`text-xs mt-2 font-bold ${subscribeStatus === 'success' ? 'text-[#3994fa]' : 'text-red-500'}`}>
+                                {subscribeMessage}
+                            </p>
+                        )}
+                    </form>
                 </div>
             </div>
 

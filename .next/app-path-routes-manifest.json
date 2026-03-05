@@ -10,18 +10,17 @@
   "/blog/[slug]/page": "/blog/[slug]",
   "/blog/page": "/blog",
   "/contact/page": "/contact",
-  "/icon.jpg/route": "/icon.jpg",
+  "/icon.png/route": "/icon.png",
   "/page": "/",
+  "/services/advance-website/page": "/services/advance-website",
   "/services/app-development/page": "/services/app-development",
   "/services/business-tools/page": "/services/business-tools",
   "/services/content-creation/page": "/services/content-creation",
+  "/services/eco-website/page": "/services/eco-website",
   "/services/page": "/services",
   "/services/partnership-marketing/page": "/services/partnership-marketing",
   "/services/performance-marketing/page": "/services/performance-marketing",
   "/services/social-media-handling/page": "/services/social-media-handling",
   "/services/software-development/page": "/services/software-development",
-  "/services/start-your-business/page": "/services/start-your-business",
-  "/services/website-development/advanced/page": "/services/website-development/advanced",
-  "/services/website-development/eco/page": "/services/website-development/eco",
-  "/services/website-development/page": "/services/website-development"
+  "/services/start-your-business/page": "/services/start-your-business"
 }

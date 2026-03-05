@@ -271,7 +271,7 @@ const SoftwareDevelopmentPage = () => {
     }, { scope: containerRef });
 
     return (
-        <main ref={containerRef} className="bg-white dark:bg-[#020617] text-slate-900 dark:text-white selection:bg-brand-medium/30 transition-colors duration-300 font-jakarta overflow-x-hidden">
+        <main ref={containerRef} className="bg-white dark:bg-[#020617] text-slate-900 dark:text-white selection:bg-brand-medium/30 transition-colors duration-300 font-jakarta overflow-x-clip">
             <Navbar isDark={theme === Theme.DARK} toggleTheme={toggleTheme} />
 
             {/* 1️⃣ Hero Section */}
@@ -315,7 +315,7 @@ const SoftwareDevelopmentPage = () => {
                         <div className="flex flex-wrap items-center gap-4 mb-10">
                             <button
                                 onClick={() => setIsVideoModalOpen(true)}
-                                className="flex items-center gap-2 px-8 py-3.5 bg-[#3f8fcc] hover:bg-[#3f8fcc]/90 text-white font-bold rounded-full transition-all shadow-lg shadow-[#3f8fcc]/30 group text-sm md:text-base"
+                                className="flex items-center gap-2 px-8 py-3.5 bg-[#3994fa] hover:bg-[#3994fa]/90 text-white font-bold rounded-full transition-all shadow-lg shadow-[#3994fa]/30 group text-sm md:text-base"
                             >
                                 Watch Demo
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -483,12 +483,12 @@ const SoftwareDevelopmentPage = () => {
                                 whileHover={{ scale: 1.02 }}
                                 className="p-10 rounded-[2.5rem] border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900/30 flex flex-col items-start shadow-sm"
                             >
-                                <div className="w-12 h-12 rounded-xl bg-[#3f8fcc]/10 flex items-center justify-center mb-8 text-[#3f8fcc]">
+                                <div className="w-12 h-12 rounded-xl bg-[#3994fa]/10 flex items-center justify-center mb-8 text-[#3994fa]">
                                     <item.icon className="w-6 h-6" />
                                 </div>
                                 <h4 className="text-2xl font-black uppercase tracking-tighter text-slate-900 dark:text-white mb-4">{item.type}</h4>
                                 <p className="text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{item.benefit}</p>
-                                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-white/5 w-full flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#3f8fcc]">
+                                <div className="mt-8 pt-6 border-t border-slate-100 dark:border-white/5 w-full flex items-center text-[10px] font-black uppercase tracking-[0.2em] text-[#3994fa]">
                                     Strategic Growth Solution <ArrowRight className="w-3 h-3 ml-2" />
                                 </div>
                             </motion.div>

@@ -99,7 +99,7 @@ export const emailService = {
 
                                     <!-- Header -->
                                     <tr><td style="background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:16px 16px 0 0;padding:32px 36px;text-align:center;">
-                                        <p style="margin:0 0 8px;color:#3f8fcc;font-size:11px;font-weight:800;letter-spacing:4px;text-transform:uppercase;">Preet Tech</p>
+                                        <p style="margin:0 0 8px;color:#3994fa;font-size:11px;font-weight:800;letter-spacing:4px;text-transform:uppercase;">Preet Tech</p>
                                         <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:800;letter-spacing:-0.5px;">🔥 New Consultation Request</h1>
                                         <p style="margin:12px 0 0;color:#94a3b8;font-size:13px;">A new lead just arrived from the ECO Website page</p>
                                     </td></tr>
@@ -109,7 +109,7 @@ export const emailService = {
 
                                         <!-- Lead Card -->
                                         <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;margin-bottom:24px;overflow:hidden;">
-                                            <tr><td style="background:#3f8fcc;padding:12px 20px;">
+                                            <tr><td style="background:#3994fa;padding:12px 20px;">
                                                 <p style="margin:0;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;">Lead Details</p>
                                             </td></tr>
                                             <tr><td style="padding:20px;">
@@ -124,11 +124,11 @@ export const emailService = {
                                                     </td></tr>
                                                     <tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
                                                         <p style="margin:0;color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">📧 Email Address</p>
-                                                        <p style="margin:4px 0 0;"><a href="mailto:${lead.email}" style="color:#3f8fcc;font-size:15px;font-weight:600;text-decoration:none;">${lead.email}</a></p>
+                                                        <p style="margin:4px 0 0;"><a href="mailto:${lead.email}" style="color:#3994fa;font-size:15px;font-weight:600;text-decoration:none;">${lead.email}</a></p>
                                                     </td></tr>
                                                     <tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
                                                         <p style="margin:0;color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">📱 Phone Number</p>
-                                                        <p style="margin:4px 0 0;"><a href="tel:${lead.phone}" style="color:#3f8fcc;font-size:15px;font-weight:600;text-decoration:none;">${lead.phone}</a></p>
+                                                        <p style="margin:4px 0 0;"><a href="tel:${lead.phone}" style="color:#3994fa;font-size:15px;font-weight:600;text-decoration:none;">${lead.phone}</a></p>
                                                     </td></tr>
                                                     <tr><td style="padding:10px 0;">
                                                         <p style="margin:0;color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">💰 Budget Range</p>
@@ -152,7 +152,7 @@ export const emailService = {
                                                 </td>
                                                 <td style="padding-left:8px;">
                                                     <a href="mailto:${lead.email}?subject=Re: Your Website Consultation Request&body=Hi ${lead.name},%0A%0AThank you for reaching out to Preet Tech!"
-                                                        style="display:block;text-align:center;padding:14px;background:#3f8fcc;color:#ffffff;text-decoration:none;border-radius:10px;font-size:13px;font-weight:800;letter-spacing:1px;">
+                                                        style="display:block;text-align:center;padding:14px;background:#3994fa;color:#ffffff;text-decoration:none;border-radius:10px;font-size:13px;font-weight:800;letter-spacing:1px;">
                                                         📧 Reply via Email
                                                     </a>
                                                 </td>

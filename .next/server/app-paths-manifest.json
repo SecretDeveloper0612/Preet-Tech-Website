@@ -10,18 +10,17 @@
   "/blog/[slug]/page": "app/blog/[slug]/page.js",
   "/blog/page": "app/blog/page.js",
   "/contact/page": "app/contact/page.js",
-  "/icon.jpg/route": "app/icon.jpg/route.js",
+  "/icon.png/route": "app/icon.png/route.js",
   "/page": "app/page.js",
+  "/services/advance-website/page": "app/services/advance-website/page.js",
   "/services/app-development/page": "app/services/app-development/page.js",
   "/services/business-tools/page": "app/services/business-tools/page.js",
   "/services/content-creation/page": "app/services/content-creation/page.js",
+  "/services/eco-website/page": "app/services/eco-website/page.js",
   "/services/page": "app/services/page.js",
   "/services/partnership-marketing/page": "app/services/partnership-marketing/page.js",
   "/services/performance-marketing/page": "app/services/performance-marketing/page.js",
   "/services/social-media-handling/page": "app/services/social-media-handling/page.js",
   "/services/software-development/page": "app/services/software-development/page.js",
-  "/services/start-your-business/page": "app/services/start-your-business/page.js",
-  "/services/website-development/advanced/page": "app/services/website-development/advanced/page.js",
-  "/services/website-development/eco/page": "app/services/website-development/eco/page.js",
-  "/services/website-development/page": "app/services/website-development/page.js"
+  "/services/start-your-business/page": "app/services/start-your-business/page.js"
 }

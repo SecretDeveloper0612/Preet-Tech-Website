@@ -108,12 +108,12 @@ const SolutionsCarousel = () => {
                     <motion.div
                         key={i}
                         whileHover={{ y: -8 }}
-                        className="group relative p-8 rounded-[2rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:bg-slate-50 dark:hover:bg-white/10 hover:border-[#3f8fcc]/30 dark:hover:border-[#3f8fcc]/30 shadow-xl shadow-slate-200/50 dark:shadow-lg shrink-0 w-[85vw] md:w-[400px] snap-center md:snap-start"
+                        className="group relative p-8 rounded-[2rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:bg-slate-50 dark:hover:bg-white/10 hover:border-[#3994fa]/30 dark:hover:border-[#3994fa]/30 shadow-xl shadow-slate-200/50 dark:shadow-lg shrink-0 w-[85vw] md:w-[400px] snap-center md:snap-start"
                     >
                         <div className={`absolute inset-0 bg-gradient-to-br ${sol.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 pointer-events-none`} />
                         <div className={`absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br ${sol.color} opacity-0 group-hover:opacity-10 dark:group-hover:opacity-20 blur-[30px] rounded-full transition-opacity duration-500 pointer-events-none`} />
                         <div className="relative z-10 flex flex-col h-full pointer-events-none select-none">
-                            <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center mb-6 transition-transform duration-500 relative overflow-hidden group-hover:border-[#3f8fcc]/30">
+                            <div className="w-14 h-14 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center mb-6 transition-transform duration-500 relative overflow-hidden group-hover:border-[#3994fa]/30">
                                 <div className={`absolute inset-0 bg-gradient-to-br ${sol.color} opacity-10 dark:opacity-20`} />
                                 <sol.icon className="w-6 h-6 text-slate-700 dark:text-white relative z-10" />
                             </div>
@@ -338,7 +338,7 @@ export default function AppDevelopmentPage() {
     ];
 
     return (
-        <main ref={containerRef} className="relative z-10 selection:bg-brand-cyan/20 overflow-x-hidden bg-[#fafafa] text-slate-900 dark:bg-[#050608] dark:text-white transition-colors duration-500 font-sans">
+        <main ref={containerRef} className="relative z-10 selection:bg-brand-cyan/20 overflow-x-clip bg-[#fafafa] text-slate-900 dark:bg-[#050608] dark:text-white transition-colors duration-500 font-sans">
             <Navbar isDark={isDarkMode} toggleTheme={toggleTheme} />
 
             {/* Sticky Mobile CTA */}
@@ -449,7 +449,7 @@ export default function AppDevelopmentPage() {
 
                                 <textarea placeholder="Short Project Description..." rows={3} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-xl py-3 px-4 text-sm focus:ring-2 focus:ring-brand-cyan focus:border-transparent outline-none transition-all resize-none placeholder:text-slate-400" />
 
-                                <button type="submit" className="w-full group mt-2 relative bg-[#3f8fcc] hover:bg-[#3f8fcc]/90 text-white rounded-xl py-4 font-black text-sm uppercase tracking-widest transition-all overflow-hidden shadow-lg shadow-[#3f8fcc]/20 flex items-center justify-center gap-2">
+                                <button type="submit" className="w-full group mt-2 relative bg-[#3994fa] hover:bg-[#3994fa]/90 text-white rounded-xl py-4 font-black text-sm uppercase tracking-widest transition-all overflow-hidden shadow-lg shadow-[#3994fa]/20 flex items-center justify-center gap-2">
                                     Get Free Strategy Call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                                 </button>
                             </form>
@@ -473,9 +473,9 @@ export default function AppDevelopmentPage() {
                         { t: 'Push Notifications', d: 'Instant messaging capabilities for retention and marketing.', i: Zap },
                         { t: 'Increased Revenue', d: 'New channels for sales, in-app purchases, and upgrades.', i: TrendingUp },
                         { t: 'Competitive Advantage', d: 'Gain a severe edge in your market by adapting to mobile-first trends.', i: Target }].map((item, i) => (
-                            <motion.div key={i} whileHover={{ y: -5 }} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 group hover:border-[#3f8fcc]/30 transition-all text-center hover:shadow-2xl hover:shadow-[#3f8fcc]/5">
-                                <div className="w-14 h-14 rounded-2xl bg-[#3f8fcc]/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-[#3f8fcc] transition-colors">
-                                    <item.i className="w-6 h-6 text-[#3f8fcc] group-hover:text-white transition-colors" />
+                            <motion.div key={i} whileHover={{ y: -5 }} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 group hover:border-[#3994fa]/30 transition-all text-center hover:shadow-2xl hover:shadow-[#3994fa]/5">
+                                <div className="w-14 h-14 rounded-2xl bg-[#3994fa]/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-[#3994fa] transition-colors">
+                                    <item.i className="w-6 h-6 text-[#3994fa] group-hover:text-white transition-colors" />
                                 </div>
                                 <h3 className="text-sm font-bold mb-2">{item.t}</h3>
                                 <p className="text-xs text-slate-500 leading-relaxed">{item.d}</p>
@@ -529,8 +529,8 @@ export default function AppDevelopmentPage() {
                         { t: 'Booking Platforms', d: 'Seamless scheduling.', i: Target },
                         { t: 'Enterprises', d: 'Internal tooling & ops.', i: Building2 },
                         { t: 'Local Businesses', d: 'Digital transformation.', i: Globe }].map((ind, i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="flex flex-col items-center p-6 text-center rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 hover:border-[#3f8fcc]/40 hover:bg-slate-50 dark:hover:bg-white/5 transition-all group cursor-pointer shadow-sm">
-                                <ind.i className="w-8 h-8 text-slate-400 group-hover:text-[#3f8fcc] transition-colors mb-4" />
+                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="flex flex-col items-center p-6 text-center rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 hover:border-[#3994fa]/40 hover:bg-slate-50 dark:hover:bg-white/5 transition-all group cursor-pointer shadow-sm">
+                                <ind.i className="w-8 h-8 text-slate-400 group-hover:text-[#3994fa] transition-colors mb-4" />
                                 <h4 className="font-bold text-sm mb-1">{ind.t}</h4>
                                 <p className="text-[11px] text-slate-500">{ind.d}</p>
                             </motion.div>
@@ -545,7 +545,7 @@ export default function AppDevelopmentPage() {
                 <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,_var(--tw-gradient-stops))] from-slate-200/50 dark:from-brand-deep/20 via-transparent to-transparent opacity-50 pointer-events-none" />
                 <div className="relative z-10 w-full pt-4">
                     <div className="text-center mb-16 space-y-4 px-4 md:px-6">
-                        <span className="text-[#3f8fcc] font-bold uppercase tracking-[0.2em] text-xs">Comprehensive Solutions</span>
+                        <span className="text-[#3994fa] font-bold uppercase tracking-[0.2em] text-xs">Comprehensive Solutions</span>
                         <h2 className="text-3xl md:text-5xl font-bold tracking-tight">Our Development Solutions.</h2>
                     </div>
 
@@ -573,12 +573,12 @@ export default function AppDevelopmentPage() {
                             { s: 'Launch', d: 'App store deployment', i: Rocket },
                             { s: 'Optimization', d: 'Post-launch scaling', i: TrendingUp }].map((step, i) => (
                                 <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="flex flex-col items-center text-center group">
-                                    <div className="w-24 h-24 rounded-full bg-white dark:bg-[#030712] border-2 border-slate-200 dark:border-white/10 group-hover:border-[#3f8fcc] flex items-center justify-center mb-6 shadow-xl transition-all duration-300 relative z-10">
-                                        <step.i className="w-8 h-8 text-slate-400 group-hover:text-[#3f8fcc] transition-colors" />
+                                    <div className="w-24 h-24 rounded-full bg-white dark:bg-[#030712] border-2 border-slate-200 dark:border-white/10 group-hover:border-[#3994fa] flex items-center justify-center mb-6 shadow-xl transition-all duration-300 relative z-10">
+                                        <step.i className="w-8 h-8 text-slate-400 group-hover:text-[#3994fa] transition-colors" />
                                     </div>
                                     <h4 className="font-bold text-sm mb-2">{step.s}</h4>
                                     <p className="text-[11px] text-slate-500 uppercase font-black tracking-wider">{step.d}</p>
-                                    <div className="mt-4 text-[10px] font-black text-[#3f8fcc] opacity-40">Step 0{i + 1}</div>
+                                    <div className="mt-4 text-[10px] font-black text-[#3994fa] opacity-40">Step 0{i + 1}</div>
                                 </motion.div>
                             ))}
                         </div>
@@ -654,20 +654,20 @@ export default function AppDevelopmentPage() {
             {/* Final High-Impact CTA Section */}
             <section className="py-24 md:py-36 px-4 md:px-6 bg-[#fafafa] dark:bg-[#030712] text-slate-900 dark:text-white reveal-section relative overflow-hidden text-center">
                 <div className="absolute inset-0 z-0">
-                    <motion.div animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }} transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }} className="absolute -top-[50%] -left-[10%] w-[800px] h-[800px] bg-[#3f8fcc]/10 dark:bg-[#3f8fcc]/20 blur-[150px] rounded-full pointer-events-none" />
-                    <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }} transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }} className="absolute -bottom-[50%] -right-[10%] w-[600px] h-[600px] bg-[#3f8fcc]/10 dark:bg-brand-medium/20 blur-[150px] rounded-full pointer-events-none" />
+                    <motion.div animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }} transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }} className="absolute -top-[50%] -left-[10%] w-[800px] h-[800px] bg-[#3994fa]/10 dark:bg-[#3994fa]/20 blur-[150px] rounded-full pointer-events-none" />
+                    <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }} transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }} className="absolute -bottom-[50%] -right-[10%] w-[600px] h-[600px] bg-[#3994fa]/10 dark:bg-brand-medium/20 blur-[150px] rounded-full pointer-events-none" />
                 </div>
 
                 <div className="max-w-4xl mx-auto relative z-10 space-y-10">
                     <h2 className="text-5xl md:text-7xl font-black tracking-tighter leading-tight">
                         Ready to Build an App That <br className="hidden md:block" />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-[#3f8fcc] dark:to-cyan-400">Drives Real Growth?</span>
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-[#3994fa] dark:to-cyan-400">Drives Real Growth?</span>
                     </h2>
                     <p className="text-slate-600 dark:text-slate-400 text-lg md:text-xl max-w-2xl mx-auto">
                         Join modern startups and enterprise leaders who trust Preet Tech for robust, scalable, and long-term mobile success.
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-                        <a href="#consultation" className="w-full sm:w-auto px-12 py-6 bg-[#3f8fcc] hover:bg-[#3f8fcc]/90 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-xl shadow-[#3f8fcc]/25 flex items-center justify-center gap-3">
+                        <a href="#consultation" className="w-full sm:w-auto px-12 py-6 bg-[#3994fa] hover:bg-[#3994fa]/90 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-xl shadow-[#3994fa]/25 flex items-center justify-center gap-3">
                             Start Your Project Today <Rocket className="w-5 h-5" />
                         </a>
                         <a href="#consultation" className="w-full sm:w-auto px-12 py-6 border border-slate-300 dark:border-white/20 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-900 dark:text-white rounded-2xl font-bold uppercase tracking-widest text-sm transition-all flex items-center justify-center gap-3 active:scale-95">

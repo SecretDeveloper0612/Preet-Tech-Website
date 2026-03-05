@@ -82,7 +82,7 @@ export default function ContentCreation() {
     };
 
     return (
-        <main ref={containerRef} className="relative z-10 selection:bg-brand-cyan/20 overflow-x-hidden bg-[#fafafa] text-slate-900 dark:bg-[#050608] dark:text-white transition-colors duration-500 font-sans">
+        <main ref={containerRef} className="relative z-10 selection:bg-brand-cyan/20 overflow-x-clip bg-[#fafafa] text-slate-900 dark:bg-[#050608] dark:text-white transition-colors duration-500 font-sans">
             <Navbar isDark={isDarkMode} toggleTheme={toggleTheme} />
 
             {/* 1️⃣ Hero Section (With Strategy Call Form) */}
@@ -474,7 +474,7 @@ export default function ContentCreation() {
                         id: 'ad-1',
                         label: 'Ad Creatives',
                         platform: 'Facebook Ads',
-                        bgStyle: { background: 'linear-gradient(135deg, #2F6FB5 0%, #3F8FCC 100%)' },
+                        bgStyle: { background: 'linear-gradient(135deg, #2F6FB5 0%, #3994fa 100%)' },
                         content: (
                             <div className="absolute inset-0 p-8 flex flex-col justify-center text-white text-center">
                                 <div className="space-y-6">

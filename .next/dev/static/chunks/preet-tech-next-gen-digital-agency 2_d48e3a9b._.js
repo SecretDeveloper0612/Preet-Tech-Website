@@ -212,7 +212,7 @@ const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
                                 className: "flex items-center group relative z-[210]",
                                 onClick: ()=>setIsOpen(false),
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                    src: isDark ? '/logo-black.png' : '/logo-preet-tech.png',
+                                    src: isDark ? '/logo-preet-tech-black.png' : '/logo-preet-tech.png',
                                     alt: "Preet Tech Logo",
                                     className: `h-10 md:h-12 w-auto object-contain transition-all duration-500 group-hover:scale-105`
                                 }, void 0, false, {
@@ -1140,7 +1140,7 @@ const Footer = ()=>{
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex items-center gap-4",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                        src: "/logo-black.png",
+                                        src: "/logo-preet-tech-black.png",
                                         alt: "Preet Tech Logo",
                                         className: "h-12 md:h-14 w-auto object-contain"
                                     }, void 0, false, {

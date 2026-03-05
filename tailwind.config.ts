@@ -15,9 +15,9 @@ const config: Config = {
                 background: "var(--background)",
                 foreground: "var(--foreground)",
                 brand: {
-                    cyan: '#5FD3E6',      // 💎 Light Cyan / Aqua
+                    cyan: '#3994fa',      // 💎 Light Cyan / Aqua
                     sky: '#4FAED8',       // 🌊 Sky Blue
-                    medium: '#3F8FCC',    // 🔵 Medium Blue
+                    medium: '#3994fa',    // 🔵 Medium Blue
                     deep: '#2F6FB5',      // 🔷 Deep Blue
                 }
             },

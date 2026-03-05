@@ -56,9 +56,9 @@ const StrategyAndMarketing = () => {
                     className="relative p-10 md:p-14 rounded-[3rem] bg-[#FAFBFC] dark:bg-white/5 border border-slate-200/60 dark:border-white/10 overflow-hidden shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] dark:shadow-none"
                 >
                     <div className="relative z-10 max-w-4xl">
-                        <span className="text-[#3f8fcc] dark:text-brand-cyan text-[10px] font-black uppercase tracking-[0.4em] mb-4 block font-sans">Momentum Creation</span>
+                        <span className="text-[#3994fa] dark:text-brand-cyan text-[10px] font-black uppercase tracking-[0.4em] mb-4 block font-sans">Momentum Creation</span>
                         <h2 className="text-3xl md:text-5xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-8 leading-[1]">
-                            Marketing & <br /> <span className="text-[#3f8fcc] dark:text-brand-cyan italic">Launch Strategy</span>
+                            Marketing & <br /> <span className="text-[#3994fa] dark:text-brand-cyan italic">Launch Strategy</span>
                         </h2>
 
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -69,9 +69,9 @@ const StrategyAndMarketing = () => {
                             ].map((item, i) => (
                                 <div key={i} className="group cursor-default">
                                     <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center mb-5 group-hover:scale-110 transition-transform">
-                                        <item.icon strokeWidth={2} className="w-6 h-6 text-[#3f8fcc] dark:text-brand-cyan" />
+                                        <item.icon strokeWidth={2} className="w-6 h-6 text-[#3994fa] dark:text-brand-cyan" />
                                     </div>
-                                    <h4 className="text-slate-900 dark:text-white text-[14px] font-black uppercase tracking-tight mb-2 group-hover:text-[#3f8fcc] dark:group-hover:text-brand-cyan transition-colors">{item.title}</h4>
+                                    <h4 className="text-slate-900 dark:text-white text-[14px] font-black uppercase tracking-tight mb-2 group-hover:text-[#3994fa] dark:group-hover:text-brand-cyan transition-colors">{item.title}</h4>
                                     <p className="text-slate-500 dark:text-slate-400 text-[11px] font-medium leading-[1.8]">{item.desc}</p>
                                 </div>
                             ))}
@@ -85,7 +85,7 @@ const StrategyAndMarketing = () => {
                             ].map((stat, i) => (
                                 <div key={i}>
                                     <p className="text-slate-900 dark:text-white font-black text-2xl md:text-3xl mb-1">{stat.value}</p>
-                                    <p className="text-[#3f8fcc] dark:text-brand-cyan text-[10px] font-black uppercase tracking-[0.2em]">{stat.label}</p>
+                                    <p className="text-[#3994fa] dark:text-brand-cyan text-[10px] font-black uppercase tracking-[0.2em]">{stat.label}</p>
                                 </div>
                             ))}
                         </div>

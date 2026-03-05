@@ -1,0 +1,16 @@
+{
+  "headers": {
+    "x-nextjs-stale-time": "300",
+    "x-nextjs-prerender": "1",
+    "x-next-cache-tags": "_N_T_/layout,_N_T_/services/layout,_N_T_/services/eco-website/layout,_N_T_/services/eco-website/page,_N_T_/services/eco-website"
+  },
+  "segmentPaths": [
+    "/_tree",
+    "/_full",
+    "/services/eco-website/__PAGE__",
+    "/services/eco-website",
+    "/services",
+    "/_index",
+    "/_head"
+  ]
+}

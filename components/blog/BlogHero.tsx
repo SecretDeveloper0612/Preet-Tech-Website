@@ -35,34 +35,36 @@ export default function BlogHero({ activeCategory, onCategoryChange, onSearch }:
                     </motion.div>
 
                     {/* Categories */}
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ duration: 1, delay: 0.2 }}
-                        className="flex flex-wrap justify-center gap-2"
-                    >
-                        <button
-                            onClick={() => onCategoryChange('All')}
-                            className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${activeCategory === 'All'
-                                ? 'bg-brand-medium border-brand-medium text-white shadow-lg shadow-brand-medium/20 scale-105'
-                                : 'bg-white/5 border-white/10 text-slate-500 hover:border-brand-sky/40 hover:text-brand-cyan'
-                                }`}
+                    <div className="w-full relative -mx-4 px-4 sm:mx-0 sm:px-0">
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 1, delay: 0.2 }}
+                            className="flex justify-start sm:justify-center gap-2 overflow-x-auto hide-scrollbar pb-4 pt-2"
                         >
-                            All_Posts
-                        </button>
-                        {CATEGORIES.map((cat) => (
                             <button
-                                key={cat}
-                                onClick={() => onCategoryChange(cat)}
-                                className={`px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${activeCategory === cat
+                                onClick={() => onCategoryChange('All')}
+                                className={`flex-shrink-0 px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${activeCategory === 'All'
                                     ? 'bg-brand-medium border-brand-medium text-white shadow-lg shadow-brand-medium/20 scale-105'
                                     : 'bg-white/5 border-white/10 text-slate-500 hover:border-brand-sky/40 hover:text-brand-cyan'
                                     }`}
                             >
-                                {cat.replace(/ /g, '_')}
+                                All_Posts
                             </button>
-                        ))}
-                    </motion.div>
+                            {CATEGORIES.map((cat) => (
+                                <button
+                                    key={cat}
+                                    onClick={() => onCategoryChange(cat)}
+                                    className={`flex-shrink-0 px-6 py-2 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all duration-300 border ${activeCategory === cat
+                                        ? 'bg-brand-medium border-brand-medium text-white shadow-lg shadow-brand-medium/20 scale-105'
+                                        : 'bg-white/5 border-white/10 text-slate-500 hover:border-brand-sky/40 hover:text-brand-cyan'
+                                        }`}
+                                >
+                                    {cat.replace(/ /g, '_')}
+                                </button>
+                            ))}
+                        </motion.div>
+                    </div>
                 </div>
             </div>
         </section>

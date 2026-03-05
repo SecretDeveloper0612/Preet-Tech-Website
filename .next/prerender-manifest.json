@@ -242,11 +242,11 @@
         "x-next-revalidate-tag-token"
       ]
     },
-    "/icon.jpg": {
+    "/icon.png": {
       "initialHeaders": {
         "cache-control": "public, max-age=0, must-revalidate",
-        "content-type": "image/jpeg",
-        "x-next-cache-tags": "_N_T_/layout,_N_T_/icon.jpg/layout,_N_T_/icon.jpg/route,_N_T_/icon.jpg"
+        "content-type": "image/png",
+        "x-next-cache-tags": "_N_T_/layout,_N_T_/icon.png/layout,_N_T_/icon.png/route,_N_T_/icon.png"
       },
       "experimentalBypassFor": [
         {
@@ -260,7 +260,7 @@
         }
       ],
       "initialRevalidateSeconds": false,
-      "srcRoute": "/icon.jpg",
+      "srcRoute": "/icon.png",
       "dataRoute": null,
       "allowHeader": [
         "host",
@@ -286,6 +286,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/",
       "dataRoute": "/index.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/services/advance-website": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/services/advance-website",
+      "dataRoute": "/services/advance-website.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -358,6 +382,30 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/services/content-creation",
       "dataRoute": "/services/content-creation.rsc",
+      "allowHeader": [
+        "host",
+        "x-matched-path",
+        "x-prerender-revalidate",
+        "x-prerender-revalidate-if-generated",
+        "x-next-revalidated-tags",
+        "x-next-revalidate-tag-token"
+      ]
+    },
+    "/services/eco-website": {
+      "experimentalBypassFor": [
+        {
+          "type": "header",
+          "key": "next-action"
+        },
+        {
+          "type": "header",
+          "key": "content-type",
+          "value": "multipart/form-data;.*"
+        }
+      ],
+      "initialRevalidateSeconds": false,
+      "srcRoute": "/services/eco-website",
+      "dataRoute": "/services/eco-website.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",
@@ -502,78 +550,6 @@
       "initialRevalidateSeconds": false,
       "srcRoute": "/services/start-your-business",
       "dataRoute": "/services/start-your-business.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/services/website-development/advanced": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/services/website-development/advanced",
-      "dataRoute": "/services/website-development/advanced.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/services/website-development/eco": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/services/website-development/eco",
-      "dataRoute": "/services/website-development/eco.rsc",
-      "allowHeader": [
-        "host",
-        "x-matched-path",
-        "x-prerender-revalidate",
-        "x-prerender-revalidate-if-generated",
-        "x-next-revalidated-tags",
-        "x-next-revalidate-tag-token"
-      ]
-    },
-    "/services/website-development": {
-      "experimentalBypassFor": [
-        {
-          "type": "header",
-          "key": "next-action"
-        },
-        {
-          "type": "header",
-          "key": "content-type",
-          "value": "multipart/form-data;.*"
-        }
-      ],
-      "initialRevalidateSeconds": false,
-      "srcRoute": "/services/website-development",
-      "dataRoute": "/services/website-development.rsc",
       "allowHeader": [
         "host",
         "x-matched-path",

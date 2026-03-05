@@ -91,7 +91,7 @@ const ContactCTA: React.FC = () => {
                         {/* Strategic Actions */}
                         <div className="flex items-center justify-center pt-4">
                             <button
-                                className="w-full sm:w-auto group relative px-8 py-4 bg-[#3f8fcc] text-white rounded-xl overflow-hidden shadow-xl shadow-[#3f8fcc]/20 transition-all font-black uppercase text-xs tracking-widest flex items-center justify-center gap-3 hover:scale-105"
+                                className="w-full sm:w-auto group relative px-8 py-4 bg-[#3994fa] text-white rounded-xl overflow-hidden shadow-xl shadow-[#3994fa]/20 transition-all font-black uppercase text-xs tracking-widest flex items-center justify-center gap-3 hover:scale-105"
                             >
                                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                 <Rocket className="w-4 h-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />

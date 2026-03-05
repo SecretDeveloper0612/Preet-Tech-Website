@@ -107,14 +107,14 @@ const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
                 {
                     name: 'Eco Website',
                     icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$panels$2d$top$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Layout$3e$__["Layout"],
-                    href: '/services/website-development/eco',
+                    href: '/services/eco-website',
                     detail: 'Rapid & Budget-Friendly',
                     longDesc: 'Our Eco-Budget path engineered for rapid deployment, perfect for starting out with a blazingly fast website.'
                 },
                 {
                     name: 'Advance Website',
                     icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$monitor$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Monitor$3e$__["Monitor"],
-                    href: '/services/website-development/advanced',
+                    href: '/services/advance-website',
                     detail: 'Custom Enterprise Features',
                     longDesc: 'Advance Websites engineered for complex operations, custom enterprise features, and maximum scalability.'
                 },
@@ -200,7 +200,7 @@ const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
                                 className: "flex items-center group relative z-[210]",
                                 onClick: ()=>setIsOpen(false),
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                    src: isDark ? '/logo-black.png' : '/logo-preet-tech.png',
+                                    src: isDark ? '/logo-preet-tech-black.png' : '/logo-preet-tech.png',
                                     alt: "Preet Tech Logo",
                                     className: `h-10 md:h-12 w-auto object-contain transition-all duration-500 group-hover:scale-105`
                                 }, void 0, false, {
@@ -274,7 +274,7 @@ const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                         href: "/contact",
-                                        className: "hidden sm:flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-brand-deep dark:bg-white text-white dark:text-brand-deep rounded-full font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95",
+                                        className: "hidden sm:flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-[#3994fa] dark:bg-white text-white dark:text-[#3994fa] rounded-full font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95",
                                         children: [
                                             "Contact ",
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$up$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowUpRight$3e$__["ArrowUpRight"], {
@@ -1115,7 +1115,7 @@ const Footer = ()=>{
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex items-center gap-4",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                        src: "/logo-black.png",
+                                        src: "/logo-preet-tech-black.png",
                                         alt: "Preet Tech Logo",
                                         className: "h-12 md:h-14 w-auto object-contain"
                                     }, void 0, false, {
@@ -1317,7 +1317,7 @@ const Footer = ()=>{
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "submit",
                                             disabled: subscribeStatus === 'loading',
-                                            className: "absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-[#4392CE] text-white flex items-center justify-center hover:bg-[#4392CE]/90 transition-all shadow-[0_4px_14px_rgba(67,146,206,0.4)] disabled:opacity-50 disabled:cursor-not-allowed",
+                                            className: "absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-[#3994fa] text-white flex items-center justify-center hover:bg-[#3994fa]/90 transition-all shadow-[0_4px_14px_rgba(57,148,250,0.4)] disabled:opacity-50 disabled:cursor-not-allowed",
                                             children: subscribeStatus === 'loading' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "w-4 h-4 rounded-full border-2 border-white/20 border-t-white animate-spin"
                                             }, void 0, false, {
@@ -1593,7 +1593,7 @@ function PortfolioCarousel({ cards }) {
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#3f8fcc]/5 dark:bg-[#3f8fcc]/8 blur-[140px] rounded-full"
+                        className: "absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-[#3994fa]/5 dark:bg-[#3994fa]/8 blur-[140px] rounded-full"
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/PortfolioCarousel.tsx",
                         lineNumber: 77,
@@ -1617,14 +1617,14 @@ function PortfolioCarousel({ cards }) {
                                     className: "flex items-center gap-3",
                                     children: [
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "h-px w-8 bg-[#3f8fcc]"
+                                            className: "h-px w-8 bg-[#3994fa]"
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/PortfolioCarousel.tsx",
                                             lineNumber: 85,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "text-[#3f8fcc] font-bold uppercase tracking-[0.25em] text-xs",
+                                            className: "text-[#3994fa] font-bold uppercase tracking-[0.25em] text-xs",
                                             children: "Our Work"
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/PortfolioCarousel.tsx",
@@ -1647,7 +1647,7 @@ function PortfolioCarousel({ cards }) {
                                             columnNumber: 41
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                            className: "text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-[#3f8fcc]",
+                                            className: "text-transparent bg-clip-text bg-gradient-to-r from-blue-500 to-[#3994fa]",
                                             children: "Stops the Scroll."
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/PortfolioCarousel.tsx",
@@ -1683,7 +1683,7 @@ function PortfolioCarousel({ cards }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             id: "portfolio-prev",
                                             onClick: ()=>snapTo(activeIndex - 1),
-                                            className: "w-11 h-11 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center transition-all text-slate-500 dark:text-slate-400 hover:bg-[#3f8fcc] hover:text-white hover:border-[#3f8fcc]",
+                                            className: "w-11 h-11 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center transition-all text-slate-500 dark:text-slate-400 hover:bg-[#3994fa] hover:text-white hover:border-[#3994fa]",
                                             "aria-label": "Previous slide",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowLeft$3e$__["ArrowLeft"], {
                                                 className: "w-5 h-5"
@@ -1712,7 +1712,7 @@ function PortfolioCarousel({ cards }) {
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             id: "portfolio-next",
                                             onClick: ()=>snapTo(activeIndex + 1),
-                                            className: "w-11 h-11 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center transition-all text-slate-500 dark:text-slate-400 hover:bg-[#3f8fcc] hover:text-white hover:border-[#3f8fcc]",
+                                            className: "w-11 h-11 rounded-full border-2 border-slate-200 dark:border-white/10 flex items-center justify-center transition-all text-slate-500 dark:text-slate-400 hover:bg-[#3994fa] hover:text-white hover:border-[#3994fa]",
                                             "aria-label": "Next slide",
                                             children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
                                                 className: "w-5 h-5"
@@ -1850,7 +1850,7 @@ function PortfolioCarousel({ cards }) {
                                             }, this),
                                             i === activeIndex && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["motion"].div, {
                                                 layoutId: "activeBorder",
-                                                className: "absolute inset-0 rounded-3xl border-2 border-[#3f8fcc]/60 pointer-events-none z-30"
+                                                className: "absolute inset-0 rounded-3xl border-2 border-[#3994fa]/60 pointer-events-none z-30"
                                             }, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/PortfolioCarousel.tsx",
                                                 lineNumber: 180,
@@ -1893,7 +1893,7 @@ function PortfolioCarousel({ cards }) {
                 className: "flex justify-center gap-2 mt-8 px-4",
                 children: cards.map((_, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                         onClick: ()=>snapTo(i),
-                        className: `transition-all duration-300 rounded-full ${i === activeIndex ? 'w-7 h-2 bg-[#3f8fcc]' : 'w-2 h-2 bg-slate-300 dark:bg-white/20 hover:bg-slate-400 dark:hover:bg-white/40'}`,
+                        className: `transition-all duration-300 rounded-full ${i === activeIndex ? 'w-7 h-2 bg-[#3994fa]' : 'w-2 h-2 bg-slate-300 dark:bg-white/20 hover:bg-slate-400 dark:hover:bg-white/40'}`,
                         "aria-label": `Go to slide ${i + 1}`
                     }, i, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/PortfolioCarousel.tsx",
@@ -1930,8 +1930,8 @@ function PortfolioCarousel({ cards }) {
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex -space-x-2",
                                     children: [
-                                        '#3F8FCC',
-                                        '#5FD3E6',
+                                        '#3994fa',
+                                        '#3994fa',
                                         '#2F6FB5'
                                     ].map((c, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                             className: "w-8 h-8 rounded-full border-2 border-white dark:border-[#060911]",
@@ -1980,7 +1980,7 @@ function PortfolioCarousel({ cards }) {
                         }, this),
                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("a", {
                             href: "#audit",
-                            className: "shrink-0 px-6 py-3 bg-[#3f8fcc] rounded-xl font-bold text-white text-xs uppercase tracking-wider hover:shadow-lg hover:shadow-[#3f8fcc]/30 transition-all flex items-center gap-2",
+                            className: "shrink-0 px-6 py-3 bg-[#3994fa] rounded-xl font-bold text-white text-xs uppercase tracking-wider hover:shadow-lg hover:shadow-[#3994fa]/30 transition-all flex items-center gap-2",
                             children: [
                                 "Get Our Portfolio ",
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__["ArrowRight"], {
@@ -4887,7 +4887,7 @@ function SocialMediaHandling() {
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
                                                                         offset: "0%",
-                                                                        stopColor: "#3F8FCC",
+                                                                        stopColor: "#3994fa",
                                                                         stopOpacity: "0.6"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/services/social-media-handling/page.tsx",
@@ -4896,7 +4896,7 @@ function SocialMediaHandling() {
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
                                                                         offset: "100%",
-                                                                        stopColor: "#5FD3E6",
+                                                                        stopColor: "#3994fa",
                                                                         stopOpacity: "1"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/services/social-media-handling/page.tsx",
@@ -4957,7 +4957,7 @@ function SocialMediaHandling() {
                                                                 children: [
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
                                                                         offset: "0%",
-                                                                        stopColor: "#3F8FCC",
+                                                                        stopColor: "#3994fa",
                                                                         stopOpacity: "0.2"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/services/social-media-handling/page.tsx",
@@ -4966,7 +4966,7 @@ function SocialMediaHandling() {
                                                                     }, this),
                                                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("stop", {
                                                                         offset: "100%",
-                                                                        stopColor: "#3F8FCC",
+                                                                        stopColor: "#3994fa",
                                                                         stopOpacity: "0"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/services/social-media-handling/page.tsx",
@@ -5049,7 +5049,7 @@ function SocialMediaHandling() {
                                                         cx: 360 - 360 / bars.length / 2,
                                                         cy: 160 - bars[bars.length - 1].h / 100 * 156,
                                                         r: "5",
-                                                        fill: "#5FD3E6",
+                                                        fill: "#3994fa",
                                                         initial: {
                                                             scale: 0,
                                                             opacity: 0

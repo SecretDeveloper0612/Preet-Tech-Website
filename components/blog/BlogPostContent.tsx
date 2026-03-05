@@ -16,6 +16,43 @@ interface BlogPostContentProps {
 export default function BlogPostContent({ post }: BlogPostContentProps) {
     const [isDark, setIsDark] = useState(false);
 
+    // Newsletter State
+    const [subscribeEmail, setSubscribeEmail] = useState('');
+    const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [subscribeMessage, setSubscribeMessage] = useState('');
+
+    const handleSubscribe = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubscribeStatus('loading');
+        setSubscribeMessage('');
+
+        try {
+            const response = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email: subscribeEmail })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                setSubscribeStatus('success');
+                setSubscribeEmail('');
+                setSubscribeMessage(data.message || 'Subscription successful!');
+                setTimeout(() => {
+                    setSubscribeStatus('idle');
+                    setSubscribeMessage('');
+                }, 5000);
+            } else {
+                setSubscribeStatus('error');
+                setSubscribeMessage(data.message || 'Something went wrong.');
+            }
+        } catch (err) {
+            setSubscribeStatus('error');
+            setSubscribeMessage('Network Error. Please try again.');
+        }
+    };
+
     useEffect(() => {
         const isDarkMode = false;
         setIsDark(isDarkMode);
@@ -67,37 +104,6 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                                     {post.title}
                                 </h1>
 
-                                <div className="flex flex-wrap items-center justify-between gap-8 py-8 border-y border-white/5">
-                                    <div className="flex items-center gap-4">
-                                        <div className="w-12 h-12 rounded-full overflow-hidden bg-brand-medium/20 text-brand-cyan flex items-center justify-center text-sm font-black uppercase border border-brand-medium/30 relative">
-                                            {post.author.avatar ? (
-                                                <Image
-                                                    src={post.author.avatar}
-                                                    alt={post.author.name}
-                                                    fill
-                                                    className="object-cover"
-                                                />
-                                            ) : (
-                                                post.author.name.substring(0, 2)
-                                            )}
-                                        </div>
-                                        <div className="flex flex-col">
-                                            <span className="text-foreground font-black text-sm tracking-wide">{post.author.name}</span>
-                                            <span className="text-slate-500 text-[10px] uppercase font-bold tracking-widest">{post.author.role}</span>
-                                        </div>
-                                    </div>
-
-                                    <div className="flex items-center gap-8 text-xs font-bold text-slate-500 uppercase tracking-widest">
-                                        <div className="flex items-center gap-2">
-                                            <Clock className="w-4 h-4 text-brand-cyan" />
-                                            <span>{post.readTime}</span>
-                                        </div>
-                                        <div className="flex items-center gap-2">
-                                            <Share2 className="w-4 h-4 text-brand-cyan" />
-                                            <span>Share</span>
-                                        </div>
-                                    </div>
-                                </div>
                             </header>
 
                             {/* Featured Image */}
@@ -158,31 +164,6 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                                 </div>
                             </div>
 
-                            {/* Author Footer */}
-                            <div className="mt-16 p-10 rounded-[2.5rem] bg-white/5 border border-white/5 flex flex-col md:flex-row items-center gap-8">
-                                <div className="w-24 h-24 rounded-3xl overflow-hidden bg-brand-medium/20 text-brand-cyan flex items-center justify-center text-3xl font-black uppercase border border-brand-medium/30 shrink-0 relative">
-                                    {post.author.avatar ? (
-                                        <Image
-                                            src={post.author.avatar}
-                                            alt={post.author.name}
-                                            fill
-                                            className="object-cover"
-                                        />
-                                    ) : (
-                                        post.author.name.substring(0, 2)
-                                    )}
-                                </div>
-                                <div>
-                                    <h4 className="text-xl font-black mb-2 tracking-tight">Written by {post.author.name}</h4>
-                                    <p className="text-slate-400 text-sm leading-relaxed">
-                                        {post.author.role} at Preet Tech. Dedicated to helping brands leverage cutting-edge technology and performance marketing to scale in the digital universe.
-                                    </p>
-                                    <div className="mt-4 flex items-center gap-4">
-                                        <Link href="#" className="text-xs font-bold text-brand-cyan uppercase tracking-widest hover:underline transition-all">View Profile</Link>
-                                        <Link href="#" className="text-xs font-bold text-slate-500 uppercase tracking-widest hover:underline transition-all">Previous Articles</Link>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         {/* Sidebar */}
@@ -201,16 +182,31 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                             <p className="text-slate-400 text-lg mb-12 max-w-2xl mx-auto leading-relaxed">
                                 Subscribe to our newsletter for exclusive weekly insights that you won't find on our blog.
                             </p>
-                            <div className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto">
-                                <input
-                                    type="email"
-                                    placeholder="your@email.com"
-                                    className="flex-grow h-16 px-8 rounded-2xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-lg"
-                                />
-                                <button className="h-16 px-10 bg-brand-cyan text-[#020617] rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform whitespace-nowrap">
-                                    Sign Me Up
+                            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto relative">
+                                <div className="flex-grow flex flex-col gap-2">
+                                    <input
+                                        type="email"
+                                        placeholder="your@email.com"
+                                        value={subscribeEmail}
+                                        onChange={(e) => setSubscribeEmail(e.target.value)}
+                                        required
+                                        disabled={subscribeStatus === 'loading'}
+                                        className="w-full h-16 px-8 rounded-2xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-lg disabled:opacity-50"
+                                    />
+                                    {subscribeMessage && (
+                                        <p className={`text-xs ml-2 font-bold absolute -bottom-6 left-0 ${subscribeStatus === 'success' ? 'text-[#3994fa]' : 'text-red-500'}`}>
+                                            {subscribeMessage}
+                                        </p>
+                                    )}
+                                </div>
+                                <button
+                                    type="submit"
+                                    disabled={subscribeStatus === 'loading'}
+                                    className="h-16 shrink-0 px-10 bg-[#3994fa] text-white rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                >
+                                    {subscribeStatus === 'loading' ? 'Subscribing...' : 'Sign Me Up'}
                                 </button>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </section>

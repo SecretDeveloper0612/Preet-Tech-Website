@@ -188,13 +188,13 @@ const ProductShowcase: React.FC = () => {
                         <div className="hidden md:flex items-center gap-4">
                             <button
                                 onClick={() => scroll('left')}
-                                className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full border-2 border-[#E9EEF4] dark:border-white/10 flex items-center justify-center text-[#8C9FAF] hover:bg-[#3f8fcc] dark:hover:bg-[#3f8fcc] hover:text-white dark:hover:text-white hover:border-[#3f8fcc] dark:hover:border-[#3f8fcc] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
+                                className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full border-2 border-[#E9EEF4] dark:border-white/10 flex items-center justify-center text-[#8C9FAF] hover:bg-[#3994fa] dark:hover:bg-[#3994fa] hover:text-white dark:hover:text-white hover:border-[#3994fa] dark:hover:border-[#3994fa] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
                             >
                                 <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 stroke-[2px]" />
                             </button>
                             <button
                                 onClick={() => scroll('right')}
-                                className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full border-2 border-[#E9EEF4] dark:border-white/10 flex items-center justify-center text-[#8C9FAF] hover:bg-[#3f8fcc] dark:hover:bg-[#3f8fcc] hover:text-white dark:hover:text-white hover:border-[#3f8fcc] dark:hover:border-[#3f8fcc] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
+                                className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full border-2 border-[#E9EEF4] dark:border-white/10 flex items-center justify-center text-[#8C9FAF] hover:bg-[#3994fa] dark:hover:bg-[#3994fa] hover:text-white dark:hover:text-white hover:border-[#3994fa] dark:hover:border-[#3994fa] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
                             >
                                 <ArrowRight className="w-5 h-5 md:w-6 md:h-6 stroke-[2px]" />
                             </button>
@@ -273,7 +273,7 @@ const ProductShowcase: React.FC = () => {
                                             href={`https://wa.me/917900310428?text=${encodeURIComponent(product.whatsappMsg)}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-full group/btn relative overflow-hidden py-3 bg-[#3f8fcc] text-white rounded-xl font-black text-[9px] uppercase tracking-[0.25em] transition-all flex items-center justify-center gap-2 active:scale-[0.98] shadow-lg hover:shadow-brand-medium/20"
+                                            className="w-full group/btn relative overflow-hidden py-3 bg-[#3994fa] text-white rounded-xl font-black text-[9px] uppercase tracking-[0.25em] transition-all flex items-center justify-center gap-2 active:scale-[0.98] shadow-lg hover:shadow-brand-medium/20"
                                         >
                                             <div className="absolute inset-0 bg-gradient-to-r from-brand-medium to-brand-cyan opacity-0 group-hover/btn:opacity-100 transition-opacity" />
                                             <MessageCircle className="w-3.5 h-3.5 relative z-10 transition-transform group-hover/btn:-rotate-12" />

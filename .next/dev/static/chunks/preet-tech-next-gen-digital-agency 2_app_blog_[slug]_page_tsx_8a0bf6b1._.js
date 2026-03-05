@@ -2,7 +2,7 @@
     script: typeof document === "object" ? document.currentScript : undefined,
     chunks: [
   "static/chunks/preet-tech-next-gen-digital-agency 2_d0ad4d0b._.js",
-  "static/chunks/e0675_7ffad74f._.js"
+  "static/chunks/e0675_43d73f2e._.js"
 ],
     source: "dynamic"
 });

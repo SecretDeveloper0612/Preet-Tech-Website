@@ -247,7 +247,7 @@ export default function ServicesPage() {
                             transition={{ delay: 0.6, duration: 0.5 }}
                             className="flex flex-col items-center justify-center gap-8"
                         >
-                            <Link href="#services-grid" className="group flex items-center gap-3 px-8 py-4 bg-[#3f8fcc] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-brand-medium/20 text-center">
+                            <Link href="#services-grid" className="group flex items-center gap-3 px-8 py-4 bg-[#3994fa] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-brand-medium/20 text-center">
                                 Explore Capabilities
                                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
                                     <ArrowRight size={16} />

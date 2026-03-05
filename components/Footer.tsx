@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Github, Twitter, Linkedin, Instagram, ArrowUp, Mail, MapPin, Send, Cpu, ChevronRight } from 'lucide-react';
+import { Facebook, Twitter, Linkedin, Instagram, ArrowUp, Mail, MapPin, Send, Cpu, ChevronRight } from 'lucide-react';
 
 const Footer: React.FC = () => {
     // Newsletter State
@@ -78,7 +78,7 @@ const Footer: React.FC = () => {
                     <div className="lg:col-span-5 space-y-8">
                         <div className="flex items-center gap-4">
                             <img
-                                src="/logo-black.png"
+                                src="/logo-preet-tech-black.png"
                                 alt="Preet Tech Logo"
                                 className="h-12 md:h-14 w-auto object-contain"
                             />
@@ -87,10 +87,17 @@ const Footer: React.FC = () => {
                             "A high-performance digital partner specializing in engineering growth, building scalable architectures, and delivering measurable results for global visionaries."
                         </p>
                         <div className="flex gap-4">
-                            {[Twitter, Github, Linkedin, Instagram].map((Icon, i) => (
+                            {[
+                                { Icon: Linkedin, href: "https://www.linkedin.com/company/preet-tech?originalSubdomain=in" },
+                                { Icon: Twitter, href: "#" },
+                                { Icon: Facebook, href: "https://www.facebook.com/Preetinfotech/" },
+                                { Icon: Instagram, href: "https://www.instagram.com/preettech/" }
+                            ].map(({ Icon, href }, i) => (
                                 <motion.a
                                     key={i}
-                                    href="#"
+                                    href={href}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
                                     whileHover={{ y: -4, color: '#6366f1' }}
                                     className="w-11 h-11 rounded-full bg-white/5 flex items-center justify-center text-slate-400 transition-all border border-white/5 hover:bg-white/10 hover:border-brand-medium/30"
                                 >
@@ -148,7 +155,7 @@ const Footer: React.FC = () => {
                             <button
                                 type="submit"
                                 disabled={subscribeStatus === 'loading'}
-                                className="absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-[#4392CE] text-white flex items-center justify-center hover:bg-[#4392CE]/90 transition-all shadow-[0_4px_14px_rgba(67,146,206,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-[#3994fa] text-white flex items-center justify-center hover:bg-[#3994fa]/90 transition-all shadow-[0_4px_14px_rgba(57,148,250,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {subscribeStatus === 'loading' ? (
                                     <span className="w-4 h-4 rounded-full border-2 border-white/20 border-t-white animate-spin" />

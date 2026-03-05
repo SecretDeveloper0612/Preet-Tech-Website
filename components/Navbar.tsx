@@ -56,8 +56,8 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
       title: 'Digital Engineering',
       desc: 'High-performance code for scalable digital infrastructure.',
       items: [
-        { name: 'Eco Website', icon: Layout, href: '/services/website-development/eco', detail: 'Rapid & Budget-Friendly', longDesc: 'Our Eco-Budget path engineered for rapid deployment, perfect for starting out with a blazingly fast website.' },
-        { name: 'Advance Website', icon: Monitor, href: '/services/website-development/advanced', detail: 'Custom Enterprise Features', longDesc: 'Advance Websites engineered for complex operations, custom enterprise features, and maximum scalability.' },
+        { name: 'Eco Website', icon: Layout, href: '/services/eco-website', detail: 'Rapid & Budget-Friendly', longDesc: 'Our Eco-Budget path engineered for rapid deployment, perfect for starting out with a blazingly fast website.' },
+        { name: 'Advance Website', icon: Monitor, href: '/services/advance-website', detail: 'Custom Enterprise Features', longDesc: 'Advance Websites engineered for complex operations, custom enterprise features, and maximum scalability.' },
         { name: 'App Development', icon: Smartphone, href: '/services/app-development', detail: 'Native & Cross-platform reach', longDesc: 'Building high-performance mobile applications with seamless user experiences across iOS and Android ecosystems.' },
         { name: 'Software Development', icon: Cpu, href: '/services/software-development', detail: 'Custom enterprise logic', longDesc: 'Architecting complex software systems tailored to your business operations, ensuring efficiency and long-term scalability.' },
       ]
@@ -100,7 +100,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
           {/* Logo & Brand */}
           <Link href="/" className="flex items-center group relative z-[210]" onClick={() => setIsOpen(false)}>
             <img
-              src={isDark ? '/logo-black.png' : '/logo-preet-tech.png'}
+              src={isDark ? '/logo-preet-tech-black.png' : '/logo-preet-tech.png'}
               alt="Preet Tech Logo"
               className={`h-10 md:h-12 w-auto object-contain transition-all duration-500 group-hover:scale-105`}
             />
@@ -140,7 +140,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
               {isDark ? <Sun className="w-4 h-4 md:w-5 md:h-5" /> : <Moon className="w-4 h-4 md:w-5 md:h-5" />}
             </button>
 
-            <Link href="/contact" className="hidden sm:flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-brand-deep dark:bg-white text-white dark:text-brand-deep rounded-full font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95">
+            <Link href="/contact" className="hidden sm:flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-[#3994fa] dark:bg-white text-white dark:text-[#3994fa] rounded-full font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95">
               Contact <ArrowUpRight className="w-3 h-3" />
             </Link>
 

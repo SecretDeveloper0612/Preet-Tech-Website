@@ -77,13 +77,22 @@ const SERVICES = [
     bg: 'from-indigo-600/10 to-transparent'
   },
   {
-    id: 'website-development',
-    title: 'Website Development',
+    id: 'eco-website',
+    title: 'Eco Website',
     tag: 'WEB_09',
-    description: 'Strategic digital headquarters architected for sub-100ms speeds. We build the foundation of your digital authority.',
+    description: 'Rapid & Budget-Friendly digital foundation. Blazingly fast website architected for immediate deployment.',
     icon: Globe,
     accent: 'text-brand-medium',
     bg: 'from-blue-600/10 to-transparent'
+  },
+  {
+    id: 'advance-website',
+    title: 'Advance Website',
+    tag: 'WEB_10',
+    description: 'Custom Enterprise Features and complex operations engineered for maximum horizontal scaling and authority.',
+    icon: Globe,
+    accent: 'text-brand-deep',
+    bg: 'from-indigo-600/10 to-transparent'
   }
 ];
 
@@ -209,14 +218,14 @@ const Services: React.FC = () => {
           <div className="hidden md:flex items-center gap-4 mt-2 md:mt-0">
             <button
               onClick={() => scroll('left')}
-              className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-[#3f8fcc] dark:hover:bg-[#3f8fcc] hover:text-white dark:hover:text-white hover:border-[#3f8fcc] dark:hover:border-[#3f8fcc] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
+              className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-[#3994fa] dark:hover:bg-[#3994fa] hover:text-white dark:hover:text-white hover:border-[#3994fa] dark:hover:border-[#3994fa] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
               aria-label="Scroll left"
             >
               <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 stroke-[2px]" />
             </button>
             <button
               onClick={() => scroll('right')}
-              className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-[#3f8fcc] dark:hover:bg-[#3f8fcc] hover:text-white dark:hover:text-white hover:border-[#3f8fcc] dark:hover:border-[#3f8fcc] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
+              className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-[#3994fa] dark:hover:bg-[#3994fa] hover:text-white dark:hover:text-white hover:border-[#3994fa] dark:hover:border-[#3994fa] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
               aria-label="Scroll right"
             >
               <ArrowRight className="w-5 h-5 md:w-6 md:h-6 stroke-[2px]" />

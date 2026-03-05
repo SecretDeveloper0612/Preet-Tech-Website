@@ -198,7 +198,7 @@ export default function BlogPage() {
                                 <button
                                     type="submit"
                                     disabled={subscribeStatus === 'loading'}
-                                    className="h-16 shrink-0 px-10 bg-brand-cyan text-slate-950 rounded-2xl font-black uppercase tracking-widest hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-slate-950 transition-all active:scale-95 whitespace-nowrap shadow-lg shadow-brand-cyan/20 disabled:opacity-50 disabled:cursor-not-allowed"
+                                    className="h-16 shrink-0 px-10 bg-[#3994fa] text-white rounded-2xl font-black uppercase tracking-widest hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-slate-950 transition-all active:scale-95 whitespace-nowrap shadow-lg shadow-[#3994fa]/20 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {subscribeStatus === 'loading' ? 'SUBSCRIBING...' : 'SUBSCRIBE NOW'}
                                 </button>

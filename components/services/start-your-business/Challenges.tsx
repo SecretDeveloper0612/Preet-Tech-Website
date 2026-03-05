@@ -27,10 +27,10 @@ const Challenges = () => {
                     className="space-y-8 md:space-y-10"
                 >
                     <div>
-                        <span className="text-[#3f8fcc] dark:text-brand-cyan text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The Critical Extraction</span>
+                        <span className="text-[#3994fa] dark:text-brand-cyan text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The Critical Extraction</span>
                         <h2 className="text-4xl md:text-[52px] font-black text-[#1F2937] dark:text-white uppercase tracking-tighter leading-[1] mb-5">
                             THE SCALING <br />
-                            <span className="text-[#3f8fcc] dark:text-brand-cyan italic">DEATH VALLEY</span>
+                            <span className="text-[#3994fa] dark:text-brand-cyan italic">DEATH VALLEY</span>
                         </h2>
                         <p className="text-[#64748B] dark:text-slate-400 text-[13px] md:text-sm font-medium leading-relaxed max-w-lg">
                             90% of startups fail within the first 18 months due to predictable engineering anomalies. We identify and neutralize these roadblocks before you launch.
@@ -72,16 +72,16 @@ const Challenges = () => {
                             <motion.div
                                 animate={{ rotate: -360 }}
                                 transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                                className="absolute inset-2 md:inset-3 border-[1px] border-[#3f8fcc]/20 dark:border-brand-cyan/20 rounded-full"
+                                className="absolute inset-2 md:inset-3 border-[1px] border-[#3994fa]/20 dark:border-brand-cyan/20 rounded-full"
                             />
 
                             <div className="relative z-10 w-[85%] md:w-4/5 aspect-square bg-white dark:bg-[#030712] rounded-full border border-slate-100 dark:border-white/10 shadow-[0_20px_40px_-15px_rgba(0,0,0,0.05)] flex flex-col items-center justify-center px-4 md:px-8 text-center space-y-2 md:space-y-3 pt-1 md:pt-2">
                                 <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-[#EAF3FA] dark:bg-brand-cyan/10 flex items-center justify-center mb-0 md:mb-1">
-                                    <Rocket strokeWidth={2} className="w-5 h-5 md:w-6 md:h-6 text-[#3f8fcc] dark:text-brand-cyan" />
+                                    <Rocket strokeWidth={2} className="w-5 h-5 md:w-6 md:h-6 text-[#3994fa] dark:text-brand-cyan" />
                                 </div>
                                 <div className="space-y-1 w-full">
                                     <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-[32px] font-black text-[#111827] dark:text-white uppercase tracking-tighter">PHASE 01</h3>
-                                    <p className="text-[#3f8fcc] dark:text-brand-cyan text-[7px] md:text-[8px] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] mx-auto w-full">MARKET NEUTRALIZATION</p>
+                                    <p className="text-[#3994fa] dark:text-brand-cyan text-[7px] md:text-[8px] font-black uppercase tracking-[0.2em] sm:tracking-[0.4em] mx-auto w-full">MARKET NEUTRALIZATION</p>
                                 </div>
                                 <div className="w-8 md:w-10 h-[1px] md:h-0.5 bg-slate-200 dark:bg-white/10 my-1 md:my-0" />
                                 <p className="text-[#64748B] dark:text-slate-400 text-[7px] md:text-[8px] font-bold leading-[1.6] uppercase tracking-[0.1em] sm:tracking-[0.15em]">Bridging the revenue <br /> gap with venture <br /> blueprint</p>
@@ -93,8 +93,8 @@ const Challenges = () => {
                                 transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
                                 className="absolute h-[105%] md:h-full w-[105%] md:w-full"
                             >
-                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#3f8fcc] shadow-[0_0_15px_rgba(63,143,204,0.6)]" />
-                                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#3f8fcc] shadow-[0_0_15px_rgba(63,143,204,0.6)]" />
+                                <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#3994fa] shadow-[0_0_15px_rgba(63,143,204,0.6)]" />
+                                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3 h-3 rounded-full bg-[#3994fa] shadow-[0_0_15px_rgba(63,143,204,0.6)]" />
                             </motion.div>
                         </div>
 

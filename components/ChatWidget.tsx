@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MessageSquare, X, Send, Bot, User, Loader2, Calendar, Sparkles, ArrowRight } from 'lucide-react';
+import { MessageSquare, X, Send, Bot, User, Loader2, Calendar, Sparkles, ArrowRight, Maximize2, Minimize2 } from 'lucide-react';
 import { clsx, type ClassValue } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 import ReactMarkdown from 'react-markdown';
@@ -26,6 +26,7 @@ const QUICK_ACTIONS = [
 
 export default function ChatWidget() {
     const [isOpen, setIsOpen] = useState(false);
+    const [isExpanded, setIsExpanded] = useState(false);
     const [messages, setMessages] = useState<Message[]>([
         { role: 'assistant', content: "Welcome to Preet Tech. I am your Digital Assistant. How can I help you build the future today?" }
     ]);
@@ -92,7 +93,12 @@ export default function ChatWidget() {
                         initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: 'bottom right' }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
-                        className="absolute bottom-20 right-0 w-[90vw] md:w-[400px] h-[600px] max-h-[70vh] bg-white dark:bg-slate-900 rounded-[2.5rem] shadow-2xl border border-slate-200 dark:border-white/10 flex flex-col overflow-hidden glass-morphism"
+                        className={cn(
+                            "absolute bottom-20 right-0 bg-white dark:bg-slate-900 shadow-2xl border border-slate-200 dark:border-white/10 flex flex-col overflow-hidden glass-morphism transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] origin-bottom-right",
+                            isExpanded
+                                ? "w-[95vw] md:w-[85vw] lg:w-[1000px] h-[85vh] max-h-[900px] rounded-[2rem]"
+                                : "w-[90vw] md:w-[400px] h-[600px] max-h-[70vh] rounded-[2.5rem]"
+                        )}
                     >
                         {/* Header */}
                         <div className="p-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-gradient-to-r from-brand-medium/10 to-transparent">
@@ -108,12 +114,20 @@ export default function ChatWidget() {
                                     </div>
                                 </div>
                             </div>
-                            <button
-                                onClick={() => setIsOpen(false)}
-                                className="p-2 hover:bg-slate-100 dark:hover:bg-white/5 rounded-xl transition-colors"
-                            >
-                                <X size={20} />
-                            </button>
+                            <div className="flex items-center gap-1">
+                                <button
+                                    onClick={() => setIsExpanded(!isExpanded)}
+                                    className="hidden md:block p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 rounded-xl transition-all"
+                                >
+                                    {isExpanded ? <Minimize2 size={18} /> : <Maximize2 size={18} />}
+                                </button>
+                                <button
+                                    onClick={() => setIsOpen(false)}
+                                    className="p-2 text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200 hover:bg-slate-100 dark:hover:bg-white/5 rounded-xl transition-all"
+                                >
+                                    <X size={20} />
+                                </button>
+                            </div>
                         </div>
 
                         {/* Messages */}
@@ -134,7 +148,7 @@ export default function ChatWidget() {
                                     <div className={cn(
                                         "p-4 rounded-[1.5rem] text-sm leading-relaxed",
                                         m.role === 'user'
-                                            ? "bg-brand-medium text-black font-medium rounded-tr-none"
+                                            ? "bg-brand-medium text-white font-medium rounded-tr-none"
                                             : "bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 rounded-tl-none border border-slate-200 dark:border-white/5"
                                     )}>
                                         <ReactMarkdown
@@ -144,9 +158,14 @@ export default function ChatWidget() {
                                                 ul: ({ children }) => <ul className="list-disc ml-4 mb-2 space-y-1">{children}</ul>,
                                                 ol: ({ children }) => <ol className="list-decimal ml-4 mb-2 space-y-1">{children}</ol>,
                                                 li: ({ children }) => <li className="leading-tight">{children}</li>,
-                                                strong: ({ children }) => <strong className="font-black text-brand-medium dark:text-brand-medium">{children}</strong>,
+                                                strong: ({ children }) => (
+                                                    <strong className={m.role === 'user' ? "font-black text-white" : "font-black text-brand-medium dark:text-brand-medium"}>
+                                                        {children}
+                                                    </strong>
+                                                ),
                                                 a: ({ href, children }) => (
-                                                    <a href={href} target="_blank" rel="noopener noreferrer" className="text-brand-medium underline hover:opacity-80 transition-opacity">
+                                                    <a href={href} target="_blank" rel="noopener noreferrer"
+                                                        className={m.role === 'user' ? "text-white underline hover:opacity-80 transition-opacity" : "text-brand-medium underline hover:opacity-80 transition-opacity"}>
                                                         {children}
                                                     </a>
                                                 ),
@@ -161,7 +180,7 @@ export default function ChatWidget() {
                                 <div className="flex items-start gap-2 max-w-[85%]">
                                     <div className="p-4 rounded-[1.5rem] rounded-tl-none bg-slate-100 dark:bg-white/5 flex items-center gap-2">
                                         <Loader2 size={16} className="animate-spin text-brand-medium" />
-                                        <span className="text-xs font-medium text-slate-500 uppercase tracking-widest">Architecting...</span>
+                                        <span className="text-xs font-medium text-slate-500 uppercase tracking-widest">Typing...</span>
                                     </div>
                                 </div>
                             )}
@@ -198,7 +217,7 @@ export default function ChatWidget() {
                                     type="text"
                                     value={input}
                                     onChange={(e) => setInput(e.target.value)}
-                                    placeholder="Ask our AI architect..."
+                                    placeholder="Message Preet Tech AI..."
                                     className="w-full px-6 py-4 bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-2xl focus:outline-none focus:ring-2 focus:ring-brand-medium/50 text-sm transition-all"
                                 />
                                 <button
@@ -223,29 +242,22 @@ export default function ChatWidget() {
                 whileTap={{ scale: 0.95 }}
                 onClick={() => setIsOpen(!isOpen)}
                 className={cn(
-                    "w-16 h-16 md:w-[4.5rem] md:h-[4.5rem] rounded-full shadow-2xl flex items-center justify-center transition-all duration-500 relative",
+                    "flex items-center justify-center transition-all duration-500 relative z-50",
                     isOpen
-                        ? "bg-slate-900 border border-white/10 text-white rotate-90"
-                        : "bg-transparent border-0 p-0"
+                        ? "w-14 h-14 md:w-16 md:h-16 bg-slate-900 rounded-full border border-white/10 text-white rotate-90 shadow-2xl"
+                        : "w-28 h-28 md:w-[7.5rem] md:h-[7.5rem] bg-transparent border-0 p-0"
                 )}
             >
                 {isOpen ? (
                     <X size={36} />
                 ) : (
-                    <div className="absolute inset-0 w-full h-full rounded-full overflow-hidden border-4 border-white dark:border-slate-800 shadow-xl bg-brand-medium">
+                    <div className="absolute inset-0 w-full h-full flex items-center justify-center">
                         <img
                             src="/chatbot-icon.png"
                             alt="ChatBot"
-                            className="w-full h-full object-cover scale-[1.25]"
+                            className="w-[150%] h-[150%] object-contain drop-shadow-2xl"
                         />
                     </div>
-                )}
-                {!isOpen && (
-                    <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        className="absolute top-0 right-0 w-4 h-4 md:w-5 md:h-5 bg-emerald-500 rounded-full border-2 border-white dark:border-slate-800 z-10 shadow-sm"
-                    />
                 )}
             </motion.button>
         </div>

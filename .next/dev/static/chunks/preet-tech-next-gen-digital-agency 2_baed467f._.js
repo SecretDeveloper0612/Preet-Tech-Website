@@ -119,14 +119,14 @@ const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
                 {
                     name: 'Eco Website',
                     icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$panels$2d$top$2d$left$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Layout$3e$__["Layout"],
-                    href: '/services/website-development/eco',
+                    href: '/services/eco-website',
                     detail: 'Rapid & Budget-Friendly',
                     longDesc: 'Our Eco-Budget path engineered for rapid deployment, perfect for starting out with a blazingly fast website.'
                 },
                 {
                     name: 'Advance Website',
                     icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$monitor$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__Monitor$3e$__["Monitor"],
-                    href: '/services/website-development/advanced',
+                    href: '/services/advance-website',
                     detail: 'Custom Enterprise Features',
                     longDesc: 'Advance Websites engineered for complex operations, custom enterprise features, and maximum scalability.'
                 },
@@ -212,7 +212,7 @@ const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
                                 className: "flex items-center group relative z-[210]",
                                 onClick: ()=>setIsOpen(false),
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                    src: isDark ? '/logo-black.png' : '/logo-preet-tech.png',
+                                    src: isDark ? '/logo-preet-tech-black.png' : '/logo-preet-tech.png',
                                     alt: "Preet Tech Logo",
                                     className: `h-10 md:h-12 w-auto object-contain transition-all duration-500 group-hover:scale-105`
                                 }, void 0, false, {
@@ -286,7 +286,7 @@ const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["default"], {
                                         href: "/contact",
-                                        className: "hidden sm:flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-brand-deep dark:bg-white text-white dark:text-brand-deep rounded-full font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95",
+                                        className: "hidden sm:flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-[#3994fa] dark:bg-white text-white dark:text-[#3994fa] rounded-full font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95",
                                         children: [
                                             "Contact ",
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$up$2d$right$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowUpRight$3e$__["ArrowUpRight"], {
@@ -1140,7 +1140,7 @@ const Footer = ()=>{
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex items-center gap-4",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                        src: "/logo-black.png",
+                                        src: "/logo-preet-tech-black.png",
                                         alt: "Preet Tech Logo",
                                         className: "h-12 md:h-14 w-auto object-contain"
                                     }, void 0, false, {
@@ -1342,7 +1342,7 @@ const Footer = ()=>{
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "submit",
                                             disabled: subscribeStatus === 'loading',
-                                            className: "absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-[#4392CE] text-white flex items-center justify-center hover:bg-[#4392CE]/90 transition-all shadow-[0_4px_14px_rgba(67,146,206,0.4)] disabled:opacity-50 disabled:cursor-not-allowed",
+                                            className: "absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-[#3994fa] text-white flex items-center justify-center hover:bg-[#3994fa]/90 transition-all shadow-[0_4px_14px_rgba(57,148,250,0.4)] disabled:opacity-50 disabled:cursor-not-allowed",
                                             children: subscribeStatus === 'loading' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "w-4 h-4 rounded-full border-2 border-white/20 border-t-white animate-spin"
                                             }, void 0, false, {
@@ -3228,7 +3228,7 @@ const PerformanceMarketing = ()=>{
                 className: "py-24 px-6 bg-white dark:bg-[#030712] relative overflow-hidden scroll-reveal",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute inset-0 bg-[radial-gradient(#3f8fcc_0.5px,transparent_0.5px)] bg-[size:24px_24px] opacity-[0.05] pointer-events-none"
+                        className: "absolute inset-0 bg-[radial-gradient(#3994fa_0.5px,transparent_0.5px)] bg-[size:24px_24px] opacity-[0.05] pointer-events-none"
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/services/performance-marketing/page.tsx",
                         lineNumber: 664,
@@ -3525,7 +3525,7 @@ const PerformanceMarketing = ()=>{
                                             duration: 2,
                                             ease: "easeInOut"
                                         },
-                                        className: "h-full bg-brand-medium shadow-[0_0_10px_#3f8fcc]"
+                                        className: "h-full bg-brand-medium shadow-[0_0_10px_#3994fa]"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/services/performance-marketing/page.tsx",
                                         lineNumber: 731,
@@ -4284,7 +4284,7 @@ const PerformanceMarketing = ()=>{
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute inset-0 pointer-events-none opacity-[0.35] dark:opacity-[0.06]",
                         style: {
-                            backgroundImage: 'radial-gradient(#3f8fcc 0.75px, transparent 0.75px)',
+                            backgroundImage: 'radial-gradient(#3994fa 0.75px, transparent 0.75px)',
                             backgroundSize: '28px 28px'
                         }
                     }, void 0, false, {
@@ -4404,7 +4404,7 @@ const PerformanceMarketing = ()=>{
                                         metric: '200+',
                                         metricLabel: 'Variants / Month',
                                         bg: 'linear-gradient(160deg, #0d2040 0%, #091530 40%, #050c1e 100%)',
-                                        accent: '#3f8fcc',
+                                        accent: '#3994fa',
                                         glow: 'rgba(63,143,204,0.3)'
                                     }
                                 ].map((card, i)=>/*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$framer$2d$motion$2f$dist$2f$es$2f$render$2f$components$2f$motion$2f$proxy$2e$mjs__$5b$app$2d$client$5d$__$28$ecmascript$29$__["motion"].div, {
@@ -5011,7 +5011,7 @@ const PerformanceMarketing = ()=>{
                 className: "py-32 px-6 bg-white dark:bg-[#030712] relative overflow-hidden transition-colors duration-500",
                 children: [
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$compiled$2f$react$2f$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$client$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                        className: "absolute inset-0 bg-[radial-gradient(#3f8fcc_0.5px,transparent_0.5px)] bg-[size:32px_32px] opacity-[0.05] dark:opacity-[0.03]"
+                        className: "absolute inset-0 bg-[radial-gradient(#3994fa_0.5px,transparent_0.5px)] bg-[size:32px_32px] opacity-[0.05] dark:opacity-[0.03]"
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/services/performance-marketing/page.tsx",
                         lineNumber: 1196,

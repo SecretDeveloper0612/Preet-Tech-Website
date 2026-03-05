@@ -85,7 +85,7 @@ export default function AboutPage() {
     const opacityHero = useTransform(scrollYProgress, [0, 0.25], [1, 0]);
 
     return (
-        <main ref={containerRef} className="relative z-10 selection:bg-brand-medium/30 overflow-x-hidden bg-background text-foreground transition-colors duration-300">
+        <main ref={containerRef} className="relative z-10 selection:bg-brand-medium/30 overflow-x-clip bg-background text-foreground transition-colors duration-300">
             <Navbar isDark={isDark} toggleTheme={toggleTheme} />
 
             {/* 1. HERO SECTION: STRONG POSITIONING */}
@@ -188,9 +188,9 @@ export default function AboutPage() {
                             <div className="relative rounded-[2.5rem] overflow-hidden aspect-square max-w-lg mx-auto border border-slate-200 dark:border-white/5">
                                 <div className="absolute inset-0 bg-brand-medium/5" />
                                 <img
-                                    src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1000"
+                                    src="/Assets/Logo/About-page-image.png"
                                     alt="Our Team"
-                                    className="w-full h-full object-cover grayscale opacity-50 group-hover:grayscale-0 transition-all duration-700"
+                                    className="w-full h-full object-cover transition-all duration-700 hover:scale-105"
                                 />
                                 <div className="absolute inset-x-8 bottom-8 p-6 bg-white/95 dark:bg-black/80 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-white/10">
                                     <p className="text-sm font-medium italic text-slate-600 dark:text-slate-300">
@@ -450,7 +450,7 @@ export default function AboutPage() {
                             <div className="relative rounded-[2.5rem] lg:rounded-[3rem] p-3 bg-white dark:bg-[#0b0f1a] border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden group">
                                 <div className="relative w-full aspect-square md:aspect-[4/5] rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-200 dark:border-white/5">
                                     <img
-                                        src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=1200"
+                                        src="/Assets/Logo/About-page-image.png"
                                         alt="Preet Tech Team Collaboration"
                                         className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
                                     />

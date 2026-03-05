@@ -48,7 +48,7 @@ export default function SocialMediaHandling() {
     const handleFormSubmit = (e: React.FormEvent) => { e.preventDefault(); setFormStatus('submitting'); setTimeout(() => setFormStatus('success'), 1500); };
 
     return (
-        <main ref={containerRef} className="relative z-10 selection:bg-brand-cyan/20 overflow-x-hidden bg-[#fafafa] text-slate-900 dark:bg-[#050608] dark:text-white transition-colors duration-500 font-sans">
+        <main ref={containerRef} className="relative z-10 selection:bg-brand-cyan/20 overflow-x-clip bg-[#fafafa] text-slate-900 dark:bg-[#050608] dark:text-white transition-colors duration-500 font-sans">
             <Navbar isDark={isDarkMode} toggleTheme={toggleTheme} />
 
             {/* 1️⃣ Hero */}
@@ -449,16 +449,16 @@ export default function SocialMediaHandling() {
                                         style={{ height: `${chartH}px`, top: 0, left: '28px', right: 0, width: 'calc(100% - 28px)', position: 'absolute' }}>
                                         <defs>
                                             <linearGradient id="lineGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                                                <stop offset="0%" stopColor="#3F8FCC" stopOpacity="0.6" />
-                                                <stop offset="100%" stopColor="#5FD3E6" stopOpacity="1" />
+                                                <stop offset="0%" stopColor="#3994fa" stopOpacity="0.6" />
+                                                <stop offset="100%" stopColor="#3994fa" stopOpacity="1" />
                                             </linearGradient>
                                             <filter id="glow">
                                                 <feGaussianBlur stdDeviation="3" result="blur" />
                                                 <feMerge><feMergeNode in="blur" /><feMergeNode in="SourceGraphic" /></feMerge>
                                             </filter>
                                             <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
-                                                <stop offset="0%" stopColor="#3F8FCC" stopOpacity="0.2" />
-                                                <stop offset="100%" stopColor="#3F8FCC" stopOpacity="0" />
+                                                <stop offset="0%" stopColor="#3994fa" stopOpacity="0.2" />
+                                                <stop offset="100%" stopColor="#3994fa" stopOpacity="0" />
                                             </linearGradient>
                                         </defs>
                                         {/* Area fill */}
@@ -493,7 +493,7 @@ export default function SocialMediaHandling() {
                                         <motion.circle
                                             cx={360 - (360 / bars.length) / 2}
                                             cy={160 - (bars[bars.length - 1].h / 100) * 156}
-                                            r="5" fill="#5FD3E6"
+                                            r="5" fill="#3994fa"
                                             initial={{ scale: 0, opacity: 0 }}
                                             whileInView={{ scale: 1, opacity: 1 }}
                                             viewport={{ once: true }}

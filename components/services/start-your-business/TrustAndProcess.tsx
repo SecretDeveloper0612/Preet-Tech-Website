@@ -197,9 +197,9 @@ const TrustAndProcess = () => {
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="flex flex-col items-center text-center mb-16 max-w-2xl mx-auto space-y-4 md:space-y-6">
                         <div className="flex flex-col items-center w-full">
-                            <span className="text-[#3f8fcc] dark:text-brand-cyan text-[10px] md:text-[11px] font-black uppercase tracking-[0.4em] mb-3 md:mb-4 block">Proven Performance</span>
+                            <span className="text-[#3994fa] dark:text-brand-cyan text-[10px] md:text-[11px] font-black uppercase tracking-[0.4em] mb-3 md:mb-4 block">Proven Performance</span>
                             <h2 className="text-4xl sm:text-[44px] md:text-5xl font-black text-[#0f172a] dark:text-white uppercase tracking-tighter leading-tight">
-                                Success <span className="text-[#3f8fcc] dark:text-brand-cyan italic">Stories</span>
+                                Success <span className="text-[#3994fa] dark:text-brand-cyan italic">Stories</span>
                             </h2>
                         </div>
                         <p className="max-w-[85%] sm:max-w-md md:max-w-lg text-[#64748B] dark:text-slate-400 font-medium text-[13px] md:text-base leading-relaxed">

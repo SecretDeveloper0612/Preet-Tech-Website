@@ -257,7 +257,7 @@ export default function PartnershipMarketing() {
     ];
 
     return (
-        <main className="relative selection:bg-brand-cyan/30 overflow-x-hidden bg-background text-foreground dark:bg-[#020617] transition-colors duration-500 font-sans">
+        <main className="relative selection:bg-brand-cyan/30 overflow-x-clip bg-background text-foreground dark:bg-[#020617] transition-colors duration-500 font-sans">
             <Navbar isDark={isDarkMode} toggleTheme={toggleTheme} />
 
             {/* Sticky Mobile CTA */}
@@ -523,7 +523,7 @@ export default function PartnershipMarketing() {
             {/* 4️⃣ How Our Partnerships Boost Your Sales */}
             <section className="py-32 px-6 bg-slate-950 text-white relative overflow-hidden">
                 <div className="absolute inset-0 opacity-10">
-                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_30%,#5FD3E6_0%,transparent_50%)]" />
+                    <div className="absolute top-0 left-0 w-full h-full bg-[radial-gradient(circle_at_20%_30%,#3994fa_0%,transparent_50%)]" />
                 </div>
 
                 <div className="max-w-7xl mx-auto relative z-10">

@@ -661,7 +661,7 @@ const PerformanceMarketing = () => {
             {/* 6. Platforms We Master (Strategic Ecosystem Redesign) */}
             <section className="py-24 px-6 bg-white dark:bg-[#030712] relative overflow-hidden scroll-reveal">
                 {/* Background Tech Texture */}
-                <div className="absolute inset-0 bg-[radial-gradient(#3f8fcc_0.5px,transparent_0.5px)] bg-[size:24px_24px] opacity-[0.05] pointer-events-none" />
+                <div className="absolute inset-0 bg-[radial-gradient(#3994fa_0.5px,transparent_0.5px)] bg-[size:24px_24px] opacity-[0.05] pointer-events-none" />
 
                 <div className="max-w-7xl mx-auto relative z-10">
                     <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
@@ -732,7 +732,7 @@ const PerformanceMarketing = () => {
                                 initial={{ width: 0 }}
                                 whileInView={{ width: '100%' }}
                                 transition={{ duration: 2, ease: "easeInOut" }}
-                                className="h-full bg-brand-medium shadow-[0_0_10px_#3f8fcc]"
+                                className="h-full bg-brand-medium shadow-[0_0_10px_#3994fa]"
                             />
                         </div>
 
@@ -951,7 +951,7 @@ const PerformanceMarketing = () => {
 
                 {/* Subtle dot grid */}
                 <div className="absolute inset-0 pointer-events-none opacity-[0.35] dark:opacity-[0.06]"
-                    style={{ backgroundImage: 'radial-gradient(#3f8fcc 0.75px, transparent 0.75px)', backgroundSize: '28px 28px' }} />
+                    style={{ backgroundImage: 'radial-gradient(#3994fa 0.75px, transparent 0.75px)', backgroundSize: '28px 28px' }} />
 
                 <div className="max-w-7xl mx-auto relative z-10">
 
@@ -1007,7 +1007,7 @@ const PerformanceMarketing = () => {
                                 metric: '200+',
                                 metricLabel: 'Variants / Month',
                                 bg: 'linear-gradient(160deg, #0d2040 0%, #091530 40%, #050c1e 100%)',
-                                accent: '#3f8fcc',
+                                accent: '#3994fa',
                                 glow: 'rgba(63,143,204,0.3)',
                             },
                         ].map((card, i) => (
@@ -1193,7 +1193,7 @@ const PerformanceMarketing = () => {
             {/* 14. Free Audit / Consultation Form Section (The Command Center Redesign) */}
             <section className="py-32 px-6 bg-white dark:bg-[#030712] relative overflow-hidden transition-colors duration-500">
                 {/* Immersive Background */}
-                <div className="absolute inset-0 bg-[radial-gradient(#3f8fcc_0.5px,transparent_0.5px)] bg-[size:32px_32px] opacity-[0.05] dark:opacity-[0.03]" />
+                <div className="absolute inset-0 bg-[radial-gradient(#3994fa_0.5px,transparent_0.5px)] bg-[size:32px_32px] opacity-[0.05] dark:opacity-[0.03]" />
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-brand-medium/5 blur-[150px] rounded-full pointer-events-none" />
 
                 <div className="max-w-7xl mx-auto relative z-10">

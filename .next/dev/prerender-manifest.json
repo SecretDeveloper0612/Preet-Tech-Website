@@ -1,11 +1,1 @@
-{
-  "version": 4,
-  "routes": {},
-  "dynamicRoutes": {},
-  "notFoundRoutes": [],
-  "preview": {
-    "previewModeId": "da2db4ac5528029e6322e254bcd00692",
-    "previewModeSigningKey": "a23010badb415f7f0aba10749fd4c3180438876dc779ed3f78e308add5fed93b",
-    "previewModeEncryptionKey": "15d21d05408dbfcca7343f8c5207595fbb42f286afe4bafdd74e6cde0f4b6aff"
-  }
-}
+{"version":4,"routes":{"/blog/scale-saas-performance-marketing":{},"/blog/future-mobile-app-development-2026":{},"/blog/scalable-backend-systems-startups":{},"/blog/content-strategy-growth":{},"/blog/what-is-ai":{}},"dynamicRoutes":{"/blog/[slug]":{"dataRoute":null,"dataRouteRegex":null,"fallback":null,"fallbackRevalidate":false,"fallbackSourceRoute":"/blog/[slug]","routeRegex":"^\\/blog\\/([^/]+?)(?:\\/)?$","allowHeader":[]}},"notFoundRoutes":[],"preview":{"previewModeId":"c8bcb7c451872a8a4c9f8b1455d2af23","previewModeSigningKey":"2c0f58a870af883cf094e8b99321b0120e17d60532f036bc38325851322b4a54","previewModeEncryptionKey":"0eb4b37edb0d44357a195230bf2d5d83cac491e71313a03103846ac23bd678c3"}}

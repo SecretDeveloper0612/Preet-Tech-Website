@@ -260,12 +260,15 @@ __turbopack_context__.s([
     ()=>BlogSidebar
 ]);
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react-jsx-dev-runtime.js [app-ssr] (ecmascript)");
+var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$search$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Search$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/search.js [app-ssr] (ecmascript) <export default as Search>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$mail$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Mail$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/mail.js [app-ssr] (ecmascript) <export default as Mail>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-ssr] (ecmascript) <export default as ArrowRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$trending$2d$up$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__TrendingUp$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/trending-up.js [app-ssr] (ecmascript) <export default as TrendingUp>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$lib$2f$blog$2d$data$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/lib/blog-data.ts [app-ssr] (ecmascript)");
+"use client";
+;
 ;
 ;
 ;
@@ -273,6 +276,41 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen
 function BlogSidebar() {
     const recentPosts = __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$lib$2f$blog$2d$data$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["BLOG_POSTS"].slice(0, 3);
     const popularPosts = __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$lib$2f$blog$2d$data$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["BLOG_POSTS"].slice(1, 4);
+    const [subscribeEmail, setSubscribeEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [subscribeStatus, setSubscribeStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('idle');
+    const [subscribeMessage, setSubscribeMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const handleSubscribe = async (e)=>{
+        e.preventDefault();
+        setSubscribeStatus('loading');
+        setSubscribeMessage('');
+        try {
+            const response = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: subscribeEmail
+                })
+            });
+            const data = await response.json();
+            if (data.success) {
+                setSubscribeStatus('success');
+                setSubscribeEmail('');
+                setSubscribeMessage(data.message || 'Subscription successful!');
+                setTimeout(()=>{
+                    setSubscribeStatus('idle');
+                    setSubscribeMessage('');
+                }, 5000);
+            } else {
+                setSubscribeStatus('error');
+                setSubscribeMessage(data.message || 'Something went wrong.');
+            }
+        } catch (err) {
+            setSubscribeStatus('error');
+            setSubscribeMessage('Network Error. Please try again.');
+        }
+    };
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("aside", {
         className: "space-y-12 sticky top-32",
         children: [
@@ -284,7 +322,7 @@ function BlogSidebar() {
                         children: "Search"
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                        lineNumber: 14,
+                        lineNumber: 50,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -294,7 +332,7 @@ function BlogSidebar() {
                                 className: "absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4"
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 16,
+                                lineNumber: 52,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
@@ -303,19 +341,19 @@ function BlogSidebar() {
                                 className: "w-full h-12 pl-12 pr-4 rounded-xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-sm"
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 17,
+                                lineNumber: 53,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                        lineNumber: 15,
+                        lineNumber: 51,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                lineNumber: 13,
+                lineNumber: 49,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -328,14 +366,14 @@ function BlogSidebar() {
                                 className: "w-4 h-4 text-brand-cyan"
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 28,
+                                lineNumber: 64,
                                 columnNumber: 21
                             }, this),
                             "Latest Posts"
                         ]
                     }, void 0, true, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                        lineNumber: 27,
+                        lineNumber: 63,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -351,12 +389,12 @@ function BlogSidebar() {
                                             title: post.title
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                            lineNumber: 35,
+                                            lineNumber: 71,
                                             columnNumber: 33
                                         }, this)
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                        lineNumber: 34,
+                                        lineNumber: 70,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -366,7 +404,7 @@ function BlogSidebar() {
                                                 children: post.title
                                             }, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                                lineNumber: 38,
+                                                lineNumber: 74,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -374,30 +412,30 @@ function BlogSidebar() {
                                                 children: post.date
                                             }, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                                lineNumber: 41,
+                                                lineNumber: 77,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                        lineNumber: 37,
+                                        lineNumber: 73,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, post.id, true, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 33,
+                                lineNumber: 69,
                                 columnNumber: 25
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                        lineNumber: 31,
+                        lineNumber: 67,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                lineNumber: 26,
+                lineNumber: 62,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -409,12 +447,12 @@ function BlogSidebar() {
                             className: "w-16 h-16"
                         }, void 0, false, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                            lineNumber: 53,
+                            lineNumber: 89,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                        lineNumber: 52,
+                        lineNumber: 88,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -425,7 +463,7 @@ function BlogSidebar() {
                                 children: "Growth Insights Weekly"
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 56,
+                                lineNumber: 92,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -433,45 +471,60 @@ function BlogSidebar() {
                                 children: "Join 5,000+ founders and marketers getting our best growth strategies."
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 57,
+                                lineNumber: 93,
                                 columnNumber: 21
                             }, this),
-                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                className: "space-y-3",
+                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                                onSubmit: handleSubscribe,
+                                className: "space-y-3 relative",
                                 children: [
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
                                         type: "email",
                                         placeholder: "Email address",
-                                        className: "w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-sm"
+                                        value: subscribeEmail,
+                                        onChange: (e)=>setSubscribeEmail(e.target.value),
+                                        required: true,
+                                        disabled: subscribeStatus === 'loading',
+                                        className: "w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-sm disabled:opacity-50 text-slate-900 dark:text-white"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                        lineNumber: 61,
+                                        lineNumber: 97,
                                         columnNumber: 25
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                        className: "w-full h-12 bg-brand-cyan text-[#020617] rounded-xl font-bold text-xs uppercase tracking-widest hover:shadow-lg hover:shadow-brand-cyan/25 transition-all",
-                                        children: "Subscribe Now"
+                                        type: "submit",
+                                        disabled: subscribeStatus === 'loading',
+                                        className: "w-full h-12 bg-[#3994fa] text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:shadow-lg hover:shadow-[#3994fa]/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed",
+                                        children: subscribeStatus === 'loading' ? 'SUBSCRIBING...' : 'SUBSCRIBE NOW'
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                        lineNumber: 66,
+                                        lineNumber: 106,
                                         columnNumber: 25
+                                    }, this),
+                                    subscribeMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                        className: `text-xs mt-2 font-bold ${subscribeStatus === 'success' ? 'text-[#3994fa]' : 'text-red-500'}`,
+                                        children: subscribeMessage
+                                    }, void 0, false, {
+                                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
+                                        lineNumber: 114,
+                                        columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 60,
+                                lineNumber: 96,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                        lineNumber: 55,
+                        lineNumber: 91,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                lineNumber: 51,
+                lineNumber: 87,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -482,7 +535,7 @@ function BlogSidebar() {
                         children: "All Categories"
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                        lineNumber: 75,
+                        lineNumber: 124,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -496,7 +549,7 @@ function BlogSidebar() {
                                         children: cat
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                        lineNumber: 83,
+                                        lineNumber: 132,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -504,24 +557,24 @@ function BlogSidebar() {
                                         children: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$lib$2f$blog$2d$data$2e$ts__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["BLOG_POSTS"].filter((p)=>p.category === cat).length
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                        lineNumber: 84,
+                                        lineNumber: 133,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, cat, true, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 78,
+                                lineNumber: 127,
                                 columnNumber: 25
                             }, this))
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                        lineNumber: 76,
+                        lineNumber: 125,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                lineNumber: 74,
+                lineNumber: 123,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -535,7 +588,7 @@ function BlogSidebar() {
                                 children: "Ready to Scale Your Digital Presence?"
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 95,
+                                lineNumber: 144,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -543,7 +596,7 @@ function BlogSidebar() {
                                 children: "Book a free discovery call with our experts today."
                             }, void 0, false, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 96,
+                                lineNumber: 145,
                                 columnNumber: 21
                             }, this),
                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -554,38 +607,38 @@ function BlogSidebar() {
                                         className: "w-4 h-4"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                        lineNumber: 100,
+                                        lineNumber: 149,
                                         columnNumber: 49
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                                lineNumber: 99,
+                                lineNumber: 148,
                                 columnNumber: 21
                             }, this)
                         ]
                     }, void 0, true, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                        lineNumber: 94,
+                        lineNumber: 143,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                         className: "absolute -bottom-10 -right-10 w-40 h-40 bg-white/20 blur-[60px] rounded-full"
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                        lineNumber: 104,
+                        lineNumber: 153,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-                lineNumber: 93,
+                lineNumber: 142,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogSidebar.tsx",
-        lineNumber: 11,
+        lineNumber: 47,
         columnNumber: 9
     }, this);
 }
@@ -745,14 +798,14 @@ const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
                 {
                     name: 'Eco Website',
                     icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$panels$2d$top$2d$left$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Layout$3e$__["Layout"],
-                    href: '/services/website-development/eco',
+                    href: '/services/eco-website',
                     detail: 'Rapid & Budget-Friendly',
                     longDesc: 'Our Eco-Budget path engineered for rapid deployment, perfect for starting out with a blazingly fast website.'
                 },
                 {
                     name: 'Advance Website',
                     icon: __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$monitor$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Monitor$3e$__["Monitor"],
-                    href: '/services/website-development/advanced',
+                    href: '/services/advance-website',
                     detail: 'Custom Enterprise Features',
                     longDesc: 'Advance Websites engineered for complex operations, custom enterprise features, and maximum scalability.'
                 },
@@ -838,7 +891,7 @@ const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
                                 className: "flex items-center group relative z-[210]",
                                 onClick: ()=>setIsOpen(false),
                                 children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                    src: isDark ? '/logo-black.png' : '/logo-preet-tech.png',
+                                    src: isDark ? '/logo-preet-tech-black.png' : '/logo-preet-tech.png',
                                     alt: "Preet Tech Logo",
                                     className: `h-10 md:h-12 w-auto object-contain transition-all duration-500 group-hover:scale-105`
                                 }, void 0, false, {
@@ -912,7 +965,7 @@ const Navbar = ({ isDark: _ignoredIsDark, toggleTheme: _ignoredToggleTheme })=>{
                                     }, ("TURBOPACK compile-time value", void 0)),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
                                         href: "/contact",
-                                        className: "hidden sm:flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-brand-deep dark:bg-white text-white dark:text-brand-deep rounded-full font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95",
+                                        className: "hidden sm:flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-[#3994fa] dark:bg-white text-white dark:text-[#3994fa] rounded-full font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95",
                                         children: [
                                             "Contact ",
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$up$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowUpRight$3e$__["ArrowUpRight"], {
@@ -1753,7 +1806,7 @@ const Footer = ()=>{
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "flex items-center gap-4",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("img", {
-                                        src: "/logo-black.png",
+                                        src: "/logo-preet-tech-black.png",
                                         alt: "Preet Tech Logo",
                                         className: "h-12 md:h-14 w-auto object-contain"
                                     }, void 0, false, {
@@ -1955,7 +2008,7 @@ const Footer = ()=>{
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
                                             type: "submit",
                                             disabled: subscribeStatus === 'loading',
-                                            className: "absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-[#4392CE] text-white flex items-center justify-center hover:bg-[#4392CE]/90 transition-all shadow-[0_4px_14px_rgba(67,146,206,0.4)] disabled:opacity-50 disabled:cursor-not-allowed",
+                                            className: "absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-[#3994fa] text-white flex items-center justify-center hover:bg-[#3994fa]/90 transition-all shadow-[0_4px_14px_rgba(57,148,250,0.4)] disabled:opacity-50 disabled:cursor-not-allowed",
                                             children: subscribeStatus === 'loading' ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
                                                 className: "w-4 h-4 rounded-full border-2 border-white/20 border-t-white animate-spin"
                                             }, void 0, false, {
@@ -2153,8 +2206,6 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/next/dist/server/route-modules/app-page/vendored/ssr/react.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/next/dist/client/app-dir/link.js [app-ssr] (ecmascript)");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/next/image.js [app-ssr] (ecmascript)");
-var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/clock.js [app-ssr] (ecmascript) <export default as Clock>");
-var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$share$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Share2$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/share-2.js [app-ssr] (ecmascript) <export default as Share2>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/chevron-right.js [app-ssr] (ecmascript) <export default as ChevronRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$arrow$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ArrowRight$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/arrow-right.js [app-ssr] (ecmascript) <export default as ArrowRight>");
 var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$twitter$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Twitter$3e$__ = __turbopack_context__.i("[project]/preet-tech-next-gen-digital-agency 2/node_modules/lucide-react/dist/esm/icons/twitter.js [app-ssr] (ecmascript) <export default as Twitter>");
@@ -2177,6 +2228,42 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen
 ;
 function BlogPostContent({ post }) {
     const [isDark, setIsDark] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])(false);
+    // Newsletter State
+    const [subscribeEmail, setSubscribeEmail] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const [subscribeStatus, setSubscribeStatus] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('idle');
+    const [subscribeMessage, setSubscribeMessage] = (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useState"])('');
+    const handleSubscribe = async (e)=>{
+        e.preventDefault();
+        setSubscribeStatus('loading');
+        setSubscribeMessage('');
+        try {
+            const response = await fetch('/api/subscribe', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: subscribeEmail
+                })
+            });
+            const data = await response.json();
+            if (data.success) {
+                setSubscribeStatus('success');
+                setSubscribeEmail('');
+                setSubscribeMessage(data.message || 'Subscription successful!');
+                setTimeout(()=>{
+                    setSubscribeStatus('idle');
+                    setSubscribeMessage('');
+                }, 5000);
+            } else {
+                setSubscribeStatus('error');
+                setSubscribeMessage(data.message || 'Something went wrong.');
+            }
+        } catch (err) {
+            setSubscribeStatus('error');
+            setSubscribeMessage('Network Error. Please try again.');
+        }
+    };
     (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["useEffect"])(()=>{
         const isDarkMode = false;
         setIsDark(isDarkMode);
@@ -2196,7 +2283,7 @@ function BlogPostContent({ post }) {
                 toggleTheme: toggleTheme
             }, void 0, false, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                lineNumber: 36,
+                lineNumber: 73,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("article", {
@@ -2206,7 +2293,7 @@ function BlogPostContent({ post }) {
                         post: post
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                        lineNumber: 39,
+                        lineNumber: 76,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2220,14 +2307,14 @@ function BlogPostContent({ post }) {
                                     children: "Home"
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                    lineNumber: 44,
+                                    lineNumber: 81,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                     className: "w-3 h-3"
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                    lineNumber: 45,
+                                    lineNumber: 82,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -2236,14 +2323,14 @@ function BlogPostContent({ post }) {
                                     children: "Blog"
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                    lineNumber: 46,
+                                    lineNumber: 83,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$chevron$2d$right$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__ChevronRight$3e$__["ChevronRight"], {
                                     className: "w-3 h-3"
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                    lineNumber: 47,
+                                    lineNumber: 84,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2251,18 +2338,18 @@ function BlogPostContent({ post }) {
                                     children: post.title
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                    lineNumber: 48,
+                                    lineNumber: 85,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                            lineNumber: 43,
+                            lineNumber: 80,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                        lineNumber: 42,
+                        lineNumber: 79,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2284,14 +2371,14 @@ function BlogPostContent({ post }) {
                                                             children: post.category
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 59,
+                                                            lineNumber: 96,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                                             className: "h-px w-8 bg-white/10"
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 62,
+                                                            lineNumber: 99,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
@@ -2299,13 +2386,13 @@ function BlogPostContent({ post }) {
                                                             children: post.date
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 63,
+                                                            lineNumber: 100,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                    lineNumber: 58,
+                                                    lineNumber: 95,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h1", {
@@ -2313,128 +2400,13 @@ function BlogPostContent({ post }) {
                                                     children: post.title
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                    lineNumber: 66,
-                                                    columnNumber: 33
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "flex flex-wrap items-center justify-between gap-8 py-8 border-y border-white/5",
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex items-center gap-4",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "w-12 h-12 rounded-full overflow-hidden bg-brand-medium/20 text-brand-cyan flex items-center justify-center text-sm font-black uppercase border border-brand-medium/30 relative",
-                                                                    children: post.author.avatar ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                                                        src: post.author.avatar,
-                                                                        alt: post.author.name,
-                                                                        fill: true,
-                                                                        className: "object-cover"
-                                                                    }, void 0, false, {
-                                                                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                        lineNumber: 74,
-                                                                        columnNumber: 49
-                                                                    }, this) : post.author.name.substring(0, 2)
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                    lineNumber: 72,
-                                                                    columnNumber: 41
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex flex-col",
-                                                                    children: [
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            className: "text-foreground font-black text-sm tracking-wide",
-                                                                            children: post.author.name
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                            lineNumber: 85,
-                                                                            columnNumber: 45
-                                                                        }, this),
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            className: "text-slate-500 text-[10px] uppercase font-bold tracking-widest",
-                                                                            children: post.author.role
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                            lineNumber: 86,
-                                                                            columnNumber: 45
-                                                                        }, this)
-                                                                    ]
-                                                                }, void 0, true, {
-                                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                    lineNumber: 84,
-                                                                    columnNumber: 41
-                                                                }, this)
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 71,
-                                                            columnNumber: 37
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "flex items-center gap-8 text-xs font-bold text-slate-500 uppercase tracking-widest",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex items-center gap-2",
-                                                                    children: [
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$clock$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Clock$3e$__["Clock"], {
-                                                                            className: "w-4 h-4 text-brand-cyan"
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                            lineNumber: 92,
-                                                                            columnNumber: 45
-                                                                        }, this),
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            children: post.readTime
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                            lineNumber: 93,
-                                                                            columnNumber: 45
-                                                                        }, this)
-                                                                    ]
-                                                                }, void 0, true, {
-                                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                    lineNumber: 91,
-                                                                    columnNumber: 41
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                                    className: "flex items-center gap-2",
-                                                                    children: [
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$lucide$2d$react$2f$dist$2f$esm$2f$icons$2f$share$2d$2$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__$3c$export__default__as__Share2$3e$__["Share2"], {
-                                                                            className: "w-4 h-4 text-brand-cyan"
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                            lineNumber: 96,
-                                                                            columnNumber: 45
-                                                                        }, this),
-                                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("span", {
-                                                                            children: "Share"
-                                                                        }, void 0, false, {
-                                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                            lineNumber: 97,
-                                                                            columnNumber: 45
-                                                                        }, this)
-                                                                    ]
-                                                                }, void 0, true, {
-                                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                    lineNumber: 95,
-                                                                    columnNumber: 41
-                                                                }, this)
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 90,
-                                                            columnNumber: 37
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                    lineNumber: 70,
+                                                    lineNumber: 103,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                            lineNumber: 57,
+                                            lineNumber: 94,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2447,12 +2419,12 @@ function BlogPostContent({ post }) {
                                                 priority: true
                                             }, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                lineNumber: 105,
+                                                lineNumber: 111,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                            lineNumber: 104,
+                                            lineNumber: 110,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2464,12 +2436,12 @@ function BlogPostContent({ post }) {
                                                 }
                                             }, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                lineNumber: 116,
+                                                lineNumber: 122,
                                                 columnNumber: 33
                                             }, this)
                                         }, void 0, false, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                            lineNumber: 115,
+                                            lineNumber: 121,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2481,12 +2453,12 @@ function BlogPostContent({ post }) {
                                                         className: "w-32 h-32"
                                                     }, void 0, false, {
                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                        lineNumber: 125,
+                                                        lineNumber: 131,
                                                         columnNumber: 37
                                                     }, this)
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                    lineNumber: 124,
+                                                    lineNumber: 130,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2497,7 +2469,7 @@ function BlogPostContent({ post }) {
                                                             children: "Want Help Implementing This Strategy?"
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 128,
+                                                            lineNumber: 134,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2505,7 +2477,7 @@ function BlogPostContent({ post }) {
                                                             children: "Our growth experts have helped dozens of companies execute these exact frameworks to drive millions in revenue."
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 129,
+                                                            lineNumber: 135,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
@@ -2517,25 +2489,25 @@ function BlogPostContent({ post }) {
                                                                     className: "w-5 h-5"
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                    lineNumber: 136,
+                                                                    lineNumber: 142,
                                                                     columnNumber: 65
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 132,
+                                                            lineNumber: 138,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                    lineNumber: 127,
+                                                    lineNumber: 133,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                            lineNumber: 123,
+                                            lineNumber: 129,
                                             columnNumber: 29
                                         }, this),
                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2551,12 +2523,12 @@ function BlogPostContent({ post }) {
                                                             ]
                                                         }, tag, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 145,
+                                                            lineNumber: 151,
                                                             columnNumber: 41
                                                         }, this))
                                                 }, void 0, false, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                    lineNumber: 143,
+                                                    lineNumber: 149,
                                                     columnNumber: 33
                                                 }, this),
                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2567,7 +2539,7 @@ function BlogPostContent({ post }) {
                                                             children: "Share this via"
                                                         }, void 0, false, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 152,
+                                                            lineNumber: 158,
                                                             columnNumber: 37
                                                         }, this),
                                                         /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
@@ -2579,12 +2551,12 @@ function BlogPostContent({ post }) {
                                                                         className: "w-4 h-4"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                        lineNumber: 154,
+                                                                        lineNumber: 160,
                                                                         columnNumber: 177
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                    lineNumber: 154,
+                                                                    lineNumber: 160,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2593,12 +2565,12 @@ function BlogPostContent({ post }) {
                                                                         className: "w-4 h-4"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                        lineNumber: 155,
+                                                                        lineNumber: 161,
                                                                         columnNumber: 177
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                    lineNumber: 155,
+                                                                    lineNumber: 161,
                                                                     columnNumber: 41
                                                                 }, this),
                                                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
@@ -2607,142 +2579,59 @@ function BlogPostContent({ post }) {
                                                                         className: "w-4 h-4"
                                                                     }, void 0, false, {
                                                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                        lineNumber: 156,
+                                                                        lineNumber: 162,
                                                                         columnNumber: 177
                                                                     }, this)
                                                                 }, void 0, false, {
                                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                    lineNumber: 156,
+                                                                    lineNumber: 162,
                                                                     columnNumber: 41
                                                                 }, this)
                                                             ]
                                                         }, void 0, true, {
                                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 153,
+                                                            lineNumber: 159,
                                                             columnNumber: 37
                                                         }, this)
                                                     ]
                                                 }, void 0, true, {
                                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                    lineNumber: 151,
+                                                    lineNumber: 157,
                                                     columnNumber: 33
                                                 }, this)
                                             ]
                                         }, void 0, true, {
                                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                            lineNumber: 142,
-                                            columnNumber: 29
-                                        }, this),
-                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                            className: "mt-16 p-10 rounded-[2.5rem] bg-white/5 border border-white/5 flex flex-col md:flex-row items-center gap-8",
-                                            children: [
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    className: "w-24 h-24 rounded-3xl overflow-hidden bg-brand-medium/20 text-brand-cyan flex items-center justify-center text-3xl font-black uppercase border border-brand-medium/30 shrink-0 relative",
-                                                    children: post.author.avatar ? /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$image$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                                        src: post.author.avatar,
-                                                        alt: post.author.name,
-                                                        fill: true,
-                                                        className: "object-cover"
-                                                    }, void 0, false, {
-                                                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                        lineNumber: 165,
-                                                        columnNumber: 41
-                                                    }, this) : post.author.name.substring(0, 2)
-                                                }, void 0, false, {
-                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                    lineNumber: 163,
-                                                    columnNumber: 33
-                                                }, this),
-                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                    children: [
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h4", {
-                                                            className: "text-xl font-black mb-2 tracking-tight",
-                                                            children: [
-                                                                "Written by ",
-                                                                post.author.name
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 176,
-                                                            columnNumber: 37
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
-                                                            className: "text-slate-400 text-sm leading-relaxed",
-                                                            children: [
-                                                                post.author.role,
-                                                                " at Preet Tech. Dedicated to helping brands leverage cutting-edge technology and performance marketing to scale in the digital universe."
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 177,
-                                                            columnNumber: 37
-                                                        }, this),
-                                                        /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                                            className: "mt-4 flex items-center gap-4",
-                                                            children: [
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                                                    href: "#",
-                                                                    className: "text-xs font-bold text-brand-cyan uppercase tracking-widest hover:underline transition-all",
-                                                                    children: "View Profile"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                    lineNumber: 181,
-                                                                    columnNumber: 41
-                                                                }, this),
-                                                                /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$client$2f$app$2d$dir$2f$link$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {
-                                                                    href: "#",
-                                                                    className: "text-xs font-bold text-slate-500 uppercase tracking-widest hover:underline transition-all",
-                                                                    children: "Previous Articles"
-                                                                }, void 0, false, {
-                                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                                    lineNumber: 182,
-                                                                    columnNumber: 41
-                                                                }, this)
-                                                            ]
-                                                        }, void 0, true, {
-                                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                            lineNumber: 180,
-                                                            columnNumber: 37
-                                                        }, this)
-                                                    ]
-                                                }, void 0, true, {
-                                                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                    lineNumber: 175,
-                                                    columnNumber: 33
-                                                }, this)
-                                            ]
-                                        }, void 0, true, {
-                                            fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                            lineNumber: 162,
+                                            lineNumber: 148,
                                             columnNumber: 29
                                         }, this)
                                     ]
                                 }, void 0, true, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                    lineNumber: 55,
+                                    lineNumber: 92,
                                     columnNumber: 25
                                 }, this),
                                 /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
                                     className: "lg:col-span-4",
                                     children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$components$2f$blog$2f$BlogSidebar$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                        lineNumber: 190,
+                                        lineNumber: 171,
                                         columnNumber: 29
                                     }, this)
                                 }, void 0, false, {
                                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                    lineNumber: 189,
+                                    lineNumber: 170,
                                     columnNumber: 25
                                 }, this)
                             ]
                         }, void 0, true, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                            lineNumber: 53,
+                            lineNumber: 90,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                        lineNumber: 52,
+                        lineNumber: 89,
                         columnNumber: 17
                     }, this),
                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("section", {
@@ -2757,7 +2646,7 @@ function BlogPostContent({ post }) {
                                         children: "Stay Ahead of the Curve"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                        lineNumber: 199,
+                                        lineNumber: 180,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("h2", {
@@ -2765,7 +2654,7 @@ function BlogPostContent({ post }) {
                                         children: "Ready to master the digital landscape?"
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                        lineNumber: 200,
+                                        lineNumber: 181,
                                         columnNumber: 29
                                     }, this),
                                     /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
@@ -2773,66 +2662,90 @@ function BlogPostContent({ post }) {
                                         children: "Subscribe to our newsletter for exclusive weekly insights that you won't find on our blog."
                                     }, void 0, false, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                        lineNumber: 201,
+                                        lineNumber: 182,
                                         columnNumber: 29
                                     }, this),
-                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
-                                        className: "flex flex-col sm:flex-row gap-4 max-w-lg mx-auto",
+                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("form", {
+                                        onSubmit: handleSubscribe,
+                                        className: "flex flex-col sm:flex-row gap-4 max-w-lg mx-auto relative",
                                         children: [
-                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
-                                                type: "email",
-                                                placeholder: "your@email.com",
-                                                className: "flex-grow h-16 px-8 rounded-2xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-lg"
-                                            }, void 0, false, {
+                                            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("div", {
+                                                className: "flex-grow flex flex-col gap-2",
+                                                children: [
+                                                    /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("input", {
+                                                        type: "email",
+                                                        placeholder: "your@email.com",
+                                                        value: subscribeEmail,
+                                                        onChange: (e)=>setSubscribeEmail(e.target.value),
+                                                        required: true,
+                                                        disabled: subscribeStatus === 'loading',
+                                                        className: "w-full h-16 px-8 rounded-2xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-lg disabled:opacity-50"
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
+                                                        lineNumber: 187,
+                                                        columnNumber: 37
+                                                    }, this),
+                                                    subscribeMessage && /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("p", {
+                                                        className: `text-xs ml-2 font-bold absolute -bottom-6 left-0 ${subscribeStatus === 'success' ? 'text-[#3994fa]' : 'text-red-500'}`,
+                                                        children: subscribeMessage
+                                                    }, void 0, false, {
+                                                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
+                                                        lineNumber: 197,
+                                                        columnNumber: 41
+                                                    }, this)
+                                                ]
+                                            }, void 0, true, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                lineNumber: 205,
+                                                lineNumber: 186,
                                                 columnNumber: 33
                                             }, this),
                                             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])("button", {
-                                                className: "h-16 px-10 bg-brand-cyan text-[#020617] rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform whitespace-nowrap",
-                                                children: "Sign Me Up"
+                                                type: "submit",
+                                                disabled: subscribeStatus === 'loading',
+                                                className: "h-16 shrink-0 px-10 bg-[#3994fa] text-white rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100",
+                                                children: subscribeStatus === 'loading' ? 'Subscribing...' : 'Sign Me Up'
                                             }, void 0, false, {
                                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                                lineNumber: 210,
+                                                lineNumber: 202,
                                                 columnNumber: 33
                                             }, this)
                                         ]
                                     }, void 0, true, {
                                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                        lineNumber: 204,
+                                        lineNumber: 185,
                                         columnNumber: 29
                                     }, this)
                                 ]
                             }, void 0, true, {
                                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                                lineNumber: 198,
+                                lineNumber: 179,
                                 columnNumber: 25
                             }, this)
                         }, void 0, false, {
                             fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                            lineNumber: 197,
+                            lineNumber: 178,
                             columnNumber: 21
                         }, this)
                     }, void 0, false, {
                         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                        lineNumber: 196,
+                        lineNumber: 177,
                         columnNumber: 17
                     }, this)
                 ]
             }, void 0, true, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                lineNumber: 38,
+                lineNumber: 75,
                 columnNumber: 13
             }, this),
             /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$ssr$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$components$2f$Footer$2e$tsx__$5b$app$2d$ssr$5d$__$28$ecmascript$29$__["default"], {}, void 0, false, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-                lineNumber: 219,
+                lineNumber: 215,
                 columnNumber: 13
             }, this)
         ]
     }, void 0, true, {
         fileName: "[project]/preet-tech-next-gen-digital-agency 2/components/blog/BlogPostContent.tsx",
-        lineNumber: 35,
+        lineNumber: 72,
         columnNumber: 9
     }, this);
 }
