@@ -28,10 +28,10 @@ const WhoIsThisFor = () => {
                     {AUDIENCE.map((item, i) => (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+                            
+                            
                             transition={{ delay: i * 0.1 }}
-                            viewport={{ once: true }}
+                            
                             whileHover={{ y: -10 }}
                             className="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 dark:hover:border-brand-cyan/30 transition-all flex flex-col items-center text-center shadow-sm"
                         >

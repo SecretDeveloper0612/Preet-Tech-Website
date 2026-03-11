@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from 'react';
-import { motion, useInView } from 'framer-motion';
+import { motion, useInView, AnimatePresence } from 'framer-motion';
 import {
     Zap,
     Shield,
@@ -57,18 +57,15 @@ import {
     ArrowUpRight,
     Lock,
     Sun,
-    Moon
+    Moon,
+    CreditCard,
+    ChevronDown,
+    X
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger);
-}
-
+import ThreeSphereScene from '@/components/ThreeSphere';
+import PhoneInput from '@/components/PhoneInput';
 const Odometer = ({ value, suffix, prefix = "" }: { value: number; suffix: string; prefix?: string }) => {
     const [displayValue, setDisplayValue] = useState(0);
     const ref = useRef(null);
@@ -99,7 +96,7 @@ const Odometer = ({ value, suffix, prefix = "" }: { value: number; suffix: strin
 
     return (
         <span ref={ref} className="tabular-nums">
-            {prefix}{displayValue}{suffix}
+            {prefix}{value}{suffix}
         </span>
     );
 };
@@ -109,9 +106,65 @@ enum Theme {
     LIGHT = 'light',
 }
 
+// --- 🛰️ Lightweight Static Background (CSS-only, no JS animations) ---
+const TechnicalBackground = ({ isDarkMode }: { isDarkMode: boolean }) => (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+        {/* Static mesh grid — CSS background-image, zero JS cost */}
+        <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+                backgroundImage: `linear-gradient(to right, #3994fa 1px, transparent 1px), linear-gradient(to bottom, #3994fa 1px, transparent 1px)`,
+                backgroundSize: '40px 40px',
+            }}
+        />
+        {/* Two static ambient glows — no animation, GPU-composited */}
+        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#3994fa]/5 blur-[100px] rounded-full opacity-60" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#3994fa]/5 blur-[100px] rounded-full opacity-40" />
+    </div>
+);
+
 const PerformanceMarketing = () => {
     const [theme, setTheme] = useState<Theme>(Theme.LIGHT);
     const containerRef = useRef<HTMLDivElement>(null);
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
+
+    // Form State for Hero
+    const [formData, setFormData] = useState({
+        name: '',
+        businessName: '',
+        email: '',
+        phone: '',
+        countryCode: '+91',
+        industry: '',
+        budget: '₹19,999',
+    });
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleFormSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitStatus('loading');
+        try {
+            const res = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...formData,
+                    phone: `${formData.countryCode} ${formData.phone}`,
+                    service: 'Performance Marketing'
+                })
+            });
+            if (res.ok) {
+                setSubmitStatus('success');
+                setFormData({ name: '', businessName: '', email: '', phone: '', countryCode: '+91', industry: '', budget: '₹19,999' });
+                setTimeout(() => setSubmitStatus('idle'), 5000);
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error("Form submission error:", error);
+            setSubmitStatus('error');
+        }
+    };
 
     useEffect(() => {
         const isDarkMode = false;
@@ -133,30 +186,13 @@ const PerformanceMarketing = () => {
         }
     };
 
-    useGSAP(() => {
-        // Generic scroll reveal for sections
-        gsap.utils.toArray<HTMLElement>(".scroll-reveal").forEach((section) => {
-            gsap.from(section, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top bottom-=100",
-                    toggleActions: "play none none none"
-                },
-                y: 60,
-                opacity: 0,
-                duration: 1,
-                ease: "power3.out"
-            });
-        });
-    }, { scope: containerRef });
-
     const trustLogos = [
-        { name: "Global Wealth", logo: "https://www.vectorlogo.zone/logos/google/google-ar21.svg" },
-        { name: "Next Gen", logo: "https://www.vectorlogo.zone/logos/facebook/facebook-ar21.svg" },
-        { name: "Wealth Tech", logo: "https://www.vectorlogo.zone/logos/hubspot/hubspot-ar21.svg" },
-        { name: "Growth Co", logo: "https://www.vectorlogo.zone/logos/shopify/shopify-ar21.svg" },
-        { name: "Digital First", logo: "https://www.vectorlogo.zone/logos/mailchimp/mailchimp-ar21.svg" },
-        { name: "Sales Pro", logo: "https://www.vectorlogo.zone/logos/salesforce/salesforce-ar21.svg" }
+        { name: "Global Wealth", logo: "https://cdn.simpleicons.org/google/4285F4" },
+        { name: "Next Gen", logo: "https://cdn.simpleicons.org/facebook/1877F2" },
+        { name: "Wealth Tech", logo: "https://cdn.simpleicons.org/hubspot/FF7A59" },
+        { name: "Growth Co", logo: "https://cdn.simpleicons.org/shopify/96BF48" },
+        { name: "Digital First", logo: "https://cdn.simpleicons.org/mailchimp/FFE01B" },
+        { name: "Sales Pro", logo: "https://cdn.simpleicons.org/salesforce/00A1E0" }
     ];
 
     const whyChooseUs = [
@@ -315,12 +351,12 @@ const PerformanceMarketing = () => {
     ];
 
     const tools = [
-        { name: "Meta Business Suite", icon: "https://www.vectorlogo.zone/logos/facebook/facebook-icon.svg" },
-        { name: "Google Ads", icon: "https://www.vectorlogo.zone/logos/google_ads/google_ads-icon.svg" },
-        { name: "Google Analytics", icon: "https://www.vectorlogo.zone/logos/google_analytics/google_analytics-icon.svg" },
-        { name: "Tag Manager", icon: "https://www.vectorlogo.zone/logos/googletagmanager/googletagmanager-icon.svg" },
-        { name: "HubSpot CRM", icon: "https://www.vectorlogo.zone/logos/hubspot/hubspot-icon.svg" },
-        { name: "Hotjar", icon: "https://www.vectorlogo.zone/logos/hotjar/hotjar-icon.svg" }
+        { name: "Meta Business Suite", icon: "https://cdn.simpleicons.org/facebook/1877F2" },
+        { name: "Google Ads", icon: "https://cdn.simpleicons.org/googleads/4285F4" },
+        { name: "Google Analytics", icon: "https://cdn.simpleicons.org/googleanalytics/E37400" },
+        { name: "Tag Manager", icon: "https://cdn.simpleicons.org/googletagmanager/246FDB" },
+        { name: "HubSpot CRM", icon: "https://cdn.simpleicons.org/hubspot/FF7A59" },
+        { name: "Hotjar", icon: "https://cdn.simpleicons.org/hotjar/FF3C00" }
     ];
 
     const metrics = [
@@ -331,11 +367,11 @@ const PerformanceMarketing = () => {
     ];
 
     const faqs = [
-        { q: "How long does it take to see results?", a: "While initial data starts flowing in within the first 48 hours, meaningful ROI optimization typically takes 2-4 weeks. We focus on 'quick wins' while simultaneously building long-term scalable funnels." },
-        { q: "What is your typical management fee?", a: "Our pricing architecture is customized based on project complexity and ad spend. We offer both performance-based models and monthly retainers, ensuring our goals are perfectly aligned with your growth." },
-        { q: "Do you handle the creative production?", a: "Yes. Our High-Velocity Content Engine handles everything from high-fidelity narrative design to cinematic ad visuals, ensuring your ads stop the scroll and drive conversions." },
-        { q: "Which platforms should I start with?", a: "This depends entirely on your industry and audience. During our initial Strategy Call, we perform a deep-dive audit to recommend the highest-impact channels for your specific goals." },
-        { q: "How do you track and report performance?", a: "We provide detailed, transparent real-time reporting dashboards. Every single conversion is tracked via advanced server-side tagging to ensure 100% data accuracy." }
+        { q: "How long does it take to see results from performance marketing?", a: "While initial data starts flowing in within the first 48 hours, meaningful ROI optimization typically takes 2-4 weeks. Our performance marketing services focus on 'quick wins' while simultaneously building long-term scalable funnels for your business." },
+        { q: "What is your typical management fee for ad campaigns?", a: "Our pricing architecture is customized based on project complexity and ad spend. We offer both performance-based models and monthly retainers, ensuring our goals are perfectly aligned with your business growth and ROAS targets." },
+        { q: "Do your performance marketing services include creative production?", a: "Yes. Preet Tech's High-Velocity Content Engine handles everything from creative direction to cinematic ad visuals, ensuring your ads stop the scroll and drive conversions effectively." },
+        { q: "Which ad platforms should I start with for my business?", a: "This depends entirely on your industry and audience. During our initial Strategy Call, we perform a deep-dive audit to recommend the highest-impact channels like Meta, Google, or YouTube for your specific goals." },
+        { q: "How do you track and report campaign performance?", a: "We provide detailed, transparent real-time reporting dashboards. Every single conversion is tracked via advanced server-side tagging to ensure 100% data accuracy for your ROAS monitoring." }
     ];
 
     const [openFaq, setOpenFaq] = useState<number | null>(0);
@@ -370,151 +406,121 @@ const PerformanceMarketing = () => {
             <Navbar isDark={theme === Theme.DARK} toggleTheme={toggleTheme} />
 
             {/* 1. Hero Section */}
-            <section className="relative min-h-screen pt-32 pb-20 px-6 lg:px-20 flex items-center overflow-hidden bg-white dark:bg-[#030712]">
-                {/* Static Background Effects - GPU composited, no JS animation */}
-                <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                    <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-brand-medium/10 blur-[120px] rounded-full" />
-                    <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-brand-medium/10 blur-[120px] rounded-full" />
-                    <div className="absolute top-1/4 right-1/3 w-32 h-32 bg-gradient-to-br from-brand-medium/15 to-transparent rounded-3xl blur-xl" />
-                    <div className="absolute bottom-1/4 left-1/4 w-48 h-48 bg-gradient-to-tr from-brand-medium/15 to-transparent rounded-full blur-2xl" />
-                </div>
+            <section className="relative pt-32 pb-12 lg:pt-48 lg:pb-32 px-6 overflow-hidden">
+                <TechnicalBackground isDarkMode={theme === Theme.DARK} />
+                <ThreeSphereScene />
 
-                <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-24 items-center relative z-10">
-                    {/* Left Side: Content */}
-                    <div className="lg:col-span-7 hero-content">
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8 }}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-medium/10 border border-brand-medium/20 text-brand-medium text-[10px] font-black uppercase tracking-[0.2em] mb-8"
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
+                    <div className="space-y-6 lg:space-y-8 hero-content text-center lg:text-left">
+                        <span
+                            className="inline-block px-4 py-1 rounded-full bg-[#3994fa]/10 dark:bg-[#3994fa]/10 text-[#3994fa] dark:text-[#3994fa] text-[10px] md:text-xs font-bold uppercase tracking-widest border border-[#3994fa]/20 dark:border-[#3994fa]/20"
                         >
-                            <span className="w-2 h-2 rounded-full bg-brand-medium animate-pulse" />
-                            Next-Gen Performance Marketing
-                        </motion.div>
-
-                        <motion.h1
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.1 }}
-                            className="text-4xl sm:text-5xl md:text-7xl lg:text-[80px] font-black text-slate-900 dark:text-white leading-[0.95] md:leading-[0.9] tracking-tighter mb-6 md:mb-8"
+                            ROI-DRIVEN PERFORMANCE MARKETING
+                        </span>
+                        <h1
+                            className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tighter leading-[1.1] text-slate-900 dark:text-white"
                         >
                             Performance Marketing <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-medium italic">That Drives</span> <br />
-                            Measurable Growth
-                        </motion.h1>
-
-                        <motion.p
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            className="text-slate-600 dark:text-slate-400 text-base md:text-xl font-medium leading-relaxed mb-8 md:mb-12 max-w-2xl"
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3994fa] to-[#1e293b] dark:to-white">Services for Scalable ROI.</span>
+                        </h1>
+                        <p
+                            className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium"
                         >
-                            Maximize your ROI with data-driven campaigns and scalable results. We leverage advanced analytics and precision targeting to turn your marketing spend into a growth engine.
-                        </motion.p>
-
-                        <motion.div
-                            initial={{ opacity: 0, x: -50 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.8, delay: 0.3 }}
-                            className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 sm:gap-6"
+                            Maximize your brand's growth with our data-driven <strong>performance marketing services</strong>. We leverage advanced analytics and precision targeting to turn your marketing spend into a high-octane growth engine starting at ₹19,999.
+                        </p>
+                        <div
+                            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
                         >
-                            <button className="px-10 py-5 bg-brand-medium text-[#030712] rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-white transition-all shadow-xl shadow-brand-medium/20 group flex items-center justify-center gap-2">
-                                Get Free Audit <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                            <button onClick={() => setIsVideoOpen(true)} className="px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white rounded-full font-bold transition-all transform hover:-translate-y-1 shadow-lg shadow-[#3994fa]/25 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer">
+                                Watch Demo <Play className="w-4 h-4 fill-white" />
                             </button>
-                            <button className="px-10 py-5 bg-transparent border-2 border-slate-200 dark:border-white/10 text-slate-900 dark:text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:border-brand-medium transition-all flex items-center justify-center">
-                                View Case Studies
-                            </button>
-                        </motion.div>
+                        </div>
                     </div>
 
-                    {/* Right Side: Glassmorphism Form Card */}
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        transition={{ duration: 0.8, delay: 0.4 }}
-                        className="lg:col-span-5 hero-form-container"
+                    <div
+                        id="consultation"
+                        className="relative hero-content mt-8 lg:mt-0 w-full max-w-lg mx-auto lg:max-w-none scroll-mt-32"
                     >
-                        <div className="relative group">
-                            {/* Card Glow Effect */}
-                            <div className="absolute -inset-1 bg-gradient-to-r from-brand-medium to-brand-medium rounded-[3rem] blur opacity-25 group-hover:opacity-40 transition duration-1000 group-hover:duration-200" />
-
-                            <div className="relative bg-white/70 dark:bg-[#030712]/70 backdrop-blur-2xl rounded-[3rem] p-8 md:p-10 border border-white/20 dark:border-white/5 shadow-2xl">
-                                <div className="mb-8 text-left">
-                                    <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tight mb-2 uppercase">Get My Free Strategy</h3>
-                                    <p className="text-slate-500 dark:text-slate-400 font-medium text-sm">Scale your business with expert precision.</p>
+                        <div className="bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-[2.5rem] shadow-2xl relative z-10 border border-slate-200 dark:border-slate-800">
+                            <form onSubmit={handleFormSubmit} className="space-y-6">
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Full Name</label>
+                                    <div className="relative group">
+                                        <User strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                        <input required type="text" value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="John Doe" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                    </div>
                                 </div>
-
-                                <form className="space-y-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-medium ml-1">Full Name</label>
-                                            <div className="relative group/input">
-                                                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within/input:text-brand-medium transition-colors" />
-                                                <input type="text" placeholder="John Doe" className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-medium/30 transition-all font-medium" />
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-medium ml-1">Business Name</label>
-                                            <div className="relative group/input">
-                                                <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within/input:text-brand-medium transition-colors" />
-                                                <input type="text" placeholder="Acme Corp" className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-medium/30 transition-all font-medium" />
-                                            </div>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Business Name</label>
+                                    <div className="relative group">
+                                        <Building2 strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                        <input required type="text" value={formData.businessName || ''} onChange={(e) => setFormData({ ...formData, businessName: e.target.value })} placeholder="Your Company Ltd." className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Email</label>
+                                        <div className="relative group">
+                                            <Mail strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                            <input required type="email" value={formData.email || ''} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="john@example.com" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
                                         </div>
                                     </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-medium ml-1">Email</label>
-                                            <div className="relative group/input">
-                                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within/input:text-brand-medium transition-colors" />
-                                                <input type="email" placeholder="john@company.com" className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-medium/30 transition-all font-medium" />
-                                            </div>
-                                        </div>
-                                        <div className="space-y-2">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-medium ml-1">Phone</label>
-                                            <div className="relative group/input">
-                                                <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within/input:text-brand-medium transition-colors" />
-                                                <input type="tel" placeholder="+1 (555) 000-0000" className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl py-3.5 pl-12 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-medium/30 transition-all font-medium" />
-                                            </div>
-                                        </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Phone</label>
+                                        <PhoneInput
+                                            value={formData.phone || ''}
+                                            onChange={(val) => setFormData({ ...formData, phone: val })}
+                                            countryCode={formData.countryCode}
+                                            onCountryCodeChange={(code) => setFormData({ ...formData, countryCode: code })}
+                                        />
                                     </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-brand-medium ml-1">Monthly Ad Budget</label>
-                                        <div className="relative group/input">
-                                            <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 group-focus-within/input:text-brand-medium transition-colors" />
-                                            <select defaultValue="" className="w-full bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/10 rounded-2xl py-3.5 pl-12 pr-10 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-medium/30 transition-all font-medium appearance-none">
-                                                <option value="" disabled>Select Budget Range</option>
-                                                <option value="1k-5k">$1,000 - $5,000</option>
-                                                <option value="5k-10k">$5,000 - $10,000</option>
-                                                <option value="10k-25k">$10,000 - $25,000</option>
-                                                <option value="25k+">$25,000+</option>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Industry</label>
+                                        <div className="relative group">
+                                            <Activity strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors pointer-events-none" />
+                                            <select required value={formData.industry} onChange={(e) => setFormData({ ...formData, industry: e.target.value })} className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all appearance-none text-slate-700 dark:text-slate-200 text-sm cursor-pointer">
+                                                <option value="">Select Industry</option>
+                                                <option value="Ecommerce">Ecommerce</option>
+                                                <option value="Real Estate">Real Estate</option>
+                                                <option value="SaaS">SaaS</option>
+                                                <option value="EdTech">EdTech</option>
+                                                <option value="Healthcare">Healthcare</option>
+                                                <option value="Other">Other</option>
                                             </select>
-                                            <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none rotate-90" />
+                                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
                                         </div>
                                     </div>
-
-                                    <div className="space-y-2">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-brand-medium ml-1">Select Platform</label>
-                                        <div className="grid grid-cols-3 gap-2">
-                                            {['Meta', 'Google', 'Both'].map((platform) => (
-                                                <label key={platform} className="relative cursor-pointer group/choice">
-                                                    <input type="radio" name="platform" value={platform} className="peer sr-only" />
-                                                    <div className="px-4 py-2 text-center rounded-xl bg-slate-50 dark:bg-black/20 border border-slate-200 dark:border-white/10 text-[10px] font-bold uppercase text-slate-500 peer-checked:bg-brand-medium/20 peer-checked:border-brand-medium peer-checked:text-brand-medium transition-all">
-                                                        {platform}
-                                                    </div>
-                                                </label>
-                                            ))}
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Monthly Ad Budget</label>
+                                        <div className="relative group">
+                                            <CreditCard strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors pointer-events-none" />
+                                            <select required value={formData.budget} onChange={(e) => setFormData({ ...formData, budget: e.target.value })} className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all appearance-none text-slate-700 dark:text-slate-200 text-sm cursor-pointer">
+                                                <option value="₹19,999">₹19,999</option>
+                                                <option value="₹50k - ₹1L">₹50k - ₹1L</option>
+                                                <option value="₹1L - ₹5L">₹1L - ₹5L</option>
+                                                <option value="₹5L+">₹5L+</option>
+                                            </select>
+                                            <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
                                         </div>
                                     </div>
-
-                                    <button className="w-full group mt-4 relative bg-brand-medium hover:bg-white text-[#030712] rounded-2xl py-4 font-black text-xs uppercase tracking-[0.2em] transition-all overflow-hidden shadow-2xl shadow-brand-medium/20 flex items-center justify-center gap-2">
-                                        Get My Free Strategy <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+                                </div>
+                                <div className="pt-2">
+                                    <button disabled={submitStatus === "loading"} type="submit" className="w-full py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white font-black rounded-2xl transition-all shadow-[0_0_20px_rgba(63,143,204,0.2)] hover:shadow-[0_0_30px_rgba(63,143,204,0.4)] text-[13px] uppercase tracking-widest flex items-center justify-center gap-2">
+                                        {submitStatus === "loading" ? "Submitting..." : "Get Free Consultation"} <ArrowRight strokeWidth={2.5} className="w-4 h-4 ml-1" />
                                     </button>
-                                </form>
-                            </div>
+                                </div>
+                                {submitStatus === 'success' && (
+                                    <p className="text-emerald-500 text-xs font-bold text-center mt-2">Success! We will be in touch shortly.</p>
+                                )}
+                                {submitStatus === 'error' && (
+                                    <p className="text-red-500 text-xs font-bold text-center mt-2">Something went wrong. Please try again.</p>
+                                )}
+                            </form>
                         </div>
-                    </motion.div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-[#3994fa]/20 to-[#6366f1]/20 rounded-full blur-[100px] -z-10 animate-pulse" />
+                    </div>
                 </div>
             </section>
 
@@ -529,6 +535,7 @@ const PerformanceMarketing = () => {
                                 src={logo.logo}
                                 alt={logo.name}
                                 className="h-6 sm:h-8 md:h-10 grayscale hover:grayscale-0 transition-all duration-500 cursor-pointer"
+                                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                             />
                         ))}
                     </div>
@@ -541,26 +548,22 @@ const PerformanceMarketing = () => {
                     <div className="text-center mb-16">
                         <span className="text-brand-medium text-[10px] font-black uppercase tracking-[0.4em] mb-4 block">The ROI Advantage</span>
                         <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white uppercase">
-                            Why Choose <span className="text-brand-medium">Preet Tech</span>
+                            The Best <span className="text-brand-medium">Performance Marketing Agency</span> For You
                         </h2>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {whyChooseUs.map((item, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                whileHover={{ y: -5 }}
-                                className="group p-8 rounded-[2rem] bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 transition-all"
+                                className="group p-8 rounded-[2rem] bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 transition-all hover:-translate-y-1"
                             >
                                 <div className="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:shadow-[0_0_30px_rgba(63,143,204,0.2)] transition-all">
                                     <item.icon className="w-6 h-6 text-brand-medium" />
                                 </div>
                                 <h3 className="text-lg font-black uppercase tracking-tight text-slate-900 dark:text-white mb-3">{item.title}</h3>
                                 <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed font-medium">{item.desc}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -575,6 +578,12 @@ const PerformanceMarketing = () => {
                             Performance Marketing <br />
                             Is <span className="text-brand-medium">Results-Only</span> Growth.
                         </h2>
+                    </div>
+
+                    <div className="max-w-3xl mb-12">
+                        <p className="text-lg text-slate-600 dark:text-slate-400 font-medium leading-relaxed">
+                            <strong>Performance marketing</strong> is a comprehensive term for online marketing and advertising programs in which advertisers pay only when a specific action is completed—such as a sale, lead, or click. At Preet Tech, we combine this accountability with advanced data analytics to ensure every marketing dollar generates a measurable return on investment (ROI).
+                        </p>
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-10">
@@ -613,7 +622,7 @@ const PerformanceMarketing = () => {
                         <p className="text-base font-medium text-slate-600 dark:text-slate-400">
                             <span className="text-slate-900 dark:text-white font-black uppercase text-xs">The Result:</span> You only pay for the growth we deliver.
                         </p>
-                        <button className="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-[#030712] rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-brand-medium transition-colors whitespace-nowrap">
+                        <button className="px-8 py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-95 text-white rounded-xl font-black text-[10px] uppercase tracking-widest transition-all whitespace-nowrap shadow-lg shadow-[#3994fa]/20">
                             Request Your Audit
                         </button>
                     </div>
@@ -632,11 +641,8 @@ const PerformanceMarketing = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {services.map((service, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.1 }}
                                 className="group relative p-0.5 rounded-3xl bg-slate-200 dark:bg-white/5 hover:bg-gradient-to-br transition-all duration-500 overflow-hidden"
                             >
                                 <div className={`absolute inset-0 bg-gradient-to-br ${service.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
@@ -652,7 +658,7 @@ const PerformanceMarketing = () => {
                                         Learn More <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -673,20 +679,16 @@ const PerformanceMarketing = () => {
                             </h3>
                         </div>
                         <div className="flex items-center gap-3 px-6 py-3 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10">
-                            <div className="w-2 h-2 rounded-full bg-brand-medium animate-pulse" />
+                            <div className="w-2 h-2 rounded-full bg-brand-medium" />
                             <span className="text-[10px] font-black uppercase tracking-widest text-slate-500">Live Optimization Active</span>
                         </div>
                     </div>
 
                     <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4">
                         {platforms.map((platform, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                whileHover={{ y: -8 }}
-                                className="group relative"
+                                className="group relative hover:-translate-y-2 transition-transform duration-300"
                             >
                                 <div className="absolute -inset-0.5 bg-gradient-to-br from-brand-medium/0 to-brand-medium/0 group-hover:from-brand-medium/20 group-hover:to-brand-medium/20 rounded-[2rem] transition-all duration-500 blur-sm" />
                                 <div className="relative h-full p-8 rounded-[2rem] bg-white dark:bg-white/5 border border-slate-100 dark:border-white/5 backdrop-blur-sm flex flex-col items-center gap-6 transition-all group-hover:border-brand-medium/30 group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.05)] dark:group-hover:shadow-[0_20px_40px_rgba(0,0,0,0.3)]">
@@ -709,7 +711,7 @@ const PerformanceMarketing = () => {
                                         <span className="text-[8px] font-black uppercase tracking-widest text-brand-medium">Mastered</span>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -728,21 +730,15 @@ const PerformanceMarketing = () => {
                     <div className="relative">
                         {/* Animated Step Progression Line */}
                         <div className="absolute top-[40px] left-0 w-full h-0.5 bg-slate-100 dark:bg-white/5 hidden lg:block">
-                            <motion.div
-                                initial={{ width: 0 }}
-                                whileInView={{ width: '100%' }}
-                                transition={{ duration: 2, ease: "easeInOut" }}
-                                className="h-full bg-brand-medium shadow-[0_0_10px_#3994fa]"
+                            <div
+                                className="h-full w-full bg-brand-medium shadow-[0_0_10px_#3994fa]"
                             />
                         </div>
 
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10 relative z-10">
                             {strategy.map((step, i) => (
-                                <motion.div
+                                <div
                                     key={i}
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ delay: i * 0.1 }}
                                     className="flex flex-col items-center text-center group"
                                 >
                                     <div className="w-16 h-16 rounded-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-white/10 flex items-center justify-center mb-4 md:mb-6 group-hover:border-brand-medium transition-all relative">
@@ -753,7 +749,7 @@ const PerformanceMarketing = () => {
                                     </div>
                                     <h4 className="text-sm md:text-base font-black uppercase tracking-tight text-slate-900 dark:text-white mb-2">{step.phase}</h4>
                                     <p className="text-[10px] text-slate-500 dark:text-slate-400 font-medium leading-relaxed max-w-[160px]">{step.desc}</p>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -907,17 +903,16 @@ const PerformanceMarketing = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {industries.map((industry, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                whileHover={{ y: -10 }}
-                                className="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-brand-medium/30 transition-all shadow-sm"
+                                className="group p-10 rounded-[2.5rem] bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-brand-medium/30 transition-all shadow-sm hover:-translate-y-2"
                             >
                                 <div className="w-16 h-16 rounded-2xl bg-white dark:bg-slate-900 flex items-center justify-center mb-8 border border-slate-200 dark:border-white/10 group-hover:bg-brand-medium transition-all">
                                     <industry.icon className="w-8 h-8 text-brand-medium group-hover:text-[#030712] transition-colors" />
                                 </div>
                                 <h4 className="text-2xl font-black uppercase tracking-tight text-slate-900 dark:text-white mb-4">{industry.name}</h4>
                                 <p className="text-slate-500 dark:text-slate-400 text-sm leading-relaxed font-medium">{industry.desc}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -1011,13 +1006,9 @@ const PerformanceMarketing = () => {
                                 glow: 'rgba(63,143,204,0.3)',
                             },
                         ].map((card, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 40 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.12, duration: 0.6 }}
-                                whileHover={{ y: -8, scale: 1.02 }}
-                                className="relative rounded-3xl overflow-hidden flex flex-col cursor-default group"
+                                className="relative rounded-3xl overflow-hidden flex flex-col cursor-default group hover:-translate-y-2 transition-transform duration-300"
                                 style={{
                                     background: card.bg,
                                     minHeight: '440px',
@@ -1078,7 +1069,7 @@ const PerformanceMarketing = () => {
                                     </div>
 
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
 
@@ -1118,7 +1109,7 @@ const PerformanceMarketing = () => {
                                 {tools.map((tool, i) => (
                                     <div key={i} className="flex flex-col items-center justify-center h-28 md:h-32 rounded-3xl bg-white dark:bg-white/[0.02] shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none border border-slate-50 dark:border-white/5 transition-all w-full group">
                                         <div className="w-8 h-8 md:w-10 md:h-10 mb-4 flex items-center justify-center opacity-40 group-hover:opacity-100 transition-opacity">
-                                            <img src={tool.icon} alt={tool.name} className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 pointer-events-none" />
+                                            <img src={tool.icon} alt={tool.name} className="w-full h-full object-contain filter grayscale group-hover:grayscale-0 transition-all duration-300 pointer-events-none" onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }} />
                                         </div>
                                         <span className="text-[6px] md:text-[7px] font-black uppercase tracking-[0.2em] text-[#94a3b8] dark:text-slate-500 text-center">{tool.name}</span>
                                     </div>
@@ -1156,6 +1147,29 @@ const PerformanceMarketing = () => {
                         </div>
                     </div>
 
+                    {/* 13.5 Related Services / SEO Silo */}
+                    <div className="mt-16 relative z-10">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {[
+                                { t: 'Content Creation', link: '/services/content-creation', d: 'High-converting visuals for your ads.' },
+                                { t: 'Social Media Handling', link: '/services/social-media-handling', d: 'Full organic community management.' },
+                                { t: 'App Development', link: '/services/app-development', d: 'Custom performance-first applications.' }
+                            ].map((service, i) => (
+                                <a
+                                    key={i}
+                                    href={service.link}
+                                    className="p-8 rounded-[2rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 hover:border-brand-medium/50 transition-all group"
+                                >
+                                    <h4 className="text-lg font-black uppercase mb-2 group-hover:text-brand-medium transition-colors">{service.t}</h4>
+                                    <p className="text-xs text-slate-500 dark:text-slate-400 mb-6">{service.d}</p>
+                                    <div className="flex items-center text-brand-medium font-bold text-[10px] uppercase tracking-widest gap-2">
+                                        Explore Service <ArrowRight className="w-4 h-4" />
+                                    </div>
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+
                     <div className="relative group">
                         {/* Dashboard Mockup Placeholder */}
                         <div className="relative rounded-3xl border border-slate-200 dark:border-white/10 overflow-hidden shadow-2xl bg-white dark:bg-[#030712] p-4">
@@ -1167,11 +1181,9 @@ const PerformanceMarketing = () => {
                             <div className="aspect-[1.5/1] bg-slate-100 dark:bg-slate-800/40 rounded-xl relative overflow-hidden p-6">
                                 <div className="flex justify-between items-end h-full gap-4">
                                     {[60, 40, 80, 50, 90, 70, 100].map((h, i) => (
-                                        <motion.div
+                                        <div
                                             key={i}
-                                            initial={{ height: 0 }}
-                                            whileInView={{ height: `${h}%` }}
-                                            transition={{ delay: i * 0.1, duration: 1 }}
+                                            style={{ height: `${h}%` }}
                                             className="flex-1 bg-gradient-to-t from-brand-medium to-brand-medium rounded-t-lg opacity-80"
                                         />
                                     ))}
@@ -1200,11 +1212,7 @@ const PerformanceMarketing = () => {
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
                         {/* Left Content: Value Prop & Visuals */}
                         <div className="lg:col-span-6">
-                            <motion.div
-                                initial={{ opacity: 0, x: -30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.8 }}
-                            >
+                            <div>
                                 <span className="text-brand-medium text-[10px] font-black uppercase tracking-[0.5em] mb-6 block">Immediate Value</span>
                                 <h2 className="text-4xl sm:text-5xl md:text-7xl font-black text-slate-900 dark:text-white uppercase leading-[0.95] md:leading-[0.9] tracking-tighter mb-8">
                                     The <br />
@@ -1234,7 +1242,7 @@ const PerformanceMarketing = () => {
                                         </div>
                                     ))}
                                 </div>
-                            </motion.div>
+                            </div>
                         </div>
 
                         {/* Right Content: The Form Card */}
@@ -1243,10 +1251,7 @@ const PerformanceMarketing = () => {
                             <div className="absolute -top-12 -right-12 w-32 h-32 bg-brand-medium/10 blur-2xl rounded-full" />
                             <div className="absolute -bottom-12 -left-12 w-48 h-48 bg-brand-medium/10 blur-3xl rounded-full" />
 
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.8 }}
+                            <div
                                 className="relative bg-white/70 dark:bg-white/[0.03] backdrop-blur-xl border border-slate-200 dark:border-white/10 rounded-[3rem] p-8 md:p-12 shadow-2xl overflow-hidden group"
                             >
                                 <div className="absolute top-0 right-0 w-24 h-24 bg-gradient-to-br from-brand-medium/20 to-transparent blur-xl scale-0 group-hover:scale-150 transition-transform duration-700" />
@@ -1309,10 +1314,9 @@ const PerformanceMarketing = () => {
                                         </div>
                                     </div>
 
-                                    <button className="w-full group relative bg-brand-medium hover:bg-slate-900 dark:hover:bg-white text-[#030712] dark:text-[#030712] hover:text-white transition-all rounded-2xl py-5 font-black text-[10px] uppercase tracking-[0.3em] overflow-hidden flex items-center justify-center gap-3 shadow-xl shadow-brand-medium/20">
+                                    <button className="w-full group relative bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-95 text-white transition-all rounded-2xl py-5 font-black text-[10px] uppercase tracking-[0.3em] overflow-hidden flex items-center justify-center gap-3 shadow-xl shadow-[#3994fa]/20">
                                         <span className="relative z-10">Request Data Audit</span>
                                         <ChevronRight className="w-4 h-4 group-hover:translate-x-1 transition-transform relative z-10" />
-                                        <div className="absolute inset-x-0 bottom-0 h-1 bg-brand-medium group-hover:h-full transition-all duration-500 opacity-20" />
                                     </button>
 
                                     <div className="flex items-center justify-center gap-2 pt-4 border-t border-slate-100 dark:border-white/5">
@@ -1320,7 +1324,7 @@ const PerformanceMarketing = () => {
                                         <p className="text-[8px] font-black uppercase tracking-widest text-slate-400 dark:text-slate-600">Secure Transmission Encrypted</p>
                                     </div>
                                 </form>
-                            </motion.div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -1339,7 +1343,7 @@ const PerformanceMarketing = () => {
                         <p className="text-sm md:text-base font-bold uppercase tracking-widest mb-10 opacity-80">
                             Stop Guessing. Start Scaling Profitably.
                         </p>
-                        <button className="px-10 py-5 bg-slate-900 text-white rounded-xl font-black text-[10px] uppercase tracking-[0.2em] hover:bg-white hover:text-slate-900 transition-all shadow-2xl flex items-center gap-2 mx-auto group">
+                        <button className="px-10 py-5 bg-slate-900 text-white hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] rounded-xl font-black text-[10px] uppercase tracking-[0.2em] transition-all shadow-2xl flex items-center gap-2 mx-auto group">
                             Start Your Growth Journey <ArrowUpRight className="w-5 h-5 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
                         </button>
                     </div>
@@ -1347,7 +1351,38 @@ const PerformanceMarketing = () => {
             </section>
 
             <Footer />
-        </main>
+
+            {/* Video Modal */}
+            {isVideoOpen && (
+                <div
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95"
+                    onClick={() => setIsVideoOpen(false)}
+                >
+                    <div
+                        className="relative w-full aspect-video max-w-4xl bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center"
+                        onClick={e => e.stopPropagation()}
+                    >
+                        <button
+                            onClick={() => setIsVideoOpen(false)}
+                            className="absolute top-4 right-4 z-[110] w-10 h-10 bg-black/60 hover:bg-black/80 border border-white/20 rounded-full flex items-center justify-center text-white transition-colors"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
+
+                        {/* YouTube Embed */}
+                        <div className="absolute inset-0 w-full h-full bg-black">
+                            <iframe
+                                src="https://www.youtube.com/embed/CBYfXlP7ppQ?autoplay=1"
+                                className="w-full h-full border-0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                title="Preet Tech Video"
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
+        </main >
     );
 };
 

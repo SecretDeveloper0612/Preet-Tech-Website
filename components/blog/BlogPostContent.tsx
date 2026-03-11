@@ -137,7 +137,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                                     </p>
                                     <Link
                                         href="/contact"
-                                        className="inline-flex items-center gap-3 px-8 py-4 bg-brand-cyan text-[#020617] rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform"
+                                        className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform"
                                     >
                                         Book Free Strategy Call <ArrowRight className="w-5 h-5" />
                                     </Link>
@@ -145,21 +145,21 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                             </div>
 
                             {/* Tags & Social Share */}
-                            <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
+                            <div className="pt-12 border-t border-slate-200 dark:border-white/5 flex flex-col md:flex-row items-center justify-between gap-8">
                                 <div className="flex flex-wrap gap-2">
                                     {post.tags.map(tag => (
-                                        <span key={tag} className="px-4 py-2 bg-white/5 rounded-lg text-xs font-bold text-slate-400 uppercase tracking-widest border border-white/5 cursor-default hover:bg-white/10 transition-colors">
+                                        <span key={tag} className="px-4 py-2 bg-slate-100 dark:bg-white/5 rounded-lg text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest border border-slate-200 dark:border-white/5 cursor-default hover:bg-slate-200 dark:hover:bg-white/10 transition-colors">
                                             #{tag}
                                         </span>
                                     ))}
                                 </div>
 
                                 <div className="flex items-center gap-4">
-                                    <span className="text-[10px] font-bold text-slate-500 uppercase tracking-widest">Share this via</span>
+                                    <span className="text-[10px] font-bold text-slate-400 dark:text-slate-500 uppercase tracking-widest">Share this via</span>
                                     <div className="flex items-center gap-2">
-                                        <button className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white transition-all"><Twitter className="w-4 h-4" /></button>
-                                        <button className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-all"><Linkedin className="w-4 h-4" /></button>
-                                        <button className="w-10 h-10 rounded-xl bg-white/5 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all"><Facebook className="w-4 h-4" /></button>
+                                        <button className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 flex items-center justify-center hover:bg-[#1DA1F2] hover:text-white transition-all"><Twitter className="w-4 h-4" /></button>
+                                        <button className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 flex items-center justify-center hover:bg-[#0077b5] hover:text-white transition-all"><Linkedin className="w-4 h-4" /></button>
+                                        <button className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-white/5 text-slate-600 dark:text-slate-400 flex items-center justify-center hover:bg-[#1877F2] hover:text-white transition-all"><Facebook className="w-4 h-4" /></button>
                                     </div>
                                 </div>
                             </div>
@@ -174,15 +174,17 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                 </div>
 
                 {/* Newsletter Section */}
-                <section className="py-24 mt-24 border-t border-white/5 relative overflow-hidden">
+                <section className="py-20 mt-16 border-t border-slate-200 dark:border-white/5 relative overflow-hidden">
                     <div className="max-w-7xl mx-auto px-4 md:px-6 text-center">
-                        <div className="max-w-4xl mx-auto">
-                            <span className="text-brand-cyan font-black uppercase tracking-[0.3em] text-[10px] mb-6 block">Stay Ahead of the Curve</span>
-                            <h2 className="text-3xl md:text-5xl font-black mb-8 tracking-tight">Ready to master the digital landscape?</h2>
-                            <p className="text-slate-400 text-lg mb-12 max-w-2xl mx-auto leading-relaxed">
-                                Subscribe to our newsletter for exclusive weekly insights that you won't find on our blog.
+                        <div className="max-w-2xl mx-auto bg-white dark:bg-[#0d1120] border border-slate-200 dark:border-white/10 rounded-3xl p-10 shadow-sm relative overflow-hidden">
+                            {/* Top accent */}
+                            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3994fa] to-[#004aad] rounded-t-3xl" />
+                            <span className="text-[#3994fa] font-black uppercase tracking-[0.3em] text-[10px] mb-4 block">Stay Ahead of the Curve</span>
+                            <h2 className="text-2xl md:text-4xl font-black mb-4 tracking-tight text-slate-900 dark:text-white">Ready to master the digital landscape?</h2>
+                            <p className="text-slate-500 dark:text-slate-400 text-base mb-8 leading-relaxed">
+                                Subscribe for exclusive weekly insights you won't find on our blog.
                             </p>
-                            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-4 max-w-lg mx-auto relative">
+                            <form onSubmit={handleSubscribe} className="flex flex-col sm:flex-row gap-3 relative">
                                 <div className="flex-grow flex flex-col gap-2">
                                     <input
                                         type="email"
@@ -191,10 +193,10 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                                         onChange={(e) => setSubscribeEmail(e.target.value)}
                                         required
                                         disabled={subscribeStatus === 'loading'}
-                                        className="w-full h-16 px-8 rounded-2xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-lg disabled:opacity-50"
+                                        className="w-full h-14 px-6 rounded-xl bg-slate-50 dark:bg-[#1a2035] border border-slate-200 dark:border-white/10 focus:border-[#3994fa] focus:ring-2 focus:ring-[#3994fa]/10 outline-none transition-all text-base text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 disabled:opacity-50"
                                     />
                                     {subscribeMessage && (
-                                        <p className={`text-xs ml-2 font-bold absolute -bottom-6 left-0 ${subscribeStatus === 'success' ? 'text-[#3994fa]' : 'text-red-500'}`}>
+                                        <p className={`text-xs ml-1 font-bold ${subscribeStatus === 'success' ? 'text-[#3994fa]' : 'text-red-500'}`}>
                                             {subscribeMessage}
                                         </p>
                                     )}
@@ -202,7 +204,7 @@ export default function BlogPostContent({ post }: BlogPostContentProps) {
                                 <button
                                     type="submit"
                                     disabled={subscribeStatus === 'loading'}
-                                    className="h-16 shrink-0 px-10 bg-[#3994fa] text-white rounded-2xl font-black uppercase tracking-widest hover:scale-105 transition-transform whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                                    className="h-14 shrink-0 px-8 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-xl font-black uppercase tracking-widest hover:opacity-90 hover:scale-[1.02] transition-all active:scale-95 whitespace-nowrap shadow-lg shadow-[#3994fa]/20 disabled:opacity-50 disabled:cursor-not-allowed"
                                 >
                                     {subscribeStatus === 'loading' ? 'Subscribing...' : 'Sign Me Up'}
                                 </button>

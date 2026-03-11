@@ -169,85 +169,57 @@ export default function ServicesPage() {
 
                 {/* Floating Elements Background */}
                 <div className="absolute inset-0 overflow-hidden pointer-events-none z-0">
-                    <motion.div
-                        animate={{ y: [-20, 20, -20], x: [-10, 10, -10], rotate: [0, 10, 0] }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute top-[20%] left-[10%] xl:left-[15%] w-16 h-16 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl flex items-center justify-center text-brand-medium shadow-2xl"
-                    >
+                    <div className="absolute top-[20%] left-[10%] xl:left-[15%] w-16 h-16 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl flex items-center justify-center text-brand-medium shadow-2xl">
                         <Code2 size={24} />
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                        animate={{ y: [20, -20, 20], x: [10, -10, 10], rotate: [0, -10, 0] }}
-                        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                        className="absolute top-[25%] right-[10%] xl:right-[15%] w-20 h-20 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-full flex items-center justify-center text-brand-cyan shadow-2xl"
-                    >
+                    <div className="absolute top-[25%] right-[10%] xl:right-[15%] w-20 h-20 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-full flex items-center justify-center text-brand-cyan shadow-2xl">
                         <Rocket size={32} />
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                        animate={{ y: [-15, 15, -15], rotate: [0, 15, 0] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                        className="absolute bottom-[20%] left-[15%] xl:left-[20%] w-14 h-14 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-xl flex items-center justify-center text-rose-500 shadow-2xl hidden md:flex"
-                    >
+                    <div className="absolute bottom-[20%] left-[15%] xl:left-[20%] w-14 h-14 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-xl flex items-center justify-center text-rose-500 shadow-2xl hidden md:flex">
                         <Palette size={20} />
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                        animate={{ y: [15, -15, 15], rotate: [0, -15, 0] }}
-                        transition={{ duration: 9, repeat: Infinity, ease: "easeInOut", delay: 0.5 }}
-                        className="absolute bottom-[25%] right-[15%] xl:right-[20%] w-16 h-16 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl flex items-center justify-center text-emerald-500 shadow-2xl hidden md:flex"
-                    >
+                    <div className="absolute bottom-[25%] right-[15%] xl:right-[20%] w-16 h-16 bg-white/70 dark:bg-slate-800/70 backdrop-blur-xl border border-slate-200/50 dark:border-white/10 rounded-2xl flex items-center justify-center text-emerald-500 shadow-2xl hidden md:flex">
                         <BarChart3 size={24} />
-                    </motion.div>
+                    </div>
                 </div>
 
                 <div className="max-w-7xl mx-auto px-6 relative z-10 w-full text-center">
 
 
                     <div className="relative inline-block w-full">
-                        <motion.h1
+                        <h1
                             className="text-[14vw] md:text-[10rem] lg:text-[11rem] font-black text-slate-900 dark:text-white uppercase tracking-tighter leading-[0.85] mb-8 select-none flex flex-col items-center justify-center"
                         >
-                            <motion.span
-                                initial={{ opacity: 0, y: 40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, ease: "easeOut" }}
+                            <span
                                 className="inline-block"
                             >
                                 OUR
-                            </motion.span>
-                            <motion.span
-                                initial={{ opacity: 0, y: 40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+                            </span>
+                            <span
                                 className="relative inline-block text-transparent bg-clip-text bg-gradient-to-r from-brand-medium via-cyan-400 to-blue-600 dark:from-brand-medium dark:via-cyan-300 dark:to-blue-500 p-2 md:p-4"
                             >
                                 SERVICES.
-                            </motion.span>
-                        </motion.h1>
+                            </span>
+                        </h1>
                     </div>
 
                     <div className="max-w-3xl mx-auto relative cursor-default">
                         {/* Decorative blur behind text */}
                         <div className="absolute inset-0 bg-white/40 dark:bg-slate-900/40 backdrop-blur-3xl rounded-full -z-10" />
 
-                        <motion.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
+                        <p
                             className="text-lg md:text-2xl text-slate-600 dark:text-slate-300 font-medium leading-relaxed mb-12 relative z-10 px-4"
                         >
                             We architect digital excellence through <span className="text-brand-medium font-semibold">precision engineering</span> and <span className="text-brand-cyan font-semibold">cinematic design</span>. Seamlessly blending logic with visual flair to solve complex challenges.
-                        </motion.p>
+                        </p>
 
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.6, duration: 0.5 }}
+                        <div
                             className="flex flex-col items-center justify-center gap-8"
                         >
-                            <Link href="#services-grid" className="group flex items-center gap-3 px-8 py-4 bg-[#3994fa] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-brand-medium/20 text-center">
+                            <Link href="#services-grid" className="group flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-full font-bold uppercase tracking-widest text-xs md:text-sm hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-[#3994fa]/20 text-center">
                                 Explore Capabilities
                                 <div className="w-8 h-8 rounded-full bg-white/20 flex items-center justify-center group-hover:translate-x-1 transition-transform">
                                     <ArrowRight size={16} />
@@ -257,16 +229,13 @@ export default function ServicesPage() {
                             <div className="flex items-center gap-6 opacity-60">
                                 <div className="h-[1px] w-8 md:w-16 bg-gradient-to-r from-transparent to-slate-400 dark:to-slate-500" />
                                 <span className="text-[10px] font-mono font-bold uppercase tracking-[0.2em] flex items-center gap-2 text-slate-600 dark:text-slate-400">
-                                    <motion.div
-                                        animate={{ y: [0, 5, 0] }}
-                                        transition={{ repeat: Infinity, duration: 1.5 }}
-                                    >
+                                    <div className="animate-bounce">
                                         Scroll Down
-                                    </motion.div>
+                                    </div>
                                 </span>
                                 <div className="h-[1px] w-8 md:w-16 bg-gradient-to-l from-transparent to-slate-400 dark:to-slate-500" />
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
 
@@ -282,15 +251,12 @@ export default function ServicesPage() {
                     <div className="max-w-7xl mx-auto px-6">
                         <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-6 mb-16">
                             <div className="space-y-4">
-                                <motion.div
-                                    initial={{ opacity: 0, x: -10 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
+                                <div
                                     className="flex items-center gap-3"
                                 >
                                     <div className="w-6 h-[2px] bg-brand-medium" />
                                     <span className="text-brand-medium font-mono text-[10px] font-black uppercase tracking-[0.4em]">{category.tag}</span>
-                                </motion.div>
+                                </div>
                                 <h2 className="text-4xl md:text-6xl font-black text-foreground dark:text-white uppercase tracking-tighter leading-none">
                                     {category.name}.
                                 </h2>
@@ -314,11 +280,7 @@ export default function ServicesPage() {
 
 function ServiceCard({ service, index }: { service: any, index: number }) {
     return (
-        <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: index * 0.1 }}
+        <div
             className="group relative h-full flex flex-col"
         >
             {/* Image Container */}
@@ -327,6 +289,7 @@ function ServiceCard({ service, index }: { service: any, index: number }) {
                     src={service.image}
                     alt={service.title}
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    onError={(e) => { const t = e.target as HTMLImageElement; t.style.background = 'linear-gradient(135deg, #1e293b 0%, #334155 100%)'; t.style.opacity = '1'; t.src = ''; }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
@@ -359,10 +322,10 @@ function ServiceCard({ service, index }: { service: any, index: number }) {
 
                     <Link
                         href={service.href}
-                        className="flex items-center gap-2 text-[11px] font-black text-brand-medium uppercase tracking-widest group/btn hover:text-brand-deep transition-colors duration-300 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                        className="flex items-center gap-2 text-[11px] font-black text-brand-medium uppercase tracking-widest group/btn hover:text-[#004aad] transition-colors duration-300 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                     >
                         Learn More
-                        <div className="w-6 h-6 rounded-full border border-brand-medium flex items-center justify-center group-hover/btn:bg-brand-medium group-hover/btn:text-white transition-all">
+                        <div className="w-6 h-6 rounded-full border border-brand-medium flex items-center justify-center group-hover/btn:bg-gradient-to-r group-hover/btn:from-[#3994fa] group-hover/btn:to-[#004aad] group-hover/btn:border-transparent group-hover/btn:text-white transition-all">
                             <ChevronRight size={12} className="group-hover/btn:translate-x-0.5 transition-transform" />
                         </div>
                     </Link>
@@ -371,6 +334,6 @@ function ServiceCard({ service, index }: { service: any, index: number }) {
 
             {/* Hover Accent Glow */}
             <div className={`absolute -bottom-10 left-1/2 -translate-x-1/2 w-4/5 h-10 bg-gradient-to-r ${service.color} blur-[50px] opacity-0 group-hover:opacity-20 transition-opacity duration-700 pointer-events-none`} />
-        </motion.div>
+        </div>
     );
 }

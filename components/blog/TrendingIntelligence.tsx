@@ -36,9 +36,9 @@ export default function TrendingIntelligence() {
                     {trendingPosts.map((post, idx) => (
                         <motion.div
                             key={post.id}
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
+
+
+
                             transition={{ delay: idx * 0.1 }}
                             className="group relative flex flex-col h-full bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 rounded-[2.5rem] p-6 md:p-8 hover:bg-slate-50 dark:hover:bg-slate-800 hover:border-brand-cyan/30 dark:hover:border-brand-cyan/30 transition-all duration-500 shadow-sm hover:shadow-xl hover:shadow-brand-cyan/5"
                         >
@@ -73,12 +73,7 @@ export default function TrendingIntelligence() {
                                         {post.title}
                                     </h4>
 
-                                    <div className="flex items-center gap-3 mt-auto pt-4 border-t border-slate-100 dark:border-white/5">
-                                        <div className="w-8 h-8 rounded-full overflow-hidden border border-slate-200 dark:border-white/10 relative shrink-0">
-                                            <Image src={post.author.avatar} alt={post.author.name} fill className="object-cover" />
-                                        </div>
-                                        <span className="text-[10px] font-bold text-slate-600 dark:text-slate-400">{post.author.name}</span>
-                                    </div>
+
                                 </div>
                             </Link>
 

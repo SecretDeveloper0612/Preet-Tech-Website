@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Facebook, Twitter, Linkedin, Instagram, ArrowUp, Mail, MapPin, Send, Cpu, ChevronRight } from 'lucide-react';
+import Link from 'next/link';
 
 const Footer: React.FC = () => {
     // Newsletter State
@@ -61,9 +62,9 @@ const Footer: React.FC = () => {
             { name: 'Partnership', href: '/services/partnership-marketing' },
         ],
         Legal: [
-            { name: 'Privacy Policy', href: '#' },
-            { name: 'Terms of Service', href: '#' },
-            { name: 'Cookie Policy', href: '#' },
+            { name: 'Privacy Policy', href: '/privacy-policy' },
+            { name: 'Terms of Service', href: '/terms-of-service' },
+            { name: 'Cookie Policy', href: '/cookie-policy' },
         ]
     };
 
@@ -155,7 +156,7 @@ const Footer: React.FC = () => {
                             <button
                                 type="submit"
                                 disabled={subscribeStatus === 'loading'}
-                                className="absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-[#3994fa] text-white flex items-center justify-center hover:bg-[#3994fa]/90 transition-all shadow-[0_4px_14px_rgba(57,148,250,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
+                                className="absolute right-2 top-2 bottom-2 px-5 rounded-xl bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white flex items-center justify-center hover:opacity-90 transition-all shadow-[0_4px_14px_rgba(57,148,250,0.4)] disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {subscribeStatus === 'loading' ? (
                                     <span className="w-4 h-4 rounded-full border-2 border-white/20 border-t-white animate-spin" />
@@ -173,14 +174,15 @@ const Footer: React.FC = () => {
                             <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
                                 <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
                                     <MapPin className="w-3.5 h-3.5" />
-                                </div>
-                                HQ // Global Virtual
+                                </div>Preet Tech, near Krishna Hospital, Subhash Nagar, Haldwani, Uttarakhand 263139
+
+
                             </div>
                             <div className="flex items-center gap-3 text-xs font-mono text-slate-500">
                                 <div className="w-8 h-8 rounded-lg bg-white/5 flex items-center justify-center">
                                     <Mail className="w-3.5 h-3.5" />
                                 </div>
-                                hello@preettech.com
+                                info@preettech.com
                             </div>
                         </div>
                     </div>
@@ -190,10 +192,10 @@ const Footer: React.FC = () => {
                 {/* Bottom Bar */}
                 <div className="pt-12 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-8">
                     <div className="flex flex-col md:flex-row items-center gap-6 md:gap-12 text-center md:text-left">
-                        <span className="text-slate-500 text-[11px] font-medium tracking-wide italic">© {new Date().getFullYear()} Preet Tech Global. High-Performance Engineering.</span>
+                        <span className="text-slate-500 text-[11px] font-medium tracking-wide italic">© {new Date().getFullYear()} Preet Tech. All Rights Reserved. Designed & Developed by Preet Tech.</span>
                         <div className="flex gap-6">
                             {FOOTER_LINKS.Legal.map(link => (
-                                <a key={link.name} href="#" className="text-slate-500 hover:text-brand-medium text-[11px] transition-colors uppercase tracking-widest font-bold">{link.name}</a>
+                                <Link key={link.name} href={link.href} className="text-slate-500 hover:text-brand-medium text-[11px] transition-colors uppercase tracking-widest font-bold">{link.name}</Link>
                             ))}
                         </div>
                     </div>

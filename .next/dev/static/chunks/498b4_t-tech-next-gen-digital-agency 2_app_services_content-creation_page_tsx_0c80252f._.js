@@ -1,0 +1,13 @@
+(globalThis.TURBOPACK_CHUNK_LISTS || (globalThis.TURBOPACK_CHUNK_LISTS = [])).push({
+    script: typeof document === "object" ? document.currentScript : undefined,
+    chunks: [
+  "static/chunks/preet-tech-next-gen-digital-agency 2_187c9710._.js",
+  "static/chunks/e0675_three_build_three_core_941b1313.js",
+  "static/chunks/e0675_three_build_three_module_00d430c6.js",
+  "static/chunks/e0675_three_build_three_module_e148a3f4.js",
+  "static/chunks/e0675_@react-three_fiber_dist_69dfc2b7._.js",
+  "static/chunks/e0675_gsap_6c4fb5c1._.js",
+  "static/chunks/e0675_41e020cc._.js"
+],
+    source: "dynamic"
+});

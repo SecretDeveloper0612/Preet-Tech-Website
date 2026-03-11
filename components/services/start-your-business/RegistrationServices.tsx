@@ -32,10 +32,10 @@ const RegistrationServices = () => {
                             {REG_TYPES.map((type, i) => (
                                 <motion.div
                                     key={i}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
+                                    
+                                    
                                     transition={{ delay: i * 0.1 }}
-                                    viewport={{ once: true }}
+                                    
                                     className="flex items-center gap-6 p-6 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 dark:hover:border-brand-cyan/30 transition-all group"
                                 >
                                     <div className="w-12 h-12 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover:bg-brand-medium dark:hover:bg-brand-cyan transition-all">

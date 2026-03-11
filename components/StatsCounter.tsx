@@ -51,18 +51,17 @@ const StatsCounter: React.FC = () => {
             <div className="absolute top-[60%] left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-px bg-gradient-to-r from-transparent via-slate-200 dark:via-white/10 to-transparent hidden lg:block" />
 
             <div className="max-w-7xl mx-auto px-6 relative z-10">
-                {/* Centered Heading */}
-                <div className="text-center mb-10 md:mb-14">
-
+                <div className="text-center mb-10 md:mb-14 max-w-3xl mx-auto">
+                    <span className="text-sm md:text-base font-bold text-brand-medium tracking-widest uppercase mb-4 block">Proven IT Expertise</span>
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
                         className="text-4xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white tracking-tighter uppercase leading-[1.1] md:leading-[0.9]"
                     >
                         Impact by the <br className="block md:hidden" />
                         <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan italic md:ml-2">Numbers.</span>
                     </motion.h2>
+                    <p className="mt-4 text-slate-600 dark:text-slate-400 text-base md:text-lg font-medium leading-relaxed">
+                        Backed by over a decade of industry experience and an authoritative team of engineers, we consistently deliver high-performance digital solutions that earn clients' trust globally.
+                    </p>
                 </div>
 
                 {/* Single Line Horizon HUD */}
@@ -78,10 +77,6 @@ const StatsCounter: React.FC = () => {
                             )}
 
                             <motion.div
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.1 }}
                                 className="flex flex-col items-center text-center"
                             >
                                 {/* Metric Icon & ID */}

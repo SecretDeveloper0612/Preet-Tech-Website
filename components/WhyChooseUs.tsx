@@ -47,24 +47,16 @@ const WhyChooseUs: React.FC = () => {
                 <div className="text-center max-w-3xl mx-auto mb-16 md:mb-20">
 
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
                         className="text-3xl md:text-6xl font-black text-foreground mb-6 tracking-tight leading-tight"
                     >
-                        Why Leaders Choose <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan">Preet Tech.</span>
+                        Why Leaders Choose Our <br />
+                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan">SEO & IT Agency.</span>
                     </motion.h2>
 
                     <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
-                        className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed"
+                        className="text-base md:text-lg text-slate-600 dark:text-slate-400 leading-relaxed max-w-2xl mx-auto"
                     >
-                        We bridge the gap between ambitious vision and technical reality. Partner with a team that is as invested in your success as you are.
+                        As a top <span className="font-bold text-foreground dark:text-white">performance marketing agency</span>, we bridge the gap between ambitious vision and technical reality with robust <span className="font-bold text-foreground dark:text-white">SEO optimization services</span>, secure <span className="font-bold text-foreground dark:text-white">cloud migration services</span>, and distinct <span className="font-bold text-foreground dark:text-white">brand identity design</span>. Partner with a team built for digital dominance.
                     </motion.p>
                 </div>
 
@@ -72,10 +64,6 @@ const WhyChooseUs: React.FC = () => {
                     {FEATURES.map((feature, i) => (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: i * 0.1 }}
                             className="group p-6 md:p-8 rounded-3xl bg-white dark:bg-[#0b0f1a] border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 transition-all duration-300 hover:shadow-xl dark:hover:shadow-none hover:-translate-y-1"
                         >
                             <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl bg-brand-medium/10 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">

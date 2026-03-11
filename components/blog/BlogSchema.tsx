@@ -8,7 +8,7 @@ interface BlogSchemaProps {
 export default function BlogSchema({ post }: BlogSchemaProps) {
     const schema = {
         "@context": "https://schema.org",
-        "@type": "BlogPosting",
+        "@type": "Article",
         "headline": post.title,
         "image": post.featuredImage, // In a real app this would be a full URL
         "author": {

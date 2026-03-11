@@ -9,12 +9,14 @@ import {
     Database, BarChart3, Clock, CreditCard, PenTool, Star,
     Monitor, Lock, Image as ImageIcon, Menu, X, ChevronDown, Check, ExternalLink,
     Home, Heart, Coffee, Camera, Calendar, FileCode, Cloud, MessageCircle, Share2, Play,
-    Atom, Server, HardDrive, ShoppingCart, Store, Users
+    Atom, Server, HardDrive, ShoppingCart, Store, Users, Target
 } from 'lucide-react';
 import Image from 'next/image';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ThreeSphereScene from '@/components/ThreeSphere';
+import { portfolioItems } from '@/lib/eco-portfolio';
+import PhoneInput from '@/components/PhoneInput';
 // GSAP removed for performance
 
 // --- 🛰️ Lightweight Static Background (CSS-only, no JS animations) ---
@@ -41,6 +43,8 @@ export default function EcoWebsiteDevelopment() {
     const [isVideoOpen, setIsVideoOpen] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
     const [portfolioIndex, setPortfolioIndex] = useState(0);
+    const [isIndustryDropdownOpen, setIsIndustryDropdownOpen] = useState(false);
+    const [selectedIndustry, setSelectedIndustry] = useState<string | null>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const targetAudienceRef = useRef<HTMLDivElement>(null);
     const portfolioSliderRef = useRef<HTMLDivElement>(null);
@@ -51,6 +55,8 @@ export default function EcoWebsiteDevelopment() {
         businessName: '',
         email: '',
         phone: '',
+        countryCode: '+91',
+        industry: '',
         budget: '₹3,999', // default from options
     });
     const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -62,11 +68,15 @@ export default function EcoWebsiteDevelopment() {
             const res = await fetch('/api/leads', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
+                body: JSON.stringify({
+                    ...formData,
+                    phone: `${formData.countryCode} ${formData.phone}`,
+                    service: 'Eco Website'
+                })
             });
             if (res.ok) {
                 setSubmitStatus('success');
-                setFormData({ name: '', businessName: '', email: '', phone: '', budget: '₹3,999' });
+                setFormData({ name: '', businessName: '', email: '', phone: '', countryCode: '+91', industry: '', budget: '₹3,999' });
                 setTimeout(() => setSubmitStatus('idle'), 5000);
             } else {
                 setSubmitStatus('error');
@@ -78,16 +88,17 @@ export default function EcoWebsiteDevelopment() {
     };
 
 
-    const portfolioItems = [
-        { title: "Invest Nest Fintech", category: "Fintech", image: "/portfolio/investnest.png", link: "https://www.investnestfintech.com/" },
-        { title: "Modern E-Commerce", category: "Retail", image: "/portfolio/ecommerce.png", link: "#" },
-        { title: "Creative Agency", category: "Portfolio", image: "/portfolio/agency.png", link: "#" },
-    ];
+
+    const industries = Array.from(new Set(portfolioItems.map(item => item.category)));
+
+    const filteredPortfolioItems = selectedIndustry
+        ? portfolioItems.filter(item => item.category === selectedIndustry)
+        : portfolioItems;
 
     const scrollPortfolio = (dir: 'left' | 'right') => {
         const newIndex = dir === 'left'
             ? Math.max(0, portfolioIndex - 1)
-            : Math.min(portfolioItems.length - 1, portfolioIndex + 1);
+            : Math.min(filteredPortfolioItems.length - 1, portfolioIndex + 1);
         setPortfolioIndex(newIndex);
         if (portfolioSliderRef.current) {
             const cardWidth = portfolioSliderRef.current.clientWidth;
@@ -252,12 +263,9 @@ export default function EcoWebsiteDevelopment() {
                             Get a fully responsive, SEO-ready, and mobile-optimized website for your small business or startup — delivered in just <strong>3–7 working days</strong>. No hidden charges, no technical headaches.
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                            <button onClick={() => setIsVideoOpen(true)} className="px-6 sm:px-8 py-3.5 sm:py-4 bg-[#3994fa] hover:bg-[#3994fa]/90 text-white rounded-full font-bold transition-all transform hover:-translate-y-1 shadow-lg shadow-[#3994fa]/25 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer">
+                            <button onClick={() => setIsVideoOpen(true)} className="px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white rounded-full font-bold transition-all transform hover:-translate-y-1 shadow-lg shadow-[#3994fa]/25 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer">
                                 Watch Demo <Play className="w-4 h-4 fill-white" />
                             </button>
-                            <a href="#pricing" className="px-6 sm:px-8 py-3.5 sm:py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 rounded-full font-bold hover:bg-slate-50 dark:hover:bg-slate-700 transition-all flex items-center justify-center text-sm sm:text-base">
-                                View Pricing
-                            </a>
                         </div>
                     </div>
 
@@ -268,14 +276,14 @@ export default function EcoWebsiteDevelopment() {
                                     <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Full Name</label>
                                     <div className="relative group">
                                         <User strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
-                                        <input required type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="John Doe" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                        <input required type="text" value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="John Doe" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
                                     </div>
                                 </div>
                                 <div className="space-y-1.5">
                                     <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Business Name</label>
                                     <div className="relative group">
                                         <Building2 strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
-                                        <input required type="text" value={formData.businessName} onChange={(e) => setFormData({ ...formData, businessName: e.target.value })} placeholder="Your Company Ltd." className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                        <input required type="text" value={formData.businessName || ''} onChange={(e) => setFormData({ ...formData, businessName: e.target.value })} placeholder="Your Company Ltd." className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
                                     </div>
                                 </div>
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
@@ -283,15 +291,30 @@ export default function EcoWebsiteDevelopment() {
                                         <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Email</label>
                                         <div className="relative group">
                                             <Mail strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
-                                            <input required type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="john@example.com" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                            <input required type="email" value={formData.email || ''} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="john@example.com" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
                                         </div>
                                     </div>
                                     <div className="space-y-1.5">
                                         <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Phone</label>
-                                        <div className="relative group">
-                                            <Phone strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
-                                            <input required type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="+91 98765 43210" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
-                                        </div>
+                                        <PhoneInput
+                                            value={formData.phone || ''}
+                                            onChange={(val) => setFormData({ ...formData, phone: val })}
+                                            countryCode={formData.countryCode}
+                                            onCountryCodeChange={(code) => setFormData({ ...formData, countryCode: code })}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Choose Industry</label>
+                                    <div className="relative group">
+                                        <Briefcase strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors pointer-events-none" />
+                                        <select required value={formData.industry} onChange={(e) => setFormData({ ...formData, industry: e.target.value })} className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all appearance-none text-slate-700 dark:text-slate-200 text-sm">
+                                            <option value="" disabled>Select your industry</option>
+                                            {industries.map((ind) => (
+                                                <option key={ind} value={ind}>{ind}</option>
+                                            ))}
+                                        </select>
+                                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
                                     </div>
                                 </div>
                                 <div className="space-y-1.5">
@@ -308,7 +331,7 @@ export default function EcoWebsiteDevelopment() {
                                     </div>
                                 </div>
                                 <div className="pt-2">
-                                    <button disabled={submitStatus === "loading"} type="submit" className="w-full py-4 bg-[#3994fa] hover:bg-[#3994fa]/90 text-white font-black rounded-2xl transition-all shadow-[0_0_20px_rgba(63,143,204,0.2)] hover:shadow-[0_0_30px_rgba(63,143,204,0.4)] text-[13px] uppercase tracking-widest flex items-center justify-center gap-2">
+                                    <button disabled={submitStatus === "loading"} type="submit" className="w-full py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white font-black rounded-2xl transition-all shadow-[0_0_20px_rgba(63,143,204,0.2)] hover:shadow-[0_0_30px_rgba(63,143,204,0.4)] text-[13px] uppercase tracking-widest flex items-center justify-center gap-2">
                                         {submitStatus === "loading" ? "Submitting..." : "Get Free Consultation"} <ArrowRight strokeWidth={2.5} className="w-4 h-4 ml-1" />
                                     </button>
                                 </div>
@@ -341,15 +364,11 @@ export default function EcoWebsiteDevelopment() {
                     <div className="space-y-6 md:space-y-8">
                         <div>
                             <motion.span
-
-
                                 className="text-[#3994fa] font-bold uppercase tracking-widest text-[10px] md:text-xs"
                             >
                                 The Digital Necessity
                             </motion.span>
                             <motion.h2
-
-
                                 className="text-3xl md:text-4xl lg:text-5xl font-black mt-4 mb-6 text-slate-900 dark:text-white leading-[1.2]"
                             >
                                 Why Every Small Business <br className="hidden sm:block" />Needs a Website in 2025.
@@ -365,9 +384,6 @@ export default function EcoWebsiteDevelopment() {
                             ].map((item, i) => (
                                 <motion.li
                                     key={i}
-
-
-                                    transition={{ delay: i * 0.1 }}
                                     className="flex items-start gap-4 group"
                                 >
                                     <div className="w-8 h-8 rounded-full bg-[#3994fa]/20 flex items-center justify-center shrink-0 group-hover:bg-[#3994fa] group-hover:scale-110 transition-all duration-300">
@@ -394,9 +410,6 @@ export default function EcoWebsiteDevelopment() {
                                 ].map((stat: any, i) => (
                                     <motion.div
                                         key={i}
-
-
-                                        transition={{ delay: i * 0.1 }}
                                         whileHover={{ y: -5, scale: 1.02 }}
                                         className={`bg-white dark:bg-slate-900/80 p-4 sm:p-6 rounded-[1.25rem] sm:rounded-2xl border border-slate-100 dark:border-white/5 relative overflow-hidden group/stat transition-all duration-300 shadow-sm hover:shadow-xl ${stat.shift ? 'mt-6 sm:mt-8' : ''} ${stat.glow}`}
                                     >
@@ -423,10 +436,6 @@ export default function EcoWebsiteDevelopment() {
                                         {/* Animated Progress Bar */}
                                         <div className="mt-4 sm:mt-5 h-1 w-full bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden relative">
                                             <motion.div
-                                                initial={{ width: '0%' }}
-                                                whileInView={{ width: stat.progress }}
-                                                viewport={{ once: true }}
-                                                transition={{ duration: 1.5, delay: 0.5 + (i * 0.1), ease: "easeOut" }}
                                                 className={`h-full relative overflow-hidden ${stat.barBg}`}
                                             >
                                                 <motion.div
@@ -772,22 +781,104 @@ export default function EcoWebsiteDevelopment() {
                             <span className="text-[#3994fa] font-bold uppercase tracking-widest text-xs">Portfolio</span>
                             <h2 className="text-3xl md:text-5xl font-black mt-2 text-slate-900 dark:text-white">Design Examples</h2>
                         </div>
-                        {/* Arrow Controls */}
-                        <div className="flex items-center gap-3">
-                            <button
-                                onClick={() => scrollPortfolio('left')}
-                                disabled={portfolioIndex === 0}
-                                className="w-11 h-11 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-[#3994fa] hover:border-[#3994fa]/40 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-sm"
-                            >
-                                <ChevronLeft className="w-5 h-5" />
-                            </button>
-                            <button
-                                onClick={() => scrollPortfolio('right')}
-                                disabled={portfolioIndex === portfolioItems.length - 1}
-                                className="w-11 h-11 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-[#3994fa] hover:border-[#3994fa]/40 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-sm"
-                            >
-                                <ChevronRight className="w-5 h-5" />
-                            </button>
+                        {/* Industry Dropdown + Arrow Controls */}
+                        <div className="flex flex-col sm:flex-row items-center gap-4">
+                            {/* Industry Selection Dropdown */}
+                            <div className="relative">
+                                <button
+                                    onClick={() => setIsIndustryDropdownOpen(!isIndustryDropdownOpen)}
+                                    className="px-6 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-full font-bold text-sm text-slate-700 dark:text-slate-200 flex items-center gap-3 hover:border-[#3994fa] hover:ring-4 hover:ring-[#3994fa]/10 transition-all shadow-sm group"
+                                >
+                                    <Briefcase className="w-4 h-4 text-[#3994fa] group-hover:scale-110 transition-transform" />
+                                    <span>{selectedIndustry || "All Industries"}</span>
+                                    <ChevronDown className={`w-4 h-4 transition-transform duration-300 ${isIndustryDropdownOpen ? 'rotate-180' : ''}`} />
+                                </button>
+
+                                <AnimatePresence>
+                                    {isIndustryDropdownOpen && (
+                                        <>
+                                            {/* Backdrop to close dropdown */}
+                                            <div
+                                                className="fixed inset-0 z-40"
+                                                onClick={() => setIsIndustryDropdownOpen(false)}
+                                            />
+                                            <motion.div
+                                                initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                animate={{ opacity: 1, y: 0, scale: 1 }}
+                                                exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                                                className="absolute right-0 sm:left-0 sm:right-auto mt-3 w-72 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-[2.5rem] shadow-2xl z-50 overflow-hidden backdrop-blur-xl"
+                                            >
+                                                <div className="max-h-[420px] overflow-y-auto custom-scrollbar p-2">
+                                                    <div className="px-4 py-3 text-[10px] font-black uppercase tracking-widest text-[#3994fa]/60 border-b border-slate-100 dark:border-slate-800 mb-2 sticky top-0 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md z-10">
+                                                        Filter by Industry
+                                                    </div>
+                                                    <button
+                                                        onClick={() => {
+                                                            setSelectedIndustry(null);
+                                                            goToPortfolioSlide(0);
+                                                            setIsIndustryDropdownOpen(false);
+                                                        }}
+                                                        className="w-full px-4 py-3.5 text-left text-[13px] font-bold text-slate-700 dark:text-slate-200 hover:bg-[#3994fa]/10 hover:text-[#3994fa] transition-all flex items-center justify-between group rounded-[1.25rem] mb-1"
+                                                    >
+                                                        <div className="flex items-center gap-3">
+                                                            <div className={`w-1.5 h-1.5 rounded-full ${selectedIndustry === null ? 'bg-[#3994fa]' : 'bg-slate-300 dark:bg-slate-700'} group-hover:bg-[#3994fa] transition-colors`} />
+                                                            All Industries
+                                                        </div>
+                                                        {selectedIndustry === null && (
+                                                            <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                                                                <Check className="w-4 h-4 text-[#3994fa]" />
+                                                            </motion.div>
+                                                        )}
+                                                    </button>
+                                                    {industries.map((ind) => (
+                                                        <button
+                                                            key={ind}
+                                                            onClick={() => {
+                                                                setSelectedIndustry(ind);
+                                                                goToPortfolioSlide(0);
+                                                                setIsIndustryDropdownOpen(false);
+                                                            }}
+                                                            className="w-full px-4 py-3.5 text-left text-[13px] font-bold text-slate-700 dark:text-slate-200 hover:bg-[#3994fa]/10 hover:text-[#3994fa] transition-all flex items-center justify-between group rounded-[1.25rem] mb-1 last:mb-0"
+                                                        >
+                                                            <div className="flex items-center gap-3">
+                                                                <div className={`w-1.5 h-1.5 rounded-full ${selectedIndustry === ind ? 'bg-[#3994fa]' : 'bg-slate-300 dark:bg-slate-700'} group-hover:bg-[#3994fa] transition-colors`} />
+                                                                {ind}
+                                                            </div>
+                                                            {selectedIndustry === ind && (
+                                                                <motion.div initial={{ scale: 0 }} animate={{ scale: 1 }}>
+                                                                    <Check className="w-4 h-4 text-[#3994fa]" />
+                                                                </motion.div>
+                                                            )}
+                                                        </button>
+                                                    ))}
+                                                </div>
+                                            </motion.div>
+                                        </>
+                                    )}
+                                </AnimatePresence>
+                            </div>
+
+                            {/* Arrow Controls */}
+                            <div className="flex items-center gap-3">
+                                <button
+                                    onClick={() => {
+                                        scrollPortfolio('left');
+                                    }}
+                                    disabled={portfolioIndex === 0}
+                                    className="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-[#3994fa] hover:border-[#3994fa]/40 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-sm active:scale-90"
+                                >
+                                    <ChevronLeft className="w-5 h-5" />
+                                </button>
+                                <button
+                                    onClick={() => {
+                                        scrollPortfolio('right');
+                                    }}
+                                    disabled={portfolioIndex === filteredPortfolioItems.length - 1 || filteredPortfolioItems.length === 0}
+                                    className="w-12 h-12 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center text-slate-400 hover:text-[#3994fa] hover:border-[#3994fa]/40 transition-all disabled:opacity-30 disabled:cursor-not-allowed shadow-sm active:scale-90"
+                                >
+                                    <ChevronRight className="w-5 h-5" />
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -798,28 +889,26 @@ export default function EcoWebsiteDevelopment() {
                             className="flex overflow-x-hidden snap-x snap-mandatory"
                             style={{ scrollBehavior: 'smooth' }}
                         >
-                            {portfolioItems.map((item, i) => (
+                            {filteredPortfolioItems.map((item, i) => (
                                 <a
                                     key={i}
                                     href={item.link}
                                     target={item.link !== '#' ? "_blank" : "_self"}
                                     rel="noopener noreferrer"
-                                    className="group relative w-full shrink-0 aspect-video bg-slate-900 snap-start block border border-slate-200 dark:border-slate-800 overflow-hidden"
+                                    className="group relative w-full shrink-0 aspect-video bg-neutral-900 snap-start block border border-slate-200 dark:border-slate-800 overflow-hidden"
                                 >
-                                    {/* Image */}
-                                    <div className="absolute inset-0 bg-slate-800">
-                                        <img
+                                    {/* Image using Next.js for better reliability */}
+                                    <div className="absolute inset-0">
+                                        <Image
                                             src={item.image}
                                             alt={item.title}
-                                            className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 relative z-10"
-                                            onError={(e) => {
-                                                e.currentTarget.style.display = 'none';
-                                                e.currentTarget.parentElement?.classList.add('bg-gradient-to-br', 'from-brand-deep', 'to-slate-950');
-                                            }}
+                                            fill
+                                            className="object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700"
+                                            sizes="(max-width: 768px) 100vw, 80vw"
                                         />
                                     </div>
-                                    {/* Gradient overlay */}
-                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent opacity-90 z-10" />
+                                    {/* Gradient overlay - slightly lightened for better visibility */}
+                                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent opacity-80 z-10" />
                                     {/* Content */}
                                     <div className="absolute bottom-0 left-0 p-6 md:p-10 z-20 w-full flex items-end justify-between">
                                         <div className="transform translate-y-2 group-hover:translate-y-0 transition-transform duration-500">
@@ -935,6 +1024,7 @@ export default function EcoWebsiteDevelopment() {
                                         initial={{ strokeDashoffset: 263 }}
                                         whileInView={{ strokeDashoffset: 15 }}
                                         viewport={{ once: true }}
+
                                         transition={{ duration: 2.5, ease: "easeOut", delay: 0.2 }}
                                         strokeLinecap="round"
                                     />
@@ -950,10 +1040,10 @@ export default function EcoWebsiteDevelopment() {
                             {/* Center Metrics (Elevated Glassmorphism) */}
                             <div className="absolute inset-[15%] rounded-full bg-slate-50/90 dark:bg-slate-900/90 border border-slate-200/50 dark:border-white/5 shadow-xl flex flex-col items-center justify-center text-center">
                                 <motion.span
-                                    initial={{ opacity: 0, scale: 0.5 }}
-                                    whileInView={{ opacity: 1, scale: 1 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.8, delay: 0.5 }}
+
+
+
+                                    transition={{ duration: 0.6, delay: 0.5 }}
                                     className="text-7xl md:text-[100px] font-black text-slate-900 dark:text-white tracking-widest leading-none drop-shadow-sm"
                                 >
                                     99
@@ -1069,92 +1159,6 @@ export default function EcoWebsiteDevelopment() {
                                     </div>
                                 </div>
                             ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            {/* 🔟 Mobile Responsive Guarantee */}
-            <section className="py-16 md:py-24 px-4 sm:px-6 reveal-section">
-                <div className="max-w-7xl mx-auto bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 rounded-[2rem] md:rounded-[3rem] p-6 sm:p-12 md:p-24 relative overflow-hidden group shadow-[0_8px_30px_rgb(0,0,0,0.04)] dark:shadow-none">
-                    {/* Abstract Shapes & Gradients for Premium Feel */}
-                    <div className="absolute inset-0 pointer-events-none z-0">
-                        <div className="absolute top-[-10%] right-[-10%] w-[60%] h-[60%] bg-gradient-to-br from-[#3994fa]/20 to-transparent dark:from-[#3994fa]/20 blur-[120px] rounded-full" />
-                        <div className="absolute bottom-[-10%] left-[-10%] w-[60%] h-[60%] bg-gradient-to-tr from-[#3994fa]/10 to-transparent dark:from-[#3994fa]/20 blur-[120px] rounded-full" />
-                    </div>
-
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 items-center relative z-10">
-                        <div className="text-center lg:text-left">
-                            <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-50 dark:bg-slate-900/50 border border-slate-200 dark:border-white/5 text-[10px] md:text-xs font-black uppercase tracking-widest text-[#3994fa] mb-6 shadow-sm">
-                                <span className="w-2 h-2 rounded-full bg-[#3994fa] animate-pulse" />
-                                Perfect on Every Screen
-                            </span>
-                            <h2 className="text-3xl md:text-5xl lg:text-6xl font-black text-slate-900 dark:text-white mb-6 md:mb-8 leading-[1.1] tracking-tight">
-                                The Multi-Device <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3994fa] to-brand-medium pr-2">Guarantee.</span>
-                            </h2>
-                            <p className="text-sm md:text-lg font-medium text-slate-500 dark:text-slate-400 mb-8 md:mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed group-hover:text-slate-600 dark:group-hover:text-slate-300 transition-colors">
-                                We don't just "scale" your site. We architect every element to ensure your business looks stunning on smartphones, tablets, and desktops alike with pixel-perfect precision.
-                            </p>
-
-                            <div className="flex flex-wrap justify-center lg:justify-start gap-3 md:gap-4">
-                                {["Fluid Layouts", "Retina Ready", "Adaptive UI", "Touch Optimized"].map((tag, i) => (
-                                    <div key={i} className="px-4 md:px-5 py-2.5 bg-slate-50 hover:bg-[#3994fa]/5 dark:bg-white/5 dark:hover:bg-[#3994fa]/10 border border-slate-200 hover:border-[#3994fa]/30 dark:border-[#3994fa]/30 rounded-full text-slate-700 dark:text-white text-[10px] md:text-xs font-bold uppercase tracking-widest flex items-center gap-2 transition-all cursor-default shadow-sm dark:shadow-none">
-                                        <Check className="w-3.5 h-3.5 text-[#3994fa]" /> {tag}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-
-                        {/* Enhanced Device Stack Visual */}
-                        <div className="relative flex justify-center items-center w-full max-w-xl mx-auto lg:mx-0 py-8 lg:py-0">
-
-                            <motion.div
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.8, ease: "easeOut" }}
-                                className="relative w-full aspect-square md:aspect-[4/3] lg:aspect-square"
-                            >
-                                {/* Immersive glowing backdrop */}
-                                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[110%] h-[110%] bg-gradient-to-tr from-[#3994fa]/15 to-transparent dark:from-[#3994fa]/20 rounded-full blur-3xl -z-10" />
-
-                                <motion.div
-                                    className="relative w-full h-full drop-shadow-2xl"
-                                    animate={{ y: [-12, 12, -12] }}
-                                    transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
-                                >
-                                    <Image
-                                        src="/images/responsive-devices.png"
-                                        alt="Multi-Device Responsive Web Design"
-                                        fill
-                                        className="object-contain"
-                                        priority
-                                    />
-                                </motion.div>
-
-                                {/* Floating Badges for Premium Feel */}
-                                <motion.div
-                                    animate={{ y: [-5, 5, -5], rotate: [-2, 2, -2] }}
-                                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                                    className="absolute -top-4 right-0 md:-top-2 md:right-4 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md px-4 py-2.5 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-slate-200 dark:border-white/10 z-20 flex items-center gap-3 font-bold"
-                                >
-                                    <div className="relative flex w-2.5 h-2.5">
-                                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-                                        <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-                                    </div>
-                                    <span className="text-[10px] md:text-xs uppercase tracking-wider text-slate-800 dark:text-white">Live Sync</span>
-                                </motion.div>
-
-                                <motion.div
-                                    animate={{ y: [5, -5, 5], rotate: [2, -2, 2] }}
-                                    transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                                    className="absolute bottom-10 -left-2 md:-left-6 bg-white/95 dark:bg-slate-800/95 backdrop-blur-md px-4 py-2.5 rounded-xl shadow-[0_10px_30px_rgba(0,0,0,0.1)] border border-slate-200 dark:border-white/10 z-20 flex items-center gap-2 font-bold"
-                                >
-                                    <Smartphone className="w-4 h-4 text-[#3994fa]" />
-                                    <span className="text-[10px] md:text-xs uppercase tracking-wider text-slate-800 dark:text-white">Pixel Perfect</span>
-                                </motion.div>
-                            </motion.div>
                         </div>
                     </div>
                 </div>
@@ -1371,6 +1375,7 @@ export default function EcoWebsiteDevelopment() {
                                                 key={i}
 
 
+
                                                 transition={{ delay: i * 0.1 }}
                                                 className="flex items-center gap-3 sm:gap-4 group/item"
                                             >
@@ -1390,7 +1395,7 @@ export default function EcoWebsiteDevelopment() {
                                             e.preventDefault();
                                             document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                                         }}
-                                        className="group relative w-full inline-flex items-center justify-center py-4 sm:py-5 bg-[#3994fa] hover:bg-[#3994fa]/90 text-white rounded-[1.2rem] sm:rounded-[1.5rem] font-black uppercase tracking-[0.1em] text-[12px] sm:text-sm transition-all duration-300 shadow-xl shadow-[#3994fa]/20 overflow-hidden cursor-pointer"
+                                        className="group relative w-full inline-flex items-center justify-center py-4 sm:py-5 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-95 text-white rounded-[1.2rem] sm:rounded-[1.5rem] font-black uppercase tracking-[0.1em] text-[12px] sm:text-sm transition-all duration-300 shadow-xl shadow-[#3994fa]/20 overflow-hidden cursor-pointer"
                                     >
                                         <span className="relative z-10 flex items-center gap-2 sm:gap-3">
                                             Start Your Project Now <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform" />
@@ -1532,7 +1537,7 @@ export default function EcoWebsiteDevelopment() {
                     <p className="text-slate-500 dark:text-slate-400 text-sm md:text-lg max-w-2xl mx-auto mb-8 leading-relaxed">
                         Join 150+ businesses, freelancers, and startups across India who trusted Preet Tech to get them online — professionally, affordably, and fast.
                     </p>
-                    <a href="#contact" className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-[#3994fa] hover:bg-[#3994fa]/90 text-white rounded-full font-black text-sm sm:text-lg uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_0_40px_-10px_rgba(63,143,204,0.3)] inline-block">
+                    <a href="#contact" className="w-full sm:w-auto px-8 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-95 text-white rounded-full font-black text-sm sm:text-lg uppercase tracking-widest hover:scale-105 transition-transform shadow-[0_0_40px_-10px_rgba(63,143,204,0.3)] inline-block">
                         Get My Free Consultation Now →
                     </a>
                 </div>
@@ -1542,10 +1547,11 @@ export default function EcoWebsiteDevelopment() {
             <AnimatePresence>
                 {isVideoOpen && (
                     <motion.div
-                        initial={{ opacity: 0 }}
+
                         animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
+
+
+                        transition={{ duration: 0.8 }}
                         className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95"
                         onClick={() => setIsVideoOpen(false)}
                     >

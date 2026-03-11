@@ -52,8 +52,8 @@ export default function FeaturedSection({ posts }: FeaturedSectionProps) {
                             {/* Content Content Content */}
                             <div className="absolute inset-0 p-6 md:p-8 lg:p-10 flex flex-col justify-end">
                                 <motion.div
-                                    initial={{ opacity: 0, y: 20 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
+
+
                                     transition={{ duration: 0.6 }}
                                     className="max-w-3xl"
                                 >
@@ -74,18 +74,8 @@ export default function FeaturedSection({ posts }: FeaturedSectionProps) {
                                         {mainPost.excerpt}
                                     </p>
 
-                                    {/* Author & CTA Row */}
-                                    <div className="flex items-center justify-between border-t border-white/10 pt-6">
-                                        <div className="flex items-center gap-4">
-                                            <div className="w-10 h-10 rounded-full overflow-hidden border border-brand-cyan/30">
-                                                <Image src={mainPost.author.avatar} alt={mainPost.author.name} width={40} height={40} className="object-cover" />
-                                            </div>
-                                            <div className="flex flex-col">
-                                                <span className="text-white font-bold text-sm">{mainPost.author.name}</span>
-                                                <span className="text-white/40 text-[9px] uppercase font-black tracking-widest">{mainPost.author.role}</span>
-                                            </div>
-                                        </div>
-
+                                    {/* CTA Row */}
+                                    <div className="flex items-center justify-end border-t border-white/10 pt-6">
                                         <div className="w-12 h-12 rounded-full border border-white/10 flex items-center justify-center group-hover:bg-brand-cyan group-hover:border-brand-cyan transition-colors duration-300">
                                             <ArrowRight className="w-5 h-5 text-white/50 group-hover:text-slate-950 transition-colors" />
                                         </div>
@@ -100,8 +90,8 @@ export default function FeaturedSection({ posts }: FeaturedSectionProps) {
                         {secondaryPosts.map((post, idx) => (
                             <motion.div
                                 key={post.id}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+
+
                                 transition={{ duration: 0.5, delay: idx * 0.1 }}
                                 className="group relative overflow-hidden rounded-[1.5rem] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/5 hover:border-brand-cyan/30 transition-all duration-300 flex-1"
                             >

@@ -86,15 +86,15 @@ export default function ChatWidget() {
     };
 
     return (
-        <div className="fixed bottom-6 right-6 z-[9999] font-sans">
+        <div className="fixed bottom-4 right-4 md:bottom-6 md:right-6 z-[9999] font-sans flex flex-col items-end">
             <AnimatePresence>
                 {isOpen && (
                     <motion.div
-                        initial={{ opacity: 0, y: 20, scale: 0.95, transformOrigin: 'bottom right' }}
+
                         animate={{ opacity: 1, y: 0, scale: 1 }}
                         exit={{ opacity: 0, y: 20, scale: 0.95 }}
                         className={cn(
-                            "absolute bottom-20 right-0 bg-white dark:bg-slate-900 shadow-2xl border border-slate-200 dark:border-white/10 flex flex-col overflow-hidden glass-morphism transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] origin-bottom-right",
+                            "absolute bottom-20 right-0 bg-white dark:bg-slate-900 shadow-2xl border border-slate-200 dark:border-white/10 flex flex-col overflow-hidden glass-morphism transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] origin-bottom-right mb-4",
                             isExpanded
                                 ? "w-[95vw] md:w-[85vw] lg:w-[1000px] h-[85vh] max-h-[900px] rounded-[2rem]"
                                 : "w-[90vw] md:w-[400px] h-[600px] max-h-[70vh] rounded-[2.5rem]"
@@ -103,7 +103,7 @@ export default function ChatWidget() {
                         {/* Header */}
                         <div className="p-6 border-b border-slate-200 dark:border-white/10 flex items-center justify-between bg-gradient-to-r from-brand-medium/10 to-transparent">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-2xl bg-brand-medium flex items-center justify-center text-black overflow-hidden">
+                                <div className="w-20 h-20 rounded-2xl bg-brand-medium flex items-center justify-center text-black overflow-hidden">
                                     <img src="/chatbot-icon.png" alt="Preet Tech AI" className="w-full h-full object-cover" />
                                 </div>
                                 <div>
@@ -137,7 +137,7 @@ export default function ChatWidget() {
                         >
                             {messages.map((m, i) => (
                                 <motion.div
-                                    initial={{ opacity: 0, y: 10 }}
+
                                     animate={{ opacity: 1, y: 0 }}
                                     key={i}
                                     className={cn(
@@ -148,7 +148,7 @@ export default function ChatWidget() {
                                     <div className={cn(
                                         "p-4 rounded-[1.5rem] text-sm leading-relaxed",
                                         m.role === 'user'
-                                            ? "bg-brand-medium text-white font-medium rounded-tr-none"
+                                            ? "bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white font-medium rounded-tr-none"
                                             : "bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 rounded-tl-none border border-slate-200 dark:border-white/5"
                                     )}>
                                         <ReactMarkdown
@@ -223,13 +223,13 @@ export default function ChatWidget() {
                                 <button
                                     type="submit"
                                     disabled={!input.trim() || isLoading}
-                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-brand-medium text-black rounded-xl hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100"
+                                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2.5 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-xl hover:scale-105 active:scale-95 transition-all disabled:opacity-50 disabled:scale-100"
                                 >
                                     <ArrowRight size={20} />
                                 </button>
                             </form>
                             <p className="mt-4 text-[9px] text-center font-bold text-slate-400 uppercase tracking-[0.2em]">
-                                © 2026 Preet Tech Global. High-Performance Engineering.
+                                © {new Date().getFullYear()} Preet Tech. All Rights Reserved. Designed & Developed by Preet Tech.
                             </p>
                         </div>
                     </motion.div>
@@ -244,18 +244,18 @@ export default function ChatWidget() {
                 className={cn(
                     "flex items-center justify-center transition-all duration-500 relative z-50",
                     isOpen
-                        ? "w-14 h-14 md:w-16 md:h-16 bg-slate-900 rounded-full border border-white/10 text-white rotate-90 shadow-2xl"
-                        : "w-28 h-28 md:w-[7.5rem] md:h-[7.5rem] bg-transparent border-0 p-0"
+                        ? "w-14 h-14 md:w-16 md:h-16 bg-slate-900 rounded-full border border-white/10 text-white rotate-90 shadow-2xl rounded-full"
+                        : "w-20 h-20 md:w-24 md:h-24 bg-transparent border-0 p-0"
                 )}
             >
                 {isOpen ? (
-                    <X size={36} />
+                    <X size={36} className="-rotate-90" />
                 ) : (
                     <div className="absolute inset-0 w-full h-full flex items-center justify-center">
                         <img
                             src="/chatbot-icon.png"
                             alt="ChatBot"
-                            className="w-[150%] h-[150%] object-contain drop-shadow-2xl"
+                            className="w-full h-full object-contain drop-shadow-2xl"
                         />
                     </div>
                 )}

@@ -1,0 +1,3 @@
+module.exports=[61111,a=>{"use strict";var b=a.i(49016);function c({children:a}){return(0,b.jsx)(b.Fragment,{children:a})}a.s(["default",()=>c,"metadata",0,{title:"Privacy Policy | Preet Tech",description:"Read the Preet Tech Privacy Policy to understand how we collect, use, and protect your data.",alternates:{canonical:"https://preettech.com/privacy-policy"}}])}];
+
+//# sourceMappingURL=preet-tech-next-gen-digital-agency%202_app_privacy-policy_layout_tsx_982d3148._.js.map

@@ -1,6 +1,7 @@
 "use client";
 
 import React from 'react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
     Users, Briefcase, Rocket, Globe, Palette, Scale,
@@ -28,14 +29,14 @@ const INDUSTRIES = [
 ];
 
 const TOOLS = [
-    { name: "Salesforce", logo: "https://www.vectorlogo.zone/logos/salesforce/salesforce-icon.svg" },
-    { name: "HubSpot", logo: "https://www.vectorlogo.zone/logos/hubspot/hubspot-icon.svg" },
-    { name: "Shopify", logo: "https://www.vectorlogo.zone/logos/shopify/shopify-icon.svg" },
-    { name: "Stripe", logo: "https://www.vectorlogo.zone/logos/stripe/stripe-icon.svg" },
-    { name: "Postmark", logo: "https://www.vectorlogo.zone/logos/postmarkapp/postmarkapp-icon.svg" },
-    { name: "Sentry", logo: "https://www.vectorlogo.zone/logos/sentry/sentry-icon.svg" },
-    { name: "Vercel", logo: "https://www.vectorlogo.zone/logos/vercel/vercel-icon.svg" },
-    { name: "Analytics", logo: "https://www.vectorlogo.zone/logos/google_analytics/google_analytics-icon.svg" }
+    { name: "Salesforce", logo: "https://cdn.simpleicons.org/salesforce/00A1E0" },
+    { name: "HubSpot", logo: "https://cdn.simpleicons.org/hubspot/FF7A59" },
+    { name: "Shopify", logo: "https://cdn.simpleicons.org/shopify/96BF48" },
+    { name: "Stripe", logo: "https://cdn.simpleicons.org/stripe/635BFF" },
+    { name: "Postmark", logo: "https://cdn.simpleicons.org/postmark/FFDE00" },
+    { name: "Sentry", logo: "https://cdn.simpleicons.org/sentry/362D59" },
+    { name: "Vercel", logo: "https://cdn.simpleicons.org/vercel/000000" },
+    { name: "Analytics", logo: "https://cdn.simpleicons.org/googleanalytics/E37400" }
 ];
 
 const CASE_STUDIES = [
@@ -46,7 +47,8 @@ const CASE_STUDIES = [
         readTime: "5 MIN READ",
         image: "https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?q=80&w=800&auto=format&fit=crop",
         desc: "How we scaled an offline retail brand to a digital-first powerhouse through strategic e-commerce registration.",
-        tag: "MARKET SCALE"
+        tag: "MARKET SCALE",
+        slug: "case-study-urban-store-retail-digital"
     },
     {
         name: "Scaling EduFlow's Ops",
@@ -55,7 +57,8 @@ const CASE_STUDIES = [
         readTime: "7 MIN READ",
         image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?q=80&w=800&auto=format&fit=crop",
         desc: "Architecting a custom CMS that automated legal compliance and reduced administrative overhead by 60%.",
-        tag: "EFFICIENCY"
+        tag: "EFFICIENCY",
+        slug: "case-study-eduflow-operations-automation"
     },
     {
         name: "HealthKey: Security First",
@@ -64,14 +67,15 @@ const CASE_STUDIES = [
         readTime: "6 MIN READ",
         image: "https://images.unsplash.com/photo-1576091160550-2173dba999ef?q=80&w=800&auto=format&fit=crop",
         desc: "Engineering a HIPAA-compliant patient management system for a high-growth medical startup.",
-        tag: "COMPLIANCE"
+        tag: "COMPLIANCE",
+        slug: "case-study-healthkey-hipaa-patient-management"
     }
 ];
 
 const TESTIMONIALS = [
-    { name: "Rajiv M.", photo: "https://i.pravatar.cc/100?img=11", review: "Preet Tech turned my side project into a registered, profitable company in 4 weeks." },
-    { name: "Sarah J.", photo: "https://i.pravatar.cc/100?img=12", review: "The branding and website they built were world-class. Absolute professionals." },
-    { name: "Aman K.", photo: "https://i.pravatar.cc/100?img=13", review: "Their legal support and strategic roadmap were exactly what I needed to scale." }
+    { name: "Rajiv M.", initials: "RM", color: "from-blue-500 to-cyan-400", review: "Preet Tech turned my side project into a registered, profitable company in 4 weeks." },
+    { name: "Sarah J.", initials: "SJ", color: "from-purple-500 to-pink-400", review: "The branding and website they built were world-class. Absolute professionals." },
+    { name: "Aman K.", initials: "AK", color: "from-emerald-500 to-teal-400", review: "Their legal support and strategic roadmap were exactly what I needed to scale." }
 ];
 
 const TrustAndProcess = () => {
@@ -92,8 +96,9 @@ const TrustAndProcess = () => {
                         {STEPS.map((step, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+
+
+
                                 transition={{ delay: i * 0.1 }}
                                 className="flex flex-col items-center group"
                             >
@@ -116,7 +121,7 @@ const TrustAndProcess = () => {
                         <h2 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white uppercase tracking-tight mb-10 leading-[0.9]">
                             Your Business Idea <br /> Deserves The <span className="text-brand-medium dark:text-brand-cyan">Right Launch</span>
                         </h2>
-                        <button className="px-10 py-5 bg-brand-medium dark:bg-brand-cyan text-white dark:text-[#030712] rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-white transition-all shadow-xl shadow-brand-cyan/20">
+                        <button className="px-10 py-5 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:opacity-90 hover:scale-105 transition-all shadow-xl shadow-[#3994fa]/20 outline-none">
                             Book Free Strategy Call
                         </button>
                     </div>
@@ -179,6 +184,7 @@ const TrustAndProcess = () => {
                                                 src={tool.logo}
                                                 alt={tool.name}
                                                 className="w-full h-full object-contain filter grayscale opacity-60 group-hover/tool:grayscale-0 group-hover/tool:opacity-100 transition-all duration-500"
+                                                onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                                             />
                                         </div>
                                         <span className="text-[9px] font-black uppercase tracking-widest text-slate-600 dark:text-slate-400 group-hover/tool:text-slate-900 dark:group-hover/tool:text-slate-900 dark:text-white transition-colors">
@@ -209,14 +215,15 @@ const TrustAndProcess = () => {
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         {CASE_STUDIES.map((study, i) => (
-                            <motion.div
+                            <Link
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                transition={{ delay: i * 0.1 }}
-                                className="group cursor-pointer"
+                                href={`/blog/${study.slug}`}
+                                className="group cursor-pointer block"
                             >
-                                <div className="bg-white dark:bg-slate-900/30 rounded-[2.5rem] border border-slate-100 dark:border-white/5 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-brand-cyan/10 transition-all duration-500 h-full flex flex-col">
+                                <motion.div
+                                    transition={{ delay: i * 0.1 }}
+                                    className="bg-white dark:bg-slate-900/30 rounded-[2.5rem] border border-slate-100 dark:border-white/5 overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-brand-cyan/10 transition-all duration-500 h-full flex flex-col hover:border-brand-medium/40 dark:hover:border-brand-cyan/30"
+                                >
                                     {/* Card Header: Image & Badge */}
                                     <div className="relative h-64 overflow-hidden p-3">
                                         <div className="absolute top-6 left-6 z-20">
@@ -228,6 +235,7 @@ const TrustAndProcess = () => {
                                             src={study.image}
                                             alt={study.name}
                                             className="w-full h-full object-cover rounded-[2rem] group-hover:scale-110 transition-transform duration-700"
+                                            onError={(e) => { const t = e.target as HTMLImageElement; t.src = 'data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" fill="%23334155"><rect width="800" height="600"/></svg>'; }}
                                         />
                                         <div className="absolute inset-x-3 inset-y-3 bg-gradient-to-t from-black/20 to-transparent rounded-[2rem]" />
                                     </div>
@@ -247,7 +255,7 @@ const TrustAndProcess = () => {
                                         </div>
 
                                         <div className="space-y-4 flex-1">
-                                            <h4 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight group-hover:text-brand-medium dark:hover:text-brand-cyan transition-colors leading-tight">
+                                            <h4 className="text-2xl font-black text-slate-900 dark:text-white uppercase tracking-tight group-hover:text-brand-medium dark:group-hover:text-brand-cyan transition-colors leading-tight">
                                                 {study.name}
                                             </h4>
                                             <p className="text-sm font-medium text-slate-500 dark:text-slate-400 leading-relaxed line-clamp-3">
@@ -257,14 +265,14 @@ const TrustAndProcess = () => {
 
                                         {/* Action link */}
                                         <div className="pt-8 border-t border-slate-50 dark:border-white/5 flex items-center justify-between">
-                                            <span className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-[0.2em]">Read Analysis</span>
-                                            <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 flex items-center justify-center group-hover:bg-brand-medium dark:hover:bg-brand-cyan group-hover:text-slate-900 dark:group-hover:text-[#030712] transition-all transform group-hover:translate-x-1">
+                                            <span className="text-[10px] font-black text-slate-900 dark:text-white uppercase tracking-[0.2em] group-hover:text-brand-medium dark:group-hover:text-brand-cyan transition-colors">Read Analysis</span>
+                                            <div className="w-10 h-10 rounded-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover:bg-gradient-to-r group-hover:from-[#3994fa] group-hover:to-[#004aad] group-hover:border-transparent group-hover:text-white text-slate-500 dark:text-slate-400 transition-all duration-300 transform group-hover:translate-x-1">
                                                 <ArrowUpRight className="w-4 h-4" />
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                            </motion.div>
+                                </motion.div>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -279,7 +287,9 @@ const TrustAndProcess = () => {
                         <div key={i} className="p-10 rounded-[3rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 relative group">
                             <Quote className="absolute top-8 right-8 w-10 h-10 text-brand-medium dark:text-brand-cyan opacity-10" />
                             <div className="flex items-center gap-4 mb-8">
-                                <img src={t.photo} alt={t.name} className="w-12 h-12 rounded-full ring-2 ring-brand-medium/20 dark:ring-brand-cyan/20" />
+                                <div className={`w-12 h-12 rounded-full ring-2 ring-brand-medium/20 dark:ring-brand-cyan/20 bg-gradient-to-br ${t.color} flex items-center justify-center text-white text-xs font-black`}>
+                                    {t.initials}
+                                </div>
                                 <span className="font-black text-slate-900 dark:text-white uppercase tracking-tight text-sm">{t.name}</span>
                             </div>
                             <p className="text-slate-600 dark:text-slate-400 text-sm italic font-medium leading-relaxed font-serif">"{t.review}"</p>

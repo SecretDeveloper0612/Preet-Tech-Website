@@ -119,10 +119,120 @@ export const googleSheetsService = {
     },
 
     addEcoLead: async (data: {
+        service?: string;
         name: string;
         businessName: string;
         email: string;
         phone: string;
+        industry: string;
+        budget: string;
+    }) => {
+        return googleSheetsService.addLeadToSpecificSheet('ECO Leads', data);
+    },
+
+    addAppLead: async (data: {
+        service?: string;
+        name: string;
+        businessName: string;
+        email: string;
+        phone: string;
+        industry: string;
+        budget: string;
+    }) => {
+        return googleSheetsService.addLeadToSpecificSheet('App Leads', data);
+    },
+
+    addSoftwareLead: async (data: {
+        service?: string;
+        name: string;
+        businessName: string;
+        email: string;
+        phone: string;
+        industry: string;
+        budget: string;
+    }) => {
+        return googleSheetsService.addLeadToSpecificSheet('Software Leads', data);
+    },
+
+    addMarketingLead: async (data: {
+        service?: string;
+        name: string;
+        businessName: string;
+        email: string;
+        phone: string;
+        industry: string;
+        budget: string;
+    }) => {
+        return googleSheetsService.addLeadToSpecificSheet('Perform Market Lead', data);
+    },
+
+    addAdvanceWebsiteLead: async (data: {
+        service?: string;
+        name: string;
+        businessName: string;
+        email: string;
+        phone: string;
+        industry: string;
+        budget: string;
+    }) => {
+        return googleSheetsService.addLeadToSpecificSheet('Advance Website Leads', data);
+    },
+
+    addSocialMediaLead: async (data: {
+        service?: string;
+        name: string;
+        businessName: string;
+        email: string;
+        phone: string;
+        industry: string;
+        budget: string;
+    }) => {
+        return googleSheetsService.addLeadToSpecificSheet('Social Media Leads', data);
+    },
+
+    addPartnershipMarketingLead: async (data: {
+        service?: string;
+        name: string;
+        businessName: string;
+        email: string;
+        phone: string;
+        industry: string;
+        budget: string;
+    }) => {
+        return googleSheetsService.addLeadToSpecificSheet('Partnership Marketing Lead', data);
+    },
+
+    addContentCreationLead: async (data: {
+        service?: string;
+        name: string;
+        businessName: string;
+        email: string;
+        phone: string;
+        industry: string;
+        budget: string;
+    }) => {
+        return googleSheetsService.addLeadToSpecificSheet('Content Creation Lead', data);
+    },
+
+    addStartBusinessLead: async (data: {
+        service?: string;
+        name: string;
+        businessName: string;
+        email: string;
+        phone: string;
+        industry: string;
+        budget: string;
+    }) => {
+        return googleSheetsService.addLeadToSpecificSheet('Start Business Lead', data);
+    },
+
+    addLeadToSpecificSheet: async (sheetName: string, data: {
+        service?: string;
+        name: string;
+        businessName: string;
+        email: string;
+        phone: string;
+        industry: string;
         budget: string;
     }) => {
         try {
@@ -131,6 +241,8 @@ export const googleSheetsService = {
 
             // Format date-time in IST (India Standard Time)
             const now = new Date();
+
+            // Full date-time string (e.g. "10/03/2026, 02:30:45 pm")
             const dateTime = now.toLocaleString('en-IN', {
                 timeZone: 'Asia/Kolkata',
                 day: '2-digit',
@@ -142,11 +254,19 @@ export const googleSheetsService = {
                 hour12: true,
             });
 
-            // Check if "ECO Leads" tab exists; if not, create it with headers
+            // Date-only string for easy day-wise filtering (e.g. "10/03/2026")
+            const dateOnly = now.toLocaleDateString('en-IN', {
+                timeZone: 'Asia/Kolkata',
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+            });
+
+            // Check if tab exists; if not, create it with headers
             try {
                 const sheetMeta = await sheets.spreadsheets.get({ spreadsheetId: SHEET_ID });
                 const tabExists = sheetMeta.data.sheets?.some(
-                    (s: any) => s.properties?.title === 'ECO Leads'
+                    (s: any) => s.properties?.title === sheetName
                 );
 
                 if (!tabExists) {
@@ -154,44 +274,46 @@ export const googleSheetsService = {
                     await sheets.spreadsheets.batchUpdate({
                         spreadsheetId: SHEET_ID,
                         requestBody: {
-                            requests: [{ addSheet: { properties: { title: 'ECO Leads' } } }]
+                            requests: [{ addSheet: { properties: { title: sheetName } } }]
                         }
                     });
-                    // Write header row
+                    // Write header row — now includes a dedicated "Date" column for day-wise filtering
                     await sheets.spreadsheets.values.update({
                         spreadsheetId: SHEET_ID,
-                        range: 'ECO Leads!A1:F1',
+                        range: `'${sheetName}'!A1:I1`,
                         valueInputOption: 'USER_ENTERED',
                         requestBody: {
-                            values: [['Date & Time', 'Name', 'BusinessName', 'Email', 'Phone Number', 'Budget Range']]
+                            values: [['Date', 'Date & Time', 'Service', 'Name', 'BusinessName', 'Email', 'Phone Number', 'Industry', 'Budget Range']]
                         }
                     });
                 }
             } catch (tabErr: any) {
-                // Tab check failed — proceed anyway, append will still work
-                console.warn('Tab check warning:', tabErr?.message);
+                console.warn(`Tab check warning for ${sheetName}:`, tabErr?.message);
             }
 
-            // Append the lead data
+            // Append the lead data — Date Only in col A for filter, full DateTime in col B
             await sheets.spreadsheets.values.append({
                 spreadsheetId: SHEET_ID,
-                range: ECO_LEADS_RANGE,
+                range: `'${sheetName}'!A:I`,
                 valueInputOption: 'USER_ENTERED',
                 requestBody: {
                     values: [[
+                        dateOnly,
                         dateTime,
+                        data.service || 'Not specified',
                         data.name,
                         data.businessName,
                         data.email,
-                        `'${data.phone}`,   // prefix with ' so Sheets stores as plain text (avoids #ERROR! from + prefix)
+                        `'${data.phone}`,
+                        data.industry,
                         data.budget,
                     ]]
                 }
             });
             return true;
         } catch (error: any) {
-            console.error('Error appending ECO lead to sheet:', error?.message || error);
-            throw new Error(`Google Sheets ECO Lead Error: ${error?.message || 'Failed to save lead'}`);
+            console.error(`Error appending lead to ${sheetName}:`, error?.message || error);
+            throw new Error(`Google Sheets Lead Error: ${error?.message || 'Failed to save lead'}`);
         }
     },
 };

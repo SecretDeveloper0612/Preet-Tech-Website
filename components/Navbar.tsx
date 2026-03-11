@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X, ArrowUpRight, Sun, Moon, Globe, Smartphone, Palette, Share2, TrendingUp, ChevronRight, ChevronLeft, Target, Rocket, Cpu, Zap, Shield, Monitor, Layout } from 'lucide-react';
+import { Menu, X, ArrowUpRight, Sun, Moon, Globe, Smartphone, Palette, Share2, TrendingUp, ChevronRight, ChevronLeft, Target, Rocket, Cpu, Zap, Shield, Monitor, Layout, UserCheck } from 'lucide-react';
 import Link from 'next/link';
 import { useTheme } from 'next-themes';
 
@@ -28,7 +28,16 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
   const [isMobileSubMenuOpen, setIsMobileSubMenuOpen] = useState(false);
 
   useEffect(() => {
-    const handleScroll = () => setIsScrolled(window.scrollY > 20);
+    let ticking = false;
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(window.scrollY > 20);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
@@ -77,6 +86,8 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
       desc: 'Everything you need to successfully enter the market.',
       items: [
         { name: 'Start Your Business', icon: Rocket, href: '/services/start-your-business', detail: 'End-to-end setup protocol', longDesc: 'From company registration to digital infrastructure. We handle the technical and strategic complexity of launching your new venture.' },
+        { name: 'Party Dial', icon: Zap, href: '/services/party-dial', detail: 'Coming Soon', longDesc: 'A premium platform engineered for event-driven growth and audience monetization.' },
+        { name: 'Onboarding Mentores', icon: UserCheck, href: '/services/onboarding-mentores', detail: 'Coming Soon', longDesc: 'Expert-led onboarding and strategic mentorship for scaling early-stage ventures.' },
       ]
     }
   };
@@ -92,7 +103,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
     >
       <div className="max-w-7xl mx-auto md:px-6 relative">
         <div
-          className={`relative z-[120] rounded-[2rem] md:rounded-full px-4 md:px-8 py-1 md:py-1.5 flex items-center justify-between transition-all duration-500 backdrop-blur-xl border ${isScrolled
+          className={`relative z-[120] rounded-[2rem] md:rounded-full px-4 md:px-8 py-1 md:py-1.5 flex items-center justify-between transition-all duration-500 backdrop-blur-md border ${isScrolled
             ? 'bg-white/95 dark:bg-black/90 border-brand-medium/30 shadow-2xl'
             : 'bg-white/80 dark:bg-black/50 border-slate-200 shadow-lg dark:border-white/10'
             }`}
@@ -140,7 +151,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
               {isDark ? <Sun className="w-4 h-4 md:w-5 md:h-5" /> : <Moon className="w-4 h-4 md:w-5 md:h-5" />}
             </button>
 
-            <Link href="/contact" className="hidden sm:flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-[#3994fa] dark:bg-white text-white dark:text-[#3994fa] rounded-full font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95">
+            <Link href="/contact" className="hidden sm:flex items-center gap-2 px-5 md:px-6 py-2 md:py-2.5 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-full font-black text-[9px] md:text-[10px] uppercase tracking-widest hover:scale-105 transition-all shadow-lg active:scale-95">
               Contact <ArrowUpRight className="w-3 h-3" />
             </Link>
 
@@ -160,7 +171,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
         <AnimatePresence>
           {showMegaMenu && (
             <motion.div
-              initial={{ opacity: 0, y: 15 }}
+
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: 15 }}
               transition={{ duration: 0.3, ease: "circOut" }}
@@ -192,7 +203,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
                       <Link
                         href="/contact"
                         onClick={() => setShowMegaMenu(false)}
-                        className="group flex items-center justify-center gap-2 w-full py-4 bg-brand-medium/10 border border-brand-medium/20 text-brand-medium hover:bg-brand-medium hover:text-white font-black text-[9px] md:text-[10px] uppercase tracking-widest rounded-xl transition-all hover:shadow-lg hover:shadow-brand-medium/20 hover:-translate-y-0.5 active:scale-95"
+                        className="group flex items-center justify-center gap-2 w-full py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white font-black text-[9px] md:text-[10px] uppercase tracking-widest rounded-xl transition-all hover:shadow-lg hover:shadow-[#3994fa]/20 hover:-translate-y-0.5 active:scale-95"
                       >
                         Book Strategy Call <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
                       </Link>
@@ -203,7 +214,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
                     <AnimatePresence mode="wait">
                       <motion.div
                         key={activeTab}
-                        initial={{ opacity: 0, x: 20 }}
+
                         animate={{ opacity: 1, x: 0 }}
                         exit={{ opacity: 0, x: -20 }}
                         transition={{ duration: 0.3 }}
@@ -212,12 +223,12 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
                         <div className="mb-8 min-h-[80px] flex flex-col justify-end">
                           <AnimatePresence mode="wait">
                             {hoveredItem ? (
-                              <motion.div key={hoveredItem.name} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-2">
+                              <motion.div key={hoveredItem.name} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} className="space-y-2">
                                 <h3 className="text-4xl font-black text-brand-medium tracking-tighter uppercase">{hoveredItem.name}</h3>
                                 <p className="text-slate-600 dark:text-slate-300 max-w-2xl leading-relaxed font-medium">{hoveredItem.longDesc}</p>
                               </motion.div>
                             ) : (
-                              <motion.div key={megaMenuContent[activeTab].title} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
+                              <motion.div key={megaMenuContent[activeTab].title} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }}>
                                 <h3 className="text-4xl font-black text-foreground tracking-tighter uppercase mb-4">{megaMenuContent[activeTab].title}</h3>
                                 <p className="text-slate-500 dark:text-slate-400 max-w-lg leading-relaxed">{megaMenuContent[activeTab].desc}</p>
                               </motion.div>
@@ -258,7 +269,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
         {isOpen && (
           <motion.div
             key="mobile-menu-portal"
-            initial={{ opacity: 0, y: -20 }}
+
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
             className="fixed inset-0 bg-white dark:bg-[#070708] z-[105] flex flex-col lg:hidden"
@@ -273,7 +284,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
                 {!isMobileSubMenuOpen ? (
                   <motion.div
                     key="mobile-main"
-                    initial={{ opacity: 0, x: -10 }}
+
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: 20 }}
                     className="flex flex-col h-full"
@@ -287,7 +298,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
                       {links.map((link, i) => (
                         <motion.div
                           key={link.name}
-                          initial={{ opacity: 0, y: 20 }}
+
                           animate={{ opacity: 1, y: 0 }}
                           transition={{ delay: i * 0.05 }}
                         >
@@ -317,7 +328,7 @@ const Navbar: React.FC<NavbarProps> = ({ isDark: _ignoredIsDark, toggleTheme: _i
                 ) : (
                   <motion.div
                     key="mobile-services"
-                    initial={{ opacity: 0, x: 20 }}
+
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     className="flex flex-col h-full"

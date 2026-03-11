@@ -270,5 +270,9 @@ html.lenis body {
 }
 
 .blog-content-rich .cta-block button {
-    @apply px-6 py-3 bg-brand-cyan text-[#020617] rounded-xl font-bold text-xs uppercase tracking-widest hover:scale-105 transition-transform;
+    @apply px-6 py-3 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:scale-105 transition-transform;
+}
+
+.gradient-btn {
+    @apply bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white transition-all duration-300;
 }

@@ -1,0 +1,3 @@
+module.exports=[41190,a=>{"use strict";var b=a.i(49016);function c({children:a}){return(0,b.jsx)(b.Fragment,{children:a})}a.s(["default",()=>c,"metadata",0,{title:"Terms of Service | Preet Tech",description:"Read the Preet Tech Terms of Service outlining the terms and conditions for our digital solutions and services.",alternates:{canonical:"https://preettech.com/terms-of-service"}}])}];
+
+//# sourceMappingURL=preet-tech-next-gen-digital-agency%202_app_terms-of-service_layout_tsx_4a75a813._.js.map

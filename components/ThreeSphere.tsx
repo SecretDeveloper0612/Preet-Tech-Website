@@ -155,7 +155,7 @@ const ThreeSphereScene: React.FC<ThreeSphereProps> = ({ isDark: _ignoredIsDark }
           powerPreference: "high-performance",
           alpha: true
         }}
-        dpr={[1, 2]}
+        dpr={[1, 1.5]}
       >
         <ambientLight intensity={0.4} />
         <pointLight position={[10, 10, 10]} intensity={2} color="#6366f1" />
@@ -164,7 +164,7 @@ const ThreeSphereScene: React.FC<ThreeSphereProps> = ({ isDark: _ignoredIsDark }
 
         <Float speed={2} rotationIntensity={0.5} floatIntensity={0.5}>
           <Suspense fallback={null}>
-            <NeuralParticles count={2000} isDark={isDark} />
+            <NeuralParticles count={400} isDark={isDark} />
           </Suspense>
         </Float>
 

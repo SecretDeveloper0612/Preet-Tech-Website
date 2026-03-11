@@ -9,70 +9,85 @@ import {
     PenTool, Image, Play, Repeat, MousePointer2, FileText, Bot, Headphones, DollarSign,
     ShoppingCart, Home, GraduationCap, HeartPulse, Store, UserCheck, Award, Gauge, Monitor,
     Smartphone, Bookmark, type LucideIcon, Camera, Film, Music, Mic, Pencil,
-    Scissors, Lightbulb, Workflow, Box
+    Scissors, Lightbulb, Workflow, Box, X
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PortfolioCarousel from '@/components/PortfolioCarousel';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger);
-}
+import ThreeSphereScene from '@/components/ThreeSphere';
+import PhoneInput from '@/components/PhoneInput';
+// --- 🛰️ Lightweight Static Background (CSS-only, no JS animations) ---
+const TechnicalBackground = ({ isDarkMode }: { isDarkMode: boolean }) => (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+        {/* Static mesh grid — CSS background-image, zero JS cost */}
+        <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+                backgroundImage: `linear-gradient(to right, #3994fa 1px, transparent 1px), linear-gradient(to bottom, #3994fa 1px, transparent 1px)`,
+                backgroundSize: '40px 40px',
+            }}
+        />
+        {/* Two static ambient glows — no animation, GPU-composited */}
+        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#3994fa]/5 blur-[100px] rounded-full opacity-60" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#3994fa]/5 blur-[100px] rounded-full opacity-40" />
+    </div>
+);
 
 export default function ContentCreation() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [mounted, setMounted] = useState(false);
     const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-    const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+    const [formData, setFormData] = useState({
+        name: '',
+        businessName: '',
+        email: '',
+        phone: '',
+        countryCode: '+91',
+        budget: 'Social Media',
+    });
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
         setMounted(true);
         const stored = localStorage.getItem('theme');
-        if (stored === 'dark') {
-            /* handled by next-themes */
-            setIsDarkMode(true);
-        } else {
-            /* handled by next-themes */
-            setIsDarkMode(false);
-        }
+        setIsDarkMode(stored === 'dark');
     }, []);
 
     const toggleTheme = () => {
         const next = !isDarkMode;
         setIsDarkMode(next);
-        if (next) {
-            /* handled by next-themes */
-            localStorage.setItem('theme', 'dark');
-        } else {
-            /* handled by next-themes */
-            localStorage.setItem('theme', 'light');
-        }
+        localStorage.setItem('theme', next ? 'dark' : 'light');
     };
 
-    useGSAP(() => {
-        gsap.utils.toArray<HTMLElement>('.reveal-section').forEach((s) => {
-            gsap.from(s, {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                ease: "power3.out",
-                scrollTrigger: {
-                    trigger: s,
-                    start: "top 85%",
-                    toggleActions: "play none none none"
-                }
-            });
-        });
-    }, { scope: containerRef });
+    // Removed GSAP reveal animations
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        setFormStatus('submitting');
-        setTimeout(() => setFormStatus('success'), 1500);
+        setSubmitStatus('loading');
+        try {
+            const res = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...formData,
+                    phone: `${formData.countryCode} ${formData.phone}`,
+                    service: 'Content Creation',
+                    industry: 'Not specified'
+                })
+            });
+            if (res.ok) {
+                setSubmitStatus('success');
+                setFormData({ name: '', businessName: '', email: '', phone: '', countryCode: '+91', budget: 'Social Media' });
+                setTimeout(() => setSubmitStatus('idle'), 5000);
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error("Form submission error:", error);
+            setSubmitStatus('error');
+        }
     };
 
     const fadeInUp = {
@@ -81,173 +96,112 @@ export default function ContentCreation() {
         transition: { duration: 0.6 }
     };
 
+    if (!mounted) {
+        return <div className="min-h-screen bg-background" />;
+    }
+
     return (
         <main ref={containerRef} className="relative z-10 selection:bg-brand-cyan/20 overflow-x-clip bg-[#fafafa] text-slate-900 dark:bg-[#050608] dark:text-white transition-colors duration-500 font-sans">
             <Navbar isDark={isDarkMode} toggleTheme={toggleTheme} />
 
-            {/* 1️⃣ Hero Section (With Strategy Call Form) */}
-            <section className="relative pt-32 pb-20 md:pt-44 md:pb-32 lg:pt-56 lg:pb-40 px-4 md:px-6 overflow-hidden">
-                {/* Background Elements */}
-                <div className="absolute inset-0 pointer-events-none -z-10">
-                    <motion.div
-                        animate={{
-                            scale: [1, 1.2, 1],
-                            opacity: [0.1, 0.2, 0.1],
-                            rotate: [0, 90, 0]
-                        }}
-                        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                        className="absolute -top-[10%] -right-[5%] w-[600px] h-[600px] bg-gradient-to-br from-brand-medium/30 via-brand-cyan/20 to-transparent blur-[120px] rounded-full"
-                    />
-                    <motion.div
-                        animate={{
-                            scale: [1.3, 1, 1.3],
-                            opacity: [0.05, 0.15, 0.05],
-                        }}
-                        transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                        className="absolute -bottom-[10%] -left-[10%] w-[500px] h-[500px] bg-brand-sky/20 blur-[100px] rounded-full"
-                    />
-                </div>
+            {/* 1️⃣ Hero Section */}
+            <section className="relative pt-32 pb-12 lg:pt-48 lg:pb-32 px-6 overflow-hidden">
+                <TechnicalBackground isDarkMode={isDarkMode} />
+                <ThreeSphereScene />
 
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    <div className="space-y-8 relative z-10">
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            transition={{ duration: 0.6 }}
-                            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-medium/10 border border-brand-medium/20 text-brand-medium dark:text-brand-cyan text-xs font-bold uppercase tracking-widest"
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
+                    <div className="space-y-6 lg:space-y-8 hero-content text-center lg:text-left">
+                        <motion.span
+                            className="inline-block px-4 py-1 rounded-full bg-[#3994fa]/10 dark:bg-[#3994fa]/10 text-[#3994fa] dark:text-[#3994fa] text-[10px] md:text-xs font-bold uppercase tracking-widest border border-[#3994fa]/20 dark:border-[#3994fa]/20"
                         >
-                            <Sparkles className="w-4 h-4" />
-                            <span>Premium Content Studio</span>
-                        </motion.div>
-
+                            Premium Content Studio
+                        </motion.span>
                         <motion.h1
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.1 }}
-                            className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-black tracking-tight leading-[0.95]"
+                            className="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tighter leading-[1.1] text-slate-900 dark:text-white"
                         >
-                            Creative Content <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-sky via-brand-medium to-brand-cyan">That Drives Results.</span>
+                            Professional Content <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3994fa] to-slate-900 dark:to-white">Creation Services.</span>
                         </motion.h1>
-
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.2 }}
-                            className="space-y-6"
+                        <motion.p
+                            className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium"
                         >
-                            <p className="text-lg md:text-2xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed font-medium">
-                                We create strategic, scroll-stopping content designed to grow your brand, engage your audience, and increase conversions.
-                            </p>
-                            <p className="text-base text-slate-500 dark:text-slate-500 max-w-lg leading-relaxed">
-                                Preet Tech isn't just a content agency. We are your creative growth partner. We combine high-end aesthetics with deep marketing data to ensure every piece of content serves your bottom line.
-                            </p>
-                        </motion.div>
-
+                            Scale your brand with high-engaging, conversion-optimized <strong>content creation services</strong> starting at just ₹4,999. From viral reels to professional ad creatives, we deliver premium visual assets in 3-7 working days.
+                        </motion.p>
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 0.8, delay: 0.4 }}
-                            className="flex items-center gap-6"
+                            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
                         >
-                            <div className="flex -space-x-4">
-                                {[1, 2, 3, 4].map(i => (
-                                    <div key={i} className="w-12 h-12 rounded-full border-4 border-white dark:border-[#050608] bg-slate-200 overflow-hidden">
-                                        <img src={`https://i.pravatar.cc/150?u=${i}`} alt="user" className="w-full h-full object-cover" />
-                                    </div>
-                                ))}
-                                <div className="w-12 h-12 rounded-full border-4 border-white dark:border-[#050608] bg-brand-medium flex items-center justify-center text-white text-xs font-bold">
-                                    +50
-                                </div>
-                            </div>
-                            <div>
-                                <div className="text-sm font-bold">Trusted by 50+ Global Brands</div>
-                                <div className="flex text-amber-500">
-                                    {[1, 2, 3, 4, 5].map(i => <Star key={i} className="w-4 h-4 fill-current" />)}
-                                </div>
-                            </div>
+                            <button onClick={() => setIsVideoOpen(true)} className="px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white rounded-full font-bold transition-all transform hover:-translate-y-1 shadow-lg shadow-[#3994fa]/25 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer">
+                                Watch Demo <Play className="w-4 h-4 fill-white" />
+                            </button>
                         </motion.div>
                     </div>
 
-                    {/* Lead Form */}
                     <motion.div
-                        initial={{ opacity: 0, x: 30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.3 }}
-                        className="relative"
+                        id="consultation"
+                        className="relative hero-content mt-8 lg:mt-0 w-full max-w-lg mx-auto lg:max-w-none scroll-mt-32"
                     >
-                        <div className="absolute -inset-4 bg-gradient-to-br from-brand-medium/20 to-brand-cyan/20 blur-2xl rounded-[2.5rem] -z-10" />
-                        <div className="glass-morphism p-6 md:p-10 rounded-[2rem] border border-slate-200 dark:border-white/10 shadow-2xl relative overflow-hidden group">
-                            <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
-                                <FileText className="w-24 h-24 rotate-12" />
-                            </div>
-
-                            <h3 className="text-2xl font-bold mb-6">Book Your Strategy Call</h3>
-
-                            <form onSubmit={handleFormSubmit} className="space-y-4">
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-1.5">
-                                        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-1">Full Name</label>
-                                        <input required type="text" placeholder="John Doe" className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-brand-medium outline-none transition-all text-sm" />
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-1">Brand Name</label>
-                                        <input required type="text" placeholder="Your Business" className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-brand-medium outline-none transition-all text-sm" />
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-1.5">
-                                        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-1">Website / Social</label>
-                                        <input required type="text" placeholder="@yourbrand" className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-brand-medium outline-none transition-all text-sm" />
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-1">Email Address</label>
-                                        <input required type="email" placeholder="john@example.com" className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-brand-medium outline-none transition-all text-sm" />
-                                    </div>
-                                </div>
-
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="space-y-1.5">
-                                        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-1">Content Type</label>
-                                        <select className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-brand-medium outline-none transition-all text-sm appearance-none">
-                                            <option>Social Media</option>
-                                            <option>Short-Form/Reels</option>
-                                            <option>Ad Creatives</option>
-                                            <option>Website Copy</option>
-                                            <option>Product Shoots</option>
-                                            <option>Full Strategy</option>
-                                        </select>
-                                    </div>
-                                    <div className="space-y-1.5">
-                                        <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-1">Monthly Budget</label>
-                                        <select className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-brand-medium outline-none transition-all text-sm appearance-none">
-                                            <option>$1,000 - $3,000</option>
-                                            <option>$3,000 - $7,000</option>
-                                            <option>$7,000 - $15,000</option>
-                                            <option>$15,000+</option>
-                                        </select>
-                                    </div>
-                                </div>
-
+                        <div className="bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-[2.5rem] shadow-2xl relative z-10 border border-slate-200 dark:border-slate-800">
+                            <form onSubmit={handleFormSubmit} className="space-y-6">
                                 <div className="space-y-1.5">
-                                    <label className="text-[11px] font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 ml-1">Project Description</label>
-                                    <textarea rows={3} placeholder="Tell us about your goals..." className="w-full px-4 py-3 rounded-xl bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 focus:border-brand-medium outline-none transition-all text-sm resize-none"></textarea>
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Full Name</label>
+                                    <div className="relative group">
+                                        <User strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                        <input required type="text" value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="John Doe" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                    </div>
                                 </div>
-
-                                <motion.button
-                                    whileHover={{ scale: 1.02 }}
-                                    whileTap={{ scale: 0.98 }}
-                                    disabled={formStatus === 'submitting' || formStatus === 'success'}
-                                    className={`w-full py-4 rounded-xl font-bold text-white uppercase tracking-widest text-sm shadow-xl transition-all flex items-center justify-center gap-2 ${formStatus === 'success' ? 'bg-emerald-500' : 'bg-gradient-to-r from-brand-medium to-brand-deep hover:shadow-brand-medium/30'}`}
-                                >
-                                    {formStatus === 'idle' && <>Book Free Content Strategy Call <ArrowRight className="w-4 h-4" /></>}
-                                    {formStatus === 'submitting' && <Activity className="w-4 h-4 animate-spin" />}
-                                    {formStatus === 'success' && <CheckCircle2 className="w-4 h-4" />}
-                                    {formStatus === 'success' && "Speak Soon!"}
-                                </motion.button>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Business Name</label>
+                                    <div className="relative group">
+                                        <Building2 strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                        <input required type="text" value={formData.businessName || ''} onChange={(e) => setFormData({ ...formData, businessName: e.target.value })} placeholder="Your Business" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                    </div>
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Email</label>
+                                        <div className="relative group">
+                                            <Mail strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                            <input required type="email" value={formData.email || ''} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="john@example.com" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Phone</label>
+                                        <PhoneInput
+                                            value={formData.phone}
+                                            onChange={(val) => setFormData({ ...formData, phone: val })}
+                                            countryCode={formData.countryCode}
+                                            onCountryCodeChange={(code) => setFormData({ ...formData, countryCode: code })}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Content Type</label>
+                                    <div className="relative group">
+                                        <Layers strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors pointer-events-none" />
+                                        <select required value={formData.budget} onChange={(e) => setFormData({ ...formData, budget: e.target.value })} className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all appearance-none text-slate-700 dark:text-slate-200 text-sm cursor-pointer">
+                                            <option value="Social Media">Social Media</option>
+                                            <option value="Short-Form/Reels">Short-Form/Reels</option>
+                                            <option value="Ad Creatives">Ad Creatives</option>
+                                            <option value="Website Copy">Website Copy</option>
+                                            <option value="Full Strategy">Full Strategy</option>
+                                        </select>
+                                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
+                                    </div>
+                                </div>
+                                <div className="pt-2">
+                                    <button disabled={submitStatus === "loading"} type="submit" className="w-full py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white font-black rounded-2xl transition-all shadow-[0_0_20px_rgba(63,143,204,0.2)] hover:shadow-[0_0_30px_rgba(63,143,204,0.4)] text-[13px] uppercase tracking-widest flex items-center justify-center gap-2">
+                                        {submitStatus === "loading" ? "Submitting..." : "Get Free Consultation"} <ArrowRight strokeWidth={2.5} className="w-4 h-4 ml-1" />
+                                    </button>
+                                </div>
+                                {submitStatus === 'success' && (
+                                    <p className="text-emerald-500 text-xs font-bold text-center mt-2">Success! We will be in touch shortly.</p>
+                                )}
+                                {submitStatus === 'error' && (
+                                    <p className="text-red-500 text-xs font-bold text-center mt-2">Something went wrong. Please try again.</p>
+                                )}
                             </form>
                         </div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-[#3994fa]/20 to-[#6366f1]/20 rounded-full blur-[100px] -z-10 animate-pulse" />
                     </motion.div>
                 </div>
             </section>
@@ -260,11 +214,11 @@ export default function ContentCreation() {
                             <span className="text-brand-medium font-bold uppercase tracking-[0.2em] text-xs">The Foundation</span>
                             <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight leading-tight">
                                 Why Content is the Core of <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-sky">Digital Growth.</span>
+                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-sky">Digital Brand Growth.</span>
                             </h2>
                         </div>
                         <p className="text-slate-500 dark:text-slate-400 max-w-sm font-medium">
-                            Businesses don't grow with ads alone. They grow with stories that resonate and visuals that capture attention.
+                            In the age of AI search and short-form media, businesses grow with stories that resonate and visuals that capture attention within seconds.
                         </p>
                     </div>
 
@@ -301,7 +255,7 @@ export default function ContentCreation() {
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-20 space-y-4">
                         <span className="text-brand-medium font-bold uppercase tracking-[0.2em] text-xs">The Preet Tech Edge</span>
-                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight">Why Choose Preet Tech.</h2>
+                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight">The Best Content Creation Agency for You.</h2>
                         <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">We don't just "make content". We build growth assets that appreciate in value over time.</p>
                     </div>
 
@@ -334,7 +288,7 @@ export default function ContentCreation() {
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-16 space-y-4">
                         <span className="text-brand-medium font-bold uppercase tracking-[0.2em] text-xs">Perfect Fit</span>
-                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight">Who This Service Is For.</h2>
+                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight">Who Needs Content Strategy?</h2>
                     </div>
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -348,9 +302,6 @@ export default function ContentCreation() {
                         ].map((block, i) => (
                             <motion.div
                                 key={i}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                initial={{ opacity: 0, scale: 0.9 }}
-                                transition={{ delay: i * 0.1 }}
                                 className="p-6 rounded-3xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-start gap-4 hover:bg-white dark:hover:bg-slate-900 transition-all hover:shadow-xl hover:border-brand-medium/40 group"
                             >
                                 <div className="p-3 rounded-xl bg-white dark:bg-slate-800 text-brand-medium group-hover:scale-110 transition-transform">
@@ -371,7 +322,7 @@ export default function ContentCreation() {
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-20 space-y-4">
                         <span className="text-brand-sky font-bold uppercase tracking-[0.2em] text-xs">Full Spectrum Creative</span>
-                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight">Our Creative Services.</h2>
+                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight">Our Creative Services Suite.</h2>
                         <p className="text-slate-400 max-w-2xl mx-auto text-lg leading-relaxed">From strategy to post-production, we handle the entire content lifecycle so you can focus on scale.</p>
                     </div>
 
@@ -413,7 +364,7 @@ export default function ContentCreation() {
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-24 space-y-4">
                         <span className="text-brand-medium font-bold uppercase tracking-[0.2em] text-xs">The Process</span>
-                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight">Our Creative Workflow.</h2>
+                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight">Our Proven Content Production Workflow.</h2>
                     </div>
 
                     <div className="relative">
@@ -431,10 +382,6 @@ export default function ContentCreation() {
                             ].map((step, i) => (
                                 <motion.div
                                     key={i}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ delay: i * 0.1 }}
                                     className="text-center group"
                                 >
                                     <div className="w-20 h-20 mx-auto mb-6 rounded-3xl bg-white dark:bg-slate-900 border-4 border-slate-50 dark:border-white/5 flex items-center justify-center text-brand-medium shadow-xl group-hover:scale-110 group-hover:border-brand-medium transition-all duration-500">
@@ -515,7 +462,7 @@ export default function ContentCreation() {
                                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                                     <Camera className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-12 h-12 text-white/20" />
                                     <div className="absolute bottom-4 left-4 right-4 h-2 bg-white/20 rounded-full">
-                                        <motion.div initial={{ width: 0 }} whileInView={{ width: '85%' }} className="h-full bg-brand-cyan rounded-full" />
+                                        <motion.div initial={{ width: 0 }} whileInView={{ width: '85%' }} viewport={{ once: true }} className="h-full bg-brand-cyan rounded-full" />
                                     </div>
                                 </div>
                                 <div className="text-center space-y-2">
@@ -533,7 +480,7 @@ export default function ContentCreation() {
                 <div className="max-w-7xl mx-auto">
                     <div className="text-center mb-20 space-y-4">
                         <span className="text-brand-medium font-bold uppercase tracking-[0.2em] text-xs">Versatility</span>
-                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight">Industries We Serve.</h2>
+                        <h2 className="text-3xl md:text-5xl lg:text-6xl font-black tracking-tight">Specific Industries We Empower.</h2>
                         <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">Our content engine adapts to any niche, maintaining high production value and strategic focus.</p>
                     </div>
 
@@ -570,11 +517,11 @@ export default function ContentCreation() {
 
                     <div className="space-y-4">
                         {[
-                            { q: "How often should we post content?", a: "Consistency is key, but quality beats quantity. We usually recommend a minimum of 3-5 high-quality posts per week combined with daily stories, but we customize this based on your specific industry and goals." },
-                            { q: "Do you handle shooting and editing?", a: "Yes, we handle the entire process from start to finish. This includes creative direction, professional filming/photography on-site or in-studio, and full post-production editing." },
-                            { q: "Can you manage our entire content calendar?", a: "Absolutely. We can take over the complete scheduling and posting process across all your social platforms, ensuring your content goes live at peak engagement times." },
-                            { q: "Do you create ad creatives as well?", a: "Yes, ad creatives are one of our specialties. We design specific assets for Facebook, Instagram, and TikTok ads that are built for high conversion rather than just organic engagement." },
-                            { q: "How do you measure content performance?", a: "We track reach, engagement rate, click-through rates, and ultimately, conversions. We provide detailed monthly reports that show exactly how your content is contributing to your business growth." }
+                            { q: "How often should we post content for social media growth?", a: "Consistency is key for digital growth, but quality beats quantity. We usually recommend a minimum of 3-5 high-quality posts per week combined with daily stories. Our content creation services customize this frequency based on your industry and specific business goals." },
+                            { q: "Do your content creation services include shooting and editing?", a: "Yes, Preet Tech provides full-service content production. This includes creative direction, professional filming/photography on-site or in-studio, and advanced post-production editing for platforms like Reels, TikTok, and YouTube." },
+                            { q: "Can you manage our entire social media content calendar?", a: "Absolutely. We can take over the complete scheduling and posting process across all your social platforms, ensuring your content goes live at peak engagement times for maximum reach." },
+                            { q: "Do you create high-converting ad creatives as well?", a: "Yes, performance-driven ad creatives are one of our specialties. We design specific assets for Facebook, Instagram, and TikTok ads that are built for high conversion rather than just organic engagement." },
+                            { q: "How do you measure the performance of our content?", a: "We track reach, engagement rate, click-through rates (CTR), and ultimately, conversions. We provide detailed monthly reports that show exactly how your content is contributing to your brand's digital growth." }
                         ].map((faq, i) => (
                             <div key={i} className="rounded-2xl border border-slate-200 dark:border-white/10 overflow-hidden bg-white dark:bg-slate-900/50">
                                 <button
@@ -606,47 +553,37 @@ export default function ContentCreation() {
                 </div>
             </section>
 
-            {/* 🔟 Free Content Strategy Call Section */}
-            <section className="py-20 md:py-32 px-4 md:px-6 reveal-section overflow-hidden">
-                <div className="max-w-7xl mx-auto relative">
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-brand-medium/10 blur-[150px] -z-10 rounded-full" />
-                    <div className="glass-morphism p-12 md:p-24 rounded-[3rem] text-center space-y-10 border border-brand-medium/20 shadow-2xl relative">
-                        <div className="space-y-6">
-                            <motion.div
-                                animate={{ scale: [1, 1.1, 1] }}
-                                transition={{ duration: 4, repeat: Infinity }}
-                                className="w-20 h-20 bg-brand-medium/20 rounded-3xl flex items-center justify-center mx-auto mb-10 border border-brand-medium/30"
-                            >
-                                <Phone className="w-8 h-8 text-brand-medium" />
-                            </motion.div>
-                            <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-tight">
-                                Let’s Build Content <br />
-                                <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-sky via-brand-medium to-brand-cyan">That Converts.</span>
-                            </h2>
-                            <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto text-lg md:text-xl font-medium">
-                                Stop guessing what works. Let our team of creative strategists build a performance-driven content ecosystem for your brand.
-                            </p>
-                        </div>
+            {/* 10️⃣ Related Services / SEO Silo */}
+            <section className="py-20 md:py-32 px-4 md:px-6 reveal-section">
+                <div className="max-w-7xl mx-auto">
+                    <div className="text-center mb-16 space-y-4">
+                        <span className="text-brand-medium font-bold uppercase tracking-[0.2em] text-xs">Complete Digital Ecosystem</span>
+                        <h2 className="text-3xl md:text-5xl font-black tracking-tight">Expand Your Digital Footprint.</h2>
+                        <p className="text-slate-500 dark:text-slate-400 max-w-2xl mx-auto">Our content creation services work best when paired with our data-driven growth strategies.</p>
+                    </div>
 
-                        <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                            <motion.a
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                href="#contact"
-                                className="px-10 py-5 bg-gradient-to-r from-brand-medium to-brand-deep text-white font-bold rounded-2xl shadow-xl shadow-brand-medium/30 flex items-center gap-3 uppercase tracking-widest text-sm"
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+                        {[
+                            { t: 'Performance Marketing', link: '/services/performance-marketing', d: 'Boost your content ROI with targeted ad campaigns.' },
+                            { t: 'Social Media Handling', link: '/services/social-media-handling', d: 'Let us manage your community and daily engagement.' },
+                            { t: 'Software Development', link: '/services/software-development', d: 'Build custom platforms to host and monetize your content.' }
+                        ].map((service, i) => (
+                            <a
+                                key={i}
+                                href={service.link}
+                                className="p-8 rounded-[2rem] bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/5 hover:border-brand-medium/50 transition-all group"
                             >
-                                Book Free Strategy Call <ArrowRight className="w-4 h-4" />
-                            </motion.a>
-                            <div className="flex items-center gap-3">
-                                <div className="flex -space-x-2">
-                                    {[1, 2, 3].map(i => <div key={i} className="w-8 h-8 rounded-full border-2 border-white dark:border-slate-800 bg-slate-300" />)}
+                                <h4 className="text-xl font-bold mb-3 group-hover:text-brand-medium transition-colors">{service.t}</h4>
+                                <p className="text-sm text-slate-500 dark:text-slate-400 mb-6">{service.d}</p>
+                                <div className="flex items-center text-brand-medium font-bold text-xs uppercase tracking-widest gap-2">
+                                    Explore Service <ArrowRight className="w-4 h-4" />
                                 </div>
-                                <span className="text-xs font-bold text-slate-500 uppercase tracking-widest">Next slot: Today</span>
-                            </div>
-                        </div>
+                            </a>
+                        ))}
                     </div>
                 </div>
             </section>
+
 
             {/* Final CTA Section */}
             <section className="py-24 px-4 md:px-6 bg-gradient-to-b from-transparent to-brand-medium/10 reveal-section">
@@ -658,22 +595,64 @@ export default function ContentCreation() {
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
                         <motion.button
+                            onClick={() => document.getElementById('consultation')?.scrollIntoView({ behavior: 'smooth' })}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="px-12 py-6 bg-[#020617] dark:bg-white text-white dark:text-[#020617] font-black rounded-2xl shadow-2xl flex items-center gap-4 uppercase tracking-[0.15em] text-sm"
+                            className="px-12 py-6 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-95 text-white font-black rounded-2xl shadow-2xl flex items-center gap-4 uppercase tracking-[0.15em] text-sm"
                         >
                             Start Your Content Project <Plus className="w-5 h-5" />
                         </motion.button>
                         <motion.button
+                            onClick={() => document.getElementById('consultation')?.scrollIntoView({ behavior: 'smooth' })}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className="px-12 py-6 border-2 border-slate-900/10 dark:border-white/10 font-black rounded-2xl flex items-center gap-4 uppercase tracking-[0.15em] text-sm"
+                            className="px-12 py-6 border-2 border-[#3994fa]/20 hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:text-white hover:border-transparent font-black rounded-2xl flex items-center gap-4 uppercase tracking-[0.15em] text-sm transition-all"
                         >
                             Schedule Free Call <Calendar className="w-5 h-5" />
                         </motion.button>
                     </div>
                 </div>
             </section>
+
+            {/* Video Modal */}
+            <AnimatePresence>
+                {isVideoOpen && (
+                    <motion.div
+
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95"
+                        onClick={() => setIsVideoOpen(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="relative w-full aspect-video max-w-4xl bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center"
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setIsVideoOpen(false)}
+                                className="absolute top-4 right-4 z-[110] w-10 h-10 bg-black/60 hover:bg-black/80 border border-white/20 rounded-full flex items-center justify-center text-white transition-colors"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+
+                            {/* YouTube Embed */}
+                            <div className="absolute inset-0 w-full h-full bg-black">
+                                <iframe
+                                    src="https://www.youtube.com/embed/CBYfXlP7ppQ?autoplay=1"
+                                    className="w-full h-full border-0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    title="Preet Tech Video"
+                                />
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             <Footer />
 
@@ -685,8 +664,8 @@ export default function ContentCreation() {
             >
                 <div className="glass-morphism rounded-2xl border border-white/20 p-2 shadow-2xl pointer-events-auto">
                     <a
-                        href="#strategy"
-                        className="w-full py-4 bg-brand-medium text-white font-bold rounded-xl flex items-center justify-center gap-3 uppercase tracking-widest text-xs"
+                        href="#consultation"
+                        className="w-full py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white font-bold rounded-xl flex items-center justify-center gap-3 uppercase tracking-widest text-xs"
                     >
                         Free Strategy Call <ArrowRight className="w-4 h-4" />
                     </a>

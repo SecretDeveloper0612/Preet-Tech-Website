@@ -6,7 +6,7 @@ import { validateEmail } from '@/lib/validateEmail';
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { name, businessName, email, phone, budget } = body;
+        const { name, businessName, email, phone, industry, budget, service } = body;
 
         // Basic validation
         if (!name || !email || !phone) {
@@ -36,22 +36,57 @@ export async function POST(req: Request) {
         });
 
         const leadData = {
+            service: service || 'General Inquiry',
             name: name.trim(),
             businessName: (businessName || '').trim(),
             email: email.trim(),
             phone: phone.trim(),
-            budget: budget || '₹5k - ₹10k',
+            industry: industry || 'Not specified',
+            budget: budget || '₹19,999',
         };
 
         // 1️⃣ Save to Google Sheets
-        await googleSheetsService.addEcoLead(leadData);
+        console.log(`[API/Leads] Saving lead for ${leadData.name} to Sheets...`);
+        if (leadData.service === 'App Development') {
+            await googleSheetsService.addAppLead(leadData);
+        } else if (leadData.service === 'Software Development') {
+            await googleSheetsService.addSoftwareLead(leadData);
+        } else if (leadData.service === 'Performance Marketing') {
+            await googleSheetsService.addMarketingLead(leadData);
+        } else if (leadData.service === 'Advance Website') {
+            await googleSheetsService.addAdvanceWebsiteLead(leadData);
+        } else if (leadData.service === 'Social Media Handling') {
+            await googleSheetsService.addSocialMediaLead(leadData);
+        } else if (leadData.service === 'Partnership Marketing') {
+            await googleSheetsService.addPartnershipMarketingLead(leadData);
+        } else if (leadData.service === 'Content Creation') {
+            await googleSheetsService.addContentCreationLead(leadData);
+        } else if (leadData.service === 'Start Business') {
+            await googleSheetsService.addStartBusinessLead(leadData);
+        } else {
+            await googleSheetsService.addEcoLead(leadData);
+        }
 
-        // 2️⃣ Send admin notification email (non-blocking — won't fail the request if email errors)
+        // 2️⃣ Send admin notification email (non-blocking)
         emailService.sendEcoLeadNotification({
             ...leadData,
             submittedAt,
+        }).then(sent => {
+            console.log(`[API/Leads] Admin notification result house: ${sent}`);
         }).catch((err) => {
-            console.error('Admin email notification failed (non-fatal):', err);
+            console.error('[API/Leads] Admin email notification failed:', err);
+        });
+
+        // 3️⃣ Send Thank You email to user (non-blocking)
+        emailService.sendEcoLeadThankYouEmail({
+            name: leadData.name,
+            email: leadData.email,
+            industry: leadData.industry,
+            service: leadData.service,
+        }).then(sent => {
+            console.log(`[API/Leads] User thank you email result: ${sent}`);
+        }).catch((err) => {
+            console.error('[API/Leads] User thank you email failed:', err);
         });
 
         return NextResponse.json(

@@ -1,0 +1,112 @@
+
+> preet-tech-next-gen-digital-agency@0.1.0 build
+> next build
+
+⚠ Warning: Next.js inferred your workspace root, but it may not be correct.
+ We detected multiple lockfiles and selected the directory of /Users/haldwani/Documents/Working/package-lock.json as the root directory.
+ To silence this warning, set `turbopack.root` in your Next.js config, or consider removing one of the lockfiles if it's not needed.
+   See https://nextjs.org/docs/app/api-reference/config/next-config-js/turbopack#root-directory for more information.
+ Detected additional lockfiles: 
+   * /Users/haldwani/Documents/Working/preet-tech-next-gen-digital-agency 2/package-lock.json
+
+▲ Next.js 16.1.6 (Turbopack)
+- Environments: .env.local
+
+  Creating an optimized production build ...
+
+> Build error occurred
+Error: Turbopack build failed with 5 errors:
+./preet-tech-next-gen-digital-agency 2/app/services/advance-website/page.tsx:69:36
+Parsing ecmascript source code failed
+[0m [90m 67 |[39m                     {[90m/* Pulsing Gradient Orbs */[39m}
+ [90m 68 |[39m                     [33m<[39m[33mdiv[39m
+[31m[1m>[22m[39m[90m 69 |[39m                             scale[33m:[39m [[35m1[39m[33m,[39m [35m1.3[39m[33m,[39m [35m1[39m][33m,[39m
+ [90m    |[39m                                    [31m[1m^[22m[39m
+ [90m 70 |[39m                             x[33m:[39m [[35m0[39m[33m,[39m [35m60[39m[33m,[39m [35m0[39m][33m,[39m
+ [90m 71 |[39m                             y[33m:[39m [[35m0[39m[33m,[39m [33m-[39m[35m40[39m[33m,[39m [35m0[39m][33m,[39m
+ [90m 72 |[39m                             opacity[33m:[39m [[35m0.15[39m[33m,[39m [35m0.3[39m[33m,[39m [35m0.15[39m][0m
+
+Expected '</', got '['
+
+
+./preet-tech-next-gen-digital-agency 2/app/services/content-creation/page.tsx:92:36
+Parsing ecmascript source code failed
+[0m [90m 90 |[39m                 [33m<[39m[33mdiv[39m className[33m=[39m[32m"absolute inset-0 pointer-events-none -z-10"[39m[33m>[39m
+ [90m 91 |[39m                     [33m<[39m[33mdiv[39m
+[31m[1m>[22m[39m[90m 92 |[39m                             scale[33m:[39m [[35m1[39m[33m,[39m [35m1.2[39m[33m,[39m [35m1[39m][33m,[39m
+ [90m    |[39m                                    [31m[1m^[22m[39m
+ [90m 93 |[39m                             opacity[33m:[39m [[35m0.1[39m[33m,[39m [35m0.2[39m[33m,[39m [35m0.1[39m][33m,[39m
+ [90m 94 |[39m                             rotate[33m:[39m [[35m0[39m[33m,[39m [35m90[39m[33m,[39m [35m0[39m]
+ [90m 95 |[39m                         }}[0m
+
+Expected '</', got '['
+
+
+./preet-tech-next-gen-digital-agency 2/app/services/software-development/page.tsx:543:50
+Parsing ecmascript source code failed
+[0m [90m 541 |[39m                             [33m<[39m[33mdiv[39m
+ [90m 542 |[39m                                 key[33m=[39m{i}
+[31m[1m>[22m[39m[90m 543 |[39m                                     opacity[33m:[39m [33mMath[39m[33m.[39mabs(i [33m-[39m activeIndex) [33m>[39m [35m2[39m [33m?[39m [35m0.3[39m [33m:[39m [35m1[39m[33m,[39m
+ [90m     |[39m                                                  [31m[1m^[22m[39m
+ [90m 544 |[39m                                     scale[33m:[39m i [33m===[39m activeIndex [33m?[39m [35m1[39m [33m:[39m [35m0.95[39m
+ [90m 545 |[39m                                 }}
+ [90m 546 |[39m                                 className[33m=[39m[32m"shrink-0 group relative"[39m[0m
+
+Expected '</', got '.'
+
+
+./preet-tech-next-gen-digital-agency 2/components/ContactCTA.tsx:38:28
+Parsing ecmascript source code failed
+[0m [90m 36 |[39m             {[90m/* Animated Orbs */[39m}
+ [90m 37 |[39m             [33m<[39m[33mdiv[39m
+[31m[1m>[22m[39m[90m 38 |[39m                     scale[33m:[39m [[35m1[39m[33m,[39m [35m1.2[39m[33m,[39m [35m1[39m][33m,[39m
+ [90m    |[39m                            [31m[1m^[22m[39m
+ [90m 39 |[39m                     opacity[33m:[39m [[35m0.3[39m[33m,[39m [35m0.5[39m[33m,[39m [35m0.3[39m][33m,[39m
+ [90m 40 |[39m                     x[33m:[39m [[35m0[39m[33m,[39m [35m50[39m[33m,[39m [35m0[39m][33m,[39m
+ [90m 41 |[39m                     y[33m:[39m [[35m0[39m[33m,[39m [33m-[39m[35m30[39m[33m,[39m [35m0[39m][0m
+
+Expected '</', got '['
+
+Import traces:
+  Client Component Browser:
+    ./preet-tech-next-gen-digital-agency 2/components/ContactCTA.tsx [Client Component Browser]
+    ./preet-tech-next-gen-digital-agency 2/app/services/page.tsx [Client Component Browser]
+    ./preet-tech-next-gen-digital-agency 2/app/services/page.tsx [Server Component]
+
+  Client Component SSR:
+    ./preet-tech-next-gen-digital-agency 2/components/ContactCTA.tsx [Client Component SSR]
+    ./preet-tech-next-gen-digital-agency 2/app/services/page.tsx [Client Component SSR]
+    ./preet-tech-next-gen-digital-agency 2/app/services/page.tsx [Server Component]
+
+
+./preet-tech-next-gen-digital-agency 2/components/CustomCursor.tsx:40:31
+Parsing ecmascript source code failed
+[0m [90m 38 |[39m         [33m<[39m[33mdiv[39m
+ [90m 39 |[39m           className[33m=[39m[32m"bg-indigo-500 rounded-full"[39m
+[31m[1m>[22m[39m[90m 40 |[39m             width[33m:[39m isHovering [33m?[39m [35m48[39m [33m:[39m [35m8[39m[33m,[39m
+ [90m    |[39m                               [31m[1m^[22m[39m
+ [90m 41 |[39m             height[33m:[39m isHovering [33m?[39m [35m48[39m [33m:[39m [35m8[39m[33m,[39m
+ [90m 42 |[39m             opacity[33m:[39m isHovering [33m?[39m [35m0.15[39m [33m:[39m [35m1[39m[33m,[39m
+ [90m 43 |[39m           }}[0m
+
+Expected '</', got '?'
+
+Import traces:
+  Client Component Browser:
+    ./preet-tech-next-gen-digital-agency 2/components/CustomCursor.tsx [Client Component Browser]
+    ./preet-tech-next-gen-digital-agency 2/app/client-layout.tsx [Client Component Browser]
+    ./preet-tech-next-gen-digital-agency 2/app/client-layout.tsx [Server Component]
+    ./preet-tech-next-gen-digital-agency 2/app/layout.tsx [Server Component]
+
+  Client Component SSR:
+    ./preet-tech-next-gen-digital-agency 2/components/CustomCursor.tsx [Client Component SSR]
+    ./preet-tech-next-gen-digital-agency 2/app/client-layout.tsx [Client Component SSR]
+    ./preet-tech-next-gen-digital-agency 2/app/client-layout.tsx [Server Component]
+    ./preet-tech-next-gen-digital-agency 2/app/layout.tsx [Server Component]
+
+
+    at <unknown> (./preet-tech-next-gen-digital-agency 2/app/services/advance-website/page.tsx:69:36)
+    at <unknown> (./preet-tech-next-gen-digital-agency 2/app/services/content-creation/page.tsx:92:36)
+    at <unknown> (./preet-tech-next-gen-digital-agency 2/app/services/software-development/page.tsx:543:50)
+    at <unknown> (./preet-tech-next-gen-digital-agency 2/components/ContactCTA.tsx:38:28)
+    at <unknown> (./preet-tech-next-gen-digital-agency 2/components/CustomCursor.tsx:40:31)

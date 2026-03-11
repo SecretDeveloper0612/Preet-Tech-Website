@@ -22,9 +22,77 @@ const jetbrains = JetBrains_Mono({
     display: 'swap',
 });
 
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://preettech.com';
+
 export const metadata: Metadata = {
-    title: "Preet Tech | Next Gen Digital Agency",
-    description: "Architecting digital universes where precision meets imagination. We deploy hyper-scale solutions for the brands of tomorrow.",
+    metadataBase: new URL(baseUrl),
+    title: {
+        default: "Preet Tech | Next Gen Digital Agency & IT Solutions",
+        template: "%s | Preet Tech - Digital Transformation Agency",
+    },
+    description: "Preet Tech is a top Next Gen Digital Agency offering custom software development, AI-driven marketing, web and app development, and enterprise IT solutions.",
+    keywords: ["Next Gen Digital Agency", "Top Digital Marketing & IT Agency", "custom software development", "AI-driven marketing", "SEO optimization services", "web and app development company", "enterprise IT solutions", "generative AI integration", "digital transformation services", "e-commerce development", "performance marketing agency", "cloud migration services", "B2B digital agency", "scalable tech solutions", "brand identity design"],
+    openGraph: {
+        title: "Preet Tech | Next Gen Digital Agency & IT Solutions",
+        description: "Transform your business with Preet Tech, a leading digital agency and IT partner. We specialize in custom software development, digital marketing, and AI integration to accelerate your growth.",
+        url: baseUrl,
+        siteName: "Preet Tech",
+        type: "website",
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Preet Tech | Next Gen Digital Agency & IT Solutions",
+        description: "Transform your business with Preet Tech, a leading digital agency and IT partner specializing in custom software and AI-driven marketing.",
+        creator: "@preettech",
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1,
+        },
+    },
+    alternates: {
+        canonical: "/",
+    },
+};
+
+const schemaOrg = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Organization",
+            "@id": `${baseUrl}/#organization`,
+            "name": "Preet Tech",
+            "url": baseUrl,
+            "logo": {
+                "@type": "ImageObject",
+                "url": `${baseUrl}/icon.png`
+            },
+            "sameAs": [
+                "https://twitter.com/preettech",
+                "https://linkedin.com/company/preettech"
+            ]
+        },
+        {
+            "@type": "WebSite",
+            "@id": `${baseUrl}/#website`,
+            "url": baseUrl,
+            "name": "Preet Tech",
+            "publisher": {
+                "@id": `${baseUrl}/#organization`
+            },
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": `${baseUrl}/blog?q={search_term_string}`,
+                "query-input": "required name=search_term_string"
+            }
+        }
+    ]
 };
 
 export default function RootLayout({
@@ -34,6 +102,12 @@ export default function RootLayout({
 }>) {
     return (
         <html lang="en" className={`${jakarta.variable} ${outfit.variable} ${jetbrains.variable}`} suppressHydrationWarning>
+            <head>
+                <script
+                    type="application/ld+json"
+                    dangerouslySetInnerHTML={{ __html: JSON.stringify(schemaOrg) }}
+                />
+            </head>
             <body className="antialiased font-sans bg-background text-foreground selection:bg-brand-medium/30 transition-colors duration-300" suppressHydrationWarning>
                 <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
                     <ClientLayout>

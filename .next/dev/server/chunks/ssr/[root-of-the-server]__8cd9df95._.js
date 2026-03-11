@@ -177,42 +177,142 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen
 ;
 ;
 ;
+const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://preettech.com';
 const metadata = {
-    title: "Preet Tech | Next Gen Digital Agency",
-    description: "Architecting digital universes where precision meets imagination. We deploy hyper-scale solutions for the brands of tomorrow."
+    metadataBase: new URL(baseUrl),
+    title: {
+        default: "Preet Tech | Next Gen Digital Agency & IT Solutions",
+        template: "%s | Preet Tech - Digital Transformation Agency"
+    },
+    description: "Preet Tech is a top Next Gen Digital Agency offering custom software development, AI-driven marketing, web and app development, and enterprise IT solutions.",
+    keywords: [
+        "Next Gen Digital Agency",
+        "Top Digital Marketing & IT Agency",
+        "custom software development",
+        "AI-driven marketing",
+        "SEO optimization services",
+        "web and app development company",
+        "enterprise IT solutions",
+        "generative AI integration",
+        "digital transformation services",
+        "e-commerce development",
+        "performance marketing agency",
+        "cloud migration services",
+        "B2B digital agency",
+        "scalable tech solutions",
+        "brand identity design"
+    ],
+    openGraph: {
+        title: "Preet Tech | Next Gen Digital Agency & IT Solutions",
+        description: "Transform your business with Preet Tech, a leading digital agency and IT partner. We specialize in custom software development, digital marketing, and AI integration to accelerate your growth.",
+        url: baseUrl,
+        siteName: "Preet Tech",
+        type: "website"
+    },
+    twitter: {
+        card: "summary_large_image",
+        title: "Preet Tech | Next Gen Digital Agency & IT Solutions",
+        description: "Transform your business with Preet Tech, a leading digital agency and IT partner specializing in custom software and AI-driven marketing.",
+        creator: "@preettech"
+    },
+    robots: {
+        index: true,
+        follow: true,
+        googleBot: {
+            index: true,
+            follow: true,
+            'max-video-preview': -1,
+            'max-image-preview': 'large',
+            'max-snippet': -1
+        }
+    },
+    alternates: {
+        canonical: "/"
+    }
+};
+const schemaOrg = {
+    "@context": "https://schema.org",
+    "@graph": [
+        {
+            "@type": "Organization",
+            "@id": `${baseUrl}/#organization`,
+            "name": "Preet Tech",
+            "url": baseUrl,
+            "logo": {
+                "@type": "ImageObject",
+                "url": `${baseUrl}/icon.png`
+            },
+            "sameAs": [
+                "https://twitter.com/preettech",
+                "https://linkedin.com/company/preettech"
+            ]
+        },
+        {
+            "@type": "WebSite",
+            "@id": `${baseUrl}/#website`,
+            "url": baseUrl,
+            "name": "Preet Tech",
+            "publisher": {
+                "@id": `${baseUrl}/#organization`
+            },
+            "potentialAction": {
+                "@type": "SearchAction",
+                "target": `${baseUrl}/blog?q={search_term_string}`,
+                "query-input": "required name=search_term_string"
+            }
+        }
+    ]
 };
 function RootLayout({ children }) {
     return /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("html", {
         lang: "en",
         className: `${__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$plus_jakarta_sans_6cbc0d5f$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].variable} ${__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$outfit_9f4f9187$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].variable} ${__TURBOPACK__imported__module__$5b$next$5d2f$internal$2f$font$2f$google$2f$jetbrains_mono_f8290d5a$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"].variable}`,
         suppressHydrationWarning: true,
-        children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("body", {
-            className: "antialiased font-sans bg-background text-foreground selection:bg-brand-medium/30 transition-colors duration-300",
-            suppressHydrationWarning: true,
-            children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$components$2f$theme$2d$provider$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["ThemeProvider"], {
-                attribute: "class",
-                defaultTheme: "system",
-                enableSystem: true,
-                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$app$2f$client$2d$layout$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
-                    children: children
+        children: [
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("head", {
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("script", {
+                    type: "application/ld+json",
+                    dangerouslySetInnerHTML: {
+                        __html: JSON.stringify(schemaOrg)
+                    }
                 }, void 0, false, {
                     fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/layout.tsx",
-                    lineNumber: 39,
-                    columnNumber: 21
+                    lineNumber: 106,
+                    columnNumber: 17
                 }, this)
             }, void 0, false, {
                 fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/layout.tsx",
-                lineNumber: 38,
-                columnNumber: 17
+                lineNumber: 105,
+                columnNumber: 13
+            }, this),
+            /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])("body", {
+                className: "antialiased font-sans bg-background text-foreground selection:bg-brand-medium/30 transition-colors duration-300",
+                suppressHydrationWarning: true,
+                children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$components$2f$theme$2d$provider$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["ThemeProvider"], {
+                    attribute: "class",
+                    defaultTheme: "system",
+                    enableSystem: true,
+                    children: /*#__PURE__*/ (0, __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$dist$2f$server$2f$route$2d$modules$2f$app$2d$page$2f$vendored$2f$rsc$2f$react$2d$jsx$2d$dev$2d$runtime$2e$js__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["jsxDEV"])(__TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$app$2f$client$2d$layout$2e$tsx__$5b$app$2d$rsc$5d$__$28$ecmascript$29$__["default"], {
+                        children: children
+                    }, void 0, false, {
+                        fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/layout.tsx",
+                        lineNumber: 113,
+                        columnNumber: 21
+                    }, this)
+                }, void 0, false, {
+                    fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/layout.tsx",
+                    lineNumber: 112,
+                    columnNumber: 17
+                }, this)
+            }, void 0, false, {
+                fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/layout.tsx",
+                lineNumber: 111,
+                columnNumber: 13
             }, this)
-        }, void 0, false, {
-            fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/layout.tsx",
-            lineNumber: 37,
-            columnNumber: 13
-        }, this)
-    }, void 0, false, {
+        ]
+    }, void 0, true, {
         fileName: "[project]/preet-tech-next-gen-digital-agency 2/app/layout.tsx",
-        lineNumber: 36,
+        lineNumber: 104,
         columnNumber: 9
     }, this);
 }

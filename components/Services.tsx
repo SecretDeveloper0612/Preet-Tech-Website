@@ -105,17 +105,17 @@ const Services: React.FC = () => {
   const handleInfiniteScroll = () => {
     if (!scrollContainerRef.current) return;
 
-    const { scrollLeft, scrollWidth } = scrollContainerRef.current;
-    const singleSetWidth = scrollWidth / 3;
+    window.requestAnimationFrame(() => {
+      if (!scrollContainerRef.current) return;
+      const { scrollLeft, scrollWidth } = scrollContainerRef.current;
+      const singleSetWidth = scrollWidth / 3;
 
-    // If we've scrolled into the third set, jump back to the middle
-    if (scrollLeft >= singleSetWidth * 2) {
-      scrollContainerRef.current.scrollLeft = scrollLeft - singleSetWidth;
-    }
-    // If we've scrolled into the first set, jump forward to the middle
-    else if (scrollLeft <= singleSetWidth / 2) {
-      scrollContainerRef.current.scrollLeft = scrollLeft + singleSetWidth;
-    }
+      if (scrollLeft >= singleSetWidth * 2) {
+        scrollContainerRef.current.scrollLeft = scrollLeft - singleSetWidth;
+      } else if (scrollLeft <= 5) { // Small buffer for scrolling back
+        scrollContainerRef.current.scrollLeft = scrollLeft + singleSetWidth;
+      }
+    });
   };
 
   useEffect(() => {
@@ -201,31 +201,30 @@ const Services: React.FC = () => {
       <div className="max-w-7xl mx-auto px-6 relative z-10">
         {/* Responsive Header */}
         <div className="mb-6 md:mb-10 flex flex-col md:flex-row justify-between items-start md:items-end gap-6 md:gap-10">
-          <div className="space-y-2 md:space-y-4">
-
-
+          <div className="space-y-2 md:space-y-4 max-w-2xl">
+            <span className="text-sm md:text-base font-bold text-brand-medium tracking-widest uppercase">Digital Transformation Services</span>
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
               className="text-4xl sm:text-5xl md:text-7xl font-black text-foreground uppercase tracking-tighter leading-none"
             >
               Our Core <br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan italic font-black">Services.</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan italic font-black">Solutions.</span>
             </motion.h2>
+            <p className="text-slate-600 dark:text-slate-400 mt-4 text-base md:text-lg font-medium leading-relaxed">
+              As a premier <span className="font-bold text-foreground dark:text-white">web and app development company</span>, we empower brands with <span className="font-bold text-foreground dark:text-white">generative AI integration</span>, robust <span className="font-bold text-foreground dark:text-white">e-commerce development</span>, and <span className="font-bold text-foreground dark:text-white">B2B digital agency</span> expertise.
+            </p>
           </div>
 
           <div className="hidden md:flex items-center gap-4 mt-2 md:mt-0">
             <button
               onClick={() => scroll('left')}
-              className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-[#3994fa] dark:hover:bg-[#3994fa] hover:text-white dark:hover:text-white hover:border-[#3994fa] dark:hover:border-[#3994fa] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
+              className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:text-white dark:hover:text-white hover:border-transparent shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
               aria-label="Scroll left"
             >
               <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 stroke-[2px]" />
             </button>
             <button
               onClick={() => scroll('right')}
-              className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-[#3994fa] dark:hover:bg-[#3994fa] hover:text-white dark:hover:text-white hover:border-[#3994fa] dark:hover:border-[#3994fa] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
+              className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full flex items-center justify-center border-2 border-[#E9EEF4] dark:border-white/10 text-[#8C9FAF] hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:text-white dark:hover:text-white hover:border-transparent shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
               aria-label="Scroll right"
             >
               <ArrowRight className="w-5 h-5 md:w-6 md:h-6 stroke-[2px]" />
@@ -251,7 +250,7 @@ const Services: React.FC = () => {
               key={`${service.id}-${idx}`}
               className="service-card snap-center snap-always shrink-0"
             >
-              <div className="group w-[calc(100vw-48px)] md:w-[310px] h-[320px] md:h-[400px] relative rounded-[2rem] bg-slate-50/80 dark:bg-[#080c14] backdrop-blur-xl border border-slate-200/60 dark:border-white/[0.05] p-6 md:p-8 flex flex-col justify-between overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-none hover:shadow-2xl hover:shadow-brand-medium/10 transition-all duration-500 hover:-translate-y-2">
+              <div className="group w-[calc(100vw-48px)] md:w-[310px] h-[320px] md:h-[400px] relative rounded-[2rem] bg-slate-50/80 dark:bg-[#080c14]/40 border border-slate-200/60 dark:border-white/[0.05] p-6 md:p-8 flex flex-col justify-between overflow-hidden shadow-[0_20px_50px_rgba(0,0,0,0.05)] dark:shadow-none hover:shadow-2xl hover:shadow-brand-medium/10 transition-all duration-500 hover:-translate-y-2">
 
                 {/* Decorative Background Glow */}
                 <div className={`absolute -top-20 -right-20 w-64 h-64 bg-gradient-to-br ${service.bg} blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-1000`} />
@@ -303,7 +302,7 @@ const Services: React.FC = () => {
         <div className="mt-2 flex flex-col justify-center items-center gap-6 md:gap-8 border-t border-slate-50 dark:border-white/5 pt-6 md:pt-8">
           <Link
             href="/services"
-            className="px-8 py-3.5 rounded-full bg-brand-medium hover:bg-brand-medium/90 text-white text-[11px] font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-brand-medium/20 hover:-translate-y-0.5 transition-all duration-300 w-[180px]"
+            className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white text-[11px] font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#3994fa]/20 hover:-translate-y-0.5 transition-all duration-300 w-[180px]"
           >
             View more
             <ArrowRight className="w-4 h-4 ml-1" />

@@ -98,10 +98,28 @@
       "namedRegex": "^/contact(?:/)?$"
     },
     {
+      "page": "/cookie-policy",
+      "regex": "^/cookie\\-policy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/cookie\\-policy(?:/)?$"
+    },
+    {
       "page": "/icon.png",
       "regex": "^/icon\\.png(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/icon\\.png(?:/)?$"
+    },
+    {
+      "page": "/privacy-policy",
+      "regex": "^/privacy\\-policy(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/privacy\\-policy(?:/)?$"
+    },
+    {
+      "page": "/robots.txt",
+      "regex": "^/robots\\.txt(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/robots\\.txt(?:/)?$"
     },
     {
       "page": "/services",
@@ -140,10 +158,22 @@
       "namedRegex": "^/services/eco\\-website(?:/)?$"
     },
     {
+      "page": "/services/onboarding-mentores",
+      "regex": "^/services/onboarding\\-mentores(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/onboarding\\-mentores(?:/)?$"
+    },
+    {
       "page": "/services/partnership-marketing",
       "regex": "^/services/partnership\\-marketing(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/services/partnership\\-marketing(?:/)?$"
+    },
+    {
+      "page": "/services/party-dial",
+      "regex": "^/services/party\\-dial(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/services/party\\-dial(?:/)?$"
     },
     {
       "page": "/services/performance-marketing",
@@ -168,6 +198,18 @@
       "regex": "^/services/start\\-your\\-business(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/services/start\\-your\\-business(?:/)?$"
+    },
+    {
+      "page": "/sitemap.xml",
+      "regex": "^/sitemap\\.xml(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/sitemap\\.xml(?:/)?$"
+    },
+    {
+      "page": "/terms-of-service",
+      "regex": "^/terms\\-of\\-service(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/terms\\-of\\-service(?:/)?$"
     }
   ],
   "dataRoutes": [],

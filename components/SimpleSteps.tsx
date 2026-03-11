@@ -46,20 +46,12 @@ const SimpleSteps: React.FC = () => {
                 <div className="text-center mb-16 md:mb-24">
 
                     <motion.h2
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.1 }}
                         className="text-3xl md:text-5xl lg:text-7xl font-black text-foreground tracking-tighter mb-6 leading-tight uppercase"
                     >
                         THE GENESIS <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan">PROCESS.</span>
                     </motion.h2>
 
                     <motion.p
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
                         className="text-base md:text-xl text-slate-600 dark:text-slate-400 max-w-2xl mx-auto"
                     >
                         Growth doesn't have to be complicated. We've streamlined our process to take you from discovery to digital dominance.
@@ -75,10 +67,6 @@ const SimpleSteps: React.FC = () => {
                         {STEPS.map((step, index) => (
                             <motion.div
                                 key={step.id}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: index * 0.15 }}
                                 className="relative group"
                             >
                                 {/* Step Indicator */}
@@ -116,9 +104,6 @@ const SimpleSteps: React.FC = () => {
 
                 {/* Final CTA Visual */}
                 <motion.div
-                    initial={{ opacity: 0, y: 40 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
                     className="mt-16 md:mt-24 relative rounded-[2rem] md:rounded-[3rem] p-[1px] overflow-hidden group shadow-[0_8px_30px_rgb(0,0,0,0.06)] dark:shadow-2xl dark:shadow-brand-medium/5"
                 >
                     {/* Animated Gradient Border */}
@@ -141,7 +126,7 @@ const SimpleSteps: React.FC = () => {
                         </div>
 
                         <div className="relative z-10 shrink-0 w-full sm:w-auto">
-                            <button className="w-full lg:w-auto px-10 py-5 rounded-full bg-brand-medium text-white shadow-[0_0_40px_-10px_rgba(59,130,246,0.4)] font-black uppercase tracking-[0.2em] text-xs hover:bg-brand-medium/90 hover:scale-105 hover:shadow-[0_0_60px_-15px_rgba(59,130,246,0.6)] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 group/btn border border-white/10 relative overflow-hidden">
+                            <button className="w-full lg:w-auto px-10 py-5 rounded-full bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white shadow-[0_0_40px_-10px_rgba(57,148,250,0.4)] font-black uppercase tracking-[0.2em] text-xs hover:opacity-90 hover:scale-105 hover:shadow-[0_0_60px_-15px_rgba(57,148,250,0.6)] active:scale-95 transition-all duration-300 flex items-center justify-center gap-3 group/btn border border-white/10 relative overflow-hidden">
                                 <span className="relative z-10 flex items-center gap-2">
                                     Schedule an Audit
                                     <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-1 transition-transform" />

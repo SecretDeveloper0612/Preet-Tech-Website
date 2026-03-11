@@ -1,12 +1,12 @@
 "use client";
 import React, { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Search, Mail, ArrowRight, TrendingUp } from 'lucide-react';
 import { BLOG_POSTS, CATEGORIES } from '@/lib/blog-data';
 
 export default function BlogSidebar() {
     const recentPosts = BLOG_POSTS.slice(0, 3);
-    const popularPosts = BLOG_POSTS.slice(1, 4);
 
     const [subscribeEmail, setSubscribeEmail] = useState('');
     const [subscribeStatus, setSubscribeStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
@@ -43,38 +43,46 @@ export default function BlogSidebar() {
             setSubscribeMessage('Network Error. Please try again.');
         }
     };
+
     return (
-        <aside className="space-y-12 sticky top-32">
+        <aside className="space-y-8 sticky top-32">
+
             {/* Search Bar */}
-            <div className="bg-surface/40 dark:bg-[#0b0f1a]/60 border border-white/5 p-6 rounded-2xl">
-                <h3 className="text-sm font-bold uppercase tracking-widest mb-4">Search</h3>
+            <div className="bg-white dark:bg-[#0d1120] border border-slate-200 dark:border-white/10 p-5 rounded-2xl shadow-sm">
+                <h3 className="text-xs font-black uppercase tracking-widest mb-4 text-slate-700 dark:text-white">Search</h3>
                 <div className="relative">
-                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 w-4 h-4" />
+                    <Search className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3994fa] w-4 h-4" />
                     <input
                         type="text"
                         placeholder="Search insights..."
-                        className="w-full h-12 pl-12 pr-4 rounded-xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-sm"
+                        className="w-full h-11 pl-11 pr-4 rounded-xl bg-slate-50 dark:bg-[#1a2035] border border-slate-200 dark:border-white/10 focus:border-[#3994fa] focus:ring-2 focus:ring-[#3994fa]/10 outline-none transition-all text-sm text-slate-800 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
                     />
                 </div>
             </div>
 
             {/* Recent Posts */}
-            <div className="bg-surface/40 dark:bg-[#0b0f1a]/60 border border-white/5 p-6 rounded-2xl">
-                <h3 className="text-sm font-bold uppercase tracking-widest mb-6 flex items-center gap-2">
-                    <TrendingUp className="w-4 h-4 text-brand-cyan" />
+            <div className="bg-white dark:bg-[#0d1120] border border-slate-200 dark:border-white/10 p-5 rounded-2xl shadow-sm">
+                <h3 className="text-xs font-black uppercase tracking-widest mb-5 flex items-center gap-2 text-slate-700 dark:text-white">
+                    <TrendingUp className="w-4 h-4 text-[#3994fa]" />
                     Latest Posts
                 </h3>
-                <div className="space-y-6">
+                <div className="space-y-4">
                     {recentPosts.map((post) => (
-                        <Link key={post.id} href={`/blog/${post.slug}`} className="group flex gap-4">
-                            <div className="w-16 h-16 rounded-lg bg-slate-800 shrink-0 overflow-hidden">
-                                <div className="w-full h-full animate-pulse bg-slate-700" title={post.title} />
+                        <Link key={post.id} href={`/blog/${post.slug}`} className="group flex gap-3 items-start">
+                            <div className="w-16 h-16 rounded-xl shrink-0 overflow-hidden relative bg-slate-100 dark:bg-[#1a2035] border border-slate-200 dark:border-white/10">
+                                <Image
+                                    src={post.featuredImage}
+                                    alt={post.title}
+                                    fill
+                                    className="object-cover group-hover:scale-105 transition-transform duration-300"
+                                    sizes="64px"
+                                />
                             </div>
-                            <div>
-                                <h4 className="text-sm font-bold leading-snug group-hover:text-brand-cyan transition-colors line-clamp-2">
+                            <div className="flex-1 min-w-0">
+                                <h4 className="text-sm font-bold leading-snug text-slate-800 dark:text-white group-hover:text-[#3994fa] transition-colors line-clamp-2">
                                     {post.title}
                                 </h4>
-                                <span className="text-[10px] text-slate-500 uppercase font-bold tracking-wider mt-2 block">
+                                <span className="text-[10px] text-slate-400 dark:text-slate-500 uppercase font-bold tracking-wider mt-1.5 block">
                                     {post.date}
                                 </span>
                             </div>
@@ -83,54 +91,20 @@ export default function BlogSidebar() {
                 </div>
             </div>
 
-            {/* Newsletter Signup */}
-            <div className="bg-gradient-to-br from-brand-medium/20 to-brand-deep/20 border border-brand-medium/30 p-8 rounded-[2rem] relative overflow-hidden">
-                <div className="absolute top-0 right-0 p-4 opacity-10">
-                    <Mail className="w-16 h-16" />
-                </div>
-                <div className="relative z-10">
-                    <h3 className="text-xl font-bold mb-3 tracking-tight">Growth Insights Weekly</h3>
-                    <p className="text-slate-400 text-xs leading-relaxed mb-6">
-                        Join 5,000+ founders and marketers getting our best growth strategies.
-                    </p>
-                    <form onSubmit={handleSubscribe} className="space-y-3 relative">
-                        <input
-                            type="email"
-                            placeholder="Email address"
-                            value={subscribeEmail}
-                            onChange={(e) => setSubscribeEmail(e.target.value)}
-                            required
-                            disabled={subscribeStatus === 'loading'}
-                            className="w-full h-12 px-4 rounded-xl bg-white/5 border border-white/10 focus:border-brand-sky/40 outline-none transition-all text-sm disabled:opacity-50 text-slate-900 dark:text-white"
-                        />
-                        <button
-                            type="submit"
-                            disabled={subscribeStatus === 'loading'}
-                            className="w-full h-12 bg-[#3994fa] text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:shadow-lg hover:shadow-[#3994fa]/25 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
-                        >
-                            {subscribeStatus === 'loading' ? 'SUBSCRIBING...' : 'SUBSCRIBE NOW'}
-                        </button>
-                        {subscribeMessage && (
-                            <p className={`text-xs mt-2 font-bold ${subscribeStatus === 'success' ? 'text-[#3994fa]' : 'text-red-500'}`}>
-                                {subscribeMessage}
-                            </p>
-                        )}
-                    </form>
-                </div>
-            </div>
-
             {/* Categories */}
-            <div className="bg-surface/40 dark:bg-[#0b0f1a]/60 border border-white/5 p-6 rounded-2xl">
-                <h3 className="text-sm font-bold uppercase tracking-widest mb-6">All Categories</h3>
-                <div className="space-y-2">
+            <div className="bg-white dark:bg-[#0d1120] border border-slate-200 dark:border-white/10 p-5 rounded-2xl shadow-sm">
+                <h3 className="text-xs font-black uppercase tracking-widest mb-4 text-slate-700 dark:text-white">All Categories</h3>
+                <div className="space-y-1">
                     {CATEGORIES.map((cat) => (
                         <Link
                             key={cat}
                             href={`/blog?category=${cat.replace(/\s+/g, '-').toLowerCase()}`}
-                            className="flex items-center justify-between p-3 rounded-lg hover:bg-white/5 transition-colors group"
+                            className="flex items-center justify-between px-3 py-2.5 rounded-lg hover:bg-slate-50 dark:hover:bg-white/5 transition-colors group"
                         >
-                            <span className="text-sm text-slate-400 group-hover:text-brand-cyan transition-colors">{cat}</span>
-                            <span className="text-xs text-slate-600">
+                            <span className="text-sm text-slate-600 dark:text-slate-400 group-hover:text-[#3994fa] transition-colors font-medium">
+                                {cat}
+                            </span>
+                            <span className="text-xs font-bold text-slate-400 dark:text-slate-600 bg-slate-100 dark:bg-white/5 px-2 py-0.5 rounded-full">
                                 {BLOG_POSTS.filter(p => p.category === cat).length}
                             </span>
                         </Link>
@@ -138,20 +112,64 @@ export default function BlogSidebar() {
                 </div>
             </div>
 
+            {/* Newsletter Signup */}
+            <div className="bg-white dark:bg-[#0d1120] border border-slate-200 dark:border-[#3994fa]/20 p-6 rounded-2xl shadow-sm relative overflow-hidden">
+                {/* Top accent line */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#3994fa] to-[#004aad] rounded-t-2xl" />
+                <div className="relative z-10 pt-2">
+                    <div className="flex items-center gap-2 mb-3">
+                        <div className="w-7 h-7 rounded-lg bg-[#3994fa]/10 flex items-center justify-center">
+                            <Mail className="w-3.5 h-3.5 text-[#3994fa]" />
+                        </div>
+                        <h3 className="text-sm font-black text-slate-800 dark:text-white tracking-tight">Growth Insights Weekly</h3>
+                    </div>
+                    <p className="text-slate-500 dark:text-slate-400 text-xs leading-relaxed mb-5">
+                        Join 5,000+ founders getting our best growth strategies every week.
+                    </p>
+                    <form onSubmit={handleSubscribe} className="space-y-2.5">
+                        <input
+                            type="email"
+                            placeholder="Email address"
+                            value={subscribeEmail}
+                            onChange={(e) => setSubscribeEmail(e.target.value)}
+                            required
+                            disabled={subscribeStatus === 'loading'}
+                            className="w-full h-11 px-4 rounded-xl bg-slate-50 dark:bg-[#1a2035] border border-slate-200 dark:border-white/10 focus:border-[#3994fa] focus:ring-2 focus:ring-[#3994fa]/10 outline-none transition-all text-sm text-slate-800 dark:text-white placeholder:text-slate-400 disabled:opacity-50"
+                        />
+                        <button
+                            type="submit"
+                            disabled={subscribeStatus === 'loading'}
+                            className="w-full h-11 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-xl font-bold text-xs uppercase tracking-widest hover:opacity-90 hover:shadow-lg hover:shadow-[#3994fa]/20 transition-all active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed"
+                        >
+                            {subscribeStatus === 'loading' ? 'SUBSCRIBING...' : 'SUBSCRIBE NOW'}
+                        </button>
+                        {subscribeMessage && (
+                            <p className={`text-xs mt-1 font-bold ${subscribeStatus === 'success' ? 'text-[#3994fa]' : 'text-red-500'}`}>
+                                {subscribeMessage}
+                            </p>
+                        )}
+                    </form>
+                </div>
+            </div>
+
             {/* CTA Box */}
-            <div className="bg-brand-medium text-white p-8 rounded-[2rem] relative overflow-hidden">
+            <div className="bg-gradient-to-br from-[#3994fa] to-[#004aad] text-white p-6 rounded-2xl relative overflow-hidden shadow-lg shadow-[#3994fa]/20">
+                <div className="absolute -bottom-8 -right-8 w-32 h-32 bg-white/10 blur-[40px] rounded-full pointer-events-none" />
+                <div className="absolute top-0 left-0 right-0 bottom-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.1),transparent_60%)] pointer-events-none" />
                 <div className="relative z-10">
-                    <h3 className="text-2xl font-black mb-4 leading-tight">Ready to Scale Your Digital Presence?</h3>
-                    <p className="text-white/80 text-sm mb-8 leading-relaxed">
+                    <h3 className="text-lg font-black mb-2 leading-tight">Ready to Scale Your Digital Presence?</h3>
+                    <p className="text-white/70 text-xs mb-5 leading-relaxed">
                         Book a free discovery call with our experts today.
                     </p>
-                    <button className="w-full py-4 bg-white text-brand-medium rounded-xl font-bold text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-slate-50 transition-colors">
-                        Book Free Strategy Call <ArrowRight className="w-4 h-4" />
-                    </button>
+                    <Link
+                        href="/contact"
+                        className="w-full py-3 bg-white text-[#3994fa] rounded-xl font-black text-xs uppercase tracking-widest flex items-center justify-center gap-2 hover:bg-white/90 transition-all active:scale-95 shadow-md"
+                    >
+                        Book Free Strategy Call <ArrowRight className="w-3.5 h-3.5" />
+                    </Link>
                 </div>
-                {/* Background glow */}
-                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-white/20 blur-[60px] rounded-full" />
             </div>
+
         </aside>
     );
 }

@@ -17,9 +17,9 @@ interface BlogCardProps {
 export default function BlogCard({ post }: BlogCardProps) {
     return (
         <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            
+            
+            
             whileHover={{ y: -8 }}
             className="group flex flex-col bg-white dark:bg-slate-900 border border-slate-100 dark:border-white/5 rounded-[2rem] overflow-hidden transition-all duration-500 hover:shadow-[0_50px_100px_-20px_rgba(95,211,230,0.12)] hover:border-brand-cyan/20"
         >

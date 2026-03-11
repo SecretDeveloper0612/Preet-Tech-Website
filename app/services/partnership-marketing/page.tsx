@@ -31,35 +31,96 @@ import {
     ExternalLink,
     Search,
     BarChart,
-    Check
+    Check,
+    Play,
+    X,
+    ChevronDown,
+    Activity
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ThreeSphereScene from '@/components/ThreeSphere';
+import PhoneInput from '@/components/PhoneInput';
+
+// --- 🛰️ Lightweight Static Background (CSS-only, no JS animations) ---
+const TechnicalBackground = ({ isDarkMode }: { isDarkMode: boolean }) => (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+        {/* Static mesh grid — CSS background-image, zero JS cost */}
+        <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+                backgroundImage: `linear-gradient(to right, #3994fa 1px, transparent 1px), linear-gradient(to bottom, #3994fa 1px, transparent 1px)`,
+                backgroundSize: '40px 40px',
+            }}
+        />
+        {/* Two static ambient glows — no animation, GPU-composited */}
+        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#3994fa]/5 blur-[100px] rounded-full opacity-60" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#3994fa]/5 blur-[100px] rounded-full opacity-40" />
+    </div>
+);
+
 
 export default function PartnershipMarketing() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [mounted, setMounted] = useState(false);
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    // Lead Form State
+    const [formData, setFormData] = useState({
+        name: '',
+        businessName: '',
+        email: '',
+        phone: '',
+        countryCode: '+91',
+        budget: 'Revenue Share',
+        industry: 'Not specified',
+    });
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleFormSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitStatus('loading');
+        try {
+            const res = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...formData,
+                    phone: `${formData.countryCode} ${formData.phone}`,
+                    service: 'Partnership Marketing'
+                })
+            });
+            if (res.ok) {
+                setSubmitStatus('success');
+                setFormData({ name: '', businessName: '', email: '', phone: '', countryCode: '+91', budget: 'Revenue Share', industry: 'Not specified' });
+                setTimeout(() => setSubmitStatus('idle'), 5000);
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error("Form submission error:", error);
+            setSubmitStatus('error');
+        }
+    };
 
     // Initial theme setup and mount check
     useEffect(() => {
         setMounted(true);
-        const isDark = false;
-        setIsDarkMode(isDark);
+        const stored = localStorage.getItem('theme');
+        setIsDarkMode(stored === 'dark');
     }, []);
 
     const toggleTheme = () => {
-        const newMode = !isDarkMode;
-        setIsDarkMode(newMode);
-        if (newMode) {
-            /* handled by next-themes */
-        } else {
-            /* handled by next-themes */
-        }
+        const next = !isDarkMode;
+        setIsDarkMode(next);
+        localStorage.setItem('theme', next ? 'dark' : 'light');
     };
 
     if (!mounted) {
         return <div className="min-h-screen bg-background" />;
     }
+
 
     const whatWeDoItems = [
         {
@@ -262,154 +323,112 @@ export default function PartnershipMarketing() {
 
             {/* Sticky Mobile CTA */}
             <div className="fixed bottom-0 left-0 right-0 z-[100] p-4 lg:hidden border-t border-slate-200 dark:border-white/10 bg-white/80 dark:bg-slate-950/80 backdrop-blur-xl">
-                <button className="w-full py-4 bg-brand-cyan text-slate-950 rounded-xl font-black text-xs uppercase tracking-[0.2em] shadow-lg active:scale-95 transition-transform">
+                <button onClick={() => document.getElementById('consultation')?.scrollIntoView({ behavior: 'smooth' })} className="w-full py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-xl font-black text-xs uppercase tracking-[0.2em] shadow-lg active:scale-95 transition-transform">
                     Book Strategy Call
                 </button>
             </div>
 
             {/* 1️⃣ Hero Section */}
-            <section className="relative min-h-[90vh] pt-32 pb-20 px-6 flex items-center overflow-hidden">
-                <div className="absolute inset-0 z-0">
-                    <div className="absolute top-0 left-0 w-full h-[800px] bg-[radial-gradient(circle_at_50%_0%,rgba(95,211,230,0.15)_0%,transparent_60%)]" />
-                    <div className="absolute top-1/4 -left-20 w-[600px] h-[600px] bg-brand-cyan/10 blur-[140px] rounded-full animate-pulse" />
-                </div>
+            <section className="relative pt-32 pb-12 lg:pt-48 lg:pb-32 px-6 overflow-hidden">
+                <TechnicalBackground isDarkMode={isDarkMode} />
+                <ThreeSphereScene />
 
-                <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
-                    {/* Left Side: Content */}
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.8 }}
-                        className="hero-content"
-                    >
-                        <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-cyan/10 border border-brand-cyan/20 text-brand-cyan text-[11px] font-bold uppercase tracking-[0.2em] mb-8">
-                            <span className="w-2 h-2 rounded-full bg-brand-cyan animate-pulse" />
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
+                    <div className="space-y-6 lg:space-y-8 hero-content text-center lg:text-left">
+                        <motion.span
+                            className="inline-block px-4 py-1 rounded-full bg-[#3994fa]/10 dark:bg-[#3994fa]/10 text-[#3994fa] dark:text-[#3994fa] text-[10px] md:text-xs font-bold uppercase tracking-widest border border-[#3994fa]/20 dark:border-[#3994fa]/20"
+                        >
                             Performance-Driven Partnerships
-                        </div>
+                        </motion.span>
+                        <motion.h1
+                            className="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tighter leading-[1.1] text-slate-900 dark:text-white"
+                        >
+                            Partnership Marketing <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3994fa] to-[#1e293b] dark:to-white">Starting on Revenue Share.</span>
+                        </motion.h1>
+                        <motion.p
+                            className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium"
+                        >
+                            Grow your sales with zero upfront risk. We bridge the gap between complementary brands, driving measurable results where you only pay on performance.
+                        </motion.p>
+                        <motion.div
+                            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
+                        >
+                            <button onClick={() => setIsVideoOpen(true)} className="px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white rounded-full font-bold transition-all transform hover:-translate-y-1 shadow-lg shadow-[#3994fa]/25 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer">
+                                Watch Demo <Play className="w-4 h-4 fill-white" />
+                            </button>
+                        </motion.div>
+                    </div>
 
-                        <h1 className="text-5xl md:text-8xl font-black tracking-tight leading-[0.95] mb-8 text-slate-900 dark:text-white">
-                            Grow Sales with <br />
-                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan via-brand-medium to-brand-cyan bg-[length:200%_auto] italic">
-                                % Revenue Share
-                            </span> <br />
-                            Collabs.
-                        </h1>
-
-                        <p className="text-xl md:text-2xl text-slate-600 dark:text-slate-400 font-medium leading-relaxed mb-6 max-w-xl">
-                            We partner with brands and drive measurable sales — <span className="text-slate-900 dark:text-white font-bold underline decoration-brand-cyan decoration-4">you pay only on performance.</span>
-                        </p>
-
-                        <p className="text-lg text-slate-500 dark:text-slate-500 font-medium leading-relaxed mb-10 max-w-xl">
-                            Preet Tech creates strategic brand partnerships that generate real revenue, not just awareness. We build the engine that turns "exposure" into high-margin sales.
-                        </p>
-
-                        <div className="flex flex-wrap items-center gap-6">
-                            <div className="flex items-center gap-4 py-2.5 px-6 rounded-2xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-md">
-                                <div className="flex -space-x-3">
-                                    {[1, 2, 3, 4].map(i => (
-                                        <div key={i} className="w-10 h-10 rounded-full border-2 border-white dark:border-slate-900 bg-slate-100 dark:bg-slate-800 overflow-hidden shadow-lg">
-                                            <img src={`https://i.pravatar.cc/100?u=collab${i}`} alt="Partner" className="w-full h-full object-cover" />
-                                        </div>
-                                    ))}
-                                </div>
-                                <div>
-                                    <span className="block text-[10px] font-black uppercase tracking-widest text-slate-500 dark:text-slate-400">Trusted by</span>
-                                    <span className="text-sm font-black text-slate-900 dark:text-white">50+ Scaling Brands</span>
-                                </div>
-                            </div>
-                        </div>
-                    </motion.div>
-
-                    {/* Right Side: Lead Form */}
                     <motion.div
-                        initial={{ opacity: 0, x: 50 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.8, delay: 0.2 }}
-                        className="hero-form lg:pl-10"
+                        id="consultation"
+                        className="relative hero-content mt-8 lg:mt-0 w-full max-w-lg mx-auto lg:max-w-none scroll-mt-32"
                     >
-                        <div className="relative">
-                            <div className="absolute -inset-1 bg-gradient-to-r from-brand-cyan to-brand-medium rounded-[2.5rem] blur-2xl opacity-20" />
-
-                            <div className="relative bg-white dark:bg-slate-900/90 backdrop-blur-2xl rounded-[2.5rem] p-8 md:p-10 border border-slate-200 dark:border-white/10 shadow-2xl">
-                                <div className="mb-8">
-                                    <h3 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight mb-2 uppercase text-balance">Book Free Strategy Call</h3>
-                                    <p className="text-slate-500 dark:text-slate-400 text-sm font-medium">Let's audit your partnership potential.</p>
+                        <div className="bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-[2.5rem] shadow-2xl relative z-10 border border-slate-200 dark:border-slate-800">
+                            <form onSubmit={handleFormSubmit} className="space-y-6">
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Full Name</label>
+                                    <div className="relative group">
+                                        <User strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                        <input required type="text" value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="John Doe" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                    </div>
                                 </div>
-
-                                <form className="space-y-4">
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="space-y-1.5">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-cyan ml-1">Full Name</label>
-                                            <div className="relative">
-                                                <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                                <input type="text" placeholder="John Doe" className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-3.5 pl-11 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
-                                            </div>
-                                        </div>
-                                        <div className="space-y-1.5">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-cyan ml-1">Brand Name</label>
-                                            <div className="relative">
-                                                <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                                <input type="text" placeholder="Acme Inc" className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-3.5 pl-11 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
-                                            </div>
-                                        </div>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Business Name</label>
+                                    <div className="relative group">
+                                        <Building2 strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                        <input required type="text" value={formData.businessName || ''} onChange={(e) => setFormData({ ...formData, businessName: e.target.value })} placeholder="Your Company Ltd." className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
                                     </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="space-y-1.5">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-cyan ml-1">Website URL</label>
-                                            <div className="relative">
-                                                <Globe className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                                <input type="url" placeholder="yourbrand.com" className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-3.5 pl-11 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
-                                            </div>
-                                        </div>
-                                        <div className="space-y-1.5">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-cyan ml-1">Email</label>
-                                            <div className="relative">
-                                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                                <input type="email" placeholder="john@brand.com" className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-3.5 pl-11 pr-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                        <div className="space-y-1.5">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-cyan ml-1">Monthly Revenue</label>
-                                            <select className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-3.5 px-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium appearance-none">
-                                                <option className="bg-white dark:bg-slate-900" value="">Select Range</option>
-                                                <option value="<10k">&lt; $10k</option>
-                                                <option value="10k-50k">$10k - $50k</option>
-                                                <option value="50k-200k">$50k - $200k</option>
-                                                <option value="200k+">$200k+</option>
-                                            </select>
-                                        </div>
-                                        <div className="space-y-1.5">
-                                            <label className="text-[10px] font-black uppercase tracking-widest text-brand-cyan ml-1">Interest Type</label>
-                                            <select className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-3.5 px-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium appearance-none">
-                                                <option className="bg-white dark:bg-slate-900" value="">Select Interest</option>
-                                                <option value="collab">Brand Collab</option>
-                                                <option value="marketing">Joint Marketing</option>
-                                                <option value="jv">Revenue Share JV</option>
-                                                <option value="not_sure">Not Sure</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
+                                </div>
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                                     <div className="space-y-1.5">
-                                        <label className="text-[10px] font-black uppercase tracking-widest text-brand-cyan ml-1">Short Description</label>
-                                        <textarea rows={2} placeholder="Briefly describe your goals..." className="w-full bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 rounded-xl py-3.5 px-4 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium resize-none"></textarea>
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Email</label>
+                                        <div className="relative group">
+                                            <Mail strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                            <input required type="email" value={formData.email || ''} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="john@example.com" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                        </div>
                                     </div>
-
-                                    <button className="w-full group relative bg-brand-cyan text-slate-950 rounded-xl py-4 font-black text-xs uppercase tracking-[0.2em] hover:scale-[1.02] active:scale-[0.98] transition-all overflow-hidden shadow-xl shadow-brand-cyan/20">
-                                        <span className="relative z-10 flex items-center justify-center gap-2">
-                                            Book Strategy Call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                        </span>
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Phone</label>
+                                        <PhoneInput
+                                            value={formData.phone || ''}
+                                            onChange={(val) => setFormData({ ...formData, phone: val })}
+                                            countryCode={formData.countryCode}
+                                            onCountryCodeChange={(code) => setFormData({ ...formData, countryCode: code })}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Monthly Revenue</label>
+                                    <div className="relative group">
+                                        <CreditCard strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors pointer-events-none" />
+                                        <select required value={formData.budget} onChange={(e) => setFormData({ ...formData, budget: e.target.value })} className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all appearance-none text-slate-700 dark:text-slate-200 text-sm cursor-pointer">
+                                            <option value="Revenue Share">Pure Revenue Share</option>
+                                            <option value="₹1L - ₹5L">₹1L - ₹5L</option>
+                                            <option value="₹5L - ₹10L">₹5L - ₹10L</option>
+                                            <option value="₹10L+">₹10L+</option>
+                                        </select>
+                                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
+                                    </div>
+                                </div>
+                                <div className="pt-2">
+                                    <button disabled={submitStatus === "loading"} type="submit" className="w-full py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white font-black rounded-2xl transition-all shadow-[0_0_20px_rgba(63,143,204,0.2)] hover:shadow-[0_0_30px_rgba(63,143,204,0.4)] text-[13px] uppercase tracking-widest flex items-center justify-center gap-2">
+                                        {submitStatus === "loading" ? "Submitting..." : "Get Free Consultation"} <ArrowRight strokeWidth={2.5} className="w-4 h-4 ml-1" />
                                     </button>
-                                </form>
-                            </div>
+                                </div>
+                                {submitStatus === 'success' && (
+                                    <p className="text-emerald-500 text-xs font-bold text-center mt-2">Success! We will be in touch shortly.</p>
+                                )}
+                                {submitStatus === 'error' && (
+                                    <p className="text-red-500 text-xs font-bold text-center mt-2">Something went wrong. Please try again.</p>
+                                )}
+                            </form>
                         </div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-[#3994fa]/20 to-[#6366f1]/20 rounded-full blur-[100px] -z-10 animate-pulse" />
                     </motion.div>
                 </div>
             </section>
+
 
             {/* 2️⃣ What We Do: Partnership Marketing */}
             <section className="py-32 px-6 relative overflow-hidden bg-slate-50 dark:bg-slate-950/20">
@@ -428,10 +447,6 @@ export default function PartnershipMarketing() {
                         {whatWeDoItems.map((item, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
                                 className="group relative p-8 rounded-[2.5rem] bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/5 hover:border-brand-cyan/30 transition-all duration-500"
                             >
                                 <div className="w-14 h-14 rounded-2xl bg-brand-cyan/10 flex items-center justify-center mb-8 border border-brand-cyan/5 group-hover:bg-brand-cyan group-hover:text-slate-950 transition-all duration-500">
@@ -461,10 +476,6 @@ export default function PartnershipMarketing() {
                             {whyPreetTech.map((item, i) => (
                                 <motion.div
                                     key={i}
-                                    initial={{ opacity: 0, x: -20 }}
-                                    whileInView={{ opacity: 1, x: 0 }}
-                                    viewport={{ once: true }}
-                                    transition={{ duration: 0.5, delay: i * 0.1 }}
                                     className="flex gap-6 group"
                                 >
                                     <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center shrink-0 group-hover:bg-brand-cyan group-hover:text-slate-950 transition-all">
@@ -501,6 +512,7 @@ export default function PartnershipMarketing() {
                                                     <motion.div
                                                         initial={{ height: 0 }}
                                                         whileInView={{ height: `${20 + (i * 15)}%` }}
+                                                        viewport={{ once: true }}
                                                         transition={{ duration: 1, delay: i * 0.1 }}
                                                         className="absolute bottom-0 left-0 right-0 bg-brand-cyan"
                                                     />
@@ -541,10 +553,6 @@ export default function PartnershipMarketing() {
                         {steps.map((step, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, scale: 0.95 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
                                 className="group relative"
                             >
                                 <div className="text-8xl font-black text-white/5 absolute -top-8 -left-4 pointer-events-none group-hover:text-brand-cyan/10 transition-colors">
@@ -589,10 +597,6 @@ export default function PartnershipMarketing() {
                         {audiences.map((aud, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
                                 className="group p-10 rounded-[3rem] bg-white dark:bg-slate-900/40 border border-slate-200 dark:border-white/5 hover:border-brand-cyan/30 transition-all duration-500 shadow-lg"
                             >
                                 <div className="mb-10 p-5 rounded-2xl bg-slate-50 dark:bg-white/5 w-fit border border-slate-100 dark:border-white/10 group-hover:scale-110 transition-transform">
@@ -633,10 +637,6 @@ export default function PartnershipMarketing() {
                         {collabTypes.map((type, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, x: i % 2 === 0 ? -30 : 30 }}
-                                whileInView={{ opacity: 1, x: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5 }}
                                 className="flex gap-8 p-10 rounded-[2.5rem] bg-white dark:bg-slate-900/60 border border-slate-200 dark:border-white/10 hover:shadow-xl transition-all group"
                             >
                                 <div className="shrink-0 w-16 h-16 rounded-2xl bg-brand-cyan/10 flex items-center justify-center text-brand-cyan font-black text-2xl group-hover:bg-brand-cyan group-hover:text-slate-950 transition-all">
@@ -672,10 +672,6 @@ export default function PartnershipMarketing() {
                         {revenueModels.map((model, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
                                 className={`relative p-12 rounded-[3.5rem] flex flex-col transition-all duration-500 ${model.highlight ? 'bg-slate-900 text-white scale-105 z-10 shadow-2xl' : 'bg-white dark:bg-slate-900/30 border border-slate-200 dark:border-white/5'}`}
                             >
                                 {model.highlight && (
@@ -715,7 +711,7 @@ export default function PartnershipMarketing() {
                                     <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">All partnerships are managed through our proprietary tracking platform with custom dashboards.</p>
                                 </div>
                             </div>
-                            <button className="px-8 py-4 bg-slate-900 dark:bg-white text-white dark:text-slate-950 rounded-xl font-black text-xs uppercase tracking-widest hover:scale-105 transition-all">
+                            <button className="px-8 py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-95 text-white rounded-xl font-black text-xs uppercase tracking-widest transition-all">
                                 Learn About Tracking
                             </button>
                         </div>
@@ -736,59 +732,198 @@ export default function PartnershipMarketing() {
                     <p className="text-xl text-slate-500 dark:text-slate-400 font-medium mb-12 max-w-2xl mx-auto leading-relaxed">
                         We limit the number of active partnerships we manage to ensure maximum focus and execution. Skip the guesswork and tap into zero-risk performance-driven growth.
                     </p>
-                    <button className="px-12 py-5 bg-brand-cyan text-slate-950 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-slate-900 dark:hover:bg-white hover:text-white dark:hover:text-slate-950 transition-all transform hover:-translate-y-1 shadow-2xl shadow-brand-cyan/40">
+                    <button onClick={() => document.getElementById('consultation')?.scrollIntoView({ behavior: 'smooth' })} className="px-12 py-5 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-xl font-black text-sm uppercase tracking-widest hover:opacity-90 transition-all transform hover:-translate-y-1 shadow-2xl shadow-[#3994fa]/40">
                         Schedule Free Collab Call
                     </button>
                 </div>
             </section>
 
             {/* 9️⃣ Final High-Impact CTA Section */}
-            <section className="py-40 px-6 relative overflow-hidden bg-slate-950 text-white text-center">
-                <div className="absolute inset-0 opacity-20">
-                    <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-brand-cyan/20 blur-[150px] rounded-full" />
+            <section className="py-24 md:py-48 px-6 relative overflow-hidden bg-[#050608] text-white text-center">
+                {/* Background Decorations */}
+                <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+                    <motion.div
+                        animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }}
+                        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+                        className="absolute -top-[50%] -left-[10%] w-[800px] h-[800px] bg-[#3994fa]/10 blur-[150px] rounded-full"
+                    />
+                    <motion.div
+                        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }}
+                        transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
+                        className="absolute -bottom-[50%] -right-[10%] w-[600px] h-[600px] bg-[#3994fa]/10 blur-[150px] rounded-full"
+                    />
+
+                    {/* Floating Partnership Nodes */}
+                    {[Handshake, TrendingUp, Users, Target].map((Icon, i) => (
+                        <motion.div
+                            key={i}
+                            animate={{
+                                y: [0, -20, 0],
+                                rotate: [0, 10, -10, 0],
+                                opacity: [0.1, 0.3, 0.1]
+                            }}
+                            transition={{
+                                duration: 5 + i,
+                                repeat: Infinity,
+                                delay: i * 2,
+                                ease: "easeInOut"
+                            }}
+                            className={`absolute hidden md:block text-[#3994fa] ${i === 0 ? 'top-1/4 left-[15%]' :
+                                i === 1 ? 'bottom-1/4 left-[20%]' :
+                                    i === 2 ? 'top-1/3 right-[15%]' : 'bottom-1/3 right-[20%]'
+                                }`}
+                        >
+                            <Icon size={40 + i * 10} strokeWidth={1} />
+                        </motion.div>
+                    ))}
                 </div>
 
                 <div className="max-w-7xl mx-auto relative z-10">
-                    <h2 className="text-4xl md:text-8xl font-black tracking-tighter uppercase mb-10 leading-[0.9] text-balance">
-                        Stop Spending on Ads Alone. <br />
-                        <span className="text-brand-cyan italic">Start Growing Through Strategic Partnerships.</span>
-                    </h2>
+                    <div className="space-y-12">
+                        <motion.div
 
-                    <p className="text-xl md:text-2xl text-slate-400 font-medium mb-16 max-w-3xl mx-auto leading-relaxed">
-                        Ready to decouple your growth from the rising costs of platforms? Join the next generation of brands scaling through high-affinity, performance-aligned collaborations.
-                    </p>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                        <button className="px-12 py-6 bg-brand-cyan text-slate-950 rounded-2xl font-black text-sm uppercase tracking-[0.2em] hover:bg-white transition-all transform hover:-translate-y-1 shadow-lg shadow-brand-cyan/30 active:scale-95">
-                            Start Your Partnership Today
-                        </button>
-                        <button className="px-12 py-6 bg-transparent border-2 border-white/20 text-white rounded-2xl font-black text-sm uppercase tracking-[0.2em] hover:bg-white/5 transition-all flex items-center gap-3">
-                            <MessageSquare className="w-5 h-5" /> Talk to Our Growth Team
-                        </button>
+
+                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#3994fa]/10 border border-[#3994fa]/20 text-[#3994fa] text-[10px] font-bold uppercase tracking-[0.2em]"
+                        >
+                            <span className="w-1.5 h-1.5 rounded-full bg-[#3994fa] animate-pulse" />
+                            Future-Proof Your Business
+                        </motion.div>
+
+                        <motion.h2
+
+
+
+                            className="text-4xl md:text-8xl font-black tracking-tighter leading-[1] text-balance"
+                        >
+                            Scale Your Brand Beyond <br className="hidden md:block" />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3994fa] via-white to-[#3994fa] bg-[length:200%_auto] italic pr-4">Costly Ad Platforms.</span>
+                        </motion.h2>
+
+                        {/* Animated Growth Graph */}
+                        <div className="relative max-w-4xl mx-auto py-12 px-4 group">
+                            <div className="absolute inset-x-0 top-1/2 -translate-y-1/2 h-px bg-white/5" />
+                            <div className="absolute inset-x-0 top-1/4 -translate-y-1/2 h-px bg-white/[0.02]" />
+                            <div className="absolute inset-x-0 top-3/4 -translate-y-1/2 h-px bg-white/[0.02]" />
+
+                            <svg width="100%" height="160" viewBox="0 0 1000 160" fill="none" xmlns="http://www.w3.org/2000/svg" className="overflow-visible relative z-10">
+                                <motion.path
+                                    initial={{ pathLength: 0, opacity: 0 }}
+                                    whileInView={{ pathLength: 1, opacity: 1 }}
+                                    viewport={{ once: true }}
+
+                                    transition={{ duration: 2.5, ease: "easeInOut" }}
+                                    d="M0 150C100 145 150 140 200 110C250 80 350 120 450 90C550 60 650 70 750 30C850 -10 950 20 1000 0"
+                                    stroke="url(#growthGradient)"
+                                    strokeWidth="4"
+                                    strokeLinecap="round"
+                                />
+                                <defs>
+                                    <linearGradient id="growthGradient" x1="0" y1="150" x2="1000" y2="0" gradientUnits="userSpaceOnUse">
+                                        <stop stopColor="#3994fa" stopOpacity="0.2" />
+                                        <stop offset="1" stopColor="#3994fa" />
+                                    </linearGradient>
+                                </defs>
+                            </svg>
+
+                            {/* Glowing Peak Point */}
+                            <motion.div
+
+
+
+                                transition={{ delay: 2.2, duration: 0.5 }}
+                                className="absolute top-12 right-4 md:right-8 w-4 h-4 bg-[#3994fa] rounded-full shadow-[0_0_20px_#3994fa] z-20"
+                            />
+                        </div>
+
+                        <motion.p
+
+
+
+                            className="text-lg md:text-xl text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed"
+                        >
+                            Join elite D2C brands and scaling startups that trust Preet Tech for zero-risk, high-affinity, and 100% performance-aligned collaborations.
+                        </motion.p>
+
+                        <div className="flex flex-col sm:flex-row items-center justify-center gap-6 pt-4">
+                            <button onClick={() => document.getElementById('consultation')?.scrollIntoView({ behavior: 'smooth' })} className="w-full sm:w-auto px-10 py-5 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:opacity-90 transition-all shadow-xl shadow-[#3994fa]/20 flex items-center justify-center gap-3">
+                                Start Your Partnership <Rocket className="w-4 h-4" />
+                            </button>
+                            <a href="/contact" className="w-full sm:w-auto px-10 py-5 bg-transparent border border-white/20 text-white rounded-2xl font-bold text-xs uppercase tracking-widest hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:border-transparent hover:opacity-90 transition-all flex items-center justify-center gap-3 active:scale-95">
+                                <MessageSquare className="w-4 h-4" /> Contact Growth Team
+                            </a>
+                        </div>
                     </div>
 
-                    <div className="mt-24 pt-20 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-8">
-                        <div>
-                            <div className="text-4xl font-black text-brand-cyan mb-2">0%</div>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-slate-500">Upfront Risk</div>
-                        </div>
-                        <div>
-                            <div className="text-4xl font-black text-brand-cyan mb-2">100%</div>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-slate-500">Performance Focus</div>
-                        </div>
-                        <div>
-                            <div className="text-4xl font-black text-brand-cyan mb-2">$14M+</div>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-slate-500">Partner Revenue</div>
-                        </div>
-                        <div>
-                            <div className="text-4xl font-black text-brand-cyan mb-2">50+</div>
-                            <div className="text-[10px] font-black uppercase tracking-widest text-slate-500">Active Collaborations</div>
-                        </div>
+                    <div className="mt-32 pt-20 border-t border-white/5 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+                        {[
+                            { v: '0%', l: 'Upfront Risk', i: Shield },
+                            { v: '100%', l: 'Sales-Aligned', i: CheckCircle2 },
+                            { v: '$14M+', l: 'Revenue Driven', i: TrendingUp },
+                            { v: '50+', l: 'Active Collabs', i: Users }
+                        ].map((stat, i) => (
+                            <motion.div
+                                key={i}
+
+
+
+                                transition={{ delay: i * 0.1 }}
+                                className="group cursor-default"
+                            >
+                                <div className="text-3xl md:text-5xl font-black text-[#3994fa] mb-2 group-hover:scale-110 transition-transform">{stat.v}</div>
+                                <div className="text-[10px] md:text-[11px] font-bold uppercase tracking-[0.2em] text-slate-500 flex items-center justify-center gap-2">
+                                    <stat.i size={12} className="opacity-50" />
+                                    {stat.l}
+                                </div>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
 
+
             <Footer />
+
+            {/* Video Modal */}
+            <AnimatePresence>
+                {isVideoOpen && (
+                    <motion.div
+
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95"
+                        onClick={() => setIsVideoOpen(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="relative w-full aspect-video max-w-4xl bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center"
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setIsVideoOpen(false)}
+                                className="absolute top-4 right-4 z-[110] w-10 h-10 bg-black/60 hover:bg-black/80 border border-white/20 rounded-full flex items-center justify-center text-white transition-colors"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+
+                            {/* YouTube Embed */}
+                            <div className="absolute inset-0 w-full h-full bg-black">
+                                <iframe
+                                    src="https://www.youtube.com/embed/CBYfXlP7ppQ?autoplay=1"
+                                    className="w-full h-full border-0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    title="Preet Tech Video"
+                                />
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </main>
     );
 }
+

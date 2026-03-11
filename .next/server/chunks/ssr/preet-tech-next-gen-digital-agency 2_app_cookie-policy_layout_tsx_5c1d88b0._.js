@@ -1,0 +1,3 @@
+module.exports=[36412,a=>{"use strict";var b=a.i(49016);function c({children:a}){return(0,b.jsx)(b.Fragment,{children:a})}a.s(["default",()=>c,"metadata",0,{title:"Cookie Policy | Preet Tech",description:"Read the Preet Tech Cookie Policy to learn how we use cookies and tracking technologies to improve our services and user experience.",alternates:{canonical:"https://preettech.com/cookie-policy"}}])}];
+
+//# sourceMappingURL=preet-tech-next-gen-digital-agency%202_app_cookie-policy_layout_tsx_5c1d88b0._.js.map

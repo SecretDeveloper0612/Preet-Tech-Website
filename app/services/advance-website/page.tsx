@@ -8,10 +8,11 @@ import {
     ShieldCheck, Zap, ArrowRight, CheckCircle2, ArrowUpRight, Check,
     Building2, BarChart3, Activity, Command, Hexagon, Component, Key, Lock, Network, Maximize,
     Users, ShoppingCart, Home, GraduationCap, HeartPulse, PieChart, Focus, Map, Layers, Fingerprint, Eye, Sliders, Shield, Cloud, CreditCard, Plug, Workflow, RefreshCw, Bot, FileCode2,
-    Gauge, Target, Send, Phone, Mail, User, Briefcase, Calendar, Star, IndianRupee, Plus, Minus, HelpCircle, Palette, Clock, MessageSquare, Wrench, LifeBuoy, BadgePercent, TrendingUp, ExternalLink, ChevronRight, GitBranch, TestTube2, Figma, Container, Play, X
+    Gauge, Target, Send, Phone, Mail, User, Briefcase, Calendar, Star, IndianRupee, Plus, Minus, HelpCircle, Palette, Clock, MessageSquare, Wrench, LifeBuoy, BadgePercent, TrendingUp, ExternalLink, ChevronRight, GitBranch, TestTube2, Figma, Container, Play, X, MousePointer2
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PhoneInput from '@/components/PhoneInput';
 
 
 // ----------------------------------------------------------------------
@@ -25,6 +26,47 @@ export default function AdvancedWebsiteDevelopment() {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSubmitted, setIsSubmitted] = useState(false);
     const [isVideoOpen, setIsVideoOpen] = useState(false);
+
+    // Form State
+    const [formData, setFormData] = useState({
+        name: '',
+        businessName: '',
+        email: '',
+        phone: '',
+        countryCode: '+91',
+        budget: '5k-10k', // default from options
+    });
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleFormSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitStatus('loading');
+        try {
+            const res = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...formData,
+                    phone: `${formData.countryCode} ${formData.phone}`,
+                    industry: 'N/A',
+                    service: 'Advance Website'
+                })
+            });
+            if (res.ok) {
+                setSubmitStatus('success');
+                setIsSubmitted(true);
+                setFormData({ name: '', businessName: '', email: '', phone: '', countryCode: '+91', budget: '5k-10k' });
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error("Form submission error:", error);
+            setSubmitStatus('error');
+        } finally {
+            setIsSubmitting(false);
+        }
+    };
 
     useEffect(() => {
         setMounted(true);
@@ -62,103 +104,31 @@ export default function AdvancedWebsiteDevelopment() {
             {/* 1️⃣ Hero Section */}
             <section className="relative pt-28 pb-16 md:pt-36 md:pb-20 lg:pt-44 lg:pb-28 px-4 md:px-6 overflow-hidden">
 
-                {/* ===== ANIMATED BACKGROUND LAYERS ===== */}
+                {/* STATIC BACKGROUND LAYERS */}
                 <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
 
-                    {/* Pulsing Gradient Orbs */}
-                    <motion.div
-                        animate={{
-                            scale: [1, 1.3, 1],
-                            x: [0, 60, 0],
-                            y: [0, -40, 0],
-                            opacity: [0.15, 0.3, 0.15]
-                        }}
-                        transition={{ duration: 12, repeat: Infinity, ease: "easeInOut" }}
+                    {/* Static Gradient Orbs */}
+                    <div
                         className="absolute top-[10%] -right-[10%] w-[700px] h-[700px] bg-[#3994fa]/20 dark:bg-[#3994fa]/30 blur-[180px] rounded-full"
                     />
-                    <motion.div
-                        animate={{
-                            scale: [1.2, 1, 1.2],
-                            x: [0, -50, 0],
-                            y: [0, 60, 0],
-                            opacity: [0.1, 0.25, 0.1]
-                        }}
-                        transition={{ duration: 16, repeat: Infinity, ease: "easeInOut", delay: 3 }}
+                    <div
                         className="absolute -bottom-[15%] -left-[15%] w-[600px] h-[600px] bg-indigo-500/15 dark:bg-indigo-500/25 blur-[160px] rounded-full"
                     />
-                    <motion.div
-                        animate={{
-                            scale: [1, 1.15, 1],
-                            opacity: [0.05, 0.15, 0.05]
-                        }}
-                        transition={{ duration: 10, repeat: Infinity, ease: "easeInOut", delay: 5 }}
+                    <div
                         className="absolute top-[40%] left-[30%] w-[400px] h-[400px] bg-violet-500/10 blur-[140px] rounded-full"
                     />
 
-
-
                     {/* Ambient Glows around the grid */}
-                    <motion.div
-                        animate={{ opacity: [0.1, 0.3, 0.1] }}
-                        transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(63,143,204,0.1)_0%,transparent_60%)] will-change-opacity"
+                    <div
+                        className="absolute inset-0 bg-[radial-gradient(circle_at_50%_40%,rgba(63,143,204,0.1)_0%,transparent_60%)]"
                     />
 
-                    {/* Floating Particle Stars */}
-                    {mounted && [...Array(12)].map((_, i) => (
-                        <motion.div
-                            key={`particle-${i}`}
-                            initial={{ opacity: 0 }}
-                            animate={{
-                                opacity: [0.1, 0.4, 0.1],
-                                scale: [1, 1.2, 1],
-                            }}
-                            transition={{
-                                duration: 3 + Math.random() * 4,
-                                repeat: Infinity,
-                                ease: "easeInOut",
-                                delay: Math.random() * 5
-                            }}
-                            className="absolute rounded-full bg-[#3994fa]/50"
-                            style={{
-                                width: `${Math.random() * 3 + 1}px`,
-                                height: `${Math.random() * 3 + 1}px`,
-                                left: `${Math.random() * 100}%`,
-                                top: `${Math.random() * 100}%`,
-                                boxShadow: isDarkMode ? '0 0 8px rgba(63,143,204,0.4)' : 'none'
-                            }}
-                        />
-                    ))}
-
-                    {/* Floating Binary Data Streams */}
-                    {mounted && [...Array(4)].map((_, i) => (
-                        <motion.div
-                            key={`stream-${i}`}
-                            initial={{ opacity: 0, y: "100%" }}
-                            animate={{ opacity: [0, 0.3, 0], y: "-100%" }}
-                            transition={{
-                                duration: 18 + i * 5,
-                                repeat: Infinity,
-                                ease: "linear",
-                                delay: i * 4
-                            }}
-                            className="absolute text-[9px] font-mono text-[#3994fa]/20 whitespace-nowrap tracking-[0.3em] hidden lg:block"
-                            style={{ left: `${15 + i * 22}%` }}
-                        >
-                            {Array(25).fill(0).map(() => Math.round(Math.random())).join('')}
-                        </motion.div>
-                    ))}
-
-                    {/* Rotating Orbital Rings */}
-                    <motion.div
-                        animate={{ rotate: 360 }}
-                        transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-[#3994fa]/5 rounded-full hidden lg:block will-change-transform"
+                    {/* Rotating Orbital Rings (Static) */}
+                    <div
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-[#3994fa]/5 rounded-full hidden lg:block"
                     />
-                    <motion.div
-                        animate={{ rotate: -360 }}
-                        transition={{ duration: 45, repeat: Infinity, ease: "linear" }}
-                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[1100px] border border-dashed border-[#3994fa]/[0.03] rounded-full hidden lg:block will-change-transform"
+                    <div
+                        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1100px] h-[1100px] border border-dashed border-[#3994fa]/[0.03] rounded-full hidden lg:block"
                     />
                 </div>
 
@@ -167,10 +137,7 @@ export default function AdvancedWebsiteDevelopment() {
                     <div className="lg:col-span-6 space-y-6 md:space-y-10 relative z-10">
 
                         {/* Status Badge */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, ease: "easeOut" }}
+                        <div
                             className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-xl shadow-lg"
                         >
                             <span className="relative flex h-2.5 w-2.5">
@@ -178,100 +145,70 @@ export default function AdvancedWebsiteDevelopment() {
                                 <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#3994fa]" />
                             </span>
                             <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300">Advanced Development</span>
-                        </motion.div>
+                        </div>
 
                         {/* Title with Staggered Word Animation */}
-                        <motion.h1
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
+                        <h1
                             className="text-3xl sm:text-4xl md:text-5xl lg:text-[4.5rem] font-bold tracking-tight leading-[1.05]"
                         >
-                            <motion.span
-                                initial={{ opacity: 0, y: 40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.15, ease: "easeOut" }}
+                            <span
                                 className="block whitespace-nowrap"
                             >
                                 High-Performance
-                            </motion.span>
-                            <motion.span
-                                initial={{ opacity: 0, y: 40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-                                className="block text-transparent bg-clip-text bg-gradient-to-r from-[#3994fa] to-blue-500 animate-gradient-x"
+                            </span>
+                            <span
+                                className="block text-transparent bg-clip-text bg-gradient-to-r from-[#3994fa] to-blue-500"
                             >
                                 Custom Websites
-                            </motion.span>
-                            <motion.span
-                                initial={{ opacity: 0, y: 40 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ duration: 0.8, delay: 0.45, ease: "easeOut" }}
+                            </span>
+                            <span
                                 className="block"
                             >
                                 Built to Scale.
-                            </motion.span>
-                        </motion.h1>
+                            </span>
+                        </h1>
 
-                        {/* Description */}
-                        <motion.p
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.6, ease: "easeOut" }}
+                        <p
                             className="text-base md:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed"
                         >
                             Advanced architecture, custom UI/UX, and powerful backend systems designed for serious business growth and enterprise scalability.
-                        </motion.p>
+                        </p>
 
-                        {/* CTA Buttons */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ duration: 0.8, delay: 0.75, ease: "easeOut" }}
+                        <div
                             className="flex flex-col sm:flex-row gap-5"
                         >
-                            <button onClick={(e) => { e.preventDefault(); setIsVideoOpen(true); }} className="px-8 sm:px-10 py-4 sm:py-4 gap-2.5 text-base sm:text-lg group bg-[#3994fa] text-white hover:bg-[#3994fa]/90 font-bold rounded-[2rem] transition-transform hover:-translate-y-0.5 shadow-[0_8px_30px_rgb(63,143,204,0.3)] flex items-center justify-center relative overflow-hidden focus:outline-none">
+                            <button onClick={(e) => { e.preventDefault(); setIsVideoOpen(true); }} className="px-8 sm:px-10 py-4 sm:py-4 gap-2.5 text-base sm:text-lg group bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white hover:opacity-90 font-bold rounded-[2rem] transition-transform hover:-translate-y-0.5 shadow-[0_8px_30px_rgb(63,143,204,0.3)] flex items-center justify-center relative overflow-hidden focus:outline-none">
                                 <span className="relative z-10 flex items-center gap-2">Watch Demo <Play className="w-5 h-5 fill-current" strokeWidth={0} /></span>
                             </button>
                             <a href="#pricing" className="px-8 sm:px-10 py-4 sm:py-4 text-base sm:text-lg bg-white dark:bg-[#050608] border border-slate-200 dark:border-white/10 text-[#1a2b4b] dark:text-white hover:bg-slate-50 dark:hover:bg-white/5 font-bold rounded-[2rem] transition-transform hover:-translate-y-0.5 shadow-sm flex items-center justify-center">
                                 View Pricing
                             </a>
-                        </motion.div>
+                        </div>
 
                         {/* Floating Tech Stack Badges */}
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 1.2, duration: 0.8 }}
+                        <div
                             className="flex flex-wrap gap-3 pt-4"
                         >
                             {['React', 'Next.js', 'Node.js', 'TypeScript', 'AWS'].map((tech, i) => (
-                                <motion.span
+                                <span
                                     key={tech}
-                                    initial={{ opacity: 0, scale: 0.5, y: 20 }}
-                                    animate={{ opacity: 1, scale: 1, y: 0 }}
-                                    transition={{ delay: 1.3 + i * 0.1, type: 'spring', stiffness: 200 }}
                                     className="px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:border-[#3994fa]/50 hover:text-[#3994fa] transition-colors cursor-default"
                                 >
                                     {tech}
-                                </motion.span>
+                                </span>
                             ))}
-                        </motion.div>
+                        </div>
                     </div>
 
                     <div className="lg:col-span-6 relative">
 
-                        {/* Glowing Halo Behind Dashboard */}
-                        <motion.div
-                            animate={{ opacity: [0.2, 0.4, 0.2] }}
-                            transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                            className="absolute -inset-8 bg-gradient-to-br from-[#3994fa]/20 via-indigo-500/10 to-[#3994fa]/20 blur-[60px] rounded-[3rem] -z-10 will-change-opacity"
+                        {/* Glowing Halo Behind Dashboard (Static) */}
+                        <div
+                            className="absolute -inset-8 bg-gradient-to-br from-[#3994fa]/20 via-indigo-500/10 to-[#3994fa]/20 blur-[60px] rounded-[3rem] -z-10"
                         />
 
                         {/* Custom Lead Form */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ duration: 1.2, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                        <div
                             className="relative z-10 w-full bg-white dark:bg-[#0a0f18] border border-slate-200  dark:border-white/10 rounded-[2.5rem] p-8 sm:p-12 shadow-[0_20px_60px_-15px_rgba(0,0,0,0.05)] dark:shadow-[0_20px_60px_-15px_rgba(63,143,204,0.05)] overflow-hidden group"
                         >
                             {/* Decorative background gradients */}
@@ -290,14 +227,7 @@ export default function AdvancedWebsiteDevelopment() {
                                     </div>
                                 ) : (
                                     <form
-                                        onSubmit={(e) => {
-                                            e.preventDefault();
-                                            setIsSubmitting(true);
-                                            setTimeout(() => {
-                                                setIsSubmitting(false);
-                                                setIsSubmitted(true);
-                                            }, 1500);
-                                        }}
+                                        onSubmit={handleFormSubmit}
                                         className="space-y-6"
                                     >
                                         {/* Full Name */}
@@ -307,7 +237,7 @@ export default function AdvancedWebsiteDevelopment() {
                                                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none transition-colors group-focus-within/field:text-[#3994fa]">
                                                     <User className="w-[18px] h-[18px] text-slate-400 group-focus-within/field:text-[#3994fa] transition-colors" strokeWidth={1.5} />
                                                 </div>
-                                                <input required type="text" className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#3994fa]/50 focus:border-[#3994fa]/50 transition-all font-medium placeholder:text-slate-300 dark:placeholder:text-slate-600 hover:border-slate-300 dark:hover:border-white/20" placeholder="John Doe" />
+                                                <input required type="text" value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#3994fa]/50 focus:border-[#3994fa]/50 transition-all font-medium placeholder:text-slate-300 dark:placeholder:text-slate-600 hover:border-slate-300 dark:hover:border-white/20" placeholder="John Doe" />
                                             </div>
                                         </div>
 
@@ -318,7 +248,7 @@ export default function AdvancedWebsiteDevelopment() {
                                                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none transition-colors group-focus-within/field:text-[#3994fa]">
                                                     <Building2 className="w-[18px] h-[18px] text-slate-400 group-focus-within/field:text-[#3994fa] transition-colors" strokeWidth={1.5} />
                                                 </div>
-                                                <input type="text" className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#3994fa]/50 focus:border-[#3994fa]/50 transition-all font-medium placeholder:text-slate-300 dark:placeholder:text-slate-600 hover:border-slate-300 dark:hover:border-white/20" placeholder="Your Company Ltd." />
+                                                <input type="text" value={formData.businessName || ''} onChange={(e) => setFormData({ ...formData, businessName: e.target.value })} className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#3994fa]/50 focus:border-[#3994fa]/50 transition-all font-medium placeholder:text-slate-300 dark:placeholder:text-slate-600 hover:border-slate-300 dark:hover:border-white/20" placeholder="Your Company Ltd." />
                                             </div>
                                         </div>
 
@@ -330,21 +260,18 @@ export default function AdvancedWebsiteDevelopment() {
                                                     <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none transition-colors group-focus-within/field:text-[#3994fa]">
                                                         <Mail className="w-[18px] h-[18px] text-slate-400 group-focus-within/field:text-[#3994fa] transition-colors" strokeWidth={1.5} />
                                                     </div>
-                                                    <input required type="email" className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#3994fa]/50 focus:border-[#3994fa]/50 transition-all font-medium placeholder:text-slate-300 dark:placeholder:text-slate-600 hover:border-slate-300 dark:hover:border-white/20" placeholder="john@example.com" />
+                                                    <input required type="email" value={formData.email || ''} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#3994fa]/50 focus:border-[#3994fa]/50 transition-all font-medium placeholder:text-slate-300 dark:placeholder:text-slate-600 hover:border-slate-300 dark:hover:border-white/20" placeholder="john@example.com" />
                                                 </div>
                                             </div>
                                             {/* Phone */}
                                             <div className="space-y-2">
                                                 <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Phone</label>
-                                                <div className="relative group/field">
-                                                    <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none transition-colors group-focus-within/field:text-[#3994fa]">
-                                                        <div className="relative">
-                                                            <Phone className="w-[18px] h-[18px] text-slate-400 group-focus-within/field:text-[#3994fa] transition-colors" strokeWidth={1.5} />
-                                                            <div className="absolute -top-1 -right-1 w-2 h-2 bg-indigo-500 rounded-full border-[1.5px] border-white dark:border-slate-900" />
-                                                        </div>
-                                                    </div>
-                                                    <input required type="tel" className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#3994fa]/50 focus:border-[#3994fa]/50 transition-all font-medium placeholder:text-slate-300 dark:placeholder:text-slate-600 hover:border-slate-300 dark:hover:border-white/20" placeholder="+91 98765 43210" />
-                                                </div>
+                                                <PhoneInput
+                                                    value={formData.phone}
+                                                    onChange={(val) => setFormData({ ...formData, phone: val })}
+                                                    countryCode={formData.countryCode}
+                                                    onCountryCodeChange={(code) => setFormData({ ...formData, countryCode: code })}
+                                                />
                                             </div>
                                         </div>
 
@@ -355,7 +282,7 @@ export default function AdvancedWebsiteDevelopment() {
                                                 <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none transition-colors group-focus-within/field:text-[#3994fa]">
                                                     <CreditCard className="w-[18px] h-[18px] text-slate-400 group-focus-within/field:text-[#3994fa] transition-colors" strokeWidth={1.5} />
                                                 </div>
-                                                <select className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-10 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#3994fa]/50 focus:border-[#3994fa]/50 transition-all font-medium appearance-none shadow-sm text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20 cursor-pointer">
+                                                <select value={formData.budget} onChange={(e) => setFormData({ ...formData, budget: e.target.value })} className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-10 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-[#3994fa]/50 focus:border-[#3994fa]/50 transition-all font-medium appearance-none shadow-sm text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20 cursor-pointer">
                                                     <option value="5k-10k">₹5k - ₹10k</option>
                                                     <option value="10k-25k">₹10k - ₹25k</option>
                                                     <option value="25k-50k">₹25k - ₹50k</option>
@@ -371,7 +298,7 @@ export default function AdvancedWebsiteDevelopment() {
                                             <button
                                                 disabled={isSubmitting}
                                                 type="submit"
-                                                className="w-full py-4 text-[13px] gap-2 disabled:opacity-70 group/btn duration-300 bg-brand-medium text-white hover:bg-brand-medium/90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-brand-medium/20 text-center uppercase tracking-[0.1em] flex items-center justify-center"
+                                                className="w-full py-4 text-[13px] gap-2 disabled:opacity-70 group/btn duration-300 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white hover:opacity-90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-[#3994fa]/20 text-center uppercase tracking-[0.1em] flex items-center justify-center"
                                             >
                                                 {isSubmitting ? (
                                                     <span className="flex items-center gap-2 font-mono text-xs uppercase tracking-widest">
@@ -383,11 +310,12 @@ export default function AdvancedWebsiteDevelopment() {
                                                     </span>
                                                 )}
                                             </button>
+                                            {submitStatus === 'error' && <p className="text-red-500 text-[10px] font-black uppercase text-center mt-2 tracking-widest">Error! Please try again.</p>}
                                         </div>
                                     </form>
                                 )}
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -618,7 +546,7 @@ export default function AdvancedWebsiteDevelopment() {
                             {[
                                 { t: "User Journey Mapping", i: Map },
                                 { t: "Wireframing & Prototypes", i: Component },
-                                { t: "Conversion-Driven Layouts", i: CursorArrowRaysIcon },
+                                { t: "Conversion-Driven Layouts", i: MousePointer2 },
                                 { t: "Brand-Aligned UI Systems", i: Fingerprint },
                                 { t: "Interactive Micro-Animations", i: Sliders }
                             ].map((strat, i) => (
@@ -670,7 +598,7 @@ export default function AdvancedWebsiteDevelopment() {
                     {/* Breathtaking Asymmetric Grid Layout */}
                     <div className="mb-10 text-center lg:text-left flex flex-col lg:flex-row justify-between items-end gap-6">
                         <div className="max-w-3xl">
-                            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-900 dark:text-white leading-[1.1] mb-4">
+                            <h2 className="text-3xl md:text-5xl font-black tracking-tight text-slate-800 dark:text-white leading-[1.1] mb-4">
                                 Heavy-Duty<br />
                                 <span className="text-[#3994fa]">Web Platforms.</span>
                             </h2>
@@ -690,10 +618,7 @@ export default function AdvancedWebsiteDevelopment() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-6 auto-rows-[minmax(260px,auto)]">
 
                         {/* Huge Main Panel - Custom E-Commerce */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
+                        <div
                             className="lg:col-span-2 lg:row-span-2 relative rounded-[1.5rem] md:rounded-[2.5rem] p-6 md:p-10 bg-[#080d14] dark:bg-[#060A10] border border-slate-800 dark:border-white/5 overflow-hidden group shadow-2xl flex flex-col justify-between"
                         >
                             <div className="absolute inset-0 bg-gradient-to-br from-[#3994fa]/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
@@ -725,14 +650,10 @@ export default function AdvancedWebsiteDevelopment() {
                             <div className="lg:hidden w-full h-[220px] mt-4 rounded-xl shadow-2xl border border-white/10 z-10 overflow-hidden relative bg-[#0a0f18] flex-shrink-0">
                                 <img src="/advanced_ecommerce_dashboard.png" alt="E-Commerce Interface" className="absolute top-1.5 left-1.5 w-full h-auto rounded-tl-lg" />
                             </div>
-                        </motion.div>
+                        </div>
 
                         {/* Top Right - SaaS */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.1 }}
+                        <div
                             className="relative rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 hover:border-violet-500/30 transition-colors group overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-none flex flex-col justify-center"
                         >
                             <div className="absolute top-0 right-0 w-24 h-24 bg-violet-500/10 blur-[40px] rounded-full group-hover:bg-violet-500/20 transition-colors" />
@@ -744,14 +665,10 @@ export default function AdvancedWebsiteDevelopment() {
                             <div className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-violet-500 group-hover:translate-x-2 transition-transform relative z-10 mt-auto">
                                 View Capabilities <ArrowRight className="w-3.5 h-3.5 ml-2" />
                             </div>
-                        </motion.div>
+                        </div>
 
                         {/* Bottom Right - CRM */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
+                        <div
                             className="relative rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 hover:border-emerald-500/30 transition-colors group overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-none flex flex-col justify-center"
                         >
                             <div className="absolute top-0 right-0 w-24 h-24 bg-emerald-500/10 blur-[40px] rounded-full group-hover:bg-emerald-500/20 transition-colors" />
@@ -763,14 +680,10 @@ export default function AdvancedWebsiteDevelopment() {
                             <div className="inline-flex items-center text-[10px] font-black uppercase tracking-widest text-emerald-500 group-hover:translate-x-2 transition-transform relative z-10 mt-auto">
                                 View Capabilities <ArrowRight className="w-3.5 h-3.5 ml-2" />
                             </div>
-                        </motion.div>
+                        </div>
 
                         {/* Row 3 - Marketplaces & Subscriptions */}
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.3 }}
+                        <div
                             className="lg:col-span-1 relative rounded-[1.5rem] md:rounded-[2rem] p-6 md:p-8 bg-white dark:bg-[#0c111a] border border-slate-200 dark:border-white/5 hover:border-orange-500/30 transition-colors group overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-none flex flex-col justify-center"
                         >
                             <div className="absolute top-0 right-0 w-24 h-24 bg-orange-500/10 blur-[40px] rounded-full group-hover:bg-orange-500/20 transition-colors" />
@@ -779,13 +692,9 @@ export default function AdvancedWebsiteDevelopment() {
                             </div>
                             <h3 className="text-lg md:text-xl font-bold text-slate-900 dark:text-white mb-3 relative z-10 shrink-0">Multi-Vendor Markets</h3>
                             <p className="text-slate-500 dark:text-slate-400 text-[13px] font-medium leading-relaxed relative z-10 mt-auto">Complex vendor splitting, logistics routing, and multi-channel management platforms.</p>
-                        </motion.div>
+                        </div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.4 }}
+                        <div
                             className="lg:col-span-2 relative rounded-[1.5rem] md:rounded-[2rem] p-6 lg:p-8 bg-gradient-to-br from-[#f8fafc] to-white dark:from-[#080d14] dark:to-[#050608] border border-slate-200 dark:border-white/5 hover:border-indigo-500/30 transition-colors group overflow-hidden shadow-lg shadow-slate-200/50 dark:shadow-none flex flex-col sm:flex-row gap-6 items-center"
                         >
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 bg-indigo-500/5 blur-[60px] rounded-full group-hover:bg-indigo-500/10 transition-colors" />
@@ -796,7 +705,7 @@ export default function AdvancedWebsiteDevelopment() {
                                 <h3 className="text-xl md:text-2xl font-bold text-slate-900 dark:text-white mb-3">Subscription Logic Engines</h3>
                                 <p className="text-slate-500 dark:text-slate-400 font-medium leading-relaxed text-[13px] md:text-sm max-w-xl">Recurring billing APIs, automated dunning, robust tax calculations, and gated access control systems flawlessly integrated into your product.</p>
                             </div>
-                        </motion.div>
+                        </div>
 
                     </div>
                 </div>
@@ -804,29 +713,25 @@ export default function AdvancedWebsiteDevelopment() {
 
             {/* 9️⃣ API & Backend Integration */}
             <section className="py-16 md:py-40 px-4 md:px-6 bg-white dark:bg-slate-900 text-slate-900 dark:text-white reveal-section overflow-hidden relative border-y border-slate-200 dark:border-transparent">
-                {/* Node architecture background wrapper */}
-                <motion.div
-                    animate={{ rotate: 360 }}
-                    transition={{ duration: 100, repeat: Infinity, ease: "linear" }}
+                {/* Node architecture background wrapper (Static) */}
+                <div
                     className="absolute top-[-200px] right-[-200px] w-[800px] h-[800px] opacity-[0.03] dark:opacity-10 pointer-events-none"
                 >
                     <svg viewBox="0 0 100 100" className="w-full h-full text-[#3994fa] stroke-current stroke-[0.2]">
                         <circle cx="50" cy="50" r="40" fill="none" />
-                        <motion.g
-                            animate={{ rotate: -360 }}
-                            transition={{ duration: 40, repeat: Infinity, ease: "linear" }}
+                        <g
                             style={{ transformOrigin: "50px 50px" }}
                         >
                             <circle cx="50" cy="50" r="20" fill="none" strokeDasharray="2,2" />
-                        </motion.g>
+                        </g>
                         <line x1="10" y1="50" x2="90" y2="50" />
                         <line x1="50" y1="10" x2="50" y2="90" />
-                        <circle cx="50" cy="10" r="2" fill="currentColor" className="animate-pulse" />
-                        <circle cx="90" cy="50" r="2" fill="currentColor" className="animate-pulse" />
-                        <circle cx="50" cy="90" r="2" fill="currentColor" className="animate-pulse" />
-                        <circle cx="10" cy="50" r="2" fill="currentColor" className="animate-pulse" />
+                        <circle cx="50" cy="10" r="2" fill="currentColor" />
+                        <circle cx="90" cy="50" r="2" fill="currentColor" />
+                        <circle cx="50" cy="90" r="2" fill="currentColor" />
+                        <circle cx="10" cy="50" r="2" fill="currentColor" />
                     </svg>
-                </motion.div>
+                </div>
 
                 <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20 items-center relative z-10">
                     <div className="space-y-10">
@@ -856,59 +761,36 @@ export default function AdvancedWebsiteDevelopment() {
                         <div className="absolute -top-3 -right-2 sm:-top-4 sm:-right-4 bg-[#3994fa]/20 px-3 sm:px-4 py-1 text-[#3994fa] text-[8px] sm:text-[10px] uppercase font-bold tracking-widest rounded shadow-[0_0_20px_rgba(63,143,204,0.4)]">System Infrastructure Live</div>
                         <div className="font-mono text-[10px] sm:text-sm text-slate-300 leading-relaxed overflow-x-auto">
                             <div className="min-w-max">
-                                {[
-                                    <><span className="text-[#c678dd]">const</span> <span className="text-[#61afef]">PaymentPipeline</span> = <span className="text-[#c678dd]">async</span> (req) =&gt; {'{'}</>,
-                                    <><span className="text-[#c678dd]">  try</span> {'{'}</>,
-                                    <><span className="text-[#c678dd]">    const</span> {'{'} user, intent {'}'} = req.<span className="text-[#e06c75]">body</span>;</>,
-                                    <>&nbsp;</>,
-                                    <><span className="text-[#5c6370] italic">    // 1. Authenticate Request</span></>,
-                                    <><span className="text-[#c678dd]">    await</span> <span className="text-[#e5c07b]">SecurityGuard</span>.<span className="text-[#61afef]">validate</span>(user.<span className="text-[#e06c75]">token</span>);</>,
-                                    <>&nbsp;</>,
-                                    <><span className="text-[#5c6370] italic">    // 2. Cross-check ERP</span></>,
-                                    <><span className="text-[#c678dd]">    const</span> inventory = <span className="text-[#c678dd]">await</span> <span className="text-[#e5c07b]">ERP</span>.<span className="text-[#61afef]">checkStock</span>();</>,
-                                    <>&nbsp;</>,
-                                    <><span className="text-[#5c6370] italic">    // 3. Fire Payment API</span></>,
-                                    <><span className="text-[#c678dd]">    const</span> tx = <span className="text-[#c678dd]">await</span> <span className="text-[#e5c07b]">Stripe</span>.<span className="text-[#61afef]">charge</span>(intent);</>,
-                                    <>&nbsp;</>,
-                                    <><span className="text-[#5c6370] italic">    // 4. Update internal DB</span></>,
-                                    <><span className="text-[#c678dd]">    await</span> <span className="text-[#e5c07b]">DB</span>.orders.<span className="text-[#61afef]">insert</span>(tx.<span className="text-[#e06c75]">receipt</span>);</>,
-                                    <>&nbsp;</>,
-                                    <><span className="text-[#c678dd]">    return</span> res.<span className="text-[#61afef]">status</span>(<span className="text-[#d19a66]">200</span>).<span className="text-[#61afef]">json</span>({'{'} success: <span className="text-[#d19a66]">true</span> {'}'});</>,
-                                    <><span className="text-[#c678dd]">  {'}'} catch</span> (error) {'{'} ... {'}'}</>,
-                                    <>{'}'}</>
-                                ].map((line, i) => (
-                                    <motion.div
-                                        key={i}
-                                        initial={{ clipPath: "inset(0% 100% 0% 0%)" }}
-                                        whileInView={{
-                                            clipPath: [
-                                                "inset(0% 100% 0% 0%)",
-                                                "inset(0% 100% 0% 0%)",
-                                                "inset(0% 0% 0% 0%)",
-                                                "inset(0% 0% 0% 0%)",
-                                                "inset(0% 100% 0% 0%)",
-                                                "inset(0% 100% 0% 0%)"
-                                            ]
-                                        }}
-                                        viewport={{ once: true }}
-                                        transition={{
-                                            duration: 10,
-                                            repeat: Infinity,
-                                            times: [
-                                                0,
-                                                (i * 0.15) / 10,
-                                                (i * 0.15 + 0.5) / 10,
-                                                0.85,
-                                                0.9,
-                                                1
-                                            ],
-                                            ease: "linear"
-                                        }}
-                                        className="whitespace-pre"
-                                    >
-                                        {line}
-                                    </motion.div>
-                                ))}
+                                {
+                                    [
+                                        <><span className="text-[#c678dd]">const</span> <span className="text-[#61afef]">PaymentPipeline</span> = <span className="text-[#c678dd]">async</span> (req) =&gt; {'{'}</>,
+                                        <><span className="text-[#c678dd]">  try</span> {'{'}</>,
+                                        <><span className="text-[#c678dd]">    const</span> {'{'} user, intent {'}'} = req.<span className="text-[#e06c75]">body</span>;</>,
+                                        <>&nbsp;</>,
+                                        <><span className="text-[#5c6370] italic">    // 1. Authenticate Request</span></>,
+                                        <><span className="text-[#c678dd]">    await</span> <span className="text-[#e5c07b]">SecurityGuard</span>.<span className="text-[#61afef]">validate</span>(user.<span className="text-[#e06c75]">token</span>);</>,
+                                        <>&nbsp;</>,
+                                        <><span className="text-[#5c6370] italic">    // 2. Cross-check ERP</span></>,
+                                        <><span className="text-[#c678dd]">    const</span> inventory = <span className="text-[#c678dd]">await</span> <span className="text-[#e5c07b]">ERP</span>.<span className="text-[#61afef]">checkStock</span>();</>,
+                                        <>&nbsp;</>,
+                                        <><span className="text-[#5c6370] italic">    // 3. Fire Payment API</span></>,
+                                        <><span className="text-[#c678dd]">    const</span> tx = <span className="text-[#c678dd]">await</span> <span className="text-[#e5c07b]">Stripe</span>.<span className="text-[#61afef]">charge</span>(intent);</>,
+                                        <>&nbsp;</>,
+                                        <><span className="text-[#5c6370] italic">    // 4. Update internal DB</span></>,
+                                        <><span className="text-[#c678dd]">    await</span> <span className="text-[#e5c07b]">DB</span>.orders.<span className="text-[#61afef]">insert</span>(tx.<span className="text-[#e06c75]">receipt</span>);</>,
+                                        <>&nbsp;</>,
+                                        <><span className="text-[#c678dd]">    return</span> res.<span className="text-[#61afef]">status</span>(<span className="text-[#d19a66]">200</span>).<span className="text-[#61afef]">json</span>({'{'} success: <span className="text-[#d19a66]">true</span> {'}'});</>,
+                                        <><span className="text-[#c678dd]">  {'}'} catch</span> (error) {'{'} ... {'}'}</>,
+                                        <>{'}'}</>
+                                    ].map((line, i) => (
+                                        <div
+                                            key={i}
+                                            className="whitespace-pre"
+                                        >
+                                            {line}
+                                        </div>
+                                    ))
+                                }
                             </div>
                         </div>
                     </div>
@@ -1132,9 +1014,9 @@ export default function AdvancedWebsiteDevelopment() {
                             ].map((phase, i) => (
                                 <motion.div
                                     key={i}
-                                    initial={{ opacity: 0, y: 30 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    viewport={{ once: true }}
+
+
+
                                     transition={{ delay: i * 0.1 }}
                                     className="relative text-center group"
                                 >
@@ -1187,12 +1069,8 @@ export default function AdvancedWebsiteDevelopment() {
                                 highlight: false
                             }
                         ].map((plan, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.15 }}
                                 className={`p-8 rounded-3xl border relative flex flex-col h-full overflow-hidden ${plan.highlight
                                     ? 'bg-white dark:bg-slate-900 border-[#3994fa] shadow-xl shadow-[#3994fa]/10'
                                     : 'bg-white dark:bg-slate-900 border-slate-200 dark:border-white/10'
@@ -1214,10 +1092,10 @@ export default function AdvancedWebsiteDevelopment() {
                                         ))}
                                     </ul>
                                 </div>
-                                <a href="#contact" className={`w-full mt-8 py-4 text-sm ${plan.highlight ? "ring-2 ring-[#3994fa] ring-offset-2 ring-offset-slate-900" : ""} bg-brand-medium text-white hover:bg-brand-medium/90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-brand-medium/20 text-center uppercase tracking-[0.1em] flex items-center justify-center`}>
+                                <a href="#contact" className={`w-full mt-8 py-4 text-sm ${plan.highlight ? "ring-2 ring-[#3994fa] ring-offset-2 ring-offset-slate-900" : ""} bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white hover:opacity-90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-[#3994fa]/20 text-center uppercase tracking-[0.1em] flex items-center justify-center`}>
                                     Get Started
                                 </a>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -1259,12 +1137,8 @@ export default function AdvancedWebsiteDevelopment() {
                                 highlight: false
                             }
                         ].map((plan, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.15 }}
                                 className={`rounded-3xl flex flex-col h-full overflow-hidden relative ${plan.highlight
                                     ? 'bg-gradient-to-b from-[#3994fa]/10 to-transparent border-2 border-[#3994fa] shadow-2xl shadow-[#3994fa]/10'
                                     : 'bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10'
@@ -1296,11 +1170,11 @@ export default function AdvancedWebsiteDevelopment() {
                                         </ul>
                                     </div>
 
-                                    <a href="#contact" className={`w-full py-4 mt-auto text-sm ${plan.highlight ? "ring-2 ring-[#3994fa] ring-offset-2 ring-offset-slate-900" : ""} bg-brand-medium text-white hover:bg-brand-medium/90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-brand-medium/20 text-center uppercase tracking-[0.1em] flex items-center justify-center`}>
+                                    <a href="#contact" className={`w-full py-4 mt-auto text-sm ${plan.highlight ? "ring-2 ring-[#3994fa] ring-offset-2 ring-offset-slate-900" : ""} bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white hover:opacity-90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-[#3994fa]/20 text-center uppercase tracking-[0.1em] flex items-center justify-center`}>
                                         {plan.highlight ? 'Start Enterprise Project' : 'Get a Quote'}
                                     </a>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -1325,12 +1199,8 @@ export default function AdvancedWebsiteDevelopment() {
                             { q: 'What if I need changes after launch?', a: 'All our plans include a post-launch support period. Beyond that, you can subscribe to one of our maintenance plans for ongoing changes, feature additions, and optimization.' },
                             { q: 'How do I get started?', a: 'Simply book a free strategy call through our consultation form below. We\'ll discuss your vision, assess your requirements, and provide a custom proposal within 48 hours.' }
                         ].map((faq, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 15 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.05 }}
                                 className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 overflow-hidden"
                             >
                                 <button
@@ -1338,30 +1208,22 @@ export default function AdvancedWebsiteDevelopment() {
                                     className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-50 dark:hover:bg-white/5 transition-colors"
                                 >
                                     <span className="font-bold text-sm md:text-base pr-4">{faq.q}</span>
-                                    <motion.div
-                                        animate={{ rotate: openFAQ === i ? 45 : 0 }}
-                                        transition={{ duration: 0.2 }}
-                                        className="shrink-0"
+                                    <div
+                                        className={`shrink-0 transition-transform duration-200 ${openFAQ === i ? 'rotate-45' : 'rotate-0'}`}
                                     >
                                         <Plus className="w-5 h-5 text-[#3994fa]" />
-                                    </motion.div>
+                                    </div>
                                 </button>
-                                <AnimatePresence>
-                                    {openFAQ === i && (
-                                        <motion.div
-                                            initial={{ height: 0, opacity: 0 }}
-                                            animate={{ height: 'auto', opacity: 1 }}
-                                            exit={{ height: 0, opacity: 0 }}
-                                            transition={{ duration: 0.3, ease: 'easeInOut' }}
-                                            className="overflow-hidden"
-                                        >
-                                            <div className="px-6 pb-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-4">
-                                                {faq.a}
-                                            </div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </motion.div>
+                                {openFAQ === i && (
+                                    <div
+                                        className="overflow-hidden"
+                                    >
+                                        <div className="px-6 pb-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-4">
+                                            {faq.a}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -1372,19 +1234,14 @@ export default function AdvancedWebsiteDevelopment() {
             <section className="py-16 md:py-32 px-4 md:px-6 bg-slate-50 dark:bg-[#020617] text-slate-900 dark:text-white relative overflow-hidden border-t border-slate-200 dark:border-transparent">
                 {/* Background Effects */}
                 <div className="absolute inset-0 pointer-events-none">
-                    <motion.div
-                        animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }}
-                        transition={{ duration: 10, repeat: Infinity }}
+                    <div
                         className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-[#3994fa]/10 dark:bg-[#3994fa]/20 blur-[200px] rounded-full"
                     />
                     <div className="absolute inset-0 opacity-[0.03] dark:opacity-[0.03]" style={{ backgroundImage: 'linear-gradient(to right, #3994fa 1px, transparent 1px), linear-gradient(to bottom, #3994fa 1px, transparent 1px)', backgroundSize: '60px 60px' }} />
                 </div>
 
                 <div className="max-w-4xl mx-auto text-center relative z-10 space-y-10">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                    <div
                         className="space-y-6"
                     >
                         <span className="text-[#3994fa] font-bold uppercase tracking-[0.3em] text-xs">Your Move</span>
@@ -1397,73 +1254,57 @@ export default function AdvancedWebsiteDevelopment() {
                         <p className="text-lg md:text-xl text-slate-600 dark:text-slate-400 font-medium max-w-2xl mx-auto leading-relaxed">
                             Every day you delay is revenue lost to competitors with better digital infrastructure. Let's build something extraordinary.
                         </p>
-                    </motion.div>
+                    </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.2 }}
+                    <div
                         className="flex flex-col sm:flex-row items-center justify-center gap-6"
                     >
-                        <a href="#contact" className="px-8 sm:px-12 py-5 sm:py-6 gap-3 text-xs sm:text-sm group bg-brand-medium text-white hover:bg-brand-medium/90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-brand-medium/20 text-center uppercase tracking-[0.1em] flex items-center justify-center">
+                        <a href="#contact" className="px-8 sm:px-12 py-5 sm:py-6 gap-3 text-xs sm:text-sm group bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white hover:opacity-90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-[#3994fa]/20 text-center uppercase tracking-[0.1em] flex items-center justify-center">
                             <Rocket className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
                             Start Your Project Now
                         </a>
-                        <a href="tel:+919876543210" className="px-8 sm:px-12 py-5 sm:py-6 gap-3 text-xs sm:text-sm bg-brand-medium text-white hover:bg-brand-medium/90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-brand-medium/20 text-center uppercase tracking-[0.1em] flex items-center justify-center">
+                        <a href="tel:+919876543210" className="px-8 sm:px-12 py-5 sm:py-6 gap-3 text-xs sm:text-sm bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white hover:opacity-90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-[#3994fa]/20 text-center uppercase tracking-[0.1em] flex items-center justify-center">
                             <Phone className="w-5 h-5 group-hover:hidden" />
                             <Phone className="w-5 h-5 hidden group-hover:block animate-bounce" />
                             Call Us Directly
                         </a>
-                    </motion.div>
-
-
+                    </div>
                 </div>
             </section>
 
             <Footer />
 
             {/* Video Modal */}
-            <AnimatePresence>
-                {isVideoOpen && (
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.2 }}
-                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95"
-                        onClick={() => setIsVideoOpen(false)}
+            {isVideoOpen && (
+                <div
+                    className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95"
+                    onClick={() => setIsVideoOpen(false)}
+                >
+                    <div
+                        className="relative w-full aspect-video max-w-4xl bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center will-change-transform"
+                        onClick={e => e.stopPropagation()}
                     >
-                        <motion.div
-                            initial={{ scale: 0.95, opacity: 0 }}
-                            animate={{ scale: 1, opacity: 1 }}
-                            exit={{ scale: 0.95, opacity: 0 }}
-                            transition={{ duration: 0.3, ease: "easeOut" }}
-                            className="relative w-full aspect-video max-w-4xl bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center will-change-transform"
-                            onClick={e => e.stopPropagation()}
+                        <button
+                            onClick={() => setIsVideoOpen(false)}
+                            className="absolute top-4 right-4 z-[110] w-10 h-10 bg-black/60 hover:bg-black/80 border border-white/20 rounded-full flex items-center justify-center text-white transition-colors"
                         >
-                            <button
-                                onClick={() => setIsVideoOpen(false)}
-                                className="absolute top-4 right-4 z-[110] w-10 h-10 bg-black/60 hover:bg-black/80 border border-white/20 rounded-full flex items-center justify-center text-white transition-colors"
-                            >
-                                <X className="w-5 h-5" />
-                            </button>
+                            <X className="w-5 h-5" />
+                        </button>
 
-                            {/* YouTube Embed */}
-                            <div className="absolute inset-0 w-full h-full bg-black">
-                                <iframe
-                                    src="https://www.youtube.com/embed/CBYfXlP7ppQ?autoplay=1"
-                                    className="w-full h-full border-0"
-                                    loading="lazy"
-                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                                    allowFullScreen
-                                    title="Preet Tech Video"
-                                />
-                            </div>
-                        </motion.div>
-                    </motion.div>
-                )}
-            </AnimatePresence>
+                        {/* YouTube Embed */}
+                        <div className="absolute inset-0 w-full h-full bg-black">
+                            <iframe
+                                src="https://www.youtube.com/embed/CBYfXlP7ppQ?autoplay=1"
+                                className="w-full h-full border-0"
+                                loading="lazy"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowFullScreen
+                                title="Preet Tech Video"
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}
         </main>
     );
 }

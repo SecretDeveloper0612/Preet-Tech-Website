@@ -19,6 +19,8 @@ const config: Config = {
                     sky: '#4FAED8',       // 🌊 Sky Blue
                     medium: '#3994fa',    // 🔵 Medium Blue
                     deep: '#2F6FB5',      // 🔷 Deep Blue
+                    'primary-blue': '#3994fa',
+                    'deep-blue': '#004aad',
                 }
             },
             fontFamily: {

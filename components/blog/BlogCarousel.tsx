@@ -46,7 +46,7 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                         onClick={() => scroll('left')}
                         disabled={!canScrollLeft}
                         className={`w-10 h-10 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center transition-colors
-                            ${!canScrollLeft ? 'opacity-50 cursor-not-allowed' : 'hover:bg-brand-cyan hover:border-brand-cyan group border'}`}
+                            ${!canScrollLeft ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:border-transparent group border'}`}
                     >
                         <ChevronLeft className={`w-5 h-5 ${canScrollLeft ? 'group-hover:text-slate-950 text-slate-400' : 'text-slate-600'}`} />
                     </button>
@@ -54,7 +54,7 @@ export default function BlogCarousel({ posts }: BlogCarouselProps) {
                         onClick={() => scroll('right')}
                         disabled={!canScrollRight}
                         className={`w-10 h-10 rounded-full border border-slate-200 dark:border-white/10 flex items-center justify-center transition-colors
-                            ${!canScrollRight ? 'opacity-50 cursor-not-allowed' : 'hover:bg-brand-cyan hover:border-brand-cyan group border'}`}
+                            ${!canScrollRight ? 'opacity-50 cursor-not-allowed' : 'hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:border-transparent group border'}`}
                     >
                         <ChevronRight className={`w-5 h-5 ${canScrollRight ? 'group-hover:text-slate-950 text-slate-400' : 'text-slate-600'}`} />
                     </button>

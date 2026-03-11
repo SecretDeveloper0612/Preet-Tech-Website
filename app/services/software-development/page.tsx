@@ -51,14 +51,7 @@ import {
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== "undefined") {
-    gsap.registerPlugin(ScrollTrigger);
-}
-
+import PhoneInput from '@/components/PhoneInput';
 enum Theme {
     DARK = 'dark',
     LIGHT = 'light',
@@ -68,8 +61,8 @@ enum Theme {
 const SectionHeader = ({ badge, title, subtitle, centered = true }: { badge: string; title: string; subtitle?: string; centered?: boolean }) => (
     <div className={`mb-16 ${centered ? 'text-center' : ''}`}>
         <motion.span
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
+
+
             className={`text-brand-cyan text-[10px] font-black uppercase tracking-[0.4em] mb-4 block`}
         >
             {badge}
@@ -178,6 +171,47 @@ const SoftwareDevelopmentPage = () => {
     const containerRef = useRef<HTMLDivElement>(null);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+    // Form State
+    const [formData, setFormData] = useState({
+        name: '',
+        businessName: '',
+        email: '',
+        phone: '',
+        countryCode: '+91',
+        companySize: '',
+        projectType: '',
+        budget: '',
+        description: ''
+    });
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleFormSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitStatus('loading');
+        try {
+            // Include basic lead mapping for consistency with the leads API
+            const res = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    phone: `${formData.countryCode} ${formData.phone}`,
+                    industry: `${formData.companySize} Employees`, // mapping company size as industry for now since it's the closest field
+                    service: 'Software Development'
+                })
+            });
+            if (res.ok) {
+                setSubmitStatus('success');
+                setFormData({ name: '', businessName: '', email: '', phone: '', countryCode: '+91', companySize: '', projectType: '', budget: '', description: '' });
+                setTimeout(() => setSubmitStatus('idle'), 5000);
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error("Form submission error:", error);
+            setSubmitStatus('error');
+        }
+    };
+
     const CARD_WIDTH = 400;
     const CARD_GAP = 24;
     const CARD_STEP = CARD_WIDTH + CARD_GAP;
@@ -237,38 +271,7 @@ const SoftwareDevelopmentPage = () => {
         }
     };
 
-    useGSAP(() => {
-        // Entrance animations
-        const tl = gsap.timeline();
-        tl.from(".hero-text-content > *", {
-            y: 30,
-            opacity: 0,
-            duration: 0.8,
-            stagger: 0.1,
-            ease: "power3.out"
-        })
-            .from(".hero-form-box", {
-                x: 50,
-                opacity: 0,
-                duration: 1,
-                ease: "power3.out"
-            }, "-=0.5");
-
-        // Section reveals
-        gsap.utils.toArray<HTMLElement>(".reveal-section").forEach((section) => {
-            gsap.from(section, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top bottom-=100",
-                    toggleActions: "play none none none"
-                },
-                y: 50,
-                opacity: 0,
-                duration: 1,
-                ease: "power3.out"
-            });
-        });
-    }, { scope: containerRef });
+    // Removed GSAP reveal animations
 
     return (
         <main ref={containerRef} className="bg-white dark:bg-[#020617] text-slate-900 dark:text-white selection:bg-brand-medium/30 transition-colors duration-300 font-jakarta overflow-x-clip">
@@ -287,8 +290,6 @@ const SoftwareDevelopmentPage = () => {
                     {/* Hero Left */}
                     <div className="lg:col-span-7 hero-text-content">
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.9 }}
-                            animate={{ opacity: 1, scale: 1 }}
                             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-medium/10 border border-brand-medium/20 text-brand-cyan text-[10px] font-black uppercase tracking-[0.3em] mb-8"
                         >
                             <span className="w-2 h-2 rounded-full bg-brand-cyan animate-ping" />
@@ -315,7 +316,7 @@ const SoftwareDevelopmentPage = () => {
                         <div className="flex flex-wrap items-center gap-4 mb-10">
                             <button
                                 onClick={() => setIsVideoModalOpen(true)}
-                                className="flex items-center gap-2 px-8 py-3.5 bg-[#3994fa] hover:bg-[#3994fa]/90 text-white font-bold rounded-full transition-all shadow-lg shadow-[#3994fa]/30 group text-sm md:text-base"
+                                className="flex items-center gap-2 px-8 py-3.5 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white font-bold rounded-full transition-all shadow-lg shadow-[#3994fa]/30 group text-sm md:text-base"
                             >
                                 Watch Demo
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-5 h-5">
@@ -326,9 +327,14 @@ const SoftwareDevelopmentPage = () => {
 
                         <div className="flex flex-wrap items-center gap-8 pt-8 border-t border-slate-200 dark:border-white/5">
                             <div className="flex -space-x-3">
-                                {[1, 2, 3, 4].map(i => (
-                                    <div key={i} className="w-12 h-12 rounded-full border-4 border-white dark:border-[#020617] bg-slate-100 dark:bg-white/10 overflow-hidden">
-                                        <img src={`https://i.pravatar.cc/150?u=tech${i}`} alt="user" className="w-full h-full object-cover" />
+                                {[
+                                    { initials: 'AK', color: 'from-blue-500 to-cyan-400' },
+                                    { initials: 'RJ', color: 'from-purple-500 to-pink-400' },
+                                    { initials: 'SM', color: 'from-emerald-500 to-teal-400' },
+                                    { initials: 'DK', color: 'from-orange-500 to-rose-400' },
+                                ].map((u, i) => (
+                                    <div key={i} className={`w-12 h-12 rounded-full border-4 border-white dark:border-[#020617] bg-gradient-to-br ${u.color} flex items-center justify-center text-white text-xs font-black shrink-0`}>
+                                        {u.initials}
                                     </div>
                                 ))}
                             </div>
@@ -347,26 +353,32 @@ const SoftwareDevelopmentPage = () => {
                                 <p className="text-[10px] font-black text-brand-cyan uppercase tracking-widest">Free Consultation • Zero Obligation</p>
                             </div>
 
-                            <form className="space-y-4">
+                            <form onSubmit={handleFormSubmit} className="space-y-4">
                                 <div className="space-y-2">
-                                    <input type="text" placeholder="Full Name" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
+                                    <input required type="text" placeholder="Full Name" value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
                                 </div>
                                 <div className="space-y-2">
-                                    <input type="text" placeholder="Company Name" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
+                                    <input required type="text" placeholder="Company Name" value={formData.businessName || ''} onChange={(e) => setFormData({ ...formData, businessName: e.target.value })} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <input type="email" placeholder="Work Email" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
-                                    <input type="tel" placeholder="Phone Number" className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
+                                    <input required type="email" placeholder="Work Email" value={formData.email || ''} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium" />
+                                    <PhoneInput
+                                        value={formData.phone || ''}
+                                        onChange={(val) => setFormData({ ...formData, phone: val })}
+                                        countryCode={formData.countryCode}
+                                        onCountryCodeChange={(code) => setFormData({ ...formData, countryCode: code })}
+                                        className="!h-auto"
+                                    />
                                 </div>
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
+                                    <select required value={formData.companySize} onChange={(e) => setFormData({ ...formData, companySize: e.target.value })} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
                                         <option value="">Company Size</option>
                                         <option value="1-10">1-10 Employees</option>
                                         <option value="11-50">11-50 Employees</option>
                                         <option value="51-200">51-200 Employees</option>
                                         <option value="201+">201+ Employees</option>
                                     </select>
-                                    <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
+                                    <select required value={formData.projectType} onChange={(e) => setFormData({ ...formData, projectType: e.target.value })} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
                                         <option value="">Project Type</option>
                                         <option value="custom">Custom Software</option>
                                         <option value="crm">CRM / ERP</option>
@@ -375,18 +387,20 @@ const SoftwareDevelopmentPage = () => {
                                         <option value="other">Other</option>
                                     </select>
                                 </div>
-                                <select className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
+                                <select required value={formData.budget} onChange={(e) => setFormData({ ...formData, budget: e.target.value })} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-500 dark:text-slate-400 appearance-none focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 cursor-pointer">
                                     <option value="">Estimated Budget</option>
                                     <option value="15-25k">$15,000 - $25,000</option>
                                     <option value="25-50k">$25,000 - $50,000</option>
                                     <option value="50-100k">$50,000 - $100,000</option>
                                     <option value="100k+">$100,000+</option>
                                 </select>
-                                <textarea placeholder="Project Description" rows={3} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium resize-none"></textarea>
+                                <textarea placeholder="Project Description" rows={3} value={formData.description || ''} onChange={(e) => setFormData({ ...formData, description: e.target.value })} className="w-full bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/10 rounded-2xl py-4 px-6 text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-cyan/50 transition-all font-medium resize-none"></textarea>
 
-                                <button type="submit" className="w-full group bg-brand-cyan hover:bg-slate-900 dark:hover:bg-white text-brand-deep dark:hover:text-brand-deep rounded-2xl py-5 font-black text-xs uppercase tracking-[0.2em] transition-all shadow-xl shadow-brand-cyan/20 flex items-center justify-center gap-2">
-                                    Request Free Software Strategy Call <ArrowRight className="w-4 h-4" />
+                                <button disabled={submitStatus === "loading"} type="submit" className="w-full group bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-95 text-white rounded-2xl py-5 font-black text-xs uppercase tracking-[0.2em] transition-all shadow-xl shadow-[#3994fa]/20 flex items-center justify-center gap-2">
+                                    {submitStatus === "loading" ? "Submitting..." : "Request Free Software Strategy Call"} <ArrowRight className="w-4 h-4" />
                                 </button>
+                                {submitStatus === 'success' && <p className="text-emerald-500 text-[10px] font-black uppercase text-center mt-2 tracking-widest">Success! We will be in touch.</p>}
+                                {submitStatus === 'error' && <p className="text-red-500 text-[10px] font-black uppercase text-center mt-2 tracking-widest">Error! Please try again.</p>}
                             </form>
                         </div>
                     </div>
@@ -649,8 +663,8 @@ const SoftwareDevelopmentPage = () => {
                 <div className="max-w-7xl mx-auto relative z-10">
                     <div className="text-center mb-20">
                         <motion.span
-                            initial={{ opacity: 0, y: 10 }}
-                            whileInView={{ opacity: 1, y: 0 }}
+
+
                             className="text-brand-cyan text-[10px] font-black uppercase tracking-[0.5em] mb-4 block"
                         >
                             The Engine Room
@@ -670,8 +684,8 @@ const SoftwareDevelopmentPage = () => {
                         {Object.entries(techStack).map(([category, techs], i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+
+
                                 transition={{ delay: i * 0.1 }}
                                 whileHover={{ y: -5 }}
                                 className="p-8 rounded-[2rem] bg-white/[0.03] border border-white/10 hover:border-brand-cyan/30 transition-all group backdrop-blur-sm"
@@ -732,7 +746,7 @@ const SoftwareDevelopmentPage = () => {
                         {caseStudies.map((caseStudy, i) => (
                             <div key={i} className="group flex flex-col md:flex-row gap-8 p-10 rounded-[3rem] border border-slate-200 dark:border-white/10 bg-slate-50 dark:bg-slate-900/30 hover:border-brand-medium/50 transition-all">
                                 <div className="w-full md:w-1/2 aspect-[4/5] rounded-[2rem] overflow-hidden">
-                                    <img src={caseStudy.image} alt={caseStudy.company} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" />
+                                    <img src={caseStudy.image} alt={caseStudy.company} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" onError={(e) => { const t = e.target as HTMLImageElement; t.style.background = 'linear-gradient(135deg, #1e293b 0%, #334155 100%)'; t.src = ''; }} />
                                 </div>
                                 <div className="w-full md:w-1/2 flex flex-col justify-between py-2">
                                     <div>
@@ -804,7 +818,7 @@ const SoftwareDevelopmentPage = () => {
                     />
 
                     <div className="flex flex-wrap justify-center gap-6 mt-12">
-                        <button className="group relative bg-brand-deep dark:bg-white text-white dark:text-brand-deep rounded-2xl px-12 py-5 font-black text-xs uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-2xl">
+                        <button className="group relative bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-95 text-white rounded-2xl px-12 py-5 font-black text-xs uppercase tracking-[0.2em] transition-all hover:scale-105 active:scale-95 shadow-2xl shadow-[#3994fa]/20">
                             Book Free Strategy Call
                         </button>
                     </div>
@@ -817,8 +831,8 @@ const SoftwareDevelopmentPage = () => {
 
                 <div className="max-w-5xl mx-auto relative z-10 text-center">
                     <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
+
+
                         className="inline-block px-6 py-2 rounded-full border border-brand-cyan text-brand-cyan text-[10px] font-black uppercase tracking-[0.5em] mb-12"
                     >
                         Future Infrastructure
@@ -834,10 +848,10 @@ const SoftwareDevelopmentPage = () => {
                     </p>
 
                     <div className="flex flex-col sm:flex-row items-center justify-center gap-6">
-                        <button className="w-full sm:w-auto px-12 py-6 bg-brand-cyan text-brand-deep rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-white transition-all shadow-xl shadow-brand-cyan/20">
+                        <button className="w-full sm:w-auto px-12 py-6 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-95 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all shadow-xl shadow-[#3994fa]/20">
                             Start Your Software Project
                         </button>
-                        <button className="w-full sm:w-auto px-12 py-6 bg-white/5 border border-white/20 text-white rounded-2xl font-black text-xs uppercase tracking-[0.2em] hover:bg-white/10 transition-all">
+                        <button className="w-full sm:w-auto px-12 py-6 bg-white/5 border border-[#3994fa]/20 text-white hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:border-transparent rounded-2xl font-black text-xs uppercase tracking-[0.2em] transition-all">
                             Talk to Our Experts
                         </button>
                     </div>
@@ -848,7 +862,7 @@ const SoftwareDevelopmentPage = () => {
             <AnimatePresence>
                 {isVideoModalOpen && (
                     <motion.div
-                        initial={{ opacity: 0 }}
+
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 z-[100] flex items-center justify-center bg-black/80 backdrop-blur-sm p-4 md:p-10"

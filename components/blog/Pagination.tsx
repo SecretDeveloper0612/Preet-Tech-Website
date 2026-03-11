@@ -25,8 +25,8 @@ export default function Pagination({ currentPage, totalPages, onPageChange }: Pa
                     key={i}
                     onClick={() => onPageChange(i + 1)}
                     className={`w-12 h-12 rounded-xl border font-bold text-sm transition-all ${currentPage === i + 1
-                            ? 'bg-brand-medium border-brand-medium text-white shadow-lg shadow-brand-medium/20'
-                            : 'border-white/10 hover:border-brand-sky/40 hover:text-brand-cyan'
+                        ? 'bg-gradient-to-r from-[#3994fa] to-[#004aad] border-transparent text-white shadow-lg shadow-[#3994fa]/20'
+                        : 'border-white/10 hover:border-brand-sky/40 hover:text-brand-cyan'
                         }`}
                 >
                     {i + 1}

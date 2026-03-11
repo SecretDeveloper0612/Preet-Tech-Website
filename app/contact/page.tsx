@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PhoneInput from '@/components/PhoneInput';
 
 enum Theme {
     DARK = 'dark',
@@ -27,6 +28,8 @@ const ContactPage = () => {
     const [formState, setFormState] = useState({
         fullName: '',
         email: '',
+        phone: '',
+        countryCode: '+91',
         message: ''
     });
 
@@ -53,12 +56,26 @@ const ContactPage = () => {
         setFormState(prev => ({ ...prev, [name]: value }));
     };
 
+    const handlePhoneChange = (value: string) => {
+        setFormState(prev => ({ ...prev, phone: value }));
+    };
+
+    const handleCountryCodeChange = (code: string) => {
+        setFormState(prev => ({ ...prev, countryCode: code }));
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsSubmitting(true);
+        // Simulated API call with combined phone
+        console.log("Submitting:", {
+            ...formState,
+            phone: `${formState.countryCode} ${formState.phone}`
+        });
         await new Promise(resolve => setTimeout(resolve, 1500));
         setIsSubmitting(false);
         setSubmitted(true);
+        setFormState({ fullName: '', email: '', phone: '', countryCode: '+91', message: '' });
         setTimeout(() => setSubmitted(false), 5000);
     };
 
@@ -71,8 +88,6 @@ const ContactPage = () => {
                     {/* Compact Header */}
                     <div className="mb-12">
                         <motion.div
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
                             className="flex items-center gap-2 mb-4"
                         >
                             <div className="w-8 h-[1px] bg-brand-cyan" />
@@ -94,9 +109,6 @@ const ContactPage = () => {
                                 ].map((item, i) => (
                                     <motion.div
                                         key={i}
-                                        initial={{ opacity: 0, x: -20 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ delay: i * 0.1 }}
                                         className="flex items-start gap-4"
                                     >
                                         <div className="w-10 h-10 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center border border-slate-100 dark:border-white/10 shrink-0 shadow-sm">
@@ -112,8 +124,6 @@ const ContactPage = () => {
 
                             {/* Small Integrated Map */}
                             <motion.div
-                                initial={{ opacity: 0, scale: 0.98 }}
-                                animate={{ opacity: 1, scale: 1 }}
                                 className="relative h-60 rounded-[2rem] overflow-hidden border border-slate-100 dark:border-white/10 shadow-sm group"
                             >
                                 <iframe
@@ -151,8 +161,6 @@ const ContactPage = () => {
 
                         {/* Right: Modern Compact Form */}
                         <motion.div
-                            initial={{ opacity: 0, x: 20 }}
-                            animate={{ opacity: 1, x: 0 }}
                             className="lg:col-span-3 bg-slate-50 dark:bg-white/[0.03] rounded-[2.5rem] p-8 md:p-10 border border-slate-100 dark:border-white/5 shadow-xl shadow-slate-200/50 dark:shadow-none"
                         >
                             <form onSubmit={handleSubmit} className="space-y-6">
@@ -181,6 +189,15 @@ const ContactPage = () => {
                                             placeholder="hello@world.com"
                                         />
                                     </div>
+                                    <div className="space-y-2">
+                                        <label className="text-[10px] font-black uppercase tracking-widest text-slate-400 ml-1">Phone</label>
+                                        <PhoneInput
+                                            value={formState.phone}
+                                            onChange={handlePhoneChange}
+                                            countryCode={formState.countryCode}
+                                            onCountryCodeChange={handleCountryCodeChange}
+                                        />
+                                    </div>
                                 </div>
 
                                 <div className="space-y-2">
@@ -199,7 +216,7 @@ const ContactPage = () => {
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
-                                    className="w-full h-16 bg-slate-900 dark:bg-white text-white dark:text-slate-900 font-black uppercase tracking-[0.2em] rounded-xl hover:bg-brand-cyan dark:hover:bg-brand-cyan transition-all duration-300 shadow-lg shadow-slate-200 dark:shadow-none flex items-center justify-center gap-3 active:scale-[0.98] disabled:opacity-50"
+                                    className="w-full h-16 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white font-black uppercase tracking-[0.2em] rounded-xl hover:opacity-90 transition-all duration-300 shadow-lg shadow-[#3994fa]/20 flex items-center justify-center gap-3 active:scale-[0.98] disabled:opacity-50"
                                 >
                                     <AnimatePresence mode="wait">
                                         {submitted ? (

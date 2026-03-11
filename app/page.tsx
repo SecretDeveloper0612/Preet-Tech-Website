@@ -11,6 +11,7 @@ import ReadyToPartner from '../components/ReadyToPartner';
 import Testimonials from '../components/Testimonials';
 import ProductShowcase from '../components/ProductShowcase';
 import Insights from '../components/Insights';
+import HomeFAQ from '../components/HomeFAQ';
 import Footer from '../components/Footer';
 
 enum Theme {
@@ -53,6 +54,8 @@ export default function Home() {
             <Testimonials />
 
             <ProductShowcase />
+
+            <HomeFAQ />
 
             <ReadyToPartner />
 

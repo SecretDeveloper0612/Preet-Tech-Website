@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect, useRef } from 'react';
+import Link from 'next/link';
 import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import { motion, useScroll, useTransform, useSpring, AnimatePresence } from 'framer-motion';
@@ -40,6 +41,7 @@ enum Theme {
 }
 
 import ThreeSphereScene from '../../components/ThreeSphere';
+import AboutPerformanceGraph from '../../components/AboutPerformanceGraph';
 
 export default function AboutPage() {
     const [theme, setTheme] = useState<Theme>(Theme.LIGHT);
@@ -67,18 +69,7 @@ export default function AboutPage() {
         // Default is light, no need to force dark
     }, []);
 
-    const headlineVariants = {
-        hidden: { opacity: 0, y: 50 },
-        visible: (i: number) => ({
-            opacity: 1,
-            y: 0,
-            transition: {
-                delay: i * 0.2,
-                duration: 0.8,
-                ease: [0.22, 1, 0.36, 1] as [number, number, number, number]
-            }
-        })
-    };
+
 
     const yBg = useTransform(scrollYProgress, [0, 0.3], [0, 200]);
     const yText = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
@@ -91,17 +82,14 @@ export default function AboutPage() {
             {/* 1. HERO SECTION: STRONG POSITIONING */}
             <section className="relative min-h-[90vh] flex items-center justify-center pt-24 overflow-hidden">
                 {/* Background Animation & Glows */}
-                <motion.div style={{ y: yBg, opacity: opacityHero }} className="absolute inset-0 z-0">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        transition={{ duration: 1.5, ease: "easeOut" }}
+                <div className="absolute inset-0 z-0">
+                    <div
                         className="absolute inset-0"
                     >
-                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-medium/20 rounded-full blur-[120px] animate-pulse" />
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-brand-medium/20 rounded-full blur-[120px]" />
                         <div className="absolute top-1/4 right-1/4 w-[400px] h-[400px] bg-brand-cyan/10 rounded-full blur-[100px]" />
                         <div className="absolute bottom-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-500/10 rounded-full blur-[120px]" />
-                    </motion.div>
+                    </div>
 
                     {/* 3D CENTRAL ELEMENT (Matching Landing Page) */}
                     <div className={`absolute inset-0 z-[1] flex items-center justify-center ${isDark ? 'opacity-60 lg:opacity-90' : 'opacity-100'}`}>
@@ -112,77 +100,49 @@ export default function AboutPage() {
 
                     {/* Animated Grid Pattern */}
                     <div className="absolute inset-0 z-[2]">
-                        <motion.div
-                            initial={{ opacity: 0, backgroundSize: "60px 60px" }}
-                            animate={{ opacity: 1, backgroundSize: "40px 40px" }}
-                            transition={{ duration: 2, ease: [0.22, 1, 0.36, 1] }}
+                        <div
                             className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.1)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.1)_1px,transparent_1px)] dark:bg-[linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000,transparent_100%)]"
                         />
-
-                        {/* Scanning Light Effect */}
-                        <motion.div
-                            initial={{ y: "-100%" }}
-                            animate={{ y: "100%" }}
-                            transition={{ duration: 8, repeat: Infinity, ease: "linear" }}
-                            className="absolute inset-0 bg-gradient-to-b from-transparent via-brand-medium/5 to-transparent h-1/2 w-full pointer-events-none"
-                        />
                     </div>
-                </motion.div>
+                </div>
 
-                <motion.div style={{ y: yText, opacity: opacityHero }} className="max-w-7xl mx-auto px-6 relative z-10 text-center">
-                    <motion.div
-                        initial="hidden"
-                        animate="visible"
-                        className="flex flex-col items-center"
+                <div className="max-w-7xl mx-auto px-6 relative z-10 text-center flex flex-col items-center">
+                    <span
+                        className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-medium/10 text-brand-medium text-[10px] font-black uppercase tracking-[0.4em] mb-8 border border-brand-medium/20 backdrop-blur-xl"
                     >
-                        <motion.span
-                            variants={headlineVariants}
-                            custom={0}
-                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-medium/10 text-brand-medium text-[10px] font-black uppercase tracking-[0.4em] mb-8 border border-brand-medium/20 backdrop-blur-xl"
-                        >
-                            <Sparkles className="w-3 h-3" />
-                            Innovation Meets Execution
-                        </motion.span>
+                        <Sparkles className="w-3 h-3" />
+                        Innovation Meets Execution
+                    </span>
 
-                        <motion.h1
-                            variants={headlineVariants}
-                            custom={1}
-                            className="text-4xl md:text-7xl lg:text-8xl font-black leading-[1] md:leading-[0.9] uppercase tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground via-foreground to-foreground/40"
-                        >
-                            Building Digital <br className="hidden md:block" />
-                            <span className="text-brand-medium">Solutions</span> for a <br className="hidden md:block" />
-                            Smarter Future
-                        </motion.h1>
+                    <h1
+                        className="text-4xl md:text-6xl lg:text-7xl font-black leading-[1] md:leading-[1.1] uppercase tracking-tighter mb-8 bg-clip-text text-transparent bg-gradient-to-b from-foreground via-foreground to-foreground/40"
+                    >
+                        Your Innovative <br className="hidden md:block" />
+                        <span className="text-brand-medium">IT Solutions</span> Company <br className="hidden md:block" />
+                        for a Smarter Future
+                    </h1>
 
-                        <motion.p
-                            variants={headlineVariants}
-                            custom={2}
-                            className="text-lg md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed font-medium mb-12"
-                        >
-                            Preet Tech is a forward-thinking IT company delivering scalable, modern, and performance-driven digital solutions.
-                        </motion.p>
+                    <p
+                        className="text-lg md:text-2xl text-slate-500 dark:text-slate-400 max-w-2xl leading-relaxed font-medium mb-12"
+                    >
+                        Preet Tech is an <strong className="text-foreground dark:text-white">innovative IT solutions company</strong> delivering scalable, modern, and performance-driven <strong className="text-foreground dark:text-white">digital transformation services</strong>, designed to elevate your business.
+                    </p>
 
-                        <motion.div
-                            variants={headlineVariants}
-                            custom={3}
-                            className="flex flex-wrap justify-center gap-6"
-                        >
-                            <button className="px-8 py-3.5 rounded-full bg-brand-medium hover:bg-brand-medium/90 text-white text-[11px] font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-brand-medium/20 hover:-translate-y-0.5 transition-all duration-300">
-                                Work With Us <ArrowRight className="w-4 h-4" />
-                            </button>
-                        </motion.div>
-                    </motion.div>
-                </motion.div>
+                    <div
+                        className="flex flex-wrap justify-center gap-6"
+                    >
+                        <Link href="/contact" className="px-8 py-3.5 rounded-full bg-brand-medium hover:bg-brand-medium/90 text-white text-[11px] font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-brand-medium/20 hover:-translate-y-0.5 transition-all duration-300">
+                            Work With Us <ArrowRight className="w-4 h-4" />
+                        </Link>
+                    </div>
+                </div>
             </section>
 
             {/* 2. WHO WE ARE: HUMAN STORY */}
             <section className="py-24 px-6 bg-white dark:bg-[#07090f] transition-colors duration-500">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
+                        <div
                             className="relative"
                         >
                             <div className="relative rounded-[2.5rem] overflow-hidden aspect-square max-w-lg mx-auto border border-slate-200 dark:border-white/5">
@@ -190,7 +150,8 @@ export default function AboutPage() {
                                 <img
                                     src="/Assets/Logo/About-page-image.png"
                                     alt="Our Team"
-                                    className="w-full h-full object-cover transition-all duration-700 hover:scale-105"
+                                    className="w-full h-full object-cover grayscale transition-all duration-700 hover:grayscale-0 hover:scale-105"
+                                    onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                                 />
                                 <div className="absolute inset-x-8 bottom-8 p-6 bg-white/95 dark:bg-black/80 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-white/10">
                                     <p className="text-sm font-medium italic text-slate-600 dark:text-slate-300">
@@ -199,29 +160,27 @@ export default function AboutPage() {
                                 </div>
                             </div>
                             {/* Decorative Accents */}
-                            <div className="absolute -top-4 -right-4 w-20 h-20 border-t-2 border-r-2 border-brand-medium animate-pulse" />
-                            <div className="absolute -bottom-4 -left-4 w-20 h-20 border-b-2 border-l-2 border-brand-cyan animate-pulse" />
-                        </motion.div>
+                            <div className="absolute -top-4 -right-4 w-20 h-20 border-t-2 border-r-2 border-brand-medium" />
+                            <div className="absolute -bottom-4 -left-4 w-20 h-20 border-b-2 border-l-2 border-brand-cyan" />
+                        </div>
 
-                        <motion.div
-                            initial={{ opacity: 0, x: 30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
-                        >
+                        <div>
                             <span className="text-brand-medium font-black uppercase tracking-[0.4em] text-[10px] mb-6 block">Our Story</span>
                             <h2 className="text-4xl md:text-5xl font-black tracking-tighter uppercase mb-6 leading-none">
-                                Human Intelligence <br />
-                                <span className="text-brand-medium">Digital Craft.</span>
+                                Premier Digital <br />
+                                <span className="text-brand-medium">Transformation Agency.</span>
                             </h2>
                             <div className="space-y-4 text-slate-500 dark:text-slate-400 text-base md:text-lg font-medium leading-relaxed">
                                 <p>
-                                    Founded with a mission to bridge the gap between complex technology and business growth, Preet Tech started as a small collective of visionaries who believed that software should be more than just functional—it should be transformative.
+                                    With years of proven expertise in <strong className="text-foreground dark:text-white">custom software development</strong> and <strong className="text-foreground dark:text-white">scalable cloud infrastructure</strong>, Preet Tech started with a clear mission: to bridge the gap between complex business challenges and high-performance technology.
                                 </p>
-                                <p>
-                                    We are a passionate team of developers, designers, and strategists dedicated to helping businesses grow through technology. Our approach is human-centric, focusing on solving real problems with scalable, future-ready solutions.
-                                </p>
-                                <p>
-                                    Whether it's a startup looking for its first MVP or an enterprise scaling its digital ecosystem, we bring the same level of engineering precision and creative imagination to every project.
+                                <ul className="list-disc pl-5 space-y-2 mt-4 text-foreground dark:text-white">
+                                    <li><strong>Future-ready technology:</strong> Building architectures that scale automatically with your business.</li>
+                                    <li><strong>Enterprise IT solutions:</strong> Secure, robust workflows engineered for maximum reliability.</li>
+                                    <li><strong>User-centric approach:</strong> Exceptional UI/UX design capabilities enhancing user engagement.</li>
+                                </ul>
+                                <p className="mt-4">
+                                    Whether deploying <strong className="text-foreground dark:text-white">artificial intelligence solutions</strong> or crafting <strong className="text-foreground dark:text-white">web application development</strong> initiatives, our engineers bring reliable systems prioritizing E-E-A-T guidelines on every project.
                                 </p>
                             </div>
 
@@ -241,7 +200,7 @@ export default function AboutPage() {
                                     <p className="text-[9px] md:text-[10px] font-bold uppercase tracking-widest text-slate-500">Client Success</p>
                                 </div>
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -257,10 +216,7 @@ export default function AboutPage() {
                         </h2>
                     </div>
 
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95, y: 30 }}
-                        whileInView={{ opacity: 1, scale: 1, y: 0 }}
-                        viewport={{ once: true }}
+                    <div
                         className="relative aspect-video rounded-[2.5rem] overflow-hidden bg-slate-200 dark:bg-slate-800 border border-slate-200 dark:border-white/10 shadow-2xl group"
                     >
                         {/* YouTube Background Autoplay */}
@@ -304,7 +260,7 @@ export default function AboutPage() {
                                 Watch with Sound
                             </a>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 
@@ -312,10 +268,7 @@ export default function AboutPage() {
             <section className="py-16 md:py-32 bg-slate-50 dark:bg-white/[0.02] relative">
                 <div className="max-w-7xl mx-auto px-6">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 font-medium">
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
+                        <div
                             className="group p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] bg-white dark:bg-[#0b0f1a] border border-slate-200 dark:border-white/5 relative overflow-hidden transition-all hover:border-brand-medium/30"
                         >
                             <div className="relative z-10">
@@ -329,13 +282,9 @@ export default function AboutPage() {
                                 </p>
                             </div>
                             <Target className="absolute -right-20 -bottom-20 w-80 h-80 text-brand-medium/5 group-hover:text-brand-medium/10 transition-colors duration-500" />
-                        </motion.div>
+                        </div>
 
-                        <motion.div
-                            initial={{ opacity: 0, y: 30 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: 0.2 }}
+                        <div
                             className="group p-8 md:p-16 rounded-[2.5rem] md:rounded-[4rem] bg-brand-medium text-white relative overflow-hidden transition-all shadow-[0_20px_50px_rgba(63,143,204,0.3)] hover:-translate-y-2"
                         >
                             <div className="relative z-10">
@@ -349,7 +298,7 @@ export default function AboutPage() {
                                 </p>
                             </div>
                             <Globe className="absolute -right-20 -bottom-20 w-80 h-80 text-white/10 group-hover:text-white/20 transition-colors duration-500" />
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -366,29 +315,26 @@ export default function AboutPage() {
 
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                         {[
-                            { title: "Web Development", icon: Code2, desc: "Building high-performance, SEO-optimized web architectures using cutting-edge frameworks." },
-                            { title: "Software Development", icon: Command, desc: "Custom industrial-grade software tailored to solve complex business logic and workflows." },
-                            { title: "Mobile App Development", icon: Zap, desc: "Creating immersive iOS and Android experiences that put your business in the user's pocket." },
-                            { title: "UI/UX Design", icon: Palette, desc: "Sleek, premium, and conversion-focused interfaces that wow users at first glance." },
-                            { title: "Partnership Marketing", icon: Cloud, desc: "Scalable cloud infrastructure and devops strategies for 99.9% reliability and global scale." },
-                            { title: "Start Your Business", icon: MessageSquare, desc: "Strategic technology roadmaps that align your IT investment with long-term business goals." }
+                            { title: "Web Development", link: "/services/web-development", icon: Code2, desc: "High-performance web architecture and robust web applications." },
+                            { title: "Software Development", link: "/services/software-development", icon: Command, desc: "Custom software development automating business operations securely." },
+                            { title: "Mobile App Development", link: "/services/app-development", icon: Zap, desc: "Top-tier mobile app development services for seamless mobile UX." },
+                            { title: "UI/UX Design", link: "/services/ui-ux-design", icon: Palette, desc: "Exceptional UI/UX design crafting secure digital experiences." },
+                            { title: "Partnership Marketing", link: "/services/partnership-marketing", icon: Cloud, desc: "Strategic partnership marketing combined with cloud efficiency." },
+                            { title: "Start Your Business", link: "/services/start-your-business", icon: MessageSquare, desc: "Complete consultation as your trusted enterprise technology partner." }
                         ].map((service, i) => (
-                            <motion.div
-                                key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
-                                className="group p-8 rounded-[2rem] bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 hover:border-brand-medium/50 transition-all duration-500 flex flex-col items-start shadow-sm"
-                            >
-                                <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center text-brand-medium mb-6 group-hover:bg-brand-medium group-hover:text-white transition-all duration-500">
-                                    <service.icon className="w-6 h-6" />
+                            <Link href={service.link} key={i}>
+                                <div
+                                    className="group h-full p-8 rounded-[2rem] bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/5 hover:border-brand-medium/50 transition-all duration-500 flex flex-col items-start shadow-sm"
+                                >
+                                    <div className="w-12 h-12 rounded-xl bg-slate-50 dark:bg-white/5 flex items-center justify-center text-brand-medium mb-6 group-hover:bg-brand-medium group-hover:text-white transition-all duration-500">
+                                        <service.icon className="w-6 h-6" />
+                                    </div>
+                                    <h4 className="text-xl font-black uppercase tracking-tighter mb-4">{service.title}</h4>
+                                    <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
+                                        {service.desc}
+                                    </p>
                                 </div>
-                                <h4 className="text-xl font-black uppercase tracking-tighter mb-4">{service.title}</h4>
-                                <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">
-                                    {service.desc}
-                                </p>
-                            </motion.div>
+                            </Link>
                         ))}
                     </div>
                 </div>
@@ -401,10 +347,7 @@ export default function AboutPage() {
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
 
                         {/* LEFT COLUMN: Content Highlights */}
-                        <motion.div
-                            initial={{ opacity: 0, x: -30 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
+                        <div
                             className="order-2 lg:order-1"
                         >
                             <span className="text-brand-medium font-black uppercase tracking-[0.4em] text-[10px] mb-6 block">The Competitive Edge</span>
@@ -419,9 +362,8 @@ export default function AboutPage() {
                                     { title: "Performance First", desc: "Sub-second load times engineered directly into our core solutions.", icon: Zap },
                                     { title: "Radical Transparency", desc: "No hidden layers. Open communication regarding architecture and code.", icon: MessageSquare }
                                 ].map((item, i) => (
-                                    <motion.div
+                                    <div
                                         key={i}
-                                        whileHover={{ x: 10 }}
                                         className="group flex gap-5 items-start p-4 rounded-2xl hover:bg-slate-50 dark:hover:bg-white/5 transition-all duration-300"
                                     >
                                         <div className="flex-shrink-0 w-14 h-14 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-white/10 flex items-center justify-center group-hover:bg-brand-medium group-hover:border-brand-medium transition-all duration-500 shadow-sm">
@@ -431,16 +373,13 @@ export default function AboutPage() {
                                             <h4 className="text-xl font-black uppercase tracking-wide mb-2 text-foreground dark:text-white group-hover:text-brand-medium transition-colors">{item.title}</h4>
                                             <p className="text-sm text-slate-500 dark:text-slate-400 font-medium leading-relaxed">{item.desc}</p>
                                         </div>
-                                    </motion.div>
+                                    </div>
                                 ))}
                             </div>
-                        </motion.div>
+                        </div>
 
-                        {/* RIGHT COLUMN: Video Container */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
+                        {/* RIGHT COLUMN: Performance Graph */}
+                        <div
                             className="order-1 lg:order-2 relative"
                         >
                             {/* Decorative framing background */}
@@ -448,15 +387,9 @@ export default function AboutPage() {
                             <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-brand-medium rounded-full blur-[80px] opacity-20 hidden lg:block pointer-events-none" />
 
                             <div className="relative rounded-[2.5rem] lg:rounded-[3rem] p-3 bg-white dark:bg-[#0b0f1a] border border-slate-200 dark:border-white/10 shadow-2xl overflow-hidden group">
-                                <div className="relative w-full aspect-square md:aspect-[4/5] rounded-[2rem] lg:rounded-[2.5rem] overflow-hidden bg-slate-900 border border-slate-200 dark:border-white/5">
-                                    <img
-                                        src="/Assets/Logo/About-page-image.png"
-                                        alt="Preet Tech Team Collaboration"
-                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 ease-in-out"
-                                    />
-                                </div>
+                                <AboutPerformanceGraph />
                             </div>
-                        </motion.div>
+                        </div>
 
                     </div>
                 </div>
@@ -484,18 +417,14 @@ export default function AboutPage() {
                             { title: "Cloud Native", icon: Cloud, desc: "Building modular, elastic infrastructures for infinite global scale." },
                             { title: "Hyper Automation", icon: Zap, desc: "Eliminating manual friction with sophisticated robotic process automation." }
                         ].map((trend, i) => (
-                            <motion.div
+                            <div
                                 key={i}
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
-                                transition={{ delay: i * 0.1 }}
                                 className="p-8 md:p-10 rounded-[2.5rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 hover:border-brand-medium transition-all group shadow-xl dark:shadow-none"
                             >
                                 <trend.icon className="w-10 h-10 text-brand-medium mb-6 group-hover:scale-110 transition-transform" />
                                 <h4 className="text-xl font-black uppercase tracking-tighter mb-4 text-foreground dark:text-white">{trend.title}</h4>
                                 <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed font-medium">{trend.desc}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -504,13 +433,10 @@ export default function AboutPage() {
             {/* 9. CLIENT-CENTRIC SECTION */}
             <section className="py-16 md:py-24 px-6 font-medium">
                 <div className="max-w-3xl mx-auto text-center">
-                    <motion.div
-                        initial={{ opacity: 0, y: 30 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
+                    <div
                         className="space-y-6 md:space-y-8"
                     >
-                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-brand-medium/10 flex items-center justify-center text-brand-medium mx-auto animate-bounce">
+                        <div className="w-12 h-12 md:w-16 md:h-16 rounded-full bg-brand-medium/10 flex items-center justify-center text-brand-medium mx-auto">
                             <Heart className="w-6 h-6 md:w-8 md:h-8 fill-current" />
                         </div>
                         <h2 className="text-2xl md:text-5xl font-black tracking-tighter uppercase leading-tight md:leading-none">
@@ -525,18 +451,48 @@ export default function AboutPage() {
                             <Users className="w-8 h-8 md:w-10 md:h-10" />
                             <Headphones className="w-8 h-8 md:w-10 md:h-10" />
                         </div>
-                    </motion.div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 9.5 FAQ ON AEO AND GEO */}
+            <section className="py-24 px-6 bg-slate-50 dark:bg-[#07090f] text-foreground dark:text-white border-t border-slate-200 dark:border-white/5">
+                <div className="max-w-4xl mx-auto">
+                    <div className="text-center mb-16">
+                        <span className="text-brand-medium font-black uppercase tracking-[0.4em] text-[10px] mb-6 block">Common Questions</span>
+                        <h2 className="text-3xl md:text-5xl font-black tracking-tighter uppercase mb-6">Frequently Asked <span className="text-brand-medium">Questions</span></h2>
+                    </div>
+                    <div className="space-y-6">
+                        {[
+                            {
+                                q: "What makes Preet Tech an innovative IT solutions company?",
+                                a: "Our deep expertise in scalable cloud infrastructure, AI automation, and full-stack custom software development firmly positions us as a top digital transformation agency that consistently delivers forward-thinking results."
+                            },
+                            {
+                                q: "Do you offer mobile app development services?",
+                                a: "Yes, we specialize in high-performance iOS and Android application creation, ensuring mobile scalability as an integral component of your digital architecture."
+                            },
+                            {
+                                q: "Why should we choose Preet Tech as our enterprise technology partner?",
+                                a: "We embrace Google E-E-A-T principles by bringing real-world experience, proven technical expertise, authoritative leadership in architecture, and unquestionable trustworthiness to every partnership."
+                            }
+                        ].map((faq, idx) => (
+                            <div key={idx} className="p-6 rounded-2xl bg-white dark:bg-white/[0.03] border border-slate-200 dark:border-white/5">
+                                <h3 className="text-lg font-bold mb-2 flex items-center gap-3">
+                                    <span className="text-brand-medium"><CheckCircle2 className="w-5 h-5" /></span> {faq.q}
+                                </h3>
+                                <p className="text-slate-500 dark:text-slate-400 text-sm md:text-base leading-relaxed ml-8">{faq.a}</p>
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </section>
 
             {/* 10. CALL TO ACTION: STRONG ENDING */}
             <section className="py-24 px-6 relative overflow-hidden font-medium">
-                <div className="absolute inset-0 bg-brand-medium/5 animate-pulse" />
+                <div className="absolute inset-0 bg-brand-medium/5" />
                 <div className="max-w-5xl mx-auto">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
+                    <div
                         className="relative p-8 md:p-16 rounded-[2.5rem] md:rounded-[3rem] bg-white dark:bg-slate-900 border border-slate-200 dark:border-brand-medium/20 text-center overflow-hidden shadow-2xl dark:shadow-none"
                     >
                         {/* Glow Accents */}
@@ -549,15 +505,14 @@ export default function AboutPage() {
                             <p className="text-base md:text-xl text-slate-500 dark:text-slate-400 max-w-xl mx-auto leading-relaxed">
                                 Let’s Turn Your Vision Into Reality. Initialize your digital transformation with our core team.
                             </p>
-                            <motion.button
-                                whileHover={{ scale: 1.05 }}
-                                whileTap={{ scale: 0.95 }}
-                                className="px-10 py-4 bg-brand-medium text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-[0_20px_50px_rgba(63,143,204,0.4)]"
+                            <Link
+                                href="/contact"
+                                className="inline-block px-10 py-4 bg-brand-medium text-white rounded-xl font-black text-[10px] uppercase tracking-widest shadow-[0_20px_50px_rgba(63,143,204,0.4)] hover:scale-105 transition-transform"
                             >
                                 Contact Us Today
-                            </motion.button>
+                            </Link>
                         </div>
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 

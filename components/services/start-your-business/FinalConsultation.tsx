@@ -3,14 +3,51 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { CheckCircle2, ArrowRight, User, Mail, Phone, Lightbulb, DollarSign, Calendar } from 'lucide-react';
+import PhoneInput from '@/components/PhoneInput';
 
 const FinalConsultation = () => {
     const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        phone: '',
+        countryCode: '+91',
+        timeline: '',
+        businessIdea: '',
+        budget: '',
+    });
 
-    const handleFormSubmit = (e: React.FormEvent) => {
+    const handleFormSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setFormStatus('submitting');
-        setTimeout(() => setFormStatus('success'), 2000);
+
+        try {
+            const res = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    name: formData.name,
+                    email: formData.email,
+                    phone: `${formData.countryCode} ${formData.phone}`,
+                    businessName: formData.businessIdea,
+                    industry: `Timeline: ${formData.timeline}`,
+                    budget: formData.budget,
+                    service: 'Start Business',
+                }),
+            });
+
+            if (res.ok) {
+                setFormStatus('success');
+                setFormData({ name: '', email: '', phone: '', countryCode: '+91', timeline: '', businessIdea: '', budget: '' });
+            } else {
+                setFormStatus('idle');
+                alert('Submission failed. Please try again.');
+            }
+        } catch (error) {
+            console.error('Submission error:', error);
+            setFormStatus('idle');
+            alert('An error occurred. Please try again.');
+        }
     };
 
     return (
@@ -33,7 +70,7 @@ const FinalConsultation = () => {
 
                     {formStatus === 'success' ? (
                         <motion.div
-                            initial={{ opacity: 0, scale: 0.95 }}
+
                             animate={{ opacity: 1, scale: 1 }}
                             className="py-16 text-center"
                         >
@@ -49,43 +86,46 @@ const FinalConsultation = () => {
                                 {/* Name Input */}
                                 <div className="relative group">
                                     <User className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700 dark:text-slate-300 group-focus-within:text-brand-medium dark:text-brand-cyan transition-colors" />
-                                    <input required type="text" placeholder="Your Name" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-base font-medium placeholder:text-slate-600 dark:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
+                                    <input required type="text" value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Your Name" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-base font-medium placeholder:text-slate-600 dark:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
                                 </div>
 
                                 {/* Email Input */}
                                 <div className="relative group">
                                     <Mail className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700 dark:text-slate-300 group-focus-within:text-brand-medium dark:text-brand-cyan transition-colors" />
-                                    <input required type="email" placeholder="Email Address" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-base font-medium placeholder:text-slate-600 dark:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
+                                    <input required type="email" value={formData.email || ''} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="Email Address" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-base font-medium placeholder:text-slate-600 dark:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
                                 </div>
 
-                                {/* Phone Input */}
-                                <div className="relative group">
-                                    <Phone className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700 dark:text-slate-300 group-focus-within:text-brand-medium dark:text-brand-cyan transition-colors" />
-                                    <input required type="tel" placeholder="Phone Number" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-base font-medium placeholder:text-slate-600 dark:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
+                                <div className="space-y-2">
+                                    <PhoneInput
+                                        value={formData.phone || ''}
+                                        onChange={(val) => setFormData({ ...formData, phone: val })}
+                                        countryCode={formData.countryCode}
+                                        onCountryCodeChange={(code) => setFormData({ ...formData, countryCode: code })}
+                                    />
                                 </div>
 
                                 {/* Timeline Input */}
                                 <div className="relative group">
                                     <Calendar className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700 dark:text-slate-300 group-focus-within:text-brand-medium dark:text-brand-cyan transition-colors" />
-                                    <input required type="text" placeholder="Timeline (e.g. ASAP)" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-[11px] font-black uppercase text-slate-700 dark:text-slate-300 tracking-[0.2em] placeholder:text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
+                                    <input required type="text" value={formData.timeline || ''} onChange={(e) => setFormData({ ...formData, timeline: e.target.value })} placeholder="Timeline (e.g. ASAP)" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-[11px] font-black uppercase text-slate-700 dark:text-slate-300 tracking-[0.2em] placeholder:text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
                                 </div>
                             </div>
 
                             {/* Business Idea */}
                             <div className="relative group">
                                 <Lightbulb className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700 dark:text-slate-300 group-focus-within:text-brand-medium dark:text-brand-cyan transition-colors" />
-                                <input required type="text" placeholder="Business Idea" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-base font-medium placeholder:text-slate-600 dark:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
+                                <input required type="text" value={formData.businessIdea || ''} onChange={(e) => setFormData({ ...formData, businessIdea: e.target.value })} placeholder="Business Idea" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-base font-medium placeholder:text-slate-600 dark:text-slate-400 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
                             </div>
 
                             {/* Target Budget */}
                             <div className="relative group">
                                 <DollarSign className="absolute left-6 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-700 dark:text-slate-300 group-focus-within:text-brand-medium dark:text-brand-cyan transition-colors" />
-                                <input required type="text" placeholder="TARGET BUDGET" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-[11px] font-black uppercase text-slate-700 dark:text-slate-300 tracking-[0.2em] placeholder:text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
+                                <input required type="text" value={formData.budget || ''} onChange={(e) => setFormData({ ...formData, budget: e.target.value })} placeholder="TARGET BUDGET" className="w-full h-16 bg-slate-50 dark:bg-black/40 border border-slate-100 dark:border-white/5 rounded-2xl py-2 pl-16 pr-6 text-[11px] font-black uppercase text-slate-700 dark:text-slate-300 tracking-[0.2em] placeholder:text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-4 focus:ring-brand-medium/10 dark:ring-brand-cyan/10 focus:bg-white dark:focus:bg-black transition-all" />
                             </div>
 
                             <button
                                 disabled={formStatus === 'submitting'}
-                                className="w-full h-20 bg-brand-medium dark:bg-brand-cyan text-white dark:text-[#030712] rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-3 shadow-[0_20px_40px_-10px_rgba(95,211,230,0.5)] hover:shadow-[0_30px_60px_-10px_rgba(95,211,230,0.6)] hover:-translate-y-1 active:scale-95 disabled:opacity-50 group"
+                                className="w-full h-20 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-2xl font-black text-[11px] uppercase tracking-[0.3em] transition-all flex items-center justify-center gap-3 shadow-[0_20px_40px_-10px_rgba(57,148,250,0.5)] hover:shadow-[0_30px_60px_-10px_rgba(57,148,250,0.6)] hover:-translate-y-1 active:scale-95 disabled:opacity-50 group"
                             >
                                 {formStatus === 'submitting' ? 'SYNCHRONIZING...' : 'GET FREE CONSULTATION'}
                                 <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-2" />
@@ -107,9 +147,10 @@ const FinalConsultation = () => {
                     </h2>
 
                     <motion.button
+                        onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
                         whileHover={{ scale: 1.05 }}
                         whileTap={{ scale: 0.95 }}
-                        className="px-16 py-8 bg-brand-medium dark:bg-brand-cyan text-white dark:text-[#030712] rounded-full font-black text-xs uppercase tracking-[0.3em] shadow-[0_0_40px_rgba(95,211,230,0.4)] relative group"
+                        className="px-16 py-8 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-full font-black text-xs uppercase tracking-[0.3em] shadow-[0_0_40px_rgba(57,148,250,0.4)] relative group"
                     >
                         <span className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:animate-ping group-hover:opacity-20 pointer-events-none" />
                         Start My Business Today

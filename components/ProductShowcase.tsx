@@ -63,38 +63,33 @@ const ProductShowcase: React.FC = () => {
     const [scrollLeft, setScrollLeft] = useState(0);
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Create a base set wide enough to exceed ultra-wide screens
-    const BASE_SET = [...PRODUCTS, ...PRODUCTS, ...PRODUCTS, ...PRODUCTS, ...PRODUCTS];
+    // Create a base set that is sufficient for infinite feel without over-rendering
+    const BASE_SET = [...PRODUCTS, ...PRODUCTS];
     // Looped data for infinite feel (Left Buffer, Center View, Right Buffer)
     const LOOPED_PRODUCTS = [...BASE_SET, ...BASE_SET, ...BASE_SET];
 
     const handleInfiniteScroll = () => {
         if (!scrollContainerRef.current) return;
         const container = scrollContainerRef.current;
-        const { scrollLeft, scrollWidth } = container;
-        const singleSetWidth = scrollWidth / 3;
 
-        // Update dot index
-        const relativeScroll = scrollLeft % singleSetWidth;
-        const index = Math.round(relativeScroll / (scrollWidth / LOOPED_PRODUCTS.length));
-        setCurrentIndex(index % PRODUCTS.length);
+        window.requestAnimationFrame(() => {
+            const { scrollLeft, scrollWidth } = container;
+            const singleSetWidth = scrollWidth / 3;
 
-        // Debounce seamless infinite loop jump to avoid breaking smooth scrolling
-        if (scrollTimeoutRef.current) clearTimeout(scrollTimeoutRef.current);
+            // Update dot index
+            const relativeScroll = scrollLeft % singleSetWidth;
+            const index = Math.round(relativeScroll / (scrollWidth / LOOPED_PRODUCTS.length));
+            setCurrentIndex(index % PRODUCTS.length);
 
-        scrollTimeoutRef.current = setTimeout(() => {
-            if (!container || isDragging) return;
-            const currentScroll = container.scrollLeft;
-
-            // Jump instantly and invisibly once scroll stops
-            if (currentScroll >= singleSetWidth * 2 - 50) {
-                container.style.scrollBehavior = 'auto';
-                container.scrollLeft = currentScroll - singleSetWidth;
-            } else if (currentScroll <= singleSetWidth / 2 + 50) {
-                container.style.scrollBehavior = 'auto';
-                container.scrollLeft = currentScroll + singleSetWidth;
+            // Seamless infinite loop jump
+            if (!isDragging) {
+                if (scrollLeft >= singleSetWidth * 2) {
+                    container.scrollLeft = scrollLeft - singleSetWidth;
+                } else if (scrollLeft <= 5) {
+                    container.scrollLeft = scrollLeft + singleSetWidth;
+                }
             }
-        }, 150);
+        });
     };
 
     useEffect(() => {
@@ -165,18 +160,12 @@ const ProductShowcase: React.FC = () => {
                 <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
                     <div className="space-y-4">
                         <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            whileInView={{ opacity: 1, x: 0 }}
-                            viewport={{ once: true }}
                             className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-brand-medium/10 border border-brand-medium/20 text-brand-medium text-[10px] font-black uppercase tracking-[0.3em]"
                         >
                             <ShoppingCart className="w-3.5 h-3.5" />
                             Inventory_Assets
                         </motion.div>
                         <motion.h2
-                            initial={{ opacity: 0, y: 20 }}
-                            whileInView={{ opacity: 1, y: 0 }}
-                            viewport={{ once: true }}
                             className="text-5xl md:text-7xl font-black text-foreground tracking-tighter uppercase leading-none"
                         >
                             Premium <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan italic">Tools.</span>
@@ -188,13 +177,13 @@ const ProductShowcase: React.FC = () => {
                         <div className="hidden md:flex items-center gap-4">
                             <button
                                 onClick={() => scroll('left')}
-                                className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full border-2 border-[#E9EEF4] dark:border-white/10 flex items-center justify-center text-[#8C9FAF] hover:bg-[#3994fa] dark:hover:bg-[#3994fa] hover:text-white dark:hover:text-white hover:border-[#3994fa] dark:hover:border-[#3994fa] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
+                                className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full border-2 border-[#E9EEF4] dark:border-white/10 flex items-center justify-center text-[#8C9FAF] hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:text-white dark:hover:text-white hover:border-transparent shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
                             >
                                 <ArrowLeft className="w-5 h-5 md:w-6 md:h-6 stroke-[2px]" />
                             </button>
                             <button
                                 onClick={() => scroll('right')}
-                                className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full border-2 border-[#E9EEF4] dark:border-white/10 flex items-center justify-center text-[#8C9FAF] hover:bg-[#3994fa] dark:hover:bg-[#3994fa] hover:text-white dark:hover:text-white hover:border-[#3994fa] dark:hover:border-[#3994fa] shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
+                                className="w-12 h-12 md:w-14 md:h-14 bg-white dark:bg-transparent rounded-full border-2 border-[#E9EEF4] dark:border-white/10 flex items-center justify-center text-[#8C9FAF] hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:text-white dark:hover:text-white hover:border-transparent shadow-sm hover:shadow-lg transition-all duration-300 active:scale-95 group"
                             >
                                 <ArrowRight className="w-5 h-5 md:w-6 md:h-6 stroke-[2px]" />
                             </button>
@@ -273,9 +262,8 @@ const ProductShowcase: React.FC = () => {
                                             href={`https://wa.me/917900310428?text=${encodeURIComponent(product.whatsappMsg)}`}
                                             target="_blank"
                                             rel="noopener noreferrer"
-                                            className="w-full group/btn relative overflow-hidden py-3 bg-[#3994fa] text-white rounded-xl font-black text-[9px] uppercase tracking-[0.25em] transition-all flex items-center justify-center gap-2 active:scale-[0.98] shadow-lg hover:shadow-brand-medium/20"
+                                            className="w-full group/btn relative overflow-hidden py-3 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-xl font-black text-[9px] uppercase tracking-[0.25em] transition-all flex items-center justify-center gap-2 active:scale-[0.98] shadow-lg hover:shadow-[#3994fa]/20"
                                         >
-                                            <div className="absolute inset-0 bg-gradient-to-r from-brand-medium to-brand-cyan opacity-0 group-hover/btn:opacity-100 transition-opacity" />
                                             <MessageCircle className="w-3.5 h-3.5 relative z-10 transition-transform group-hover/btn:-rotate-12" />
                                             <span className="relative z-10">Buy via WhatsApp</span>
                                         </a>
@@ -297,7 +285,7 @@ const ProductShowcase: React.FC = () => {
             <div className="mt-2 md:mt-6 flex justify-center items-center w-full px-6 relative z-10">
                 <Link
                     href="/services/business-tools"
-                    className="px-8 py-3.5 rounded-full bg-brand-medium hover:bg-brand-medium/90 text-white text-[11px] font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-brand-medium/20 hover:-translate-y-0.5 transition-all duration-300"
+                    className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white text-[11px] font-bold uppercase tracking-[0.2em] flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-[#3994fa]/20 hover:-translate-y-0.5 transition-all duration-300"
                 >
                     View More Deals
                     <ArrowRight className="w-4 h-4 ml-1" />

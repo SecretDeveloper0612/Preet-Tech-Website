@@ -5,16 +5,30 @@ import {
     Smartphone, Zap, Shield, Layout, Layers, ArrowRight, User, Mail, Phone,
     Building2, ChevronRight, Activity, Target, BarChart3, TrendingUp, Search,
     Globe, CheckCircle2, Share2, Briefcase, Rocket, Plus, Minus, Code2,
-    Database, Cloud, Cpu, MonitorSmartphone, Tablet, Check, Star, Settings, Headphones, Users
+    Database, Cloud, Cpu, MonitorSmartphone, Tablet, Check, Star, Settings, Headphones, Users,
+    Play, CreditCard, ChevronDown, X
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PortfolioCarousel from '@/components/PortfolioCarousel';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== "undefined") { gsap.registerPlugin(ScrollTrigger); }
+import ThreeSphereScene from '@/components/ThreeSphere';
+import PhoneInput from '@/components/PhoneInput';
+// --- 🛰️ Lightweight Static Background (CSS-only, no JS animations) ---
+const TechnicalBackground = ({ isDarkMode }: { isDarkMode: boolean }) => (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden z-0" aria-hidden="true">
+        {/* Static mesh grid — CSS background-image, zero JS cost */}
+        <div
+            className="absolute inset-0 opacity-[0.04]"
+            style={{
+                backgroundImage: `linear-gradient(to right, #3994fa 1px, transparent 1px), linear-gradient(to bottom, #3994fa 1px, transparent 1px)`,
+                backgroundSize: '40px 40px',
+            }}
+        />
+        {/* Two static ambient glows — no animation, GPU-composited */}
+        <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-[#3994fa]/5 blur-[100px] rounded-full opacity-60" />
+        <div className="absolute bottom-[-10%] left-[-10%] w-[500px] h-[500px] bg-[#3994fa]/5 blur-[100px] rounded-full opacity-40" />
+    </div>
+);
 
 const SOLUTIONS_DATA = [
     { t: 'Android App Development', d: 'High-performance Kotlin/Java applications built specifically for the vast Android ecosystem, optimized for thousands of devices.', icon: Smartphone, color: 'from-emerald-400 to-emerald-600', shadow: 'hover:shadow-emerald-500/20' },
@@ -105,10 +119,9 @@ const SolutionsCarousel = () => {
                 style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
             >
                 {EXTENDED_DATA.map((sol, i) => (
-                    <motion.div
+                    <div
                         key={i}
-                        whileHover={{ y: -8 }}
-                        className="group relative p-8 rounded-[2rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:bg-slate-50 dark:hover:bg-white/10 hover:border-[#3994fa]/30 dark:hover:border-[#3994fa]/30 shadow-xl shadow-slate-200/50 dark:shadow-lg shrink-0 w-[85vw] md:w-[400px] snap-center md:snap-start"
+                        className="group relative p-8 rounded-[2rem] bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 overflow-hidden backdrop-blur-sm transition-all duration-300 hover:bg-slate-50 dark:hover:bg-white/10 hover:border-[#3994fa]/30 dark:hover:border-[#3994fa]/30 shadow-xl shadow-slate-200/50 dark:shadow-lg shrink-0 w-[85vw] md:w-[400px] snap-center md:snap-start hover:-translate-y-2"
                     >
                         <div className={`absolute inset-0 bg-gradient-to-br ${sol.color} opacity-0 group-hover:opacity-[0.05] transition-opacity duration-500 pointer-events-none`} />
                         <div className={`absolute -top-10 -right-10 w-32 h-32 bg-gradient-to-br ${sol.color} opacity-0 group-hover:opacity-10 dark:group-hover:opacity-20 blur-[30px] rounded-full transition-opacity duration-500 pointer-events-none`} />
@@ -120,7 +133,7 @@ const SolutionsCarousel = () => {
                             <h3 className="text-xl font-bold mb-3 text-slate-900 dark:text-white transition-all">{sol.t}</h3>
                             <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed flex-grow transition-colors">{sol.d}</p>
                         </div>
-                    </motion.div>
+                    </div>
                 ))}
             </div>
         </div>
@@ -132,7 +145,46 @@ export default function AppDevelopmentPage() {
     const [mounted, setMounted] = useState(false);
     const [openFAQ, setOpenFAQ] = useState<number | null>(null);
     const [expandedSolutions, setExpandedSolutions] = useState<number | null>(null);
+    const [isVideoOpen, setIsVideoOpen] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+
+    // Form State
+    const [formData, setFormData] = useState({
+        name: '',
+        businessName: '',
+        email: '',
+        phone: '',
+        countryCode: '+91',
+        industry: '',
+        budget: '₹19,999', // default from options
+    });
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    const handleFormSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setSubmitStatus('loading');
+        try {
+            const res = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...formData,
+                    phone: `${formData.countryCode} ${formData.phone}`,
+                    service: 'App Development'
+                })
+            });
+            if (res.ok) {
+                setSubmitStatus('success');
+                setFormData({ name: '', businessName: '', email: '', phone: '', countryCode: '+91', industry: '', budget: '₹19,999' });
+                setTimeout(() => setSubmitStatus('idle'), 5000);
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error("Form submission error:", error);
+            setSubmitStatus('error');
+        }
+    };
 
     useEffect(() => {
         setMounted(true);
@@ -147,17 +199,7 @@ export default function AppDevelopmentPage() {
         else { /* handled by next-themes */ localStorage.setItem('theme', 'light'); }
     };
 
-    useGSAP(() => {
-        gsap.utils.toArray<HTMLElement>('.reveal-section').forEach((s) => {
-            gsap.from(s, {
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                ease: "power3.out",
-                scrollTrigger: { trigger: s, start: "top 85%", toggleActions: "play none none none" }
-            });
-        });
-    }, { scope: containerRef });
+    // Removed GSAP reveal animations
 
     const portfolioCards = [
         {
@@ -343,118 +385,116 @@ export default function AppDevelopmentPage() {
 
             {/* Sticky Mobile CTA */}
             <div className="fixed bottom-0 left-0 right-0 p-4 z-50 md:hidden bg-white/80 dark:bg-[#050608]/80 backdrop-blur-xl border-t border-slate-200 dark:border-white/10">
-                <a href="#consultation" className="flex w-full items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-brand-medium to-brand-cyan text-white font-black text-sm uppercase tracking-widest rounded-xl shadow-lg shadow-brand-cyan/20">
+                <a href="#consultation" className="flex w-full items-center justify-center gap-2 px-6 py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white font-black text-sm uppercase tracking-widest rounded-xl shadow-lg shadow-[#3994fa]/20">
                     Start Your Project <ArrowRight className="w-4 h-4" />
                 </a>
             </div>
 
-            {/* 1️⃣ Hero Section + Form */}
-            <section className="relative pt-28 pb-16 md:pt-40 md:pb-24 lg:pt-32 lg:pb-32 px-4 md:px-6 overflow-hidden min-h-screen flex items-center">
-                <div className="absolute top-0 right-0 w-full h-full bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-[0.03] dark:opacity-[0.15] pointer-events-none" />
-                <div className="absolute inset-0 pointer-events-none -z-10">
-                    <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.15, 0.3, 0.15] }} transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }} className="absolute top-[10%] -right-[10%] w-[500px] md:w-[800px] h-[500px] md:h-[800px] bg-gradient-to-br from-brand-medium/20 via-brand-cyan/20 to-brand-sky/20 blur-[150px] rounded-full" />
-                    <motion.div animate={{ scale: [1.2, 1, 1.2], opacity: [0.1, 0.25, 0.1] }} transition={{ duration: 16, repeat: Infinity, delay: 3 }} className="absolute -bottom-[15%] -left-[15%] w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-brand-deep/15 blur-[130px] rounded-full" />
-                    {mounted && [...Array(20)].map((_, i) => (
-                        <motion.div key={i} animate={{ opacity: [0.1, 0.5, 0.1], scale: [1, 1.5, 1], y: [0, -30, 0] }} transition={{ duration: 3 + Math.random() * 4, repeat: Infinity, delay: Math.random() * 5 }} className="absolute rounded-full bg-brand-cyan/40" style={{ width: `${Math.random() * 3 + 1}px`, height: `${Math.random() * 3 + 1}px`, left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }} />
-                    ))}
-                </div>
+            {/* 1️⃣ Hero Section */}
+            <section className="relative pt-32 pb-12 lg:pt-48 lg:pb-32 px-6 overflow-hidden">
+                <TechnicalBackground isDarkMode={isDarkMode} />
+                <ThreeSphereScene />
 
-                <div className="max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-                    <div className="lg:col-span-7 space-y-6 md:space-y-8 relative z-10">
-                        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-brand-medium/10 to-brand-cyan/10 border border-brand-cyan/20 backdrop-blur-xl">
-                            <span className="relative flex h-2.5 w-2.5">
-                                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75" />
-                                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-cyan" />
-                            </span>
-                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-medium dark:text-brand-cyan">Premium Product Development</span>
-                        </motion.div>
-
-                        <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
-                            <motion.span initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15 }} className="block">Build Powerful</motion.span>
-                            <motion.span initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} className="block text-transparent bg-clip-text bg-gradient-to-r from-brand-medium via-brand-cyan to-brand-sky">Mobile Apps That Scale.</motion.span>
-                        </motion.h1>
-
-                        <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.45 }} className="text-base md:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-                            Custom, high-performance mobile apps designed to grow your business and engage users seamlessly. Preet Tech builds scalable, secure, and user-focused mobile applications tailored for your success.
-                        </motion.p>
-
-                        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }} className="flex gap-6 pt-4">
-                            <div className="flex items-center gap-2">
-                                <CheckCircle2 className="w-5 h-5 text-brand-cyan" /><span className="text-sm font-bold text-slate-700 dark:text-slate-300">iOS</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <CheckCircle2 className="w-5 h-5 text-brand-cyan" /><span className="text-sm font-bold text-slate-700 dark:text-slate-300">Android</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                                <CheckCircle2 className="w-5 h-5 text-brand-cyan" /><span className="text-sm font-bold text-slate-700 dark:text-slate-300">Cross-Platform</span>
-                            </div>
-                        </motion.div>
-
-                        {/* Removed problematic overlapping mockup */}
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center relative z-10">
+                    <div className="space-y-6 lg:space-y-8 hero-content text-center lg:text-left">
+                        <span className="inline-block px-4 py-1 rounded-full bg-[#3994fa]/10 dark:bg-[#3994fa]/10 text-[#3994fa] dark:text-[#3994fa] text-[10px] md:text-xs font-bold uppercase tracking-widest border border-[#3994fa]/20 dark:border-[#3994fa]/20">
+                            Affordable App Development in India
+                        </span>
+                        <h1 className="text-3xl sm:text-5xl lg:text-7xl font-black tracking-tighter leading-[1.1] text-slate-900 dark:text-white">
+                            Professional Apps <br />
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#3994fa] to-[#1e293b] dark:to-white">Starting ₹19,999.</span>
+                        </h1>
+                        <p className="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-lg mx-auto lg:mx-0 leading-relaxed font-medium">
+                            Get a high-performance, custom-built mobile app for your business — delivered fast by our expert team. Scalable, secure, and user-focused designs tailored for <strong>real results</strong>.
+                        </p>
+                        <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
+                            <button onClick={() => setIsVideoOpen(true)} className="px-6 sm:px-8 py-3.5 sm:py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-full font-bold transition-all transform hover:-translate-y-1 shadow-lg shadow-[#3994fa]/25 flex items-center justify-center gap-2 text-sm sm:text-base cursor-pointer hover:opacity-90">
+                                Watch Demo <Play className="w-4 h-4 fill-white" />
+                            </button>
+                        </div>
                     </div>
 
-                    {/* Right Side Lead Capture Form */}
-                    <motion.div initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 1, delay: 0.5 }} className="lg:col-span-5 relative z-20">
-                        <div id="consultation" className="bg-white dark:bg-slate-900 rounded-[2rem] p-6 md:p-8 shadow-2xl border border-slate-200 dark:border-white/10 relative overflow-hidden">
-                            <div className="absolute top-0 right-0 w-32 h-32 bg-brand-cyan/10 blur-[50px] rounded-full" />
-                            <h3 className="text-2xl font-black tracking-tight mb-2">Start Your Project</h3>
-                            <p className="text-slate-500 dark:text-slate-400 text-sm mb-6">Fill out the form below to get a free strategy session.</p>
-
-                            <form className="space-y-4 relative z-10" onSubmit={(e) => e.preventDefault()}>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="relative">
-                                        <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                        <input type="text" placeholder="Full Name" required className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-xl py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-cyan focus:border-transparent outline-none transition-all placeholder:text-slate-400" />
-                                    </div>
-                                    <div className="relative">
-                                        <Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                        <input type="text" placeholder="Business Name" className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-xl py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-cyan focus:border-transparent outline-none transition-all placeholder:text-slate-400" />
+                    <div id="consultation" className="relative hero-content mt-8 lg:mt-0 w-full max-w-lg mx-auto lg:max-w-none scroll-mt-32">
+                        <div className="bg-white dark:bg-slate-900 p-6 sm:p-10 rounded-[2.5rem] shadow-2xl relative z-10 border border-slate-200 dark:border-slate-800">
+                            <form onSubmit={handleFormSubmit} className="space-y-6">
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Full Name</label>
+                                    <div className="relative group">
+                                        <User strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                        <input required type="text" value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="John Doe" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
                                     </div>
                                 </div>
-                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                    <div className="relative">
-                                        <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                        <input type="email" placeholder="Email Address" required className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-xl py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-cyan focus:border-transparent outline-none transition-all placeholder:text-slate-400" />
-                                    </div>
-                                    <div className="relative">
-                                        <Phone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
-                                        <input type="tel" placeholder="Phone Number" className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-xl py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-cyan focus:border-transparent outline-none transition-all placeholder:text-slate-400" />
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Business Name</label>
+                                    <div className="relative group">
+                                        <Building2 strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                        <input required type="text" value={formData.businessName} onChange={(e) => setFormData({ ...formData, businessName: e.target.value })} placeholder="Your Company Ltd." className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
                                     </div>
                                 </div>
-
-                                <div className="relative">
-                                    <Smartphone className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 z-10" />
-                                    <select required defaultValue="" className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-xl py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-cyan focus:border-transparent outline-none transition-all text-slate-600 dark:text-slate-300 appearance-none cursor-pointer">
-                                        <option value="" disabled>Select App Type</option>
-                                        <option value="android">Android App</option>
-                                        <option value="ios">iOS App</option>
-                                        <option value="cross-platform">Cross-Platform (Flutter/React Native)</option>
-                                        <option value="not-sure">Not Sure</option>
-                                    </select>
-                                    <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 rotate-90 pointer-events-none" />
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Email</label>
+                                        <div className="relative group">
+                                            <Mail strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors" />
+                                            <input required type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="john@example.com" className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-4 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all text-sm text-slate-700 dark:text-slate-200" />
+                                        </div>
+                                    </div>
+                                    <div className="space-y-1.5">
+                                        <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Phone</label>
+                                        <PhoneInput
+                                            value={formData.phone}
+                                            onChange={(val) => setFormData({ ...formData, phone: val })}
+                                            countryCode={formData.countryCode}
+                                            onCountryCodeChange={(code) => setFormData({ ...formData, countryCode: code })}
+                                        />
+                                    </div>
                                 </div>
-
-                                <div className="relative">
-                                    <Target className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 z-10" />
-                                    <select required defaultValue="" className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-xl py-3 pl-10 pr-4 text-sm focus:ring-2 focus:ring-brand-cyan focus:border-transparent outline-none transition-all text-slate-600 dark:text-slate-300 appearance-none cursor-pointer">
-                                        <option value="" disabled>Project Budget</option>
-                                        <option value="under-5k">Under $5k</option>
-                                        <option value="5k-10k">$5k - $10k</option>
-                                        <option value="10k-25k">$10k - $25k</option>
-                                        <option value="25k-50k">$25k - $50k</option>
-                                        <option value="50k-plus">$50k+</option>
-                                    </select>
-                                    <ChevronRight className="absolute right-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 rotate-90 pointer-events-none" />
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Industry</label>
+                                    <div className="relative group">
+                                        <Briefcase strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors pointer-events-none" />
+                                        <select required value={formData.industry} onChange={(e) => setFormData({ ...formData, industry: e.target.value })} className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all appearance-none text-slate-700 dark:text-slate-200 text-sm cursor-pointer">
+                                            <option value="">Select Industry</option>
+                                            <option value="Fintech">Fintech</option>
+                                            <option value="Healthcare">Healthcare</option>
+                                            <option value="E-commerce">E-commerce</option>
+                                            <option value="Education">Education</option>
+                                            <option value="Wellness">Wellness</option>
+                                            <option value="Real Estate">Real Estate</option>
+                                            <option value="Logistics">Logistics</option>
+                                            <option value="Other">Other</option>
+                                        </select>
+                                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
+                                    </div>
                                 </div>
-
-                                <textarea placeholder="Short Project Description..." rows={3} className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-white/5 rounded-xl py-3 px-4 text-sm focus:ring-2 focus:ring-brand-cyan focus:border-transparent outline-none transition-all resize-none placeholder:text-slate-400" />
-
-                                <button type="submit" className="w-full group mt-2 relative bg-[#3994fa] hover:bg-[#3994fa]/90 text-white rounded-xl py-4 font-black text-sm uppercase tracking-widest transition-all overflow-hidden shadow-lg shadow-[#3994fa]/20 flex items-center justify-center gap-2">
-                                    Get Free Strategy Call <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-                                </button>
+                                <div className="space-y-1.5">
+                                    <label className="text-xs font-bold text-slate-500 uppercase tracking-widest pl-1">Budget Range</label>
+                                    <div className="relative group">
+                                        <CreditCard strokeWidth={1.5} className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 group-focus-within:text-[#3994fa] transition-colors pointer-events-none" />
+                                        <select required value={formData.budget} onChange={(e) => setFormData({ ...formData, budget: e.target.value })} className="w-full bg-slate-50/50 dark:bg-slate-950/50 border border-slate-200 dark:border-slate-800 rounded-2xl py-4 pl-12 pr-10 outline-none focus:border-[#3994fa] focus:ring-1 focus:ring-[#3994fa]/20 transition-all appearance-none text-slate-700 dark:text-slate-200 text-sm cursor-pointer">
+                                            <option value="₹19,999">₹19,999</option>
+                                            <option value="₹50k - ₹1L">₹50k - ₹1L</option>
+                                            <option value="₹1L - ₹5L">₹1L - ₹5L</option>
+                                            <option value="₹5L+">₹5L+</option>
+                                        </select>
+                                        <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-400 pointer-events-none" />
+                                    </div>
+                                </div>
+                                <div className="pt-2">
+                                    <button disabled={submitStatus === "loading"} type="submit" className="w-full py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-90 text-white font-black rounded-2xl transition-all shadow-[0_0_20px_rgba(63,143,204,0.2)] hover:shadow-[0_0_30px_rgba(63,143,204,0.4)] text-[13px] uppercase tracking-widest flex items-center justify-center gap-2">
+                                        {submitStatus === "loading" ? "Submitting..." : "Get Free Consultation"} <ArrowRight strokeWidth={2.5} className="w-4 h-4 ml-1" />
+                                    </button>
+                                </div>
+                                {submitStatus === 'success' && (
+                                    <p className="text-emerald-500 text-xs font-bold text-center mt-2">Success! We will be in touch shortly.</p>
+                                )}
+                                {submitStatus === 'error' && (
+                                    <p className="text-red-500 text-xs font-bold text-center mt-2">Something went wrong. Please try again.</p>
+                                )}
                             </form>
                         </div>
-                    </motion.div>
+                        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-gradient-to-tr from-[#3994fa]/20 to-[#6366f1]/20 rounded-full blur-[100px] -z-10 animate-pulse" />
+                    </div>
                 </div>
             </section>
 
@@ -473,13 +513,13 @@ export default function AppDevelopmentPage() {
                         { t: 'Push Notifications', d: 'Instant messaging capabilities for retention and marketing.', i: Zap },
                         { t: 'Increased Revenue', d: 'New channels for sales, in-app purchases, and upgrades.', i: TrendingUp },
                         { t: 'Competitive Advantage', d: 'Gain a severe edge in your market by adapting to mobile-first trends.', i: Target }].map((item, i) => (
-                            <motion.div key={i} whileHover={{ y: -5 }} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 group hover:border-[#3994fa]/30 transition-all text-center hover:shadow-2xl hover:shadow-[#3994fa]/5">
+                            <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 group hover:border-[#3994fa]/30 transition-all text-center hover:shadow-2xl hover:shadow-[#3994fa]/5 hover:-translate-y-1">
                                 <div className="w-14 h-14 rounded-2xl bg-[#3994fa]/10 flex items-center justify-center mx-auto mb-5 group-hover:bg-[#3994fa] transition-colors">
                                     <item.i className="w-6 h-6 text-[#3994fa] group-hover:text-white transition-colors" />
                                 </div>
                                 <h3 className="text-sm font-bold mb-2">{item.t}</h3>
                                 <p className="text-xs text-slate-500 leading-relaxed">{item.d}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -500,7 +540,7 @@ export default function AppDevelopmentPage() {
                         { t: 'Scalable Infrastructure', d: 'Cloud-native solutions designed to handle millions of requests without breaking a sweat.', i: Layers },
                         { t: 'Transparent Communication', d: 'Dedicated project managers, weekly sprints, and crystal-clear reporting.', i: Settings },
                         { t: 'Post-Launch Support', d: 'Continuous monitoring, updates, and optimization to ensure your app stays fast and secure.', i: Headphones }].map((f, i) => (
-                            <motion.div key={i} whileHover={{ y: -5, scale: 1.02 }} className="p-8 rounded-2xl bg-white dark:bg-[#080B10] border border-slate-200 dark:border-white/5 group hover:border-brand-medium/30 transition-all shadow-sm">
+                            <div key={i} className="p-8 rounded-2xl bg-white dark:bg-[#080B10] border border-slate-200 dark:border-white/5 group hover:border-brand-medium/30 transition-all shadow-sm hover:-translate-y-1 hover:scale-[1.02]">
                                 <div className="flex items-center gap-4 mb-4">
                                     <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center group-hover:bg-brand-cyan/20 transition-colors">
                                         <f.i className="w-6 h-6 text-slate-600 dark:text-slate-300 group-hover:text-brand-cyan transition-colors" />
@@ -508,7 +548,7 @@ export default function AppDevelopmentPage() {
                                     <h3 className="text-lg font-bold group-hover:text-brand-cyan transition-colors">{f.t}</h3>
                                 </div>
                                 <p className="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">{f.d}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -529,11 +569,11 @@ export default function AppDevelopmentPage() {
                         { t: 'Booking Platforms', d: 'Seamless scheduling.', i: Target },
                         { t: 'Enterprises', d: 'Internal tooling & ops.', i: Building2 },
                         { t: 'Local Businesses', d: 'Digital transformation.', i: Globe }].map((ind, i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="flex flex-col items-center p-6 text-center rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 hover:border-[#3994fa]/40 hover:bg-slate-50 dark:hover:bg-white/5 transition-all group cursor-pointer shadow-sm">
+                            <div key={i} className="flex flex-col items-center p-6 text-center rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 hover:border-[#3994fa]/40 hover:bg-slate-50 dark:hover:bg-white/5 transition-all group cursor-pointer shadow-sm">
                                 <ind.i className="w-8 h-8 text-slate-400 group-hover:text-[#3994fa] transition-colors mb-4" />
                                 <h4 className="font-bold text-sm mb-1">{ind.t}</h4>
                                 <p className="text-[11px] text-slate-500">{ind.d}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -572,14 +612,14 @@ export default function AppDevelopmentPage() {
                             { s: 'Testing', d: 'QA & bug fixing', i: Shield },
                             { s: 'Launch', d: 'App store deployment', i: Rocket },
                             { s: 'Optimization', d: 'Post-launch scaling', i: TrendingUp }].map((step, i) => (
-                                <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="flex flex-col items-center text-center group">
+                                <div key={i} className="flex flex-col items-center text-center group">
                                     <div className="w-24 h-24 rounded-full bg-white dark:bg-[#030712] border-2 border-slate-200 dark:border-white/10 group-hover:border-[#3994fa] flex items-center justify-center mb-6 shadow-xl transition-all duration-300 relative z-10">
                                         <step.i className="w-8 h-8 text-slate-400 group-hover:text-[#3994fa] transition-colors" />
                                     </div>
                                     <h4 className="font-bold text-sm mb-2">{step.s}</h4>
                                     <p className="text-[11px] text-slate-500 uppercase font-black tracking-wider">{step.d}</p>
                                     <div className="mt-4 text-[10px] font-black text-[#3994fa] opacity-40">Step 0{i + 1}</div>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -603,10 +643,10 @@ export default function AppDevelopmentPage() {
                         { n: 'Firebase', icon: "https://cdn.worldvectorlogo.com/logos/firebase-1.svg" },
                         { n: 'AWS', icon: "https://cdn.worldvectorlogo.com/logos/aws-2.svg" },
                         { n: 'Stripe', icon: "https://cdn.worldvectorlogo.com/logos/stripe-4.svg" }].map((tech, i) => (
-                            <motion.div key={i} whileHover={{ y: -5, scale: 1.05 }} className="group p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-center transition-all flex flex-col items-center justify-center h-full hover:border-brand-cyan/30">
+                            <div key={i} className="group p-6 rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-center transition-all flex flex-col items-center justify-center h-full hover:border-brand-cyan/30 hover:-translate-y-1 hover:scale-105">
                                 <img src={tech.icon} alt={tech.n} className="w-10 h-10 object-contain mb-3 filter grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300" />
                                 <span className="font-bold text-[10px] uppercase tracking-wider text-slate-500 group-hover:text-slate-900 dark:group-hover:text-white transition-colors">{tech.n}</span>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -632,7 +672,7 @@ export default function AppDevelopmentPage() {
                         { q: 'Do you provide post-launch support?', a: 'Yes. We offer comprehensive maintenance plans that include OS updates, bug fixing, performance monitoring, and feature iteration post-launch.' },
                         { q: 'Can you upgrade existing apps?', a: 'Absolutely. We conduct code audits, refactor legacy architectures, and can implement new functionalities or UI/UX redesigns into your existing applications.' },
                         { q: 'Will you help with app store approval?', a: 'Yes, we handle the entire deployment process. We ensure your application complies with Apple App Store and Google Play Store guidelines for successful publishing.' }].map((faq, i) => (
-                            <motion.div key={i} className="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/5 overflow-hidden transition-colors hover:border-brand-cyan/20">
+                            <div key={i} className="rounded-2xl bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-white/5 overflow-hidden transition-colors hover:border-brand-cyan/20">
                                 <button onClick={() => setOpenFAQ(openFAQ === i ? null : i)} className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none">
                                     <span className="font-bold text-sm md:text-base">{faq.q}</span>
                                     {openFAQ === i ? <Minus className="w-5 h-5 text-brand-cyan shrink-0" /> : <Plus className="w-5 h-5 text-slate-400 shrink-0" />}
@@ -644,7 +684,7 @@ export default function AppDevelopmentPage() {
                                         </motion.div>
                                     )}
                                 </AnimatePresence>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -654,8 +694,8 @@ export default function AppDevelopmentPage() {
             {/* Final High-Impact CTA Section */}
             <section className="py-24 md:py-36 px-4 md:px-6 bg-[#fafafa] dark:bg-[#030712] text-slate-900 dark:text-white reveal-section relative overflow-hidden text-center">
                 <div className="absolute inset-0 z-0">
-                    <motion.div animate={{ scale: [1, 1.1, 1], opacity: [0.1, 0.2, 0.1] }} transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }} className="absolute -top-[50%] -left-[10%] w-[800px] h-[800px] bg-[#3994fa]/10 dark:bg-[#3994fa]/20 blur-[150px] rounded-full pointer-events-none" />
-                    <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.15, 0.1] }} transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut', delay: 2 }} className="absolute -bottom-[50%] -right-[10%] w-[600px] h-[600px] bg-[#3994fa]/10 dark:bg-brand-medium/20 blur-[150px] rounded-full pointer-events-none" />
+                    <div className="absolute -top-[50%] -left-[10%] w-[800px] h-[800px] bg-[#3994fa]/10 dark:bg-[#3994fa]/20 blur-[150px] rounded-full pointer-events-none" />
+                    <div className="absolute -bottom-[50%] -right-[10%] w-[600px] h-[600px] bg-[#3994fa]/10 dark:bg-brand-medium/20 blur-[150px] rounded-full pointer-events-none" />
                 </div>
 
                 <div className="max-w-4xl mx-auto relative z-10 space-y-10">
@@ -667,10 +707,10 @@ export default function AppDevelopmentPage() {
                         Join modern startups and enterprise leaders who trust Preet Tech for robust, scalable, and long-term mobile success.
                     </p>
                     <div className="flex flex-col sm:flex-row justify-center items-center gap-6">
-                        <a href="#consultation" className="w-full sm:w-auto px-12 py-6 bg-[#3994fa] hover:bg-[#3994fa]/90 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-xl shadow-[#3994fa]/25 flex items-center justify-center gap-3">
+                        <a href="#consultation" className="w-full sm:w-auto px-12 py-6 bg-gradient-to-r from-[#3994fa] to-[#004aad] hover:opacity-95 text-white rounded-2xl font-black uppercase tracking-widest text-sm hover:scale-105 transition-all shadow-xl shadow-[#3994fa]/25 flex items-center justify-center gap-3">
                             Start Your Project Today <Rocket className="w-5 h-5" />
                         </a>
-                        <a href="#consultation" className="w-full sm:w-auto px-12 py-6 border border-slate-300 dark:border-white/20 hover:bg-slate-100 dark:hover:bg-white/5 text-slate-900 dark:text-white rounded-2xl font-bold uppercase tracking-widest text-sm transition-all flex items-center justify-center gap-3 active:scale-95">
+                        <a href="#consultation" className="w-full sm:w-auto px-12 py-6 border border-slate-300 dark:border-white/20 hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:text-white hover:border-transparent text-slate-900 dark:text-white rounded-2xl font-bold uppercase tracking-widest text-sm transition-all flex items-center justify-center gap-3 active:scale-95 shadow-sm hover:shadow-[#3994fa]/20">
                             Schedule Free Call <Phone className="w-5 h-5" />
                         </a>
                     </div>
@@ -678,6 +718,46 @@ export default function AppDevelopmentPage() {
             </section>
 
             <Footer />
+
+            {/* Video Modal */}
+            <AnimatePresence>
+                {isVideoOpen && (
+                    <motion.div
+
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95"
+                        onClick={() => setIsVideoOpen(false)}
+                    >
+                        <motion.div
+                            initial={{ scale: 0.95, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            exit={{ scale: 0.95, opacity: 0 }}
+                            transition={{ duration: 0.3, ease: "easeOut" }}
+                            className="relative w-full aspect-video max-w-4xl bg-black rounded-2xl overflow-hidden border border-white/10 shadow-2xl flex items-center justify-center"
+                            onClick={e => e.stopPropagation()}
+                        >
+                            <button
+                                onClick={() => setIsVideoOpen(false)}
+                                className="absolute top-4 right-4 z-[110] w-10 h-10 bg-black/60 hover:bg-black/80 border border-white/20 rounded-full flex items-center justify-center text-white transition-colors"
+                            >
+                                <X className="w-5 h-5" />
+                            </button>
+
+                            {/* YouTube Embed */}
+                            <div className="absolute inset-0 w-full h-full bg-black">
+                                <iframe
+                                    src="https://www.youtube.com/embed/CBYfXlP7ppQ?autoplay=1"
+                                    className="w-full h-full border-0"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                    title="Preet Tech Video"
+                                />
+                            </div>
+                        </motion.div>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </main>
     );
 }

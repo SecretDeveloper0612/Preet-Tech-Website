@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
+import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { ArrowRight, ArrowLeft, BookOpen, Calendar, Clock, Tag } from 'lucide-react';
 
@@ -12,7 +13,8 @@ const INSIGHTS = [
         date: "Oct 12, 2024",
         image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&q=80&w=800",
         color: "text-emerald-500",
-        bg: "bg-emerald-500/10"
+        bg: "bg-emerald-500/10",
+        slug: "future-ai-fintech-beyond-automation"
     },
     {
         id: 2,
@@ -23,7 +25,8 @@ const INSIGHTS = [
         date: "Oct 08, 2024",
         image: "https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&q=80&w=800",
         color: "text-blue-500",
-        bg: "bg-blue-500/10"
+        bg: "bg-blue-500/10",
+        slug: "scaling-saas-mvp-to-market-leader"
     },
     {
         id: 3,
@@ -32,9 +35,10 @@ const INSIGHTS = [
         category: "Technology",
         readTime: "6 min read",
         date: "Sep 28, 2024",
-        image: "https://images.unsplash.com/photo-1639322537228-ad7117a767f1?auto=format&fit=crop&q=80&w=800",
+        image: "https://www.technoloader.com/blog/wp-content/uploads/2025/06/Web3-Is-the-Future-of-the-Internet.webp",
         color: "text-purple-500",
-        bg: "bg-purple-500/10"
+        bg: "bg-purple-500/10",
+        slug: "web3-new-internet-infrastructure"
     }
 ];
 
@@ -45,6 +49,7 @@ const Insights: React.FC = () => {
     const [startX, setStartX] = useState(0);
     const [scrollLeft, setScrollLeft] = useState(0);
     const [currentIndex, setCurrentIndex] = useState(0);
+    const [dragDistance, setDragDistance] = useState(0);
 
     // Create a base set that is wide enough to exceed ultra-wide screens
     const BASE_SET = [...INSIGHTS, ...INSIGHTS, ...INSIGHTS, ...INSIGHTS, ...INSIGHTS];
@@ -94,6 +99,7 @@ const Insights: React.FC = () => {
     const handleMouseDown = (e: React.MouseEvent) => {
         setIsDragging(true);
         setIsAutoPlaying(false);
+        setDragDistance(0);
         if (!scrollContainerRef.current) return;
         setStartX(e.pageX - scrollContainerRef.current.offsetLeft);
         setScrollLeft(scrollContainerRef.current.scrollLeft);
@@ -104,6 +110,7 @@ const Insights: React.FC = () => {
         e.preventDefault();
         const x = e.pageX - scrollContainerRef.current.offsetLeft;
         const walk = (x - startX) * 2;
+        setDragDistance(Math.abs(x - startX));
         scrollContainerRef.current.scrollLeft = scrollLeft - walk;
     };
 
@@ -184,45 +191,53 @@ const Insights: React.FC = () => {
                             key={`${post.id}-${index}`}
                             className="insight-card group flex flex-col w-[calc(100%-48px)] md:w-[320px] bg-white dark:bg-[#111624] rounded-[2rem] overflow-hidden border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 transition-all duration-500 hover:-translate-y-2 hover:shadow-[0_20px_60px_-15px_rgba(99,102,241,0.2)] snap-center snap-always flex-shrink-0"
                         >
-                            {/* Image Visual */}
-                            <div className="relative h-44 md:h-48 overflow-hidden">
-                                <img
-                                    src={post.image}
-                                    alt={post.title}
-                                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
-                                />
-                                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-                                <div className="absolute top-5 left-5">
-                                    <span className={`px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest bg-white/95 dark:bg-black/80 backdrop-blur-md ${post.color} border border-white/10 shadow-xl`}>
-                                        {post.category}
-                                    </span>
-                                </div>
-                            </div>
-
-                            {/* Post Content */}
-                            <div className="flex-1 p-5 md:p-8 flex flex-col">
-                                <div className="flex items-center gap-5 text-[10px] font-mono text-slate-500 mb-6 uppercase tracking-widest">
-                                    <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3 text-brand-medium" /> {post.date}</span>
-                                    <span className="flex items-center gap-1.5"><Clock className="w-3 h-3 text-brand-medium" /> {post.readTime}</span>
-                                </div>
-
-                                <h3 className="text-base md:text-lg font-black text-foreground mb-4 leading-tight group-hover:text-brand-medium transition-colors line-clamp-2">
-                                    {post.title}
-                                </h3>
-
-                                <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 line-clamp-3">
-                                    {post.excerpt}
-                                </p>
-
-                                <div className="mt-auto pt-6 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
-                                    <button className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground group-hover:text-brand-medium transition-colors">
-                                        Read Analysis
-                                    </button>
-                                    <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center group-hover:bg-brand-medium group-hover:text-white transition-all duration-500 shadow-sm">
-                                        <ArrowRight className="w-4 h-4 -rotate-45 group-hover:rotate-0 transition-transform duration-500" />
+                            <Link
+                                href={`/blog/${post.slug}`}
+                                className="flex flex-col h-full"
+                                onClick={(e) => { if (dragDistance > 8) e.preventDefault(); }}
+                                draggable={false}
+                            >
+                                {/* Image Visual */}
+                                <div className="relative h-44 md:h-48 overflow-hidden">
+                                    <img
+                                        src={post.image}
+                                        alt={post.title}
+                                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110 group-hover:rotate-1"
+                                        draggable={false}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+                                    <div className="absolute top-5 left-5">
+                                        <span className={`px-3 py-1.5 rounded-full text-[9px] font-black uppercase tracking-widest bg-white/95 dark:bg-black/80 backdrop-blur-md ${post.color} border border-white/10 shadow-xl`}>
+                                            {post.category}
+                                        </span>
                                     </div>
                                 </div>
-                            </div>
+
+                                {/* Post Content */}
+                                <div className="flex-1 p-5 md:p-8 flex flex-col">
+                                    <div className="flex items-center gap-5 text-[10px] font-mono text-slate-500 mb-6 uppercase tracking-widest">
+                                        <span className="flex items-center gap-1.5"><Calendar className="w-3 h-3 text-brand-medium" /> {post.date}</span>
+                                        <span className="flex items-center gap-1.5"><Clock className="w-3 h-3 text-brand-medium" /> {post.readTime}</span>
+                                    </div>
+
+                                    <h3 className="text-base md:text-lg font-black text-foreground mb-4 leading-tight group-hover:text-brand-medium transition-colors line-clamp-2">
+                                        {post.title}
+                                    </h3>
+
+                                    <p className="text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed mb-8 line-clamp-3">
+                                        {post.excerpt}
+                                    </p>
+
+                                    <div className="mt-auto pt-6 border-t border-slate-100 dark:border-white/5 flex items-center justify-between">
+                                        <span className="text-[10px] font-black uppercase tracking-[0.2em] text-foreground group-hover:text-brand-medium transition-colors">
+                                            Read Analysis
+                                        </span>
+                                        <div className="w-10 h-10 rounded-full bg-slate-100 dark:bg-white/5 flex items-center justify-center group-hover:bg-brand-medium group-hover:text-white transition-all duration-500 shadow-sm">
+                                            <ArrowRight className="w-4 h-4 -rotate-45 group-hover:rotate-0 transition-transform duration-500" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </Link>
                         </motion.div>
                     ))}
                 </div>

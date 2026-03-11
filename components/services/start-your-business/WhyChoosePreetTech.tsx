@@ -28,10 +28,10 @@ const WhyChoosePreetTech = () => {
                     {FEATURES.map((item, i) => (
                         <motion.div
                             key={i}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
+                            
+                            
                             transition={{ delay: i * 0.1 }}
-                            viewport={{ once: true }}
+                            
                             className="group p-8 rounded-[2.5rem] bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/5 hover:border-brand-medium/40 dark:hover:border-brand-cyan/40 transition-all duration-300"
                         >
                             <div className="w-14 h-14 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-brand-medium dark:hover:bg-brand-cyan group-hover:shadow-[0_0_30px_rgba(95,211,230,0.3)] transition-all">

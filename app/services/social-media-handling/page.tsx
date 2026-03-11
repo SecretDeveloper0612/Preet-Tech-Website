@@ -8,114 +8,222 @@ import {
     Users, LineChart, Sparkles, Calendar, Eye, Heart, Hash, Clock, Send, Star, Megaphone,
     PenTool, Image, Play, Repeat, MousePointer2, FileText, Bot, Headphones, DollarSign,
     ShoppingCart, Home, GraduationCap, HeartPulse, Store, UserCheck, Award, Gauge, Monitor,
-    Smartphone, Bookmark, type LucideIcon
+    Smartphone, Bookmark, Check, CreditCard, type LucideIcon
 } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import PortfolioCarousel from '@/components/PortfolioCarousel';
-import gsap from 'gsap';
-import { useGSAP } from '@gsap/react';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-
-if (typeof window !== "undefined") { gsap.registerPlugin(ScrollTrigger); }
-
+import SocialDashboard from '@/components/SocialDashboard';
+import PhoneInput from '@/components/PhoneInput';
 export default function SocialMediaHandling() {
     const [isDarkMode, setIsDarkMode] = useState(false);
     const [mounted, setMounted] = useState(false);
     const [openFAQ, setOpenFAQ] = useState<number | null>(null);
-    const [formStatus, setFormStatus] = useState<'idle' | 'submitting' | 'success'>('idle');
+    const [isHeroSubmitting, setIsHeroSubmitting] = useState(false);
+    const [isHeroSubmitted, setIsHeroSubmitted] = useState(false);
     const containerRef = useRef<HTMLDivElement>(null);
+
+    // Form State
+    const [formData, setFormData] = useState({
+        name: '',
+        businessName: '',
+        email: '',
+        phone: '',
+        countryCode: '+91',
+        budget: '4999', // matches first option
+    });
+    const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+
+    // Audit Form State
+    const [auditFormData, setAuditFormData] = useState({
+        name: '',
+        businessName: '',
+        handle: '',
+        platform: 'Instagram',
+        budget: 'Under ₹10,000',
+        goal: 'Brand Awareness'
+    });
+    const [auditSubmitStatus, setAuditSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
     useEffect(() => {
         setMounted(true);
         const stored = localStorage.getItem('theme');
-        if (stored === 'dark') { /* handled by next-themes */ setIsDarkMode(true); }
-        else { /* handled by next-themes */ setIsDarkMode(false); }
+        if (stored === 'dark') { setIsDarkMode(true); }
+        else { setIsDarkMode(false); }
     }, []);
 
     const toggleTheme = () => {
         const next = !isDarkMode; setIsDarkMode(next);
-        if (next) { /* handled by next-themes */ localStorage.setItem('theme', 'dark'); }
-        else { /* handled by next-themes */ localStorage.setItem('theme', 'light'); }
+        if (next) { localStorage.setItem('theme', 'dark'); }
+        else { localStorage.setItem('theme', 'light'); }
     };
 
-    useGSAP(() => {
-        gsap.utils.toArray<HTMLElement>('.reveal-section').forEach((s) => {
-            gsap.from(s, { opacity: 0, y: 50, duration: 1, ease: "power3.out", scrollTrigger: { trigger: s, start: "top 85%", toggleActions: "play none none none" } });
-        });
-    }, { scope: containerRef });
+    const handleFormSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        setIsHeroSubmitting(true);
+        setSubmitStatus('loading');
+        try {
+            const res = await fetch('/api/leads', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    ...formData,
+                    phone: `${formData.countryCode} ${formData.phone}`,
+                    industry: 'N/A',
+                    service: 'Social Media Handling'
+                })
+            });
 
-    const handleFormSubmit = (e: React.FormEvent) => { e.preventDefault(); setFormStatus('submitting'); setTimeout(() => setFormStatus('success'), 1500); };
+            if (res.ok) {
+                setSubmitStatus('success');
+                setIsHeroSubmitted(true);
+                setFormData({ name: '', businessName: '', email: '', phone: '', countryCode: '+91', budget: '4999' });
+            } else {
+                setSubmitStatus('error');
+            }
+        } catch (error) {
+            console.error("Form submission error:", error);
+            setSubmitStatus('error');
+        } finally {
+            setIsHeroSubmitting(false);
+        }
+    };
 
     return (
         <main ref={containerRef} className="relative z-10 selection:bg-brand-cyan/20 overflow-x-clip bg-[#fafafa] text-slate-900 dark:bg-[#050608] dark:text-white transition-colors duration-500 font-sans">
             <Navbar isDark={isDarkMode} toggleTheme={toggleTheme} />
 
-            {/* 1️⃣ Hero */}
-            <section className="relative pt-28 pb-16 md:pt-40 md:pb-24 lg:pt-52 lg:pb-36 px-4 md:px-6 overflow-hidden">
-                <div className="absolute inset-0 pointer-events-none -z-10">
-                    <motion.div animate={{ scale: [1, 1.3, 1], opacity: [0.15, 0.3, 0.15] }} transition={{ duration: 12, repeat: Infinity }} className="absolute top-[10%] -right-[10%] w-[500px] md:w-[700px] h-[500px] md:h-[700px] bg-gradient-to-br from-brand-medium/20 via-brand-medium/20 to-brand-cyan/20 blur-[150px] rounded-full" />
-                    <motion.div animate={{ scale: [1.2, 1, 1.2], opacity: [0.1, 0.25, 0.1] }} transition={{ duration: 16, repeat: Infinity, delay: 3 }} className="absolute -bottom-[15%] -left-[15%] w-[400px] md:w-[600px] h-[400px] md:h-[600px] bg-brand-sky/15 blur-[130px] rounded-full" />
-                    {mounted && [...Array(20)].map((_, i) => (
-                        <motion.div key={i} animate={{ opacity: [0.1, 0.5, 0.1], scale: [1, 1.5, 1] }} transition={{ duration: 3 + Math.random() * 4, repeat: Infinity, delay: Math.random() * 5 }} className="absolute rounded-full bg-brand-cyan/40" style={{ width: `${Math.random() * 3 + 1}px`, height: `${Math.random() * 3 + 1}px`, left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }} />
+            {/* 1️⃣ Hero Section */}
+            <section className="relative pt-28 pb-16 md:pt-36 md:pb-20 lg:pt-44 lg:pb-28 px-4 md:px-6 overflow-hidden">
+                {/* Background Layer Grid */}
+                <div className="absolute inset-0 grid-parallax -z-10 opacity-[0.03] dark:opacity-[0.04] pointer-events-none"
+                    style={{ backgroundImage: 'linear-gradient(to right, #888 1px, transparent 1px), linear-gradient(to bottom, #888 1px, transparent 1px)', backgroundSize: '40px 40px' }} />
+
+                {/* ===== ANIMATED BACKGROUND LAYERS ===== */}
+                <div className="absolute inset-0 pointer-events-none overflow-hidden -z-10">
+                    <div className="absolute top-[10%] -right-[10%] w-[700px] h-[700px] bg-brand-medium/10 blur-[180px] rounded-full" />
+                    <div className="absolute -bottom-[15%] -left-[15%] w-[600px] h-[600px] bg-brand-sky/10 blur-[160px] rounded-full" />
+                    {mounted && [...Array(8)].map((_, i) => (
+                        <div key={i} className="absolute rounded-full bg-brand-cyan/20" style={{ width: `${Math.random() * 3 + 1}px`, height: `${Math.random() * 3 + 1}px`, left: `${Math.random() * 100}%`, top: `${Math.random() * 100}%` }} />
                     ))}
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] border border-brand-medium/5 rounded-full hidden lg:block" />
                 </div>
 
-                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-                    <div className="space-y-6 md:space-y-8 relative z-10">
-                        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-gradient-to-r from-brand-medium/10 to-brand-deep/10 border border-brand-medium/20 backdrop-blur-xl">
-                            <span className="relative flex h-2.5 w-2.5"><span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-medium opacity-75" /><span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-medium" /></span>
-                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-medium dark:text-brand-sky">Social Media Growth Engine</span>
-                        </motion.div>
+                <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+                    <div className="lg:col-span-6 space-y-6 md:space-y-10 relative z-10">
+                        {/* Status Badge */}
+                        <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-xl shadow-lg">
+                            <span className="relative flex h-2.5 w-2.5"><span className="absolute inline-flex h-full w-full rounded-full bg-brand-medium opacity-75" /><span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-brand-medium" /></span>
+                            <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-slate-600 dark:text-slate-300">Social Media Experts</span>
+                        </div>
 
-                        <motion.h1 initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight leading-[1.05]">
-                            <motion.span initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.15 }} className="block">Grow Your Brand</motion.span>
-                            <motion.span initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.3 }} className="block text-transparent bg-clip-text bg-gradient-to-r from-brand-sky via-brand-medium to-brand-cyan">on Social Media.</motion.span>
-                        </motion.h1>
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-[4.5rem] font-bold tracking-tight leading-[1.1] md:leading-[1.15]">
+                            <span className="block">Scale Your Brand</span>
+                            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-brand-sky to-brand-medium">Strategic Growth</span>
+                            <span className="block">Built to Convert.</span>
+                        </h1>
 
-                        <motion.p initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.5 }} className="text-base md:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
-                            Strategic content, creative design, and consistent management to build your online presence and generate real results.
-                        </motion.p>
+                        <p className="text-base md:text-xl text-slate-600 dark:text-slate-400 max-w-xl leading-relaxed">
+                            Strategic content, creative design, and data-driven management to build your online presence and turn followers into loyal customers.
+                        </p>
 
-                        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.65 }} className="flex flex-col sm:flex-row gap-4">
-                            <a href="#audit" className="px-6 sm:px-10 py-4 sm:py-5 bg-gradient-to-r from-brand-medium to-brand-deep text-white font-bold rounded-xl hover:scale-105 transition-all flex items-center justify-center gap-2 text-xs sm:text-sm uppercase tracking-wider shadow-lg shadow-brand-medium/20">Get Free Audit <ArrowRight className="w-4 h-4" /></a>
-                            <a href="#pricing" className="px-6 sm:px-10 py-4 sm:py-5 border border-slate-300 dark:border-white/20 rounded-xl font-bold hover:bg-slate-100 dark:hover:bg-white/5 transition-all text-center text-xs sm:text-sm uppercase tracking-wider">View Packages</a>
-                        </motion.div>
+                        <div className="flex flex-col sm:flex-row gap-5">
+                            <a href="#audit" className="px-8 sm:px-10 py-4 group bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white hover:opacity-90 font-bold rounded-[2rem] transition-transform hover:-translate-y-0.5 shadow-lg shadow-[#3994fa]/20 flex items-center justify-center gap-2 text-base">Watch Demo <Play className="w-5 h-5 fill-current" strokeWidth={0} /></a>
+                        </div>
 
-                        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1 }} className="flex items-center gap-4 pt-2">
-                            {[Instagram, Facebook, Linkedin, Youtube].map((Icon, i) => (
-                                <motion.div key={i} whileHover={{ scale: 1.2, y: -3 }} className="w-10 h-10 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/10 flex items-center justify-center hover:border-brand-medium/50 transition-colors cursor-pointer">
-                                    <Icon className="w-5 h-5 text-slate-500 dark:text-slate-400" />
-                                </motion.div>
+                        <div className="flex flex-wrap gap-3 pt-4">
+                            {['Instagram', 'Facebook', 'LinkedIn', 'YouTube', 'Reels'].map((platform, i) => (
+                                <span key={platform} className="px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-[10px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:border-brand-medium/50 hover:text-brand-medium transition-colors cursor-default">
+                                    {platform}
+                                </span>
                             ))}
-                        </motion.div>
+                        </div>
                     </div>
 
-                    {/* Hero Visual - Social Media Dashboard Mockup */}
-                    <motion.div initial={{ opacity: 0, scale: 0.9, y: 40 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 1.2, delay: 0.3 }} className="relative hidden md:block">
-                        <motion.div animate={{ scale: [1, 1.05, 1], opacity: [0.3, 0.5, 0.3] }} transition={{ duration: 4, repeat: Infinity }} className="absolute -inset-8 bg-gradient-to-br from-brand-medium/20 via-brand-medium/15 to-brand-cyan/20 blur-[60px] rounded-[3rem] -z-10" />
-                        <motion.div animate={{ y: [0, -8, 0] }} transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }} className="relative p-2 rounded-2xl bg-gradient-to-b from-white to-slate-100 dark:from-slate-800 dark:to-slate-900 border border-slate-200 dark:border-white/10 shadow-2xl">
-                            <div className="bg-slate-50 dark:bg-[#0a0f18] rounded-xl overflow-hidden border border-white/50 dark:border-white/5 p-6 space-y-4">
-                                <div className="flex items-center justify-between"><div className="flex gap-2"><div className="w-3 h-3 rounded-full bg-red-400" /><div className="w-3 h-3 rounded-full bg-yellow-400" /><div className="w-3 h-3 rounded-full bg-green-400" /></div><span className="text-[10px] font-mono text-slate-400">Social Dashboard</span></div>
-                                <div className="grid grid-cols-3 gap-3">
-                                    {[{ v: '+340%', l: 'Engagement', c: 'text-emerald-500' }, { v: '52K', l: 'Followers', c: 'text-brand-medium' }, { v: '89%', l: 'Retention', c: 'text-brand-cyan' }].map((m, i) => (
-                                        <motion.div key={i} initial={{ opacity: 0, y: 15 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.5 + i * 0.15 }} className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5 text-center">
-                                            <span className={`block text-lg font-black ${m.c}`}>{m.v}</span><span className="text-[8px] font-bold uppercase tracking-widest text-slate-400">{m.l}</span>
-                                        </motion.div>
-                                    ))}
-                                </div>
-                                <div className="h-32 rounded-xl bg-gradient-to-tr from-brand-medium/10 to-brand-deep/10 border border-brand-medium/10 relative overflow-hidden flex items-end p-3 gap-1">
-                                    {[40, 60, 35, 80, 55, 90, 70, 95, 65, 85].map((h, i) => (
-                                        <motion.div key={i} initial={{ height: 0 }} animate={{ height: `${h}%` }} transition={{ delay: 1.8 + i * 0.1, duration: 0.6 }} className="flex-1 bg-gradient-to-t from-brand-medium to-brand-deep rounded-t-md opacity-80" />
-                                    ))}
-                                </div>
-                                <div className="grid grid-cols-2 gap-3">
-                                    <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-100 dark:border-white/5"><div className="text-[9px] font-bold uppercase text-slate-400 mb-1">Top Post</div><div className="h-8 w-full bg-gradient-to-r from-brand-medium/20 to-brand-deep/20 rounded-lg" /></div>
-                                    <div className="p-3 rounded-xl bg-white dark:bg-white/5 border border-slate-100 dark:border-white/5"><div className="text-[9px] font-bold uppercase text-slate-400 mb-1">Reach</div><motion.div animate={{ width: ['30%', '85%', '30%'] }} transition={{ duration: 3, repeat: Infinity }} className="h-2 bg-brand-cyan rounded-full mt-3" /></div>
-                                </div>
+                    <div className="lg:col-span-6 relative">
+                        <div className="absolute -inset-8 bg-gradient-to-br from-brand-medium/10 via-brand-sky/5 to-brand-medium/10 blur-[60px] rounded-[3rem] -z-10" />
+
+                        {/* Consultation Lead Form */}
+                        <div className="relative z-10 w-full bg-white dark:bg-[#0a0f18] border border-slate-200 dark:border-white/10 rounded-[2.5rem] p-8 sm:p-12 shadow-2xl overflow-hidden group">
+                            <div className="absolute top-0 right-0 w-64 h-64 bg-brand-medium/5 dark:bg-brand-medium/10 blur-[60px] rounded-full pointer-events-none group-hover:bg-brand-medium/10 transition-colors duration-1000" />
+                            <div className="absolute bottom-0 left-0 w-64 h-64 bg-brand-sky/5 dark:bg-brand-sky/10 blur-[60px] rounded-full pointer-events-none group-hover:bg-brand-sky/10 transition-colors duration-1000" />
+
+                            <div className="relative z-10">
+                                {isHeroSubmitted ? (
+                                    <div className="bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-8 text-center my-10">
+                                        <div className="w-16 h-16 bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto mb-4 relative">
+                                            <div className="absolute inset-0 bg-emerald-500/30 rounded-full animate-ping" />
+                                            <Check className="w-8 h-8 text-emerald-500 relative z-10" />
+                                        </div>
+                                        <h4 className="text-lg font-bold text-emerald-500 mb-2 uppercase tracking-wider">Consultation Requested</h4>
+                                        <p className="text-sm text-slate-500 dark:text-slate-400 font-medium">Our team will contact you shortly.</p>
+                                    </div>
+                                ) : (
+                                    <form onSubmit={handleFormSubmit} className="space-y-6">
+                                        <div className="space-y-2">
+                                            <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Full Name</label>
+                                            <div className="relative group/field">
+                                                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none group-focus-within/field:text-brand-medium transition-colors"><User className="w-[18px] h-[18px] text-slate-400 group-focus-within/field:text-brand-medium transition-colors" strokeWidth={1.5} /></div>
+                                                <input required type="text" value={formData.name || ''} onChange={(e) => setFormData({ ...formData, name: e.target.value })} className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-brand-medium/50 focus:border-brand-medium/50 transition-all font-medium placeholder:text-slate-300" placeholder="John Doe" />
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Business Name</label>
+                                            <div className="relative group/field">
+                                                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none group-focus-within/field:text-brand-medium transition-colors"><Building2 className="w-[18px] h-[18px] text-slate-400 group-focus-within/field:text-brand-medium transition-colors" strokeWidth={1.5} /></div>
+                                                <input type="text" value={formData.businessName || ''} onChange={(e) => setFormData({ ...formData, businessName: e.target.value })} className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-brand-medium/50 focus:border-brand-medium/50 transition-all font-medium placeholder:text-slate-300" placeholder="Your Company Ltd." />
+                                            </div>
+                                        </div>
+
+                                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-4">
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Email</label>
+                                                <div className="relative group/field">
+                                                    <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none group-focus-within/field:text-brand-medium transition-colors"><Mail className="w-[18px] h-[18px] text-slate-400 group-focus-within/field:text-brand-medium transition-colors" strokeWidth={1.5} /></div>
+                                                    <input required type="email" value={formData.email || ''} onChange={(e) => setFormData({ ...formData, email: e.target.value })} className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-4 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-brand-medium/50 focus:border-brand-medium/50 transition-all font-medium placeholder:text-slate-300" placeholder="john@example.com" />
+                                                </div>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Phone</label>
+                                                <PhoneInput
+                                                    value={formData.phone || ''}
+                                                    onChange={(val) => setFormData({ ...formData, phone: val })}
+                                                    countryCode={formData.countryCode}
+                                                    onCountryCodeChange={(code) => setFormData({ ...formData, countryCode: code })}
+                                                />
+                                            </div>
+                                        </div>
+
+                                        <div className="space-y-2">
+                                            <label className="text-[11px] font-bold uppercase tracking-widest text-slate-500 dark:text-slate-400 ml-1">Budget Range</label>
+                                            <div className="relative group/field">
+                                                <div className="absolute inset-y-0 left-4 flex items-center pointer-events-none group-focus-within/field:text-brand-medium transition-colors"><CreditCard className="w-[18px] h-[18px] text-slate-400 group-focus-within/field:text-brand-medium transition-colors" strokeWidth={1.5} /></div>
+                                                <select value={formData.budget} onChange={(e) => setFormData({ ...formData, budget: e.target.value })} className="w-full bg-white dark:bg-white/[0.02] border border-slate-200 dark:border-white/10 rounded-2xl pl-11 pr-10 py-3.5 text-[0.95rem] focus:outline-none focus:ring-2 focus:ring-brand-medium/50 focus:border-brand-medium/50 transition-all font-medium appearance-none shadow-sm text-slate-700 dark:text-slate-300 hover:border-slate-300 dark:hover:border-white/20 cursor-pointer">
+                                                    <option value="4999">Starting ₹4,999</option>
+                                                    <option value="10k-25k">₹10k - ₹25k</option>
+                                                    <option value="25k-50k">₹25k - ₹50k</option>
+                                                    <option value="50k+">₹50k+</option>
+                                                </select>
+                                                <div className="absolute inset-y-0 right-4 flex items-center pointer-events-none text-slate-400 group-focus-within/field:text-brand-medium transition-colors"><ChevronRight className="w-4 h-4 rotate-90" /></div>
+                                            </div>
+                                        </div>
+
+                                        <div className="pt-4">
+                                            <button disabled={isHeroSubmitting} type="submit" className="w-full py-4 text-[13px] gap-2 disabled:opacity-70 group/btn duration-300 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white hover:opacity-90 font-bold rounded-full transition-all hover:-translate-y-0.5 shadow-md hover:shadow-lg hover:shadow-[#3994fa]/20 text-center uppercase tracking-[0.1em] flex items-center justify-center">
+                                                {isHeroSubmitting ? (
+                                                    <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                                                ) : (
+                                                    <span className="flex items-center gap-2 uppercase tracking-widest text-[13px]">Get Free Consultation <ArrowRight className="w-4 h-4 ml-1 group-hover/btn:translate-x-1 transition-transform" /></span>
+                                                )}
+                                            </button>
+                                            {submitStatus === 'error' && <p className="text-red-500 text-[10px] font-black uppercase text-center mt-2 tracking-widest">Error! Please try again.</p>}
+                                        </div>
+                                    </form>
+                                )}
                             </div>
-                        </motion.div>
-                    </motion.div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -132,13 +240,8 @@ export default function SocialMediaHandling() {
                             ))}
                         </ul>
                     </div>
-                    <div className="grid grid-cols-2 gap-4">
-                        {[{ v: '10x', l: 'More Brand Awareness', c: 'from-brand-sky to-brand-deep' }, { v: '78%', l: 'Trust Through Social Proof', c: 'from-brand-medium to-brand-deep' }, { v: '3.5x', l: 'Higher Conversion Rate', c: 'from-brand-cyan to-brand-sky' }, { v: '67%', l: 'Customer Retention Boost', c: 'from-emerald-500 to-green-500' }].map((s, i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-center hover:-translate-y-1 transition-transform">
-                                <div className={`text-3xl md:text-4xl font-black text-transparent bg-clip-text bg-gradient-to-r ${s.c} mb-2`}>{s.v}</div>
-                                <span className="text-xs font-bold text-slate-500 uppercase tracking-wider">{s.l}</span>
-                            </motion.div>
-                        ))}
+                    <div className="relative">
+                        <SocialDashboard />
                     </div>
                 </div>
             </section>
@@ -154,11 +257,11 @@ export default function SocialMediaHandling() {
                         {[{ t: 'Data-Driven Strategy', i: BarChart3, d: 'Every decision backed by analytics and performance data.' }, { t: 'Creative Content Experts', i: Sparkles, d: 'Scroll-stopping content that resonates with your audience.' }, { t: 'Consistent Posting System', i: Calendar, d: 'Never miss a post with our systematized content calendar.' }, { t: 'Organic Growth Focus', i: TrendingUp, d: 'Sustainable growth through genuine engagement and value.' }, {
                             t: 'Monthly Reporting', i: LineChart, d: 'Detailed insights on what\'s working and what to optimize.'
                         }, { t: 'Transparent Communication', i: MessageSquare, d: 'Regular updates, strategy calls, and open feedback loops.' }].map((f, i) => (
-                            <motion.div key={i} whileHover={{ y: -5 }} className="p-6 md:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 group hover:border-brand-medium/30 transition-all">
+                            <div key={i} className="p-6 md:p-8 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 group hover:border-brand-medium/30 transition-all hover:-translate-y-1">
                                 <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-brand-medium/10 flex items-center justify-center mb-5 group-hover:bg-brand-medium transition-colors"><f.i className="w-6 h-6 text-brand-medium group-hover:text-white transition-colors" /></div>
                                 <h3 className="text-lg font-bold mb-2">{f.t}</h3>
                                 <p className="text-sm text-slate-500 leading-relaxed">{f.d}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -173,10 +276,10 @@ export default function SocialMediaHandling() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
                         {[{ t: 'Local Businesses', i: Store, d: 'Build community presence and drive foot traffic.' }, { t: 'Startups', i: Rocket, d: 'Establish brand identity from day one.' }, { t: 'Coaches & Consultants', i: UserCheck, d: 'Position yourself as an industry authority.' }, { t: 'E-Commerce Brands', i: ShoppingCart, d: 'Drive traffic and sales through social.' }, { t: 'Real Estate Agents', i: Home, d: 'Showcase properties and build trust.' }, { t: 'Personal Brands', i: User, d: 'Grow your personal influence online.' }, { t: 'Educational Institutes', i: GraduationCap, d: 'Engage students and parents effectively.' }, { t: 'Healthcare', i: HeartPulse, d: 'Build patient trust and awareness.' }].map((ind, i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="flex gap-4 items-start p-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 hover:border-brand-medium/40 transition-colors group">
+                            <div key={i} className="flex gap-4 items-start p-5 rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 hover:border-brand-medium/40 transition-colors group">
                                 <ind.i className="w-6 h-6 text-slate-400 group-hover:text-brand-medium shrink-0 transition-colors mt-0.5" />
                                 <div><h4 className="font-bold text-sm mb-1">{ind.t}</h4><p className="text-xs text-slate-500">{ind.d}</p></div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -192,10 +295,10 @@ export default function SocialMediaHandling() {
                     </div>
                     <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
                         {[{ t: 'Strategy', i: Target }, { t: 'Content Creation', i: PenTool }, { t: 'Posting', i: Share2 }, { t: 'Engagement', i: Heart }, { t: 'Analytics', i: BarChart3 }, { t: 'Optimization', i: Zap }].map((s, i) => (
-                            <motion.div key={i} whileHover={{ y: -5 }} className="p-5 rounded-2xl bg-white/5 border border-white/10 text-center group hover:border-brand-medium/40 transition-all">
+                            <div key={i} className="p-5 rounded-2xl bg-white/5 border border-white/10 text-center group hover:border-brand-medium/40 transition-all hover:-translate-y-1">
                                 <div className="w-12 h-12 rounded-xl bg-brand-medium/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-medium transition-colors"><s.i className="w-6 h-6 text-brand-sky group-hover:text-white transition-colors" /></div>
                                 <h4 className="font-bold text-sm">{s.t}</h4>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -210,10 +313,10 @@ export default function SocialMediaHandling() {
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4 md:gap-6">
                         {[{ n: 'Instagram', i: Instagram, c: 'from-brand-medium to-brand-deep' }, { n: 'Facebook', i: Facebook, c: 'from-blue-500 to-blue-600' }, { n: 'LinkedIn', i: Linkedin, c: 'from-blue-600 to-blue-700' }, { n: 'YouTube', i: Youtube, c: 'from-red-500 to-red-600' }, { n: 'Twitter/X', i: MessageSquare, c: 'from-slate-700 to-slate-900' }, { n: 'Threads', i: Hash, c: 'from-brand-sky to-brand-medium' }].map((p, i) => (
-                            <motion.div key={i} whileHover={{ y: -5, scale: 1.02 }} className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-center hover:shadow-[0_0_30px_rgba(63,143,204,0.15)] transition-all">
+                            <div key={i} className="group p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-center hover:shadow-[0_0_30px_rgba(63,143,204,0.15)] transition-all hover:-translate-y-1">
                                 <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${p.c} flex items-center justify-center mx-auto mb-4 shadow-lg`}><p.i className="w-7 h-7 text-white" /></div>
                                 <h4 className="font-bold text-sm">{p.n}</h4>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -243,7 +346,7 @@ export default function SocialMediaHandling() {
                             {[...Array(31)].map((_, i) => {
                                 const hasPost = [1, 3, 5, 7, 9, 11, 13, 15, 17, 19, 21, 23, 25, 27, 29].includes(i + 1);
                                 const hasReel = [2, 8, 14, 20, 26].includes(i + 1);
-                                return <motion.div key={i} whileHover={{ scale: 1.1 }} className={`aspect-square rounded-lg flex items-center justify-center text-xs font-bold ${hasPost ? 'bg-brand-medium text-white' : hasReel ? 'bg-brand-sky text-white' : 'bg-slate-50 dark:bg-white/5 text-slate-400'}`}>{i + 1}</motion.div>;
+                                return <div key={i} className={`aspect-square rounded-lg flex items-center justify-center text-xs font-bold transition-transform hover:scale-110 ${hasPost ? 'bg-brand-medium text-white' : hasReel ? 'bg-brand-sky text-white' : 'bg-slate-50 dark:bg-white/5 text-slate-400'}`}>{i + 1}</div>;
                             })}
                         </div>
                         <div className="flex gap-4 mt-4">
@@ -264,11 +367,11 @@ export default function SocialMediaHandling() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         {[{ t: 'Post Designs', i: Image, d: 'Eye-catching static posts for your feed.' }, { t: 'Carousel Graphics', i: Layers, d: 'Swipe-worthy educational and promo carousels.' }, { t: 'Story Templates', i: Smartphone, d: 'On-brand story templates for daily engagement.' }, { t: 'Brand Consistency', i: Palette, d: 'Unified color, font, and style across all platforms.' }, { t: 'Custom Visual Identity', i: Eye, d: 'Unique design language that sets you apart.' }].map((item, i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.08 }} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 group hover:border-brand-medium/30 transition-all hover:-translate-y-1">
+                            <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 group hover:border-brand-medium/30 transition-all hover:-translate-y-1">
                                 <item.i className="w-8 h-8 text-brand-medium mb-4" />
                                 <h4 className="font-bold text-sm mb-2">{item.t}</h4>
                                 <p className="text-xs text-slate-500">{item.d}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -292,7 +395,7 @@ export default function SocialMediaHandling() {
                     </div>
                     {/* Phone Mockup */}
                     <div className="flex justify-center">
-                        <motion.div animate={{ y: [0, -10, 0] }} transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }} className="w-56 sm:w-64 h-[450px] sm:h-[500px] rounded-[2.5rem] bg-slate-900 border-[6px] border-slate-700 shadow-2xl overflow-hidden relative">
+                        <div className="w-56 sm:w-64 h-[450px] sm:h-[500px] rounded-[2.5rem] bg-slate-900 border-[6px] border-slate-700 shadow-2xl overflow-hidden relative">
                             <div className="absolute top-0 inset-x-0 h-6 bg-slate-800 rounded-b-xl w-1/3 mx-auto z-30" />
                             <div className="w-full h-full bg-gradient-to-b from-brand-medium/20 via-brand-medium/20 to-slate-900 p-4 flex flex-col justify-end gap-3">
                                 <div className="space-y-2">
@@ -305,14 +408,14 @@ export default function SocialMediaHandling() {
                                 </div>
                                 <div className="absolute right-4 bottom-20 space-y-4">
                                     {[Heart, MessageSquare, Share2, Star].map((Icon, i) => (
-                                        <motion.div key={i} animate={{ scale: [1, 1.15, 1] }} transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }} className="w-9 h-9 rounded-full bg-white/10 backdrop-blur flex items-center justify-center">
+                                        <div key={i} className="w-9 h-9 rounded-full bg-white/10 backdrop-blur flex items-center justify-center">
                                             <Icon className="w-4 h-4 text-white" />
-                                        </motion.div>
+                                        </div>
                                     ))}
                                 </div>
-                                <motion.div animate={{ width: ['0%', '100%'] }} transition={{ duration: 6, repeat: Infinity }} className="h-1 bg-brand-medium rounded-full" />
+                                <div className="h-1 bg-brand-medium rounded-full w-full" />
                             </div>
-                        </motion.div>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -327,11 +430,11 @@ export default function SocialMediaHandling() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         {[{ t: 'Persuasive Captions', d: 'Copy that hooks, engages, and converts readers into action-takers.', i: PenTool }, { t: 'Call-to-Action Writing', d: 'Strategic CTAs that drive clicks, saves, shares, and conversions.', i: MousePointer2 }, { t: 'Niche Hashtags', d: 'Curated hashtag sets targeting your exact audience segments.', i: Hash }, { t: 'SEO-Optimized', d: 'Search-friendly captions that boost discoverability on all platforms.', i: Search }].map((item, i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-left hover:border-brand-medium/30 transition-colors hover:-translate-y-1">
+                            <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-left hover:border-brand-medium/30 transition-colors hover:-translate-y-1">
                                 <item.i className="w-7 h-7 text-brand-medium mb-4" />
                                 <h4 className="font-bold text-sm mb-2">{item.t}</h4>
                                 <p className="text-xs text-slate-500 leading-relaxed">{item.d}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -345,7 +448,7 @@ export default function SocialMediaHandling() {
                         <div className="space-y-3">
                             {['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'].map((day, i) => {
                                 const posts = [2, 1, 2, 1, 2, 1, 0][i];
-                                return <div key={i} className="flex items-center gap-4"><span className="text-xs font-bold text-slate-400 w-20">{day}</span><div className="flex-1 h-8 bg-slate-50 dark:bg-white/5 rounded-lg overflow-hidden flex"><motion.div initial={{ width: 0 }} whileInView={{ width: `${posts * 35}%` }} viewport={{ once: true }} transition={{ delay: i * 0.1, duration: 0.6 }} className="h-full bg-gradient-to-r from-brand-medium to-brand-deep rounded-lg" /></div><span className="text-xs font-bold text-slate-500 w-8">{posts}</span></div>;
+                                return <div key={i} className="flex items-center gap-4"><span className="text-xs font-bold text-slate-400 w-20">{day}</span><div className="flex-1 h-8 bg-slate-50 dark:bg-white/5 rounded-lg overflow-hidden flex"><div style={{ width: `${posts * 35}%` }} className="h-full bg-gradient-to-r from-brand-medium to-brand-deep rounded-lg" /></div><span className="text-xs font-bold text-slate-500 w-8">{posts}</span></div>;
                             })}
                         </div>
                     </div>
@@ -372,11 +475,11 @@ export default function SocialMediaHandling() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
                         {[{ t: 'DM Handling', i: Send, d: 'Prompt responses to all direct messages.' }, { t: 'Comment Replies', i: MessageSquare, d: 'Engaging replies that boost algorithm ranking.' }, { t: 'Lead Qualification', i: Target, d: 'Identify hot leads from conversations.' }, { t: 'Audience Interaction', i: Users, d: 'Proactive engagement with your community.' }, { t: 'Engagement Boost', i: TrendingUp, d: 'Strategies to increase likes, saves, and shares.' }].map((item, i) => (
-                            <motion.div key={i} whileHover={{ y: -5 }} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 group hover:border-brand-medium/30 transition-all text-center">
+                            <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 group hover:border-brand-medium/30 transition-all text-center hover:-translate-y-1">
                                 <div className="w-12 h-12 rounded-xl bg-blue-50 dark:bg-brand-medium/10 flex items-center justify-center mx-auto mb-4 group-hover:bg-brand-medium transition-colors"><item.i className="w-6 h-6 text-brand-medium group-hover:text-white transition-colors" /></div>
                                 <h4 className="font-bold text-sm mb-1">{item.t}</h4>
                                 <p className="text-[11px] text-slate-500">{item.d}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -425,10 +528,9 @@ export default function SocialMediaHandling() {
                                     </div>
                                 </div>
                                 <div className="flex items-baseline gap-2 mb-5">
-                                    <motion.span
-                                        initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
+                                    <span
                                         className="text-3xl font-black text-transparent bg-clip-text bg-gradient-to-r from-brand-cyan to-brand-sky"
-                                    >45K</motion.span>
+                                    >45K</span>
                                     <span className="text-xs text-emerald-400 font-bold">+3,650%</span>
                                     <span className="text-xs text-slate-500 ml-auto">12-month projection</span>
                                 </div>
@@ -462,7 +564,7 @@ export default function SocialMediaHandling() {
                                             </linearGradient>
                                         </defs>
                                         {/* Area fill */}
-                                        <motion.path
+                                        <path
                                             d={`M ${bars.map((b, i) => {
                                                 const segW = 360 / bars.length;
                                                 const x = i * segW + segW / 2;
@@ -470,11 +572,9 @@ export default function SocialMediaHandling() {
                                                 return `${x},${y}`;
                                             }).join(' L ')} L 360,160 L 0,160 Z`}
                                             fill="url(#areaGrad)"
-                                            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }}
-                                            viewport={{ once: true }} transition={{ duration: 1, delay: 0.6 }}
                                         />
                                         {/* Glow line */}
-                                        <motion.path
+                                        <path
                                             d={`M ${bars.map((b, i) => {
                                                 const segW = 360 / bars.length;
                                                 const x = i * segW + segW / 2;
@@ -484,20 +584,12 @@ export default function SocialMediaHandling() {
                                             fill="none" stroke="url(#lineGrad)" strokeWidth="2.5"
                                             strokeLinecap="round" strokeLinejoin="round"
                                             filter="url(#glow)"
-                                            initial={{ pathLength: 0, opacity: 0 }}
-                                            whileInView={{ pathLength: 1, opacity: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{ duration: 1.8, ease: 'easeOut', delay: 0.3 }}
                                         />
                                         {/* Glowing dot at end */}
-                                        <motion.circle
+                                        <circle
                                             cx={360 - (360 / bars.length) / 2}
                                             cy={160 - (bars[bars.length - 1].h / 100) * 156}
                                             r="5" fill="#3994fa"
-                                            initial={{ scale: 0, opacity: 0 }}
-                                            whileInView={{ scale: 1, opacity: 1 }}
-                                            viewport={{ once: true }}
-                                            transition={{ delay: 2.1, duration: 0.4, type: 'spring' }}
                                         />
                                     </svg>
 
@@ -511,24 +603,14 @@ export default function SocialMediaHandling() {
                                                         {bar.v} followers
                                                     </div>
                                                 </div>
-                                                <motion.div
-                                                    initial={{ scaleY: 0 }}
-                                                    whileInView={{ scaleY: 1 }}
-                                                    viewport={{ once: true }}
-                                                    transition={{ delay: i * 0.07, duration: 0.5, ease: [0.34, 1.56, 0.64, 1] }}
-                                                    style={{ originY: 1, height: `${(bar.h / 100) * chartH}px` }}
+                                                <div
+                                                    style={{ height: `${(bar.h / 100) * chartH}px` }}
                                                     className={`w-full rounded-t-sm relative overflow-hidden ${i === bars.length - 1
                                                         ? 'bg-gradient-to-t from-brand-medium via-brand-sky to-brand-cyan shadow-[0_0_16px_rgba(95,211,230,0.5)]'
                                                         : 'bg-gradient-to-t from-brand-deep to-brand-medium group-hover:to-brand-sky'
                                                         } transition-colors duration-300`}
                                                 >
-                                                    {/* Shimmer */}
-                                                    <motion.div
-                                                        animate={{ x: ['-100%', '200%'] }}
-                                                        transition={{ duration: 2, repeat: Infinity, delay: i * 0.1, ease: 'linear' }}
-                                                        className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent skew-x-12"
-                                                    />
-                                                </motion.div>
+                                                </div>
                                                 <span className="text-[7px] sm:text-[8px] font-bold text-slate-500">{bar.m}</span>
                                             </div>
                                         ))}
@@ -540,11 +622,9 @@ export default function SocialMediaHandling() {
                                     {[{ l: 'Start', v: '1.2K' }, { l: 'Mid-Year', v: '9.8K' }, { l: 'Year End', v: '45K' }].map((s, i) => (
                                         <div key={i} className="text-center">
                                             <span className="block text-[10px] text-slate-500 font-bold uppercase tracking-wider">{s.l}</span>
-                                            <motion.span
-                                                initial={{ opacity: 0, y: 6 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
-                                                transition={{ delay: 1.2 + i * 0.15 }}
+                                            <span
                                                 className="block text-sm font-black text-brand-cyan"
-                                            >{s.v}</motion.span>
+                                            >{s.v}</span>
                                         </div>
                                     ))}
                                 </div>
@@ -597,11 +677,11 @@ export default function SocialMediaHandling() {
                     </div>
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
                         {[{ t: 'Meta Ads', d: 'Facebook & Instagram ad campaigns optimized for your goals.', i: Facebook }, { t: 'Lead Generation', d: 'High-converting lead gen campaigns that fill your pipeline.', i: Target }, { t: 'Retargeting', d: 'Re-engage visitors who didn\'t convert the first time.', i: Repeat }, { t: 'Performance Scaling', d: 'Scale winning campaigns for maximum ROI.', i: TrendingUp }].map((item, i) => (
-                            <motion.div key={i} whileHover={{ y: -5 }} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 text-left hover:border-amber-500/30 transition-all">
+                            <div key={i} className="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/10 text-left hover:border-amber-500/30 transition-all hover:-translate-y-1">
                                 <item.i className="w-7 h-7 text-amber-500 mb-4" />
                                 <h4 className="font-bold text-sm mb-2">{item.t}</h4>
                                 <p className="text-xs text-slate-500 leading-relaxed">{item.d}</p>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -618,13 +698,13 @@ export default function SocialMediaHandling() {
                         <div className="absolute top-16 left-0 right-0 h-px bg-gradient-to-r from-transparent via-brand-medium/30 to-transparent hidden lg:block" />
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
                             {[{ s: '01', t: 'Audit & Strategy', i: Search }, { s: '02', t: 'Content Planning', i: Calendar }, { s: '03', t: 'Design & Creation', i: Palette }, { s: '04', t: 'Post & Engage', i: Share2 }, { s: '05', t: 'Optimize & Report', i: LineChart }].map((step, i) => (
-                                <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.1 }} className="text-center group">
+                                <div key={i} className="text-center group">
                                     <div className="relative z-10 w-14 h-14 mx-auto mb-4 rounded-2xl bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-white/10 group-hover:border-brand-medium flex items-center justify-center transition-colors shadow-lg">
                                         <step.i className="w-6 h-6 text-slate-400 group-hover:text-brand-medium transition-colors" />
                                     </div>
                                     <span className="text-2xl font-black text-slate-100 dark:text-white/5 block mb-1">{step.s}</span>
                                     <h4 className="font-bold text-sm">{step.t}</h4>
-                                </motion.div>
+                                </div>
                             ))}
                         </div>
                     </div>
@@ -648,7 +728,7 @@ export default function SocialMediaHandling() {
                                 </div>
                                 <div className="flex-1 flex items-center justify-center my-6">
                                     <div className="text-center space-y-3">
-                                        <motion.div animate={{ scale: [1, 1.05, 1] }} transition={{ duration: 3, repeat: Infinity }} className="text-7xl font-black text-white/90 leading-none">340%</motion.div>
+                                        <div className="text-7xl font-black text-white/90 leading-none">340%</div>
                                         <div className="text-white/60 text-sm font-bold uppercase tracking-widest">Engagement Growth</div>
                                         <div className="h-0.5 w-28 bg-gradient-to-r from-transparent via-white/50 to-transparent mx-auto" />
                                     </div>
@@ -740,9 +820,7 @@ export default function SocialMediaHandling() {
                                 <div className="flex-1 flex items-center justify-center">
                                     <div className="flex gap-4">
                                         {[1, 2, 3].map(n => (
-                                            <motion.div key={n}
-                                                animate={{ y: [0, n % 2 === 0 ? -10 : 10, 0] }}
-                                                transition={{ duration: 2 + n * 0.4, repeat: Infinity, ease: 'easeInOut' }}
+                                            <div key={n}
                                                 className={`w-20 h-32 rounded-2xl border border-white/20 bg-white/5 backdrop-blur ${n === 2 ? 'scale-110 bg-white/10 border-brand-cyan/40' : 'opacity-60'}`}
                                             />
                                         ))}
@@ -795,8 +873,7 @@ export default function SocialMediaHandling() {
                                 </div>
                                 <div className="flex items-end gap-2 flex-1">
                                     {[30, 50, 35, 65, 45, 80, 60, 90, 70, 95].map((h, i) => (
-                                        <motion.div key={i} initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }}
-                                            transition={{ delay: 0.3 + i * 0.06 }} style={{ height: `${h}%`, originY: 1 }}
+                                        <div key={i} style={{ height: `${h}%` }}
                                             className={`flex-1 rounded-t-sm ${i === 9 ? 'bg-brand-cyan shadow-[0_0_12px_rgba(95,211,230,0.6)]' : 'bg-brand-medium/50'}`} />
                                     ))}
                                 </div>
@@ -848,10 +925,10 @@ export default function SocialMediaHandling() {
                     </div>
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
                         {[{ t: 'Retail', i: Store }, { t: 'Real Estate', i: Home }, { t: 'Education', i: GraduationCap }, { t: 'Healthcare', i: HeartPulse }, { t: 'E-Commerce', i: ShoppingCart }, { t: 'Digital Services', i: Globe }, { t: 'Personal Brands', i: User }, { t: 'Finance', i: DollarSign }].map((ind, i) => (
-                            <motion.div key={i} whileHover={{ y: -3 }} className="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 transition-all">
+                            <div key={i} className="flex items-center gap-3 p-4 rounded-xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-white/5 hover:border-brand-medium/30 transition-all hover:-translate-y-1">
                                 <ind.i className="w-5 h-5 text-brand-medium shrink-0" />
                                 <span className="font-bold text-sm">{ind.t}</span>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -871,7 +948,7 @@ export default function SocialMediaHandling() {
                             { tier: 'Standard', price: '\u20b914,999', mo: '/month', features: ['16-20 Posts / Month', 'Reels Included', '2 Platforms', 'Advanced Strategy', 'Detailed Analytics Report', 'Priority Support'], highlight: true },
                             { tier: 'Custom', price: 'Let\'s Talk', mo: '', features: ['Tailored Content Plan', 'Multi-Platform Management', 'Paid Ads Integration', 'Advanced Growth Strategy', 'Dedicated Account Manager', 'Weekly Strategy Calls'], highlight: false }
                         ].map((plan, i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.15 }} className={`rounded-2xl overflow-hidden relative ${plan.highlight ? 'border-2 border-brand-medium shadow-2xl shadow-brand-medium/10 bg-gradient-to-b from-brand-medium/10 to-transparent' : 'bg-white/5 border border-white/10'}`}>
+                            <div key={i} className={`rounded-2xl overflow-hidden relative shadow-lg ${plan.highlight ? 'border-2 border-brand-medium bg-gradient-to-b from-brand-medium/10 to-transparent' : 'bg-white/5 border border-white/10'}`}>
                                 {plan.highlight && <div className="bg-brand-medium text-white text-center py-2 text-[10px] font-black uppercase tracking-[0.3em]">Most Popular</div>}
                                 <div className="p-6 md:p-8">
                                     <h3 className="text-xl font-bold mb-1">{plan.tier}</h3>
@@ -881,9 +958,9 @@ export default function SocialMediaHandling() {
                                             <li key={j} className="flex items-start gap-3 text-sm"><CheckCircle2 className={`w-4 h-4 shrink-0 mt-0.5 ${plan.highlight ? 'text-brand-sky' : 'text-slate-500'}`} /><span>{f}</span></li>
                                         ))}
                                     </ul>
-                                    <a href="#audit" className={`block w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wider text-center transition-all ${plan.highlight ? 'bg-brand-medium text-white hover:bg-brand-deep' : 'bg-white/5 border border-white/10 hover:border-brand-medium/50'}`}>Get Started</a>
+                                    <a href="#audit" className={`block w-full py-4 rounded-xl font-bold text-sm uppercase tracking-wider text-center transition-all ${plan.highlight ? 'bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white hover:opacity-95' : 'bg-white/5 border border-white/10 hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:border-transparent'}`}>Get Started</a>
                                 </div>
-                            </motion.div>
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -904,19 +981,17 @@ export default function SocialMediaHandling() {
                             { q: 'Can I customize my package?', a: 'Absolutely. Our Custom plan is fully tailored to your specific needs, platforms, content volume, and growth goals. Let\'s discuss what works best for you.' },
                             { q: 'What results can I expect?', a: 'While results vary by industry and starting point, our clients typically see 2-5x engagement growth, 30-60% follower increase, and measurable lead generation within 3-6 months.' }
                         ].map((faq, i) => (
-                            <motion.div key={i} initial={{ opacity: 0, y: 15 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: i * 0.05 }} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 overflow-hidden">
+                            <div key={i} className="rounded-2xl border border-slate-200 dark:border-white/10 bg-white dark:bg-slate-900 overflow-hidden shadow-sm">
                                 <button onClick={() => setOpenFAQ(openFAQ === i ? null : i)} className="w-full flex items-center justify-between p-5 md:p-6 text-left hover:bg-slate-50 dark:hover:bg-white/5 transition-colors">
                                     <span className="font-bold text-sm md:text-base pr-4">{faq.q}</span>
-                                    <motion.div animate={{ rotate: openFAQ === i ? 45 : 0 }} transition={{ duration: 0.2 }} className="shrink-0"><Plus className="w-5 h-5 text-brand-medium" /></motion.div>
+                                    <div className={`shrink-0 transition-transform duration-200 ${openFAQ === i ? 'rotate-45' : ''}`}><Plus className="w-5 h-5 text-brand-medium" /></div>
                                 </button>
-                                <AnimatePresence>
-                                    {openFAQ === i && (
-                                        <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.3 }} className="overflow-hidden">
-                                            <div className="px-5 md:px-6 pb-5 md:pb-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-4">{faq.a}</div>
-                                        </motion.div>
-                                    )}
-                                </AnimatePresence>
-                            </motion.div>
+                                {openFAQ === i && (
+                                    <div className="overflow-hidden bg-slate-50/50 dark:bg-white/[0.02]">
+                                        <div className="px-5 md:px-6 pb-5 md:pb-6 text-sm text-slate-600 dark:text-slate-400 leading-relaxed border-t border-slate-100 dark:border-white/5 pt-4">{faq.a}</div>
+                                    </div>
+                                )}
+                            </div>
                         ))}
                     </div>
                 </div>
@@ -929,12 +1004,12 @@ export default function SocialMediaHandling() {
                         <div className="absolute top-0 inset-x-0 h-1 bg-gradient-to-r from-brand-sky via-brand-medium to-brand-cyan" />
                         <div className="absolute -top-20 -right-20 w-40 h-40 bg-brand-medium/10 blur-[80px] rounded-full" />
 
-                        {formStatus === 'success' ? (
+                        {auditSubmitStatus === 'success' ? (
                             <div className="py-16 text-center space-y-6">
                                 <div className="w-20 h-20 bg-emerald-100 dark:bg-emerald-500/20 rounded-full flex items-center justify-center mx-auto"><CheckCircle2 className="w-10 h-10 text-emerald-500" /></div>
                                 <h3 className="text-2xl font-black">Audit Request Received!</h3>
                                 <p className="text-slate-500">Our social media strategist will analyze your profiles and reach out within 24 hours.</p>
-                                <button onClick={() => setFormStatus('idle')} className="text-brand-medium font-bold text-sm underline underline-offset-4">Submit Another</button>
+                                <button onClick={() => setAuditSubmitStatus('idle')} className="text-brand-medium font-bold text-sm underline underline-offset-4">Submit Another</button>
                             </div>
                         ) : (
                             <>
@@ -942,23 +1017,44 @@ export default function SocialMediaHandling() {
                                     <h3 className="text-2xl md:text-3xl font-bold">Get Your Free Social Media Audit</h3>
                                     <p className="text-sm text-slate-500">We&apos;ll analyze your profiles and provide actionable recommendations.</p>
                                 </div>
-                                <form onSubmit={handleFormSubmit} className="space-y-4">
+                                <form onSubmit={async (e) => {
+                                    e.preventDefault();
+                                    setAuditSubmitStatus('loading');
+                                    try {
+                                        const res = await fetch('/api/leads', {
+                                            method: 'POST',
+                                            headers: { 'Content-Type': 'application/json' },
+                                            body: JSON.stringify({
+                                                ...auditFormData,
+                                                phone: 'N/A', // Audit form doesn't have phone
+                                                email: 'N/A', // Audit form doesn't have email in UI, but it probably should?
+                                                service: 'Social Media Handling Audit'
+                                            })
+                                        });
+                                        if (res.ok) setAuditSubmitStatus('success');
+                                        else setAuditSubmitStatus('error');
+                                    } catch (err) {
+                                        console.error(err);
+                                        setAuditSubmitStatus('error');
+                                    }
+                                }} className="space-y-4">
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Full Name *</label><div className="relative"><User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /><input required type="text" placeholder="John Doe" className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all" /></div></div>
-                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Business Name *</label><div className="relative"><Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /><input required type="text" placeholder="Acme Corp" className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all" /></div></div>
+                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Full Name *</label><div className="relative"><User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /><input required type="text" value={auditFormData.name} onChange={(e) => setAuditFormData({ ...auditFormData, name: e.target.value })} placeholder="John Doe" className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all" /></div></div>
+                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Business Name *</label><div className="relative"><Building2 className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /><input required type="text" value={auditFormData.businessName} onChange={(e) => setAuditFormData({ ...auditFormData, businessName: e.target.value })} placeholder="Acme Corp" className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all" /></div></div>
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Social Media Handle *</label><div className="relative"><Instagram className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /><input required type="text" placeholder="@yourbrand" className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all" /></div></div>
-                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Platform</label><select className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all appearance-none"><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>YouTube</option><option>Multiple Platforms</option></select></div>
+                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Social Media Handle *</label><div className="relative"><Instagram className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" /><input required type="text" value={auditFormData.handle} onChange={(e) => setAuditFormData({ ...auditFormData, handle: e.target.value })} placeholder="@yourbrand" className="w-full pl-11 pr-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all" /></div></div>
+                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Platform</label><select value={auditFormData.platform} onChange={(e) => setAuditFormData({ ...auditFormData, platform: e.target.value })} className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all appearance-none"><option>Instagram</option><option>Facebook</option><option>LinkedIn</option><option>YouTube</option><option>Multiple Platforms</option></select></div>
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Monthly Budget</label><select className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all appearance-none"><option>Under ₹10,000</option><option>₹10,000 - ₹25,000</option><option>₹25,000 - ₹50,000</option><option>₹50,000+</option></select></div>
-                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Primary Goal</label><select className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all appearance-none"><option>Brand Awareness</option><option>Lead Generation</option><option>Sales & Revenue</option><option>Community Building</option><option>All of the Above</option></select></div>
+                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Monthly Budget</label><select value={auditFormData.budget} onChange={(e) => setAuditFormData({ ...auditFormData, budget: e.target.value })} className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all appearance-none"><option>Under ₹10,000</option><option>₹10,000 - ₹25,000</option><option>₹25,000 - ₹50,000</option><option>₹50,000+</option></select></div>
+                                        <div><label className="block text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Primary Goal</label><select value={auditFormData.goal} onChange={(e) => setAuditFormData({ ...auditFormData, goal: e.target.value })} className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-white/5 border border-slate-200 dark:border-white/10 text-sm font-medium focus:ring-2 focus:ring-brand-medium focus:border-transparent outline-none transition-all appearance-none"><option>Brand Awareness</option><option>Lead Generation</option><option>Sales & Revenue</option><option>Community Building</option><option>All of the Above</option></select></div>
                                     </div>
-                                    <button disabled={formStatus === 'submitting'} type="submit" className="w-full py-5 rounded-xl bg-gradient-to-r from-brand-medium to-brand-deep text-white font-black uppercase tracking-widest text-sm hover:shadow-xl hover:shadow-brand-medium/20 transition-all flex items-center justify-center gap-3">
+                                    <button disabled={auditSubmitStatus === 'loading'} type="submit" className="w-full py-5 rounded-xl bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white font-black uppercase tracking-widest text-sm hover:shadow-xl hover:shadow-[#3994fa]/20 transition-all flex items-center justify-center gap-3">
                                         <Send className="w-5 h-5" />
-                                        {formStatus === 'submitting' ? 'Processing...' : 'Get Free Audit'}
+                                        {auditSubmitStatus === 'loading' ? 'Processing...' : 'Get Free Audit'}
                                     </button>
+                                    {auditSubmitStatus === 'error' && <p className="text-red-500 text-[10px] font-black uppercase text-center mt-2 tracking-widest">Error! Please try again.</p>}
                                     <p className="text-center text-[11px] text-slate-400">We&apos;ll respond within 24 hours with your personalized audit report.</p>
                                 </form>
                             </>
@@ -970,23 +1066,23 @@ export default function SocialMediaHandling() {
             {/* 2️⃣2️⃣ Final CTA */}
             < section className="py-16 md:py-28 px-4 md:px-6 bg-[#020617] text-white relative overflow-hidden" >
                 <div className="absolute inset-0 pointer-events-none">
-                    <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.1, 0.2, 0.1] }} transition={{ duration: 10, repeat: Infinity }} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-gradient-to-br from-brand-medium/20 via-brand-medium/15 to-brand-cyan/20 blur-[200px] rounded-full" />
+                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] md:w-[800px] h-[600px] md:h-[800px] bg-gradient-to-br from-brand-medium/20 grid-parallax via-brand-medium/15 to-brand-cyan/20 blur-[200px] rounded-full opacity-30" />
                 </div>
                 <div className="max-w-4xl mx-auto text-center relative z-10 space-y-8">
-                    <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} className="space-y-6">
+                    <div className="space-y-6">
                         <span className="text-brand-sky font-bold uppercase tracking-[0.3em] text-xs">Your Move</span>
                         <h2 className="text-3xl md:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.1]">Ready to Dominate<br /><span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-sky via-brand-medium to-brand-cyan">Social Media?</span></h2>
                         <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">Let&apos;s build a powerful online presence that converts followers into customers.</p>
-                    </motion.div>
-                    <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.2 }} className="flex flex-col sm:flex-row items-center justify-center gap-5">
-                        <a href="#audit" className="px-8 sm:px-12 py-5 sm:py-6 bg-gradient-to-r from-brand-medium to-brand-deep text-white rounded-xl sm:rounded-2xl font-black uppercase tracking-widest text-xs sm:text-sm hover:shadow-[0_0_60px_rgba(63,143,204,0.4)] transition-all hover:-translate-y-1 flex items-center justify-center gap-3"><Rocket className="w-5 h-5" /> Start My Social Growth</a>
+                    </div>
+                    <div className="flex flex-col sm:flex-row items-center justify-center gap-5">
+                        <a href="#audit" className="px-8 sm:px-12 py-5 sm:py-6 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-xl sm:rounded-2xl font-black uppercase tracking-widest text-xs sm:text-sm hover:shadow-[0_0_60px_rgba(63,143,204,0.4)] transition-all hover:-translate-y-1 flex items-center justify-center gap-3"><Rocket className="w-5 h-5" /> Start My Social Growth</a>
                         <a href="tel:+919876543210" className="px-8 sm:px-12 py-5 sm:py-6 border-2 border-white/10 rounded-xl sm:rounded-2xl font-bold uppercase tracking-widest text-xs sm:text-sm hover:bg-white/5 transition-all flex items-center justify-center gap-3"><Phone className="w-5 h-5" /> Call Us Directly</a>
-                    </motion.div>
-                    <motion.div initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }} transition={{ delay: 0.4 }} className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 pt-8 border-t border-white/10">
+                    </div>
+                    <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 pt-8 border-t border-white/10">
                         {[{ v: '500+', l: 'Posts Created' }, { v: '96%', l: 'Client Satisfaction' }, { v: '3x', l: 'Avg Growth Rate' }, { v: '50+', l: 'Brands Managed' }].map((stat, i) => (
                             <div key={i} className="text-center"><span className="block text-2xl font-black text-brand-sky">{stat.v}</span><span className="text-[10px] font-bold uppercase tracking-widest text-slate-500">{stat.l}</span></div>
                         ))}
-                    </motion.div>
+                    </div>
                 </div>
             </section>
 

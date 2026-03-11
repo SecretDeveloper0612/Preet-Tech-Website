@@ -52,9 +52,6 @@ const Testimonials: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-6 mb-12 relative z-10 text-left">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          whileInView={{ opacity: 1, scale: 1 }}
-          viewport={{ once: true }}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-100 dark:bg-white/5 border border-slate-200 dark:border-white/10 backdrop-blur-md mb-8"
         >
           <Star className="w-4 h-4 text-yellow-500 dark:text-yellow-400 fill-yellow-500 dark:fill-yellow-400" />
@@ -62,9 +59,6 @@ const Testimonials: React.FC = () => {
         </motion.div>
 
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
           className="text-5xl md:text-7xl font-black text-foreground tracking-tighter mb-6"
         >
           Client <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan">Voices.</span>
@@ -101,7 +95,7 @@ const Testimonials: React.FC = () => {
 
                 <div className="flex items-center gap-4 mt-auto">
                   <div className="w-12 h-12 rounded-full overflow-hidden border-2 border-slate-200 dark:border-brand-medium/20">
-                    <img src={review.image} alt={review.name} className="w-full h-full object-cover" />
+                    <img src={review.image} alt={review.name} className="w-full h-full object-cover" onError={(e) => { const t = e.target as HTMLImageElement; t.style.display = 'none'; const p = t.parentElement; if (p) { p.style.background = 'linear-gradient(135deg, #3994fa, #004aad)'; p.style.display = 'flex'; p.style.alignItems = 'center'; p.style.justifyContent = 'center'; p.innerHTML = `<span style="color:white;font-weight:900;font-size:16px">${review.name.split(' ').map(n => n[0]).join('')}</span>`; } }} />
                   </div>
                   <div>
                     <h4 className="text-foreground font-bold">{review.name}</h4>

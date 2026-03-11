@@ -20,9 +20,9 @@ const Challenges = () => {
 
             <div className="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 lg:gap-20 items-center">
                 <motion.div
-                    initial={{ opacity: 0, x: -40 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    
+                    
+                    
                     transition={{ duration: 0.8 }}
                     className="space-y-8 md:space-y-10"
                 >
@@ -41,9 +41,9 @@ const Challenges = () => {
                         {CHALLENGES.map((item, i) => (
                             <motion.div
                                 key={i}
-                                initial={{ opacity: 0, y: 10 }}
-                                whileInView={{ opacity: 1, y: 0 }}
-                                viewport={{ once: true }}
+                                
+                                
+                                
                                 transition={{ delay: i * 0.1 }}
                                 className="flex gap-4 md:gap-5 items-center p-4 md:p-5 rounded-[1.5rem] bg-[#FAFBFC] dark:bg-white/5 border border-slate-100 dark:border-white/5 group hover:bg-white dark:hover:bg-slate-100 dark:bg-white/10 hover:shadow-[0_10px_30px_-10px_rgba(0,0,0,0.05)] transition-all cursor-default"
                             >
@@ -60,9 +60,9 @@ const Challenges = () => {
                 </motion.div>
 
                 <motion.div
-                    initial={{ opacity: 0, scale: 0.9, x: 40 }}
-                    whileInView={{ opacity: 1, scale: 1, x: 0 }}
-                    viewport={{ once: true }}
+                    
+                    
+                    
                     transition={{ duration: 1 }}
                     className="relative w-full max-w-lg mx-auto lg:ml-auto lg:mr-0 lg:scale-[0.85] lg:origin-right"
                 >

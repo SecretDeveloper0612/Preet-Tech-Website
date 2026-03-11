@@ -18,8 +18,8 @@ const Hero: React.FC<HeroProps> = ({ isDark: _ignoredIsDark }) => {
         <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_50%,#000_70%,transparent_100%)] opacity-[0.03] dark:opacity-[0.15]" />
 
         {/* Radial Glows */}
-        <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] md:w-[450px] md:h-[450px] bg-brand-medium/10 blur-[100px] rounded-full animate-pulse" />
-        <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] md:w-[450px] md:h-[450px] bg-brand-cyan/10 blur-[100px] rounded-full animate-pulse delay-700" />
+        <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] md:w-[450px] md:h-[450px] bg-brand-medium/10 blur-[100px] rounded-full" />
+        <div className="absolute top-1/2 right-1/4 translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] md:w-[450px] md:h-[450px] bg-brand-cyan/10 blur-[100px] rounded-full delay-700" />
       </div>
 
       {/* 2. 3D CENTRAL ELEMENT (BACKGROUND) */}
@@ -28,52 +28,37 @@ const Hero: React.FC<HeroProps> = ({ isDark: _ignoredIsDark }) => {
       {/* 3. CENTERED CONTENT */}
       <div className="container mx-auto px-6 relative z-20 flex flex-col items-center text-center">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
           className="flex flex-col items-center max-w-4xl"
         >
           {/* Main Headline */}
           <div className="flex flex-col items-center gap-2 mb-6 md:mb-8">
             <motion.span
-              initial={{ opacity: 0, letterSpacing: "0.2em" }}
-              animate={{ opacity: 1, letterSpacing: hovered ? "0.4em" : "0.3em" }}
-              whileInView={{
-                letterSpacing: typeof window !== 'undefined' && window.innerWidth < 768 ? "0.3em" : "0.6em"
-              }}
-              transition={{ delay: 0.3, duration: 1.5, ease: "easeOut" }}
-              className="text-[10px] sm:text-xs md:text-sm font-black uppercase text-slate-500 dark:text-white/70 mb-2"
+              className="text-[10px] sm:text-xs md:text-sm font-black uppercase text-slate-500 dark:text-white/70 mb-2 tracking-[0.3em]"
             >
               Welcome to Preet Tech
             </motion.span>
             <h1 className="text-[3rem] sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-black tracking-tighter leading-[0.95] md:leading-[0.9] flex flex-col items-center text-center">
-              <span className="block text-slate-900 dark:text-white">DIGITAL</span>
+              {/* <span className="block text-slate-900 dark:text-white mb-2 md:mb-4">NEXT GEN</span> */}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium via-brand-cyan to-brand-deep animate-gradient-x italic pb-3 md:pb-6 px-2 md:px-4">
-                SOLUTIONS.
+                REDEFINE POSSIBLE.
               </span>
             </h1>
           </div>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="text-sm sm:text-base md:text-xl text-slate-500 dark:text-slate-400 max-w-xl leading-relaxed mb-6 md:mb-8 font-medium px-4 md:px-0 text-center"
+            className="text-sm sm:text-base md:text-xl text-slate-500 dark:text-slate-400 max-w-3xl leading-relaxed mb-6 md:mb-8 font-medium px-4 md:px-0 text-center mx-auto"
           >
-            Your premier IT partner for cutting-edge <span className="text-foreground dark:text-white font-bold">Website & App Development</span>, Software Engineering, Digital Marketing, and high-impact Content Creation.
+            Preet Tech is a top <span className="text-foreground dark:text-white font-bold">Next Gen Digital Agency</span> providing cutting-edge IT and digital marketing solutions. We excel in <span className="text-foreground dark:text-white font-bold">custom software development</span>, <span className="text-foreground dark:text-white font-bold">AI-driven marketing</span>, and scalable <span className="text-foreground dark:text-white font-bold">enterprise IT solutions</span> to power your brand's growth.
           </motion.p>
 
           {/* Action Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 md:gap-6 w-full sm:w-auto px-10 sm:px-0"
           >
             <button
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
-              className="group relative px-8 sm:px-12 py-4 sm:py-5 bg-brand-medium text-white font-black tracking-widest uppercase text-[10px] sm:text-xs rounded-2xl overflow-hidden transition-all shadow-lg shadow-brand-medium/20 hover:bg-brand-medium/90 hover:-translate-y-1 active:scale-95"
+              className="group relative px-8 sm:px-12 py-4 sm:py-5 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white font-black tracking-widest uppercase text-[10px] sm:text-xs rounded-2xl overflow-hidden transition-all shadow-lg shadow-[#3994fa]/20 hover:opacity-90 hover:-translate-y-1 active:scale-95"
             >
               <div className="absolute inset-0 bg-white/20 translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-700 skew-x-12" />
               <span className="relative flex items-center justify-center gap-3">
@@ -81,7 +66,7 @@ const Hero: React.FC<HeroProps> = ({ isDark: _ignoredIsDark }) => {
               </span>
             </button>
 
-            <button className="group px-8 sm:px-12 py-4 sm:py-5 bg-brand-medium/10 border-2 border-brand-medium/20 text-brand-medium font-black text-[10px] sm:text-xs tracking-widest uppercase transition-all rounded-2xl hover:bg-brand-medium hover:text-white hover:-translate-y-1 active:scale-95">
+            <button className="group px-8 sm:px-12 py-4 sm:py-5 bg-white dark:bg-white/5 border-2 border-[#3994fa]/20 text-slate-900 dark:text-white font-black text-[10px] sm:text-xs tracking-widest uppercase transition-all rounded-2xl hover:bg-gradient-to-r hover:from-[#3994fa] hover:to-[#004aad] hover:text-white hover:border-transparent hover:-translate-y-1 active:scale-95 shadow-lg hover:shadow-[#3994fa]/20">
               <span className="flex items-center justify-center gap-3">
                 Book Strategy Call <Hexagon className="w-5 h-5 transition-transform duration-700 group-hover:rotate-180" />
               </span>

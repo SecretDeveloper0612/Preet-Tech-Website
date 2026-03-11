@@ -314,7 +314,7 @@ const googleSheetsService = {
                     // Write header row
                     await sheets.spreadsheets.values.update({
                         spreadsheetId: SHEET_ID,
-                        range: 'ECO Leads!A1:F1',
+                        range: 'ECO Leads!A1:G1',
                         valueInputOption: 'USER_ENTERED',
                         requestBody: {
                             values: [
@@ -324,6 +324,7 @@ const googleSheetsService = {
                                     'BusinessName',
                                     'Email',
                                     'Phone Number',
+                                    'Industry',
                                     'Budget Range'
                                 ]
                             ]
@@ -337,7 +338,7 @@ const googleSheetsService = {
             // Append the lead data
             await sheets.spreadsheets.values.append({
                 spreadsheetId: SHEET_ID,
-                range: ECO_LEADS_RANGE,
+                range: 'ECO Leads!A:G',
                 valueInputOption: 'USER_ENTERED',
                 requestBody: {
                     values: [
@@ -347,6 +348,7 @@ const googleSheetsService = {
                             data.businessName,
                             data.email,
                             `'${data.phone}`,
+                            data.industry,
                             data.budget
                         ]
                     ]
@@ -481,7 +483,7 @@ const emailService = {
 
                                     <!-- Header -->
                                     <tr><td style="background:linear-gradient(135deg,#0f172a 0%,#1e3a5f 100%);border-radius:16px 16px 0 0;padding:32px 36px;text-align:center;">
-                                        <p style="margin:0 0 8px;color:#3f8fcc;font-size:11px;font-weight:800;letter-spacing:4px;text-transform:uppercase;">Preet Tech CRM</p>
+                                        <p style="margin:0 0 8px;color:#3994fa;font-size:11px;font-weight:800;letter-spacing:4px;text-transform:uppercase;">Preet Tech</p>
                                         <h1 style="margin:0;color:#ffffff;font-size:26px;font-weight:800;letter-spacing:-0.5px;">🔥 New Consultation Request</h1>
                                         <p style="margin:12px 0 0;color:#94a3b8;font-size:13px;">A new lead just arrived from the ECO Website page</p>
                                     </td></tr>
@@ -491,7 +493,7 @@ const emailService = {
 
                                         <!-- Lead Card -->
                                         <table width="100%" cellpadding="0" cellspacing="0" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;margin-bottom:24px;overflow:hidden;">
-                                            <tr><td style="background:#3f8fcc;padding:12px 20px;">
+                                            <tr><td style="background:#3994fa;padding:12px 20px;">
                                                 <p style="margin:0;color:#ffffff;font-size:11px;font-weight:800;letter-spacing:3px;text-transform:uppercase;">Lead Details</p>
                                             </td></tr>
                                             <tr><td style="padding:20px;">
@@ -505,12 +507,16 @@ const emailService = {
                                                         <p style="margin:4px 0 0;color:#0f172a;font-size:16px;font-weight:700;">${lead.businessName || '—'}</p>
                                                     </td></tr>
                                                     <tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
+                                                        <p style="margin:0;color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">💼 Industry</p>
+                                                        <p style="margin:4px 0 0;color:#0f172a;font-size:16px;font-weight:700;">${lead.industry || '—'}</p>
+                                                    </td></tr>
+                                                    <tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
                                                         <p style="margin:0;color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">📧 Email Address</p>
-                                                        <p style="margin:4px 0 0;"><a href="mailto:${lead.email}" style="color:#3f8fcc;font-size:15px;font-weight:600;text-decoration:none;">${lead.email}</a></p>
+                                                        <p style="margin:4px 0 0;"><a href="mailto:${lead.email}" style="color:#3994fa;font-size:15px;font-weight:600;text-decoration:none;">${lead.email}</a></p>
                                                     </td></tr>
                                                     <tr><td style="padding:10px 0;border-bottom:1px solid #e2e8f0;">
                                                         <p style="margin:0;color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">📱 Phone Number</p>
-                                                        <p style="margin:4px 0 0;"><a href="tel:${lead.phone}" style="color:#3f8fcc;font-size:15px;font-weight:600;text-decoration:none;">${lead.phone}</a></p>
+                                                        <p style="margin:4px 0 0;"><a href="tel:${lead.phone}" style="color:#3994fa;font-size:15px;font-weight:600;text-decoration:none;">${lead.phone}</a></p>
                                                     </td></tr>
                                                     <tr><td style="padding:10px 0;">
                                                         <p style="margin:0;color:#94a3b8;font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;">💰 Budget Range</p>
@@ -534,7 +540,7 @@ const emailService = {
                                                 </td>
                                                 <td style="padding-left:8px;">
                                                     <a href="mailto:${lead.email}?subject=Re: Your Website Consultation Request&body=Hi ${lead.name},%0A%0AThank you for reaching out to Preet Tech!"
-                                                        style="display:block;text-align:center;padding:14px;background:#3f8fcc;color:#ffffff;text-decoration:none;border-radius:10px;font-size:13px;font-weight:800;letter-spacing:1px;">
+                                                        style="display:block;text-align:center;padding:14px;background:#3994fa;color:#ffffff;text-decoration:none;border-radius:10px;font-size:13px;font-weight:800;letter-spacing:1px;">
                                                         📧 Reply via Email
                                                     </a>
                                                 </td>
@@ -545,7 +551,7 @@ const emailService = {
 
                                     <!-- Footer -->
                                     <tr><td style="background:#0f172a;border-radius:0 0 16px 16px;padding:20px 36px;text-align:center;">
-                                        <p style="margin:0;color:#475569;font-size:11px;">Preet Tech CRM &bull; ECO Website Lead Notification</p>
+                                        <p style="margin:0;color:#475569;font-size:11px;">Preet Tech &bull; ECO Website Lead Notification</p>
                                         <p style="margin:6px 0 0;color:#334155;font-size:10px;">This is an automated notification. Do not reply to this email.</p>
                                     </td></tr>
 
@@ -560,7 +566,62 @@ const emailService = {
             return true;
         } catch (error) {
             console.error('Nodemailer ECO lead notification error:', error);
-            return false; // Don't throw — email failure shouldn't block the sheet write
+            return false;
+        }
+    },
+    // ─── Lead Thank You Email to User ─────────────────────────────────────────
+    sendEcoLeadThankYouEmail: async (lead)=>{
+        try {
+            const mailOptions = {
+                from: process.env.EMAIL_FROM || '"Preet Tech" <hello@preettech.com>',
+                to: lead.email,
+                subject: "Thanks for reaching out! We'll be in touch soon 🚀",
+                html: `
+                    <!DOCTYPE html>
+                    <html>
+                    <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
+                    <body style="margin:0;padding:0;background:#f8fafc;font-family:'Segoe UI',Arial,sans-serif;">
+                        <table width="100%" cellpadding="0" cellspacing="0" style="padding:32px 16px;">
+                            <tr><td align="center">
+                                <table width="600" cellpadding="0" cellspacing="0" style="max-width:600px;width:100%;background:#ffffff;border:1px solid #e2e8f0;border-radius:24px;overflow:hidden;box-shadow:0 20px 25px -5px rgba(0,0,0,0.1);">
+                                    <tr><td style="padding:48px 40px;text-align:center;">
+                                        <div style="width:64px;height:64px;background:#3994fa;border-radius:16px;margin:0 auto 24px;display:flex;align-items:center;justify-content:center;">
+                                            <span style="color:#ffffff;font-size:32px;">🚀</span>
+                                        </div>
+                                        <h1 style="margin:0;color:#0f172a;font-size:28px;font-weight:800;letter-spacing:-0.5px;">Hi ${lead.name},</h1>
+                                        <p style="margin:16px 0 0;color:#475569;font-size:16px;line-height:1.6;font-weight:500;">
+                                            Thanks for your interest in building a website with <strong>Preet Tech</strong>! We&apos;ve received your request for a consultation.
+                                        </p>
+                                        <p style="margin:16px 0 24px;color:#475569;font-size:16px;line-height:1.6;font-weight:500;">
+                                            Our team is reviewing your details, and we&apos;ll get back to you within the next <strong>24 hours</strong> to discuss how we can help your business grow.
+                                        </p>
+                                        <div style="background:#f1f5f9;border-radius:16px;padding:24px;margin-bottom:32px;text-align:left;">
+                                            <p style="margin:0;color:#0f172a;font-size:14px;font-weight:700;">What happens next?</p>
+                                            <ul style="margin:12px 0 0;padding-left:20px;color:#64748b;font-size:13px;line-height:1.6;">
+                                                <li>We review your business needs and industry benchmarks.</li>
+                                                <li>A strategy expert will contact you via WhatsApp or Email.</li>
+                                                <li>We share a custom project roadmap and timeline.</li>
+                                            </ul>
+                                        </div>
+                                        <a href="https://preettech.com" style="display:inline-block;background:#3994fa;color:#ffffff;text-decoration:none;padding:16px 32px;border-radius:12px;font-size:14px;font-weight:800;letter-spacing:1px;">
+                                            Visit Our Website
+                                        </a>
+                                    </td></tr>
+                                    <tr><td style="background:#0f172a;padding:24px;text-align:center;">
+                                        <p style="margin:0;color:#94a3b8;font-size:11px;">&copy; 2025 Preet Tech. All Rights Reserved.</p>
+                                    </td></tr>
+                                </table>
+                            </td></tr>
+                        </table>
+                    </body>
+                    </html>
+                `
+            };
+            await transporter.sendMail(mailOptions);
+            return true;
+        } catch (error) {
+            console.error('Nodemailer ECO thank you email error:', error);
+            return false;
         }
     }
 };
@@ -594,7 +655,7 @@ var __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen
 async function POST(req) {
     try {
         const body = await req.json();
-        const { name, businessName, email, phone, budget } = body;
+        const { name, businessName, email, phone, industry, budget } = body;
         // Basic validation
         if (!name || !email || !phone) {
             return __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
@@ -628,16 +689,24 @@ async function POST(req) {
             businessName: (businessName || '').trim(),
             email: email.trim(),
             phone: phone.trim(),
-            budget: budget || '₹5k - ₹10k'
+            industry: industry || 'Not specified',
+            budget: budget || '₹3,999'
         };
         // 1️⃣ Save to Google Sheets
         await __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$lib$2f$googleSheetsService$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["googleSheetsService"].addEcoLead(leadData);
-        // 2️⃣ Send admin notification email (non-blocking — won't fail the request if email errors)
+        // 2️⃣ Send admin notification email (non-blocking)
         __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$lib$2f$emailService$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["emailService"].sendEcoLeadNotification({
             ...leadData,
             submittedAt
         }).catch((err)=>{
             console.error('Admin email notification failed (non-fatal):', err);
+        });
+        // 3️⃣ Send Thank You email to user (non-blocking)
+        __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$lib$2f$emailService$2e$ts__$5b$app$2d$route$5d$__$28$ecmascript$29$__["emailService"].sendEcoLeadThankYouEmail({
+            name: leadData.name,
+            email: leadData.email
+        }).catch((err)=>{
+            console.error('User thank you email failed (non-fatal):', err);
         });
         return __TURBOPACK__imported__module__$5b$project$5d2f$preet$2d$tech$2d$next$2d$gen$2d$digital$2d$agency__2$2f$node_modules$2f$next$2f$server$2e$js__$5b$app$2d$route$5d$__$28$ecmascript$29$__["NextResponse"].json({
             success: true,

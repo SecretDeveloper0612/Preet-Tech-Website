@@ -69,8 +69,9 @@ const ContactCTA: React.FC = () => {
                         {/* Heading */}
                         <div className="space-y-4">
                             <motion.h2
-                                initial={{ opacity: 0, y: 30 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+
+
+
                                 transition={{ delay: 0.1 }}
                                 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white uppercase tracking-tighter leading-none"
                             >
@@ -78,8 +79,9 @@ const ContactCTA: React.FC = () => {
                                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-medium to-brand-cyan italic">Future.</span>
                             </motion.h2>
                             <motion.p
-                                initial={{ opacity: 0, y: 20 }}
-                                whileInView={{ opacity: 1, y: 0 }}
+
+
+
                                 transition={{ delay: 0.2 }}
                                 className="text-base md:text-lg text-slate-600 dark:text-slate-400 font-medium max-w-xl mx-auto leading-relaxed"
                             >
@@ -91,7 +93,7 @@ const ContactCTA: React.FC = () => {
                         {/* Strategic Actions */}
                         <div className="flex items-center justify-center pt-4">
                             <button
-                                className="w-full sm:w-auto group relative px-8 py-4 bg-[#3994fa] text-white rounded-xl overflow-hidden shadow-xl shadow-[#3994fa]/20 transition-all font-black uppercase text-xs tracking-widest flex items-center justify-center gap-3 hover:scale-105"
+                                className="w-full sm:w-auto group relative px-8 py-4 bg-gradient-to-r from-[#3994fa] to-[#004aad] text-white rounded-xl overflow-hidden shadow-xl shadow-[#3994fa]/20 transition-all font-black uppercase text-xs tracking-widest flex items-center justify-center gap-3 hover:scale-105"
                             >
                                 <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
                                 <Rocket className="w-4 h-4 group-hover:-translate-y-1 group-hover:translate-x-1 transition-transform" />

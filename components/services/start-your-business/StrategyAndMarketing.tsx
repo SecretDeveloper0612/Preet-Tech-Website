@@ -37,9 +37,9 @@ const StrategyAndMarketing = () => {
                     <div className="lg:col-span-5 relative">
                         <div className="aspect-square bg-slate-50 dark:bg-slate-900 rounded-[4rem] p-12 border border-slate-200 dark:border-white/10 relative overflow-hidden shadow-2xl flex items-center justify-center">
                             <motion.img
-                                initial={{ opacity: 0, scale: 0.8 }}
-                                whileInView={{ opacity: 1, scale: 1 }}
-                                viewport={{ once: true }}
+                                
+                                
+                                
                                 src="https://images.unsplash.com/photo-1543286386-713bcd51403b?q=80&w=1200&auto=format&fit=crop"
                                 alt="Strategy Infographic"
                                 className="w-full h-auto drop-shadow-2xl rounded-2xl"
@@ -50,9 +50,9 @@ const StrategyAndMarketing = () => {
 
                 {/* Marketing & Launch (Section 11) */}
                 <motion.div
-                    initial={{ opacity: 0, y: 50 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
+                    
+                    
+                    
                     className="relative p-10 md:p-14 rounded-[3rem] bg-[#FAFBFC] dark:bg-white/5 border border-slate-200/60 dark:border-white/10 overflow-hidden shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)] dark:shadow-none"
                 >
                     <div className="relative z-10 max-w-4xl">
